@@ -20,12 +20,16 @@ namespace EarablesKIT.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                
+                new HomeMenuItem { Id = MenuItemType.StepMode, Title = "Step Mode" },
+                new HomeMenuItem { Id = MenuItemType.CountMode, Title = "Count Mode" },
+                new HomeMenuItem { Id = MenuItemType.ListenAndPerform, Title = "Listen and Perform" },
+                new HomeMenuItem { Id = MenuItemType.MusicMode, Title = "Music Mode" },
+                new HomeMenuItem { Id = MenuItemType.DataOverview, Title = "30-Day-Overview" },
+                new HomeMenuItem { Id = MenuItemType.Settings, Title = "Settings" },
+                new HomeMenuItem { Id = MenuItemType.ImportExport, Title = "Manage your Data" },
             };
-
             ListViewMenu.ItemsSource = menuItems;
 
-            /*
             ListViewMenu.SelectedItem = menuItems[0];
             ListViewMenu.ItemSelected += async (sender, e) =>
             {
@@ -35,7 +39,6 @@ namespace EarablesKIT.Views
                 var id = (int)((HomeMenuItem)e.SelectedItem).Id;
                 await RootPage.NavigateFromMenu(id);
             };
-            */
         }
     }
 }

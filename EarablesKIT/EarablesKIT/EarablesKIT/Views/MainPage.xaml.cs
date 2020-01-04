@@ -21,7 +21,7 @@ namespace EarablesKIT.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.About, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
@@ -30,7 +30,27 @@ namespace EarablesKIT.Views
             {
                 switch (id)
                 {
-                    
+                    case (int)MenuItemType.CountMode:
+                        MenuPages.Add(id, new NavigationPage(new CountModePage()));
+                        break;
+                    case (int)MenuItemType.DataOverview:
+                        MenuPages.Add(id, new NavigationPage(new DataOverviewPage()));
+                        break;
+                    case (int)MenuItemType.ImportExport:
+                        MenuPages.Add(id, new NavigationPage(new ImportExportPage()));
+                        break;
+                    case (int)MenuItemType.ListenAndPerform:
+                        MenuPages.Add(id, new NavigationPage(new ListenAndPerformPage()));
+                        break;
+                    case (int)MenuItemType.MusicMode:
+                        MenuPages.Add(id, new NavigationPage(new MusicModePage()));
+                        break;
+                    case (int)MenuItemType.Settings:
+                        MenuPages.Add(id, new NavigationPage(new SettingsPage()));
+                        break;
+                    case (int)MenuItemType.StepMode:
+                        MenuPages.Add(id, new NavigationPage(new StepModePage()));
+                        break;
                 }
             }
 

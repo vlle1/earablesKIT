@@ -6,8 +6,15 @@ namespace EarablesKIT.Models
 {
     public enum MenuItemType
     {
-        Browse,
-        About
+        Test,
+        About,
+        CountMode,
+        DataOverview,
+        ImportExport,
+        ListenAndPerform,
+        MusicMode,
+        Settings,
+        StepMode
     }
     public class HomeMenuItem
     {

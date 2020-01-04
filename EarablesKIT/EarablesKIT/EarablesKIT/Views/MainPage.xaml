@@ -19,7 +19,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                
+                <views:StepModePage />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>
