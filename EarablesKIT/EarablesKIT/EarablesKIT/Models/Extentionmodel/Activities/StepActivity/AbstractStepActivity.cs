@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EarablesKIT.Models.Extentionmodel
+namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
 {
     abstract class AbstractStepActivity : Activity
     {
