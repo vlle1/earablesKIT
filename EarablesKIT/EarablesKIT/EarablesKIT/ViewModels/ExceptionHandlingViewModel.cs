@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EarablesKIT.Models.Extentionmodel.Activities
+namespace EarablesKIT.ViewModels
 {
-    interface ActivityArgs
+    class ExceptionHandlingViewModel
     {
     }
 }
