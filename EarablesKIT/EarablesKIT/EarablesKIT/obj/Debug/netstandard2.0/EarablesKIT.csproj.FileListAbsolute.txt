@@ -8,7 +8,6 @@ C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\Ear
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\MenuPage.xaml.g.cs
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.AssemblyInfoInputs.cache
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.AssemblyInfo.cs
-C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\XamlC.stamp
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.dll
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\ref\EarablesKIT.dll
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.pdb
@@ -19,3 +18,4 @@ C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\Ear
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\MusicModePage.xaml.g.cs
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\SettingsPage.xaml.g.cs
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\StepModePage.xaml.g.cs
+C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\XamlC.stamp

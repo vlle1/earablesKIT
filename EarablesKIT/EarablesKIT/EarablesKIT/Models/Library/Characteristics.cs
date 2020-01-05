@@ -6,5 +6,6 @@ namespace EarablesKIT.Models.Library
 {
     class Characteristics
     {
+
     }
 }

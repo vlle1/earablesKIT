@@ -5,6 +5,8 @@ public class MonoPackageManager_Resources {
 		"EarablesKIT.Android.dll",
 		"EarablesKIT.dll",
 		"FormsViewGroup.dll",
+		"Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+		"Microsoft.Extensions.DependencyInjection.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",
 		"Xamarin.Android.Arch.Core.Runtime.dll",
 		"Xamarin.Android.Arch.Lifecycle.Common.dll",

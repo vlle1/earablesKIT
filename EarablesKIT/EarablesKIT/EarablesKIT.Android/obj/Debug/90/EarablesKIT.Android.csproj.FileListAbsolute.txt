@@ -471,3 +471,5 @@ C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\Ear
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT.Android\obj\Debug\90\stamp\_GenerateJavaStubs.stamp
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT.Android\obj\Debug\90\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT.Android\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT.Android\obj\Debug\90\android\assets\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT.Android\obj\Debug\90\android\assets\Microsoft.Extensions.DependencyInjection.dll
