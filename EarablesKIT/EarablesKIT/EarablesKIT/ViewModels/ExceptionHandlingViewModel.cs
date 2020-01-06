@@ -6,5 +6,10 @@ namespace EarablesKIT.ViewModels
 {
     class ExceptionHandlingViewModel
     {
+        public static void HandleException(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
