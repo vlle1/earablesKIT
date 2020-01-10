@@ -16,7 +16,7 @@ namespace EarablesKIT.ViewModels
         public int StepCounter { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int DistanceWalked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int StepFrequency { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool IsRunning { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool IsRunning { get =>  throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public StepModeViewModel()
         {
