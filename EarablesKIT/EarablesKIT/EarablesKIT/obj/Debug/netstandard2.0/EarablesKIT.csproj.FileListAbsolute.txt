@@ -19,3 +19,23 @@ C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\Ear
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\SettingsPage.xaml.g.cs
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\StepModePage.xaml.g.cs
 C:\Users\rittn\OneDrive\Dokumente\GitHub\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\bin\Debug\netstandard2.0\EarablesKIT.deps.json
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\bin\Debug\netstandard2.0\EarablesKIT.dll
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\bin\Debug\netstandard2.0\ref\EarablesKIT.dll
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\bin\Debug\netstandard2.0\EarablesKIT.pdb
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.csprojAssemblyReference.cache
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\CountModePage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\DataOverviewPage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\ImportExportPage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\ListenAndPerformPage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\MenuPage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\MusicModePage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\SettingsPage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\Views\StepModePage.xaml.g.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.AssemblyInfoInputs.cache
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.AssemblyInfo.cs
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.dll
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\ref\EarablesKIT.dll
+C:\Users\Erwin\Documents\KIT\WS 19-20\PSE\Git\earablesKIT\EarablesKIT\EarablesKIT\EarablesKIT\obj\Debug\netstandard2.0\EarablesKIT.pdb

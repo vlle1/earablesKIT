@@ -60,6 +60,17 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Plugin.BLE/2.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Plugin.BLE.Abstractions.dll": {},
+          "lib/netstandard2.0/Plugin.BLE.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Plugin.BLE.Abstractions.dll": {},
+          "lib/netstandard2.0/Plugin.BLE.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.5.0": {
         "type": "package",
         "compile": {
@@ -322,6 +333,41 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Plugin.BLE/2.1.1": {
+      "sha512": "kVEP+SA/QFMR72YgcvcebwCXfVsiKrD6pF7wn0JCwjunriBmCjnNQfLyVmhxGE24jjS4bDJfeOiDv8dA+k/Psg==",
+      "type": "package",
+      "path": "plugin.ble/2.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid/Plugin.BLE.Abstractions.deps.json",
+        "lib/MonoAndroid/Plugin.BLE.Abstractions.dll",
+        "lib/MonoAndroid/Plugin.BLE.Abstractions.pdb",
+        "lib/MonoAndroid/Plugin.BLE.XML",
+        "lib/MonoAndroid/Plugin.BLE.dll",
+        "lib/MonoAndroid/Plugin.BLE.dll.mdb",
+        "lib/MonoAndroid/Plugin.BLE.pdb",
+        "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.deps.json",
+        "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll",
+        "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.pdb",
+        "lib/Xamarin.iOS10/Plugin.BLE.XML",
+        "lib/Xamarin.iOS10/Plugin.BLE.dll",
+        "lib/Xamarin.iOS10/Plugin.BLE.pdb",
+        "lib/netstandard2.0/Plugin.BLE.Abstractions.deps.json",
+        "lib/netstandard2.0/Plugin.BLE.Abstractions.dll",
+        "lib/netstandard2.0/Plugin.BLE.Abstractions.pdb",
+        "lib/netstandard2.0/Plugin.BLE.deps.json",
+        "lib/netstandard2.0/Plugin.BLE.dll",
+        "lib/netstandard2.0/Plugin.BLE.pdb",
+        "lib/xamarinmac20/Plugin.BLE.Abstractions.deps.json",
+        "lib/xamarinmac20/Plugin.BLE.Abstractions.dll",
+        "lib/xamarinmac20/Plugin.BLE.Abstractions.pdb",
+        "lib/xamarinmac20/Plugin.BLE.macOS.dll",
+        "lib/xamarinmac20/Plugin.BLE.macOS.xml",
+        "plugin.ble.2.1.1.nupkg.sha512",
+        "plugin.ble.nuspec"
       ]
     },
     "System.Numerics.Vectors/4.5.0": {
@@ -736,28 +782,29 @@
     ".NETStandard,Version=v2.0": [
       "Microsoft.Extensions.DependencyInjection >= 3.1.0",
       "NETStandard.Library >= 2.0.3",
+      "Plugin.BLE >= 2.1.1",
       "Xamarin.Essentials >= 1.3.1",
       "Xamarin.Forms >= 4.3.0.908675"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rittn\\.nuget\\packages\\": {},
+    "C:\\Users\\Erwin\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rittn\\OneDrive\\Dokumente\\GitHub\\earablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT.csproj",
+      "projectUniqueName": "C:\\Users\\Erwin\\Documents\\KIT\\WS 19-20\\PSE\\Git\\earablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT.csproj",
       "projectName": "EarablesKIT",
-      "projectPath": "C:\\Users\\rittn\\OneDrive\\Dokumente\\GitHub\\earablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT.csproj",
-      "packagesPath": "C:\\Users\\rittn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rittn\\OneDrive\\Dokumente\\GitHub\\earablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT\\obj\\",
+      "projectPath": "C:\\Users\\Erwin\\Documents\\KIT\\WS 19-20\\PSE\\Git\\earablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT.csproj",
+      "packagesPath": "C:\\Users\\Erwin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Erwin\\Documents\\KIT\\WS 19-20\\PSE\\Git\\earablesKIT\\EarablesKIT\\EarablesKIT\\EarablesKIT\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\rittn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Erwin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -792,6 +839,10 @@
             "version": "[2.0.3, )",
             "autoReferenced": true
           },
+          "Plugin.BLE": {
+            "target": "Package",
+            "version": "[2.1.1, )"
+          },
           "Xamarin.Essentials": {
             "target": "Package",
             "version": "[1.3.1, )"
@@ -811,7 +862,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.BLE.Abstractions.Contracts;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Xamarin.Forms;
@@ -16,8 +17,8 @@ namespace EarablesKIT.ViewModels
         public Command ConnectDeviceCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Command CancelCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        //TODO change object in IDevice from BLE Lib
-        public ObservableCollection<object> DevicesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        
+        public ObservableCollection<IDevice> DevicesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
         public ScanningPopUpViewModel()

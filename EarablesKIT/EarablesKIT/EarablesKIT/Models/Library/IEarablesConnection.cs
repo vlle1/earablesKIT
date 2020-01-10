@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.BLE.Abstractions.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,11 +13,11 @@ namespace EarablesKIT.Models.Library
 
         EventHandler<DeviceEventArgs> DeviceConnectionStateChanged { get; set; }
 
-        //TODO ändern in korrektes IDevice aus BLE Lib anstatt object
-        List<object> StartScanning();
+        
+        List<IDevice> StartScanning();
 
-        //TODO hier auch ändern in IDevice
-        bool ConnectToDevice(object device);
+
+        bool ConnectToDevice(object IDevice);
 
         bool DisconnectFromDevice();
 
