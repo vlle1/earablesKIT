@@ -188,7 +188,7 @@
           "Microsoft.Extensions.DependencyInjection": "3.1.0",
           "Plugin.BLE": "2.1.1",
           "Xamarin.Essentials": "1.3.1",
-          "Xamarin.Forms": "4.3.0.908675"
+          "Xamarin.Forms": "4.4.0.991265"
         },
         "compile": {
           "bin/placeholder/EarablesKIT.dll": {}
@@ -385,7 +385,7 @@
           "Microsoft.Extensions.DependencyInjection": "3.1.0",
           "Plugin.BLE": "2.1.1",
           "Xamarin.Essentials": "1.3.1",
-          "Xamarin.Forms": "4.3.0.908675"
+          "Xamarin.Forms": "4.4.0.991265"
         },
         "compile": {
           "bin/placeholder/EarablesKIT.dll": {}
@@ -582,7 +582,7 @@
           "Microsoft.Extensions.DependencyInjection": "3.1.0",
           "Plugin.BLE": "2.1.1",
           "Xamarin.Essentials": "1.3.1",
-          "Xamarin.Forms": "4.3.0.908675"
+          "Xamarin.Forms": "4.4.0.991265"
         },
         "compile": {
           "bin/placeholder/EarablesKIT.dll": {}
@@ -779,7 +779,7 @@
           "Microsoft.Extensions.DependencyInjection": "3.1.0",
           "Plugin.BLE": "2.1.1",
           "Xamarin.Essentials": "1.3.1",
-          "Xamarin.Forms": "4.3.0.908675"
+          "Xamarin.Forms": "4.4.0.991265"
         },
         "compile": {
           "bin/placeholder/EarablesKIT.dll": {}
@@ -1284,5 +1284,20 @@
         "#import": []
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Ein Downgrade des Pakets \"Xamarin.Forms\" von 4.4.0.991265 auf 4.3.0.908675 wurde festgestellt. Verweisen Sie direkt aus dem Projekt auf das Paket, um eine andere Version auszuwählen. \r\n EarablesKIT.iOS -> EarablesKIT -> Xamarin.Forms (>= 4.4.0.991265) \r\n EarablesKIT.iOS -> Xamarin.Forms (>= 4.3.0.908675)",
+      "libraryId": "Xamarin.Forms",
+      "targetGraphs": [
+        "Xamarin.iOS,Version=v1.0",
+        "Xamarin.iOS,Version=v1.0/win",
+        "Xamarin.iOS,Version=v1.0/win-x64",
+        "Xamarin.iOS,Version=v1.0/win-x86"
+      ]
+    }
+  ]
 }
