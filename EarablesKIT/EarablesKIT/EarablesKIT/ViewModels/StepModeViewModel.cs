@@ -91,7 +91,8 @@ namespace EarablesKIT.ViewModels
 
 		private void ShowPopUp()
 		{
-			//await DisplayAlert ("Result", "You have done " + StepCounter " Steps!.", "Cool");
+			//await DisplayAlert("Result", "You have done " + StepCounter + " Steps!.", "Cool");
+			//Liegt im CodeBehind
 		}
 
 
