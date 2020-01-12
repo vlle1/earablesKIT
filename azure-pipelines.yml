@@ -4,47 +4,47 @@
 # Add steps that test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
 
-
 trigger:
 - master
 jobs:
-  #Job Android
   - job: Android
     pool:
-      vmImage: 'macos-latest'
+      vmImage: 'windows-latest'
 
-  #Release setzten
     variables:
       buildConfiguration: 'Release'
       outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
     steps:
-    #NuGet Installieren
     - task: NuGetToolInstaller@1
 
-    #NuGet 
     - task: NuGetCommand@2
       inputs:
         restoreSolution: '**/*.sln'
 
-    #Android bauen
     - task: XamarinAndroid@1
       inputs:
         projectFile: '**/*droid*.csproj'
         outputDirectory: '$(outputDirectory)'
         configuration: '$(buildConfiguration)'
-    
-    #Android Signen
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: test
+        projects: '**/*Test/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'   
+   
     - task: AndroidSigning@3
       inputs:
         apkFiles: '**/*.apk'
         apksign: true
-        apksignerKeystoreFile: 'EarablesKIT.keystore'
-        apksignerKeystorePassword: '$(keystorepasswordEarables)'
+        apksignerKeystoreFile: 'TestingAzure.keystore'
+        apksignerKeystorePassword: '$(keystorepassword)'
         apksignerKeystoreAlias: 'TestingAzure'
-        apksignerKeyPassword: '$(keystorepasswordEarables)'
-
+        apksignerKeyPassword: '$(keystorepassword)'
     
+
+
+        
   - job: iOS
     pool:
       vmImage: 'macOS 10.13'
@@ -66,3 +66,7 @@ jobs:
         configuration: 'Release'
         buildForSimulator: true
         packageApp: false
+
+        
+
+
