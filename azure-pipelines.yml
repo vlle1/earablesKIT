@@ -38,9 +38,9 @@ jobs:
         apkFiles: '**/*.apk'
         apksign: true
         apksignerKeystoreFile: 'EarablesKIT.keystore'
-        apksignerKeystorePassword: '$($(keystorepasswordEarables))'
+        apksignerKeystorePassword: '$(keystorepasswordEarables)'
         apksignerKeystoreAlias: 'EarablesKIT'
-        apksignerKeyPassword: '$($(keystorepasswordEarables))'
+        apksignerKeyPassword: '$(keystorepasswordEarables)'
     
 
 
