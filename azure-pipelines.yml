@@ -37,10 +37,10 @@ jobs:
       inputs:
         apkFiles: '**/*.apk'
         apksign: true
-        apksignerKeystoreFile: 'TestingAzure.keystore'
-        apksignerKeystorePassword: '$(keystorepassword)'
-        apksignerKeystoreAlias: 'TestingAzure'
-        apksignerKeyPassword: '$(keystorepassword)'
+        apksignerKeystoreFile: 'EarablesKIT.keystore'
+        apksignerKeystorePassword: '$($(keystorepasswordEarables))'
+        apksignerKeystoreAlias: 'EarablesKIT'
+        apksignerKeyPassword: '$($(keystorepasswordEarables))'
     
 
 
