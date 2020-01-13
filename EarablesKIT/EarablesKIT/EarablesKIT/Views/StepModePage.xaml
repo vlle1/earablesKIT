@@ -6,10 +6,36 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.StepModePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Der StepMode! AMAZING!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="10" Spacing="10">
+            <Label Text="StepMode"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="MediumAquamarine"/>
+            <StackLayout Spacing="0">
+                <Label Text=" Your Last Trainingsdate: "
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="MediumAquamarine"/>
+                <Label Text="{Binding LastDataTime}"
+                   Padding="0"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="MediumAquamarine"/>
+            </StackLayout>
+            <Grid Padding="30">
+                <Label Text="{Binding StepsDoneLastTime}" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Steps Done  &#x0a;Last Time" FontSize="Large" Grid.Row="0" Grid.Column="1"/>
+                <Label Text="{Binding DistanceWalkedLastTime}" Grid.Row="1" Grid.Column="0"/>
+                <Label Text="Distance Walked Last Time" FontSize="Large" Grid.Row="1" Grid.Column="1"/>
+            </Grid>
+
+            <Button Text="Start Stepmode" Command="{Binding StartActivityCommand}" VerticalOptions="CenterAndExpand" BackgroundColor="MediumAquamarine" BorderColor="Black" BorderWidth="1" CornerRadius="10"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
