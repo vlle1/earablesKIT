@@ -14,7 +14,7 @@
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
             <StackLayout Spacing="0">
-                <Label Text=" Your Last Trainingsdate: "
+                <Label Text=" Last Trainings Date "
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"

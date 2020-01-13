@@ -141,7 +141,7 @@ namespace EarablesKIT.ViewModels
 
 		private void UpdateLastData()
 		{
-			//IDataBaseConnection DatabaseService = ServiceManager.ServiceProvider.GetService<IDataBaseConnection();
+			//IDataBaseConnection DatabaseService = ServiceManager.ServiceProvider.GetService<IDataBaseConnection>();
 			//DBEntry entry = DatabaseService.getMostRecentEntriesAsync(1)[0];
 			//LastDataTime = entry.Date().ToString();
 			//StepsDoneLastTime = entry.TrainingsData[steps]

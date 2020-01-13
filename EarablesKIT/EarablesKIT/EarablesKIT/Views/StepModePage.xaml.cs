@@ -15,7 +15,15 @@ namespace EarablesKIT.Views
         public StepModePage()
         {
             InitializeComponent();
-			BindingContext = new StepModeViewModel();
+			var ViewModel = new StepModeViewModel();
+			BindingContext = ViewModel; //geändert
         }
+
+		public void changeView()
+		{
+			StepModeActivePage NeueView = new StepModeActivePage();
+			NeueView.BindingContext = this.BindingContext;
+			Navigation.PushAsync(NeueView);
+		}
     }
 }
