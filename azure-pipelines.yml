@@ -1,27 +1,72 @@
-# Xamarin.Android
-# Build a Xamarin.Android project.
+# Xamarin.Android and Xamarin.IOS
+
+# Build a Xamarin.Android and Xamarin.IOS project.
 # Add steps that test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
 
 trigger:
 - master
+jobs:
+  - job: Android
+    pool:
+      vmImage: 'windows-latest'
 
-pool:
-  vmImage: 'macos-latest'
+    variables:
+      buildConfiguration: 'Release'
+      outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
-variables:
-  buildConfiguration: 'Release'
-  outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+    steps:
+    - task: NuGetToolInstaller@1
 
-steps:
-- task: NuGetToolInstaller@1
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '**/*.sln'
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '**/*.sln'
+    - task: XamarinAndroid@1
+      inputs:
+        projectFile: '**/*droid*.csproj'
+        outputDirectory: '$(outputDirectory)'
+        configuration: '$(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: test
+        projects: '**/*Test/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'   
+   
+    - task: AndroidSigning@3
+      inputs:
+        apkFiles: '**/*.apk'
+        apksign: true
+        apksignerKeystoreFile: 'EarablesKIT.keystore'
+        apksignerKeystorePassword: '$(keystorepasswordEarables)'
+        apksignerKeystoreAlias: 'EarablesKIT'
+        apksignerKeyPassword: '$(keystorepasswordEarables)'
+    
 
-- task: XamarinAndroid@1
-  inputs:
-    projectFile: '**/*droid*.csproj'
-    outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'
+
+        
+  # - job: iOS
+  #   pool:
+  #     vmImage: 'macOS 10.13'
+
+  #   steps:
+  #   - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_4_1 
+  #     displayName: 'Select Xamarin SDK version'
+  #     enabled: false
+
+  #   - task: NuGetToolInstaller@0
+
+  #   - task: NuGetCommand@2
+  #     inputs:
+  #       restoreSolution: '**/*.sln'
+
+  #   - task: XamariniOS@2
+  #     inputs:
+  #       solutionFile: '**/*.sln'
+  #       configuration: 'Release'
+  #       buildForSimulator: true
+  #       packageApp: false
+
+        
+
+
