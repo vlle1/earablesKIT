@@ -106,7 +106,7 @@ namespace EarablesKIT.ViewModels
 
 		public void OnRunningDone(object sender, ActivityArgs args)
 		{
-			IsRunning = true; //
+			IsRunning = true; //??
 		}
 
 		protected void OnPropertyChanged([CallerMemberName] string name = "")

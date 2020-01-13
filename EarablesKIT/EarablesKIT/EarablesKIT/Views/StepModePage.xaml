@@ -6,36 +6,57 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.StepModePage">
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="10">
+        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
             <Label Text="StepMode"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
-                   BackgroundColor="MediumAquamarine"/>
+                   BackgroundColor="CornflowerBlue"/>
             <StackLayout Spacing="0">
                 <Label Text=" Your Last Trainingsdate: "
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
-                   BackgroundColor="MediumAquamarine"/>
-                <Label Text="{Binding LastDataTime}"
-                   Padding="0"
+                   BackgroundColor="CornflowerBlue"/>
+                <Label Text="22.01.2019"
+                   Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
-                   BackgroundColor="MediumAquamarine"/>
+                   BackgroundColor="CornflowerBlue"/>
             </StackLayout>
-            <Grid Padding="30">
-                <Label Text="{Binding StepsDoneLastTime}" Grid.Row="0" Grid.Column="0"/>
-                <Label Text="Steps Done  &#x0a;Last Time" FontSize="Large" Grid.Row="0" Grid.Column="1"/>
-                <Label Text="{Binding DistanceWalkedLastTime}" Grid.Row="1" Grid.Column="0"/>
-                <Label Text="Distance Walked Last Time" FontSize="Large" Grid.Row="1" Grid.Column="1"/>
+            <Grid Padding="30" RowSpacing="40">
+                <Label Text="10800"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large" 
+                       Grid.Row="0" 
+                       Grid.Column="0" 
+                       BackgroundColor="CornflowerBlue"/>
+                <Label Text="Steps Done  &#x0a;Last Time" 
+                       FontSize="Large" 
+                       Grid.Row="0" 
+                       Grid.Column="1"/>
+                <Label Text="4,5 km" 
+                       VerticalTextAlignment="Center"
+                       FontSize="Large" 
+                       Grid.Row="1" 
+                       Grid.Column="0"
+                       BackgroundColor="CornflowerBlue"/>
+                <Label Text="Distance Walked Last Time" 
+                       FontSize="Large" 
+                       Grid.Row="1" 
+                       Grid.Column="1"/>
             </Grid>
-
-            <Button Text="Start Stepmode" Command="{Binding StartActivityCommand}" VerticalOptions="CenterAndExpand" BackgroundColor="MediumAquamarine" BorderColor="Black" BorderWidth="1" CornerRadius="10"/>
-
+            <Button Text="Start Stepmode" 
+                    Command="{Binding StartActivityCommand}" 
+                    VerticalOptions="CenterAndExpand" 
+                    BackgroundColor="CornflowerBlue" 
+                    BorderColor="Black" 
+                    BorderWidth="1" 
+                    CornerRadius="10" 
+                    HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
