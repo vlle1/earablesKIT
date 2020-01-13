@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel
 {
-    interface IActivityManager : IManager
+    interface IActivityManager :  IManager
     {
         IServiceProvider ActitvityProvider { get; set; }
 

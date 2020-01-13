@@ -15,11 +15,11 @@ namespace EarablesKIT.Models.SettingsService
 
     public enum SamplingRate
     {
-        Hz_1,
-        Hz_20,
-        Hz_50,
-        Hz_80,
-        Hz_100
+        Hz_1 = 1,
+        Hz_20 = 20,
+        Hz_50 = 50,
+        Hz_80 = 80,
+        Hz_100 = 100
 
     }
 }

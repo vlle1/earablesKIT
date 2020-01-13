@@ -7,6 +7,6 @@ namespace EarablesKIT.Models.Extentionmodel
 {
     interface IManager
     {
-         IServiceCollection ServiceRegistration();
+         
     }
 }

@@ -1,23 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
+using Xamarin.Forms;
 
 namespace EarablesKIT.Models.SettingsService
 {
-    class User
+    public class User
     {
-        public string Username { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Steplength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        private const string USER_PATTERN = @"^username=\w+,steplength=\d+$";
+
+        private string _username;
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (Regex.Match(value, @"\w+").Success)
+                {
+                    _username = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
+
+        private int _steplength;
+        public int Steplength { get => _steplength; set => _steplength = value < 0 ? 0 : value ; }
+
+        public User(string username, int steplength)
+        {
+            Username = username;
+            Steplength = steplength;
+        }
+
 
         override
         public string ToString()
         {
-            throw new NotImplementedException();
+            return "username="+Username+",steplength="+Steplength;
         }
 
-        public static User ParseUser(string User)
+        public static User ParseUser(string User) 
         {
-             throw new NotImplementedException();
+             Match match = Regex.Match(User, USER_PATTERN);
+             if (match.Success)
+             {
+                 return null;
+             }
+
+             string[] properties = User.Split(',');
+             string username = properties[0].Substring(properties[0].IndexOf('='));
+             int steplength = int.Parse(properties[1].Substring(properties[1].IndexOf('=')));
+
+             return new User(username, steplength);
+
+
         }
     }
 }
