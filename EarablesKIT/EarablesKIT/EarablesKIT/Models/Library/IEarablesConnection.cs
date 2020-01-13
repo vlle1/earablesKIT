@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace EarablesKIT.Models.Library
 {
@@ -17,15 +18,15 @@ namespace EarablesKIT.Models.Library
         List<IDevice> StartScanning();
 
 
-        bool ConnectToDevice(object IDevice);
+        bool ConnectToDevice(IDevice device);
 
-        bool DisconnectFromDevice();
+        void DisconnectFromDevice();
 
-        bool StartSampling();
+        void StartSampling();
         
-        bool StopSampling();
+        void StopSampling();
 
-        bool SetSamplingRate(int rate);
+        void SetSamplingRate(int rate);
 
         //TODO weitere Getter Setter für die LowPassFilter hinzufügern ODER als Property (ist besser)
 
@@ -37,7 +38,7 @@ namespace EarablesKIT.Models.Library
 
 
         //TODO wahrscheinlich hier die Args ändern, je nach dem, was die BLE Lib wirft
-        void OnValueUpdatedIMU(object sender, EventArgs args);
+        void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args);
 
         void OnPushButtonPressed(object sender, EventArgs args);
 
