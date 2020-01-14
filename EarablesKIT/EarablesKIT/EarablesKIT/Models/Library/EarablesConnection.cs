@@ -17,7 +17,7 @@ namespace EarablesKIT.Models.Library
         private IBluetoothLE ble = CrossBluetoothLE.Current;
         private IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         private IDevice device;
-        List<IDevice> deviceList;
+        private List<IDevice> deviceList;
         private ConfigContainer config;
         private Characteristics characters;
 
