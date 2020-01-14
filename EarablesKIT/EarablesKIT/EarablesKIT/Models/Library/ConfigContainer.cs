@@ -9,12 +9,9 @@ namespace EarablesKIT.Models.Library
         private int samplerate;
         public int Samplerate { get => samplerate; set => samplerate = value; }
         private LPF_Gyroscope gyroscope;
-        public LPF_Gyroscope GyroscopeLPF { get => gyroscope; set => gyroscope = value; }
+        public LPF_Gyroscope GyroscopeLPF { set => gyroscope = value; }
         private LPF_Accelerometer accelerometerLPF;
-        public LPF_Accelerometer AccelerometerLPF { get => accelerometerLPF; set => accelerometerLPF = value; }
-
-
-
+        public LPF_Accelerometer AccelerometerLPF { set => accelerometerLPF = value; }
     }
 
 
