@@ -9,7 +9,7 @@ namespace EarablesKIT.Models.SettingsService
     {
         CultureInfo ActiveLanguage { get; set; }
         SamplingRate SamplingRate { get; set; }
-        User MyUser { get; set; }
+        User ActiveUser { get; set; }
 
     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 using EarablesKIT.Models.Extentionmodel;
@@ -12,9 +13,9 @@ namespace EarablesKIT.Models
 {
     class ServiceManager : IManager
     {
-        private static IServiceProvider _serviceProvider;
+        private static ServiceProvider _serviceProvider;
 
-        public static IServiceProvider ServiceProvider => _serviceProvider ?? (_serviceProvider = ServiceRegistration().BuildServiceProvider());
+        public static ServiceProvider ServiceProvider => _serviceProvider ?? (_serviceProvider = ServiceRegistration().BuildServiceProvider());
 
         private static IServiceCollection ServiceRegistration()
         {

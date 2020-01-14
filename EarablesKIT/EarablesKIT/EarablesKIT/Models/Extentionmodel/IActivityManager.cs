@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EarablesKIT.Models.Extentionmodel
 {
     interface IActivityManager :  IManager
     {
-        IServiceProvider ActitvityProvider { get; set; }
+        ServiceProvider ActitvityProvider { get; set; }
 
         void OnIMUDataReceived(object sender, DataEventArgs args);
     }
