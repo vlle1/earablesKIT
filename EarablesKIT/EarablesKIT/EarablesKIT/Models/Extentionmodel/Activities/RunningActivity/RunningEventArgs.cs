@@ -6,5 +6,6 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
 {
     class RunningEventArgs : ActivityArgs
     {
+
     }
 }

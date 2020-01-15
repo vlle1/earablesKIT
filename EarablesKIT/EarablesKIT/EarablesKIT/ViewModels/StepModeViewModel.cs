@@ -106,9 +106,10 @@ namespace EarablesKIT.ViewModels
 
 		public void OnRunningDone(object sender, ActivityArgs args)
 		{
-			IsRunning = true; //??
+			RunningEventArgs RunningEvent = (RunningEventArgs)args;
+			//IsRunning = RunningEvent.Running; 
 		}
-
+		
 		protected void OnPropertyChanged([CallerMemberName] string name = "")
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -144,7 +145,7 @@ namespace EarablesKIT.ViewModels
 			//IDataBaseConnection DatabaseService = ServiceManager.ServiceProvider.GetService<IDataBaseConnection>();
 			//DBEntry entry = DatabaseService.getMostRecentEntriesAsync(1)[0];
 			//LastDataTime = entry.Date().ToString();
-			//StepsDoneLastTime = entry.TrainingsData[steps]
+			//StepsDoneLastTime = entry.TrainingsData["steps"]
 			//DistanceWalkedLastTime = StepsDoneLastTime * Steplength
 		}
 
