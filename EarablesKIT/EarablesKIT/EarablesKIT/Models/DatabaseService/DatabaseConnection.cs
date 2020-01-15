@@ -1,12 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using SQLite;
 
 namespace EarablesKIT.Models.DatabaseService
 {
     internal class DatabaseConnection : IDataBaseConnection
     {
-        
+
+        private readonly SQLiteAsyncConnection _database;
+
+        private readonly string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "EarablesKIT_TrainingsData.db3");
+
+        public DatabaseConnection()
+        {
+            _database = new SQLiteAsyncConnection(_path);
+            _database.CreateTableAsync<DBEntry>().Wait();
+        }
+
         public void DeleteAllEntries()
         {
             throw new NotImplementedException();
@@ -19,7 +33,7 @@ namespace EarablesKIT.Models.DatabaseService
 
         public Task<List<DBEntry>> GetAllEntriesAsync()
         {
-            throw new NotImplementedException();
+            return _database.Table<DBEntry>().ToListAsync();
         }
 
         //TODO Example Documentation
@@ -33,9 +47,35 @@ namespace EarablesKIT.Models.DatabaseService
             throw new NotImplementedException();
         }
 
-        public void SaveDBEntry(DBEntry entry)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <returns></returns>
+        public int SaveDBEntry(DBEntry entry)
         {
-            throw new NotImplementedException();
+            int primaryResult = -1;
+            Task<DBEntry> result = _database.Table<DBEntry>().Where(i => i.Date.Equals(entry.Date)).FirstOrDefaultAsync();
+
+            if (result.Result == null)
+            {
+                primaryResult = _database.InsertAsync(entry).Result;
+            }
+            else
+            {
+                DBEntry toUpdate = result.Result;
+                toUpdate.TrainingsData[DBEntry.StepAmountIdentifier] +=
+                    entry.TrainingsData[DBEntry.StepAmountIdentifier];
+
+                toUpdate.TrainingsData[DBEntry.PushUpAmountIdentifier] +=
+                    entry.TrainingsData[DBEntry.PushUpAmountIdentifier];
+
+                toUpdate.TrainingsData[DBEntry.SitUpAmountIdentifier] +=
+                    entry.TrainingsData[DBEntry.SitUpAmountIdentifier];
+
+                primaryResult = _database.UpdateAsync(toUpdate).Result;
+            }
+            return primaryResult;
         }
     }
 }

@@ -1,21 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using SQLite;
 
 namespace EarablesKIT.Models.DatabaseService
 {
     public class DBEntry
     {
-        private const string StepAmountIdentifier = "Steps";
-        private const string PushUpAmountIdentifier = "PushUps";
-        private const string SitUpAmountIdentifier = "SitUps";
+        public const string StepAmountIdentifier = "Steps";
+        public const string PushUpAmountIdentifier = "PushUps";
+        public const string SitUpAmountIdentifier = "SitUps";
+
 
         private DateTime _date;
 
+        [PrimaryKey]
         public DateTime Date => _date;
 
-        private readonly Dictionary<string, int> _trainingsdata;
+        private Dictionary<string, int> _trainingsdata;
 
         public Dictionary<string, int> TrainingsData => _trainingsdata;
+
+        public DBEntry()
+        {
+            _trainingsdata = new Dictionary<string, int>();
+        }
+
 
         public DBEntry(DateTime date, int stepAmount, int pushUpAmount, int sitUpAmount)
         {

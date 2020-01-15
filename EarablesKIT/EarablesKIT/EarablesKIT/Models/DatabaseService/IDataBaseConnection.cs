@@ -8,7 +8,7 @@ namespace EarablesKIT.Models.DatabaseService
     interface IDataBaseConnection
     {
 
-        void SaveDBEntry(DBEntry entry);
+        int SaveDBEntry(DBEntry entry);
 
         Task<List<DBEntry>> GetAllEntriesAsync();
 
