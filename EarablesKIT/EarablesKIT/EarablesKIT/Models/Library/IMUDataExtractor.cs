@@ -6,21 +6,41 @@ namespace EarablesKIT.Models.Library
 {
     class IMUDataExtractor
     {
-        public static IMUDataEntry ExtractIMUDataString(byte[] data, int accScaleFactor, int gyroScaleFactor)
+        public static IMUDataEntry ExtractIMUDataString(byte[] data, int accScaleFactor, double gyroScaleFactor)
         {
 
             throw new NotImplementedException();
         }
-        public static int ExtractIMUScaleFactorAccelerometer(byte[] data)
+        public static int ExtractIMUScaleFactorAccelerometer(byte[] bytes)
         {
-            throw new NotImplementedException();
+            // Get the 3th and the 4th Bit from Data2
+            int byteValue = bytes[5] & 0x18;
+            int ScaleFactor = 0;
+            // Select the right ScaleFactor
+            switch (byteValue)
+            {
+                case (0x00):
+                    ScaleFactor = 16384;
+                    break;
+                case (0x08):
+                    ScaleFactor = 8192;
+                    break;
+                case (0x10):
+                    ScaleFactor = 4096;
+                    break;
+                case (0x18):
+                    ScaleFactor = 2048;
+                    break;
+            }
+            return ScaleFactor;
         }
 
-        public static double ExctractIMUScaleFactorGyroscope(byte[] data)
+        public static double ExctractIMUScaleFactorGyroscope(byte[] bytes)
         {
             // Get the 3th and the 4th Bit from Data1
-            int byteValue = data[4] & 0x18;
+            int byteValue = bytes[4] & 0x18;
             double ScaleFactor = 0;
+            // Select the right ScaleFactor
             switch (byteValue)
             {
                 case (0x00):
@@ -38,6 +58,5 @@ namespace EarablesKIT.Models.Library
             }
             return ScaleFactor;
         }
-
     }
 }

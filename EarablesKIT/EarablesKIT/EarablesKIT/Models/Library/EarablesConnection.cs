@@ -137,8 +137,7 @@ namespace EarablesKIT.Models.Library
             Device.BeginInvokeOnMainThread(new Action(() =>
             {
                 connected = false;
-                DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
-                DeviceConnectionStateChanged?.Invoke(this, e);
+                DeviceConnectionStateChanged?.Invoke(this, new DeviceEventArgs(connected, args.Device.Name));
             }));
         }
 
@@ -155,12 +154,12 @@ namespace EarablesKIT.Models.Library
 
         public async void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
-            byte[] bytes = args.Characteristic.Value;
-            //int accScaleFactor = ExtractIMUScaleFactorAccelerometer(); //bytes als parameter übergeben
-            byte[] bytes1 = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            double gyroScaleFactor = IMUDataExtractor.ExctractIMUScaleFactorGyroscope(bytes1); //bytes als parameter übergeben
-            //IMUDataEntry imuDataEntry = ExtractIMUDataString(bytes, accScaleFactor, gyroScaleFactor);
-            //IMUDataReceived?.Invoke(this, argumente);
+            byte[] bytes1 = args.Characteristic.Value;
+            byte[] bytes2 = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
+            double gyroScaleFactor = IMUDataExtractor.ExctractIMUScaleFactorGyroscope(bytes2);
+            int accScaleFactor = IMUDataExtractor.ExtractIMUScaleFactorAccelerometer(bytes2);
+            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytes1, accScaleFactor, gyroScaleFactor);
+            IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
         }
 
         public void SetSamplingRate(int rate)
@@ -303,6 +302,23 @@ namespace EarablesKIT.Models.Library
         {
             byte[] bytes = args.Characteristic.Value;
             batteryVoltage = (bytes[3] * 256 + bytes[4]) / 1000f;
+        }
+
+        private async void setGyroscopeRange(object sender, EventArgs e)
+        {
+            // Range kann sein 0x00 = 250deg/s, 0x08 = 500deg/s, 0x10 = 1000deg/s, 0x18 = 2000deg/s
+            int range = 0x18;
+
+            byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
+            //clear Bit 4 and 3 from Data1
+            int data1 = bytesRead[4] & 0xE7;
+            // Set Data1 to the right value
+            data1 = data1 | range;
+            // Calculate chechsum
+            int checksum = bytesRead[2] + bytesRead[3] + data1 + bytesRead[5] + bytesRead[6];
+            // Write the new Gyroscoperange on the Earables
+            byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], Convert.ToByte(data1), bytesRead[5], bytesRead[6] };
+            await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
         }
     }
 }
