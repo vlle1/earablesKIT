@@ -11,6 +11,30 @@ namespace EarablesKIT.Models.Library
 
             throw new NotImplementedException();
         }
+
+        public static int ExtractIMURangeAccelerometer(byte[] bytes)
+        {
+            // Get the 3th and the 4th Bit from Data2
+            int byteValue = bytes[5] & 0x18;
+            int Range = 0;
+            // Select the right Range
+            switch (byteValue)
+            {
+                case (0x00):
+                    Range = 2;
+                    break;
+                case (0x08):
+                    Range = 4;
+                    break;
+                case (0x10):
+                    Range = 8;
+                    break;
+                case (0x18):
+                    Range = 16;
+                    break;
+            }
+            return Range;
+        }
         public static int ExtractIMUScaleFactorAccelerometer(byte[] bytes)
         {
             // Get the 3th and the 4th Bit from Data2
@@ -35,6 +59,29 @@ namespace EarablesKIT.Models.Library
             return ScaleFactor;
         }
 
+        public static double ExtractIMURangeGyroscope(byte[] bytes)
+        {
+            // Get the 3th and the 4th Bit from Data2
+            int byteValue = bytes[5] & 0x18;
+            double Range = 0;
+            // Select the right Range
+            switch (byteValue)
+            {
+                case (0x00):
+                    Range = 250;
+                    break;
+                case (0x08):
+                    Range = 500;
+                    break;
+                case (0x10):
+                    Range = 1000;
+                    break;
+                case (0x18):
+                    Range = 2000;
+                    break;
+            }
+            return Range;
+        }
         public static double ExctractIMUScaleFactorGyroscope(byte[] bytes)
         {
             // Get the 3th and the 4th Bit from Data1

@@ -8,6 +8,7 @@ namespace EarablesKIT.Models.Library
 {
     interface IEarablesConnection
     {
+
         EventHandler<DataEventArgs> IMUDataReceived { get; set; }
 
         EventHandler<ButtonEventArgs> ButtonPressed { get; set; }
@@ -18,7 +19,7 @@ namespace EarablesKIT.Models.Library
         List<IDevice> StartScanning();
 
 
-        bool ConnectToDevice(IDevice device);
+        void ConnectToDevice(IDevice device);
 
         void DisconnectFromDevice();
 
@@ -29,11 +30,17 @@ namespace EarablesKIT.Models.Library
         void SetSamplingRate(int rate);
 
         bool IsBluetoothActive();
+      /*  void SetAccelerometerLPF(LPF_Accelerometer accelerometerLPF);
+        LPF_Accelerometer GetAccelerometerLPF();
+        void SetGyroscopeLPF(LPF_Gyroscope gyroscopeLPF);
+        LPF_Gyroscope GetGyroscopeLPF(); */
 
         void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args);
 
         void OnPushButtonPressed(object sender, CharacteristicUpdatedEventArgs args);
 
         void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
+        void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
+        void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs args);
     }
 }
