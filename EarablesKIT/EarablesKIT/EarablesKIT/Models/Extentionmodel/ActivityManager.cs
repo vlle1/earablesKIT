@@ -8,14 +8,14 @@ namespace EarablesKIT.Models.Extentionmodel
 {
     class ActivityManager : IActivityManager
     {
-        public IServiceProvider ActitvityProvider { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ServiceProvider ActitvityProvider { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void OnIMUDataReceived(object sender, DataEventArgs args)
         {
             throw new NotImplementedException();
         }
 
-        public IServiceCollection ServiceRegistration()
+        public ServiceCollection ServiceRegistration()
         {
             throw new NotImplementedException();
         }
