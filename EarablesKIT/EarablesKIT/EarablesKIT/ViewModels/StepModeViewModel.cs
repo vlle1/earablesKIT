@@ -21,6 +21,7 @@ namespace EarablesKIT.ViewModels
 		private Stopwatch timer;
 		private AbstractStepActivity stepActivity { get; set; }
 		private AbstractRunningActivity runningActivity { get; set; }
+		private IActivityManager activityManager { get; set; }
 		public string StepsDoneLastTime
 		{
 			get { return StepsDoneLastTime; }
@@ -90,15 +91,13 @@ namespace EarablesKIT.ViewModels
 		{
 			StartActivityCommand = new Command(() => StartActivity());
 			StopActivityCommand = new Command(() => StopActivity());
-			IsRunning = false;
-			//var activityManager = ServiceManager.ServiceProvider.GetService(IActivityManager);
-			//IActivityManager activityManager = DependencyService.Get<IActivityManager>();
-			//stepActivity = ServiceManager.ServiceProvider.GetService(AbstractStepActivity);
-			//runningActivity = ServiceManager.ServiceProvider.GetService(AbstractRunningActivity);
+			activityManager = (IActivityManager) ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+			stepActivity = (AbstractStepActivity) activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
+			runningActivity = (AbstractRunningActivity) ServiceManager.ServiceProvider.GetService(typeof(AbstractRunningActivity));
 			UpdateLastData();
-
+			IsRunning = false;
 		}
-
+		
 		public override void OnActivityDone(object sender, ActivityArgs args)
 		{
 			StepCounter++;
@@ -158,8 +157,7 @@ namespace EarablesKIT.ViewModels
 
 		private void ShowPopUp()
 		{
-			//await DisplayAlert("Result", "You have done " + StepCounter + " Steps!.", "Cool");
-			//Liegt im CodeBehind
+			App.Current.MainPage.DisplayAlert("Result", "You have done " + StepCounter + " Steps!.", "Cool");
 		}
 
 
