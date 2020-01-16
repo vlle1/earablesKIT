@@ -1,44 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace EarablesKIT.Models.DatabaseService
 {
     public class DBEntry
     {
+
         public const string StepAmountIdentifier = "Steps";
         public const string PushUpAmountIdentifier = "PushUps";
         public const string SitUpAmountIdentifier = "SitUps";
 
 
-        private DateTime _date;
-
         [PrimaryKey]
-        public DateTime Date => _date;
+        public DateTime Date { get; set; }
 
-        private Dictionary<string, int> _trainingsdata;
 
-        public Dictionary<string, int> TrainingsData => _trainingsdata;
+        [TextBlob(nameof(TrainingsDataAsString))]
+        public Dictionary<string, int> TrainingsData { get; set; }
 
+        public string TrainingsDataAsString { get; set; }
         public DBEntry()
         {
-            _trainingsdata = new Dictionary<string, int>();
+            TrainingsData = new Dictionary<string, int>();
         }
 
 
         public DBEntry(DateTime date, int stepAmount, int pushUpAmount, int sitUpAmount)
         {
-            _trainingsdata = new Dictionary<string, int>();
-            _trainingsdata.Add(StepAmountIdentifier, stepAmount);
-            _trainingsdata.Add(PushUpAmountIdentifier, pushUpAmount);
-            _trainingsdata.Add(SitUpAmountIdentifier, sitUpAmount);
-            _date = date;
+            TrainingsData = new Dictionary<string, int>();
+            TrainingsData.Add(StepAmountIdentifier, stepAmount);
+            TrainingsData.Add(PushUpAmountIdentifier, pushUpAmount);
+            TrainingsData.Add(SitUpAmountIdentifier, sitUpAmount);
+            Date = date;
         }
 
         public override string ToString()
         {
-            string result = _date.ToString("d")+ ",";
-            foreach (var keyValuePair in _trainingsdata)
+            string result = Date.ToString("d")+ ",";
+            foreach (var keyValuePair in TrainingsData)
             {
                 result += keyValuePair.Key + "=" + keyValuePair.Value + ",";
             }
