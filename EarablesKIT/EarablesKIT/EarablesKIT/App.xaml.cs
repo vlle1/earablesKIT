@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Xamarin.Forms;
 using EarablesKIT.Views;
@@ -20,10 +21,11 @@ namespace EarablesKIT
             DBEntry entryToSave = new DBEntry(DateTime.Today, 100,50,10);
 
             int saveDbEntry = dbConnection.SaveDBEntry(entryToSave);
-            DBEntry actualEntry = dbConnection.GetAllEntriesAsync().Result[0]; 
+            List<DBEntry> actualEntry = dbConnection.GetAllEntriesAsync();
+
             MainPage.DisplayAlert("SaveDBEntry",
                 "saveDBEntryPrimaryKey: " + saveDbEntry + "\nDBEntry: " + entryToSave + "\nActual Entry: " +
-                actualEntry, "Accept", "Cancel");
+                actualEntry[0]+ " \nEqual? "+ entryToSave.Equals(actualEntry[0]), "Accept", "Cancel");
         }
 
         protected override void OnStart()

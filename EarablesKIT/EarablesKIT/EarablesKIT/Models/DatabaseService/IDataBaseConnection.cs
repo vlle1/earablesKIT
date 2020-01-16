@@ -10,9 +10,9 @@ namespace EarablesKIT.Models.DatabaseService
 
         int SaveDBEntry(DBEntry entry);
 
-        Task<List<DBEntry>> GetAllEntriesAsync();
+        List<DBEntry> GetAllEntriesAsync();
 
-        Task<List<DBEntry>> GetMostRecentEntriesAsync(int amount);
+        List<DBEntry> GetMostRecentEntriesAsync(int amount);
 
         //void ImportTrainingsData(FileData file);
 

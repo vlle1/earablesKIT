@@ -10,7 +10,7 @@ namespace EarablesKIT.Models.SettingsService
     {
         private const string USER_PATTERN = @"^username=\w+,steplength=\d+$";
 
-        private string _username = null;
+        private string _username = "Nutzer";
 
         /// <summary>
         /// Username of the User. Can only contain chars from type \w (word)
@@ -19,16 +19,10 @@ namespace EarablesKIT.Models.SettingsService
         public string Username
         {
             get => _username;
-            set
-            {
-                if (Regex.Match(value, @"\w+").Success)
-                {
-                    _username = value;
-                }
-            }
+            private set => _username = Regex.Match(value, USER_PATTERN).Success ? value : _username;
         }
 
-        private int _steplength;
+        private int _steplength = 70;
 
         /// <summary>
         /// Step length property which saves the step length of the user in cm. If given step length is smaller than 0, 0 is saved.
@@ -36,15 +30,12 @@ namespace EarablesKIT.Models.SettingsService
         public int Steplength
         {
             get => _steplength;
-            set
-            {
-                _steplength = value < 0 ? 0 : value;
-            }
+
+            private set => _steplength = value > 0 ? value : _steplength;
         }
 
         public User(string username, int steplength)
         {
-            System.Console.WriteLine("Something");
             Username = username;
             Steplength = steplength;
         }
@@ -75,8 +66,8 @@ namespace EarablesKIT.Models.SettingsService
             }
 
             string[] properties = User.Split(',');
-            string username = properties[0].Substring(properties[0].IndexOf('=')+1);
-            int steplength = int.Parse(properties[1].Substring(properties[1].IndexOf('=')+1));
+            string username = properties[0].Substring(properties[0].IndexOf('=') + 1);
+            int steplength = int.Parse(properties[1].Substring(properties[1].IndexOf('=') + 1));
 
             return new User(username, steplength);
         }

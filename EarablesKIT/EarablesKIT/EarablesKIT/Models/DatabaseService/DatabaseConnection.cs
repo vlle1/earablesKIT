@@ -1,29 +1,27 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using SQLite;
 
 namespace EarablesKIT.Models.DatabaseService
 {
     internal class DatabaseConnection : IDataBaseConnection
     {
 
-        private readonly SQLiteAsyncConnection _database;
+        private readonly SQLiteConnection _database;
 
         private readonly string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "EarablesKIT_TrainingsData.db3");
 
         public DatabaseConnection()
         {
-            _database = new SQLiteAsyncConnection(_path);
-            _database.CreateTableAsync<DBEntry>().Wait();
+            _database = new SQLiteConnection(_path);
+            _database.CreateTable<DBEntry>();
         }
 
         public void DeleteAllEntries()
         {
-            throw new NotImplementedException();
+            _database.DropTable<DBEntry>();
         }
         
         public void ExportTrainingsData(string path)
@@ -31,20 +29,28 @@ namespace EarablesKIT.Models.DatabaseService
             throw new NotImplementedException();
         }
 
-        public Task<List<DBEntry>> GetAllEntriesAsync()
+        public List<DBEntry> GetAllEntriesAsync()
         {
-            return _database.Table<DBEntry>().ToListAsync();
+            return _database.Table<DBEntry>().ToList();
         }
 
-        //TODO Example Documentation
+
         /// <summary>
-        /// Method <c>GetMostRecentEntriesAsync</c> connectes to the SQLite Database and gets the amount' recent entries. 
+        /// Method <c>GetMostRecentEntriesAsync</c> connects to the SQLite Database and gets the amount' recent entries.
+        /// If the param amount is greater than the amount of DBEntries which are saved, all saved Entries will get returned. Careful, There are not amount' many DBEntries in this returning List!
         /// </summary>
         /// <param name="amount">The 'amount' lastest database entries</param>
-        /// <returns>A Task countaining a List of database entries wrapped in class <see cref="DBEntry"/></returns>
-        public Task<List<DBEntry>> GetMostRecentEntriesAsync(int amount)
+        /// <returns>A List of database entries wrapped in class <see cref="DBEntry"/>
+        /// If the Database doesn't have the amount DBEntries saved, returns all saved entries instead!</returns>
+        public List<DBEntry> GetMostRecentEntriesAsync(int amount)
         {
-            throw new NotImplementedException();
+            List<DBEntry> dbEntries = this.GetAllEntriesAsync();
+            if (amount >= dbEntries.Count)
+            {
+                return dbEntries;
+            }
+
+            return dbEntries.GetRange(0, amount);
         }
 
         /// <summary>
@@ -55,15 +61,25 @@ namespace EarablesKIT.Models.DatabaseService
         public int SaveDBEntry(DBEntry entry)
         {
             int primaryResult = -1;
-            Task<DBEntry> result = _database.Table<DBEntry>().Where(i => i.Date.Equals(entry.Date)).FirstOrDefaultAsync();
+            TableQuery<DBEntry> resultQuery = _database.Table<DBEntry>();
+            DBEntry result = null;
 
-            if (result.Result == null)
+            foreach (var s in resultQuery)
             {
-                primaryResult = _database.InsertAsync(entry).Result;
+                if (s.Date.Equals(entry.Date))
+                {
+                    result = s;
+                    break;
+                }
+            }
+            // DBEntry result = resultQuery.First();
+            if (result == null)
+            {
+                primaryResult = _database.Insert(entry);
             }
             else
             {
-                DBEntry toUpdate = result.Result;
+                DBEntry toUpdate = result;
                 toUpdate.TrainingsData[DBEntry.StepAmountIdentifier] +=
                     entry.TrainingsData[DBEntry.StepAmountIdentifier];
 
@@ -73,7 +89,7 @@ namespace EarablesKIT.Models.DatabaseService
                 toUpdate.TrainingsData[DBEntry.SitUpAmountIdentifier] +=
                     entry.TrainingsData[DBEntry.SitUpAmountIdentifier];
 
-                primaryResult = _database.UpdateAsync(toUpdate).Result;
+                primaryResult = _database.Update(toUpdate);
             }
             return primaryResult;
         }
