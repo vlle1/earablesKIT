@@ -2,6 +2,7 @@
 using EarablesKIT.ViewModels;
 using System;
 using System.Globalization;
+using EarablesKIT.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,7 +25,7 @@ namespace EarablesKIT.Models.SettingsService
             get => _activeLanguage;
             set
             {
-                updateValue(LANGUAGE_PROPERTY, value);
+                updateValue(LANGUAGE_PROPERTY, value.ToString());
                 _activeLanguage = value;
             }
         }
@@ -42,7 +43,8 @@ namespace EarablesKIT.Models.SettingsService
                     ExceptionHandlingViewModel.HandleException(new ArgumentException("Sampling rate failed to change!"));
                     return;
                 }
-                updateValue(SAMPLINGRATE_PROPERTY, value);
+
+                updateValue(SAMPLINGRATE_PROPERTY, (int) value);
                 _samplingRate = value;
             }
         }
@@ -54,7 +56,7 @@ namespace EarablesKIT.Models.SettingsService
             get => _activeUser;
             set
             {
-                updateValue(USER_PROPERTY, value);
+                updateValue(USER_PROPERTY, value.ToString());
                 _activeUser = value;
             }
         }
