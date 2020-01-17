@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using EarablesKIT.Models.DatabaseService;
+using Newtonsoft.Json;
 
 namespace ViewModelTests.Models.DatabaseService
 {
@@ -53,6 +54,25 @@ namespace ViewModelTests.Models.DatabaseService
         {
             DBEntry actual = DBEntry.ParseDbEntry(toParse);
             Assert.Null(actual);
+        }
+
+        [Fact]
+        public void ConvertToDBEntryToSave()
+        {
+            DBEntry entry = new DBEntry(DateTime.Parse("27.04.2000"), 100, 50, 20);
+
+            DBEntryToSave expected = new DBEntryToSave();
+            Dictionary<string, int> trainingsdata = new Dictionary<string, int>();
+            expected.DateTime = DateTime.Parse("27.04.2000");
+            trainingsdata.Add("Steps", 100);
+            trainingsdata.Add("PushUps", 50);
+            trainingsdata.Add("SitUps" ,20);
+            expected.TrainingsDataAsString = JsonConvert.SerializeObject(trainingsdata);
+
+            DBEntryToSave actual = entry.ConvertToDBEntryToSave();
+
+            Assert.Equal(expected.DateTime, actual.DateTime);
+            Assert.Equal(expected.TrainingsDataAsString, actual.TrainingsDataAsString);
         }
     }
 }

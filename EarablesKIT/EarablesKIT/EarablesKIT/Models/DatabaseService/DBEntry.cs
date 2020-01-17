@@ -14,6 +14,9 @@ namespace EarablesKIT.Models.DatabaseService
         public const string SitUpAmountIdentifier = "SitUps";
 
 
+        /// <summary>
+        /// Date of the Entry
+        /// </summary>
         public DateTime Date { get; private set; }
 
         public Dictionary<string, int> TrainingsData { get; private set; }
@@ -24,7 +27,13 @@ namespace EarablesKIT.Models.DatabaseService
             TrainingsData = new Dictionary<string, int>();
         }
 
-
+        /// <summary>
+        /// Constructor for DBEntry 
+        /// </summary>
+        /// <param name="date">The date of the entry</param>
+        /// <param name="stepAmount">The amount of steps on this Date</param>
+        /// <param name="pushUpAmount">The amount of pushUps done on this Date</param>
+        /// <param name="sitUpAmount">THe amount of sitUps done on this Date</param>
         public DBEntry(DateTime date, int stepAmount, int pushUpAmount, int sitUpAmount)
         {
             TrainingsData = new Dictionary<string, int>();
@@ -34,9 +43,10 @@ namespace EarablesKIT.Models.DatabaseService
             Date = date;
         }
 
+        /// <returns></returns>
         public override string ToString()
         {
-            string result = Date.ToString("d")+ ",";
+            string result = Date.ToString("dd.MM.yyyy")+ ",";
             foreach (var keyValuePair in TrainingsData)
             {
                 result += keyValuePair.Key + "=" + keyValuePair.Value + ",";
@@ -46,6 +56,10 @@ namespace EarablesKIT.Models.DatabaseService
             return result;
         }
 
+        /// <summary>
+        /// Converts the current object to an instance of DBEntryToSave which gets saved in the database.
+        /// </summary>
+        /// <returns>This object as a DBEntryToSave instance</returns>
         public DBEntryToSave ConvertToDBEntryToSave()
         {
             DBEntryToSave entryToSave = new DBEntryToSave();
@@ -54,6 +68,12 @@ namespace EarablesKIT.Models.DatabaseService
             return entryToSave;
         }
 
+
+        /// <summary>
+        /// Parses the given instance of type DBEntryToSave to an instance to DBEntry.
+        /// </summary>
+        /// <param name="entry">The given entry, which needs to get parsed</param>
+        /// <returns>A </returns>
         public static DBEntry ParseDbEntry(DBEntryToSave entry)
         {
             Dictionary<string, int> trainingsData = JsonConvert.DeserializeObject<Dictionary<string,int>>(entry.TrainingsDataAsString);
@@ -63,6 +83,8 @@ namespace EarablesKIT.Models.DatabaseService
             return result;
         }
 
+
+        //TODO wird diese Methode benötigt?
         public static DBEntry ParseDbEntry(string entry)
         {
             if (entry == null)

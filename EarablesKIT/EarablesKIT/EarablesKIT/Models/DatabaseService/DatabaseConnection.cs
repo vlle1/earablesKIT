@@ -13,6 +13,8 @@ namespace EarablesKIT.Models.DatabaseService
         private readonly string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "EarablesKIT_TrainingsData.db3");
 
+        public SQLiteConnection Database => _database;
+
         public DatabaseConnection()
         {
             _database = new SQLiteConnection(_path);
@@ -25,10 +27,6 @@ namespace EarablesKIT.Models.DatabaseService
             _database.CreateTable<DBEntryToSave>();
         }
         
-        public void ExportTrainingsData(string path)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<DBEntry> GetAllEntriesAsync()
         {
@@ -99,6 +97,12 @@ namespace EarablesKIT.Models.DatabaseService
                 primaryResult = _database.Update(toUpdate.ConvertToDBEntryToSave());
             }
             return primaryResult;
+        }
+
+
+        public void ExportTrainingsData(string path)
+        {
+            throw new NotImplementedException();
         }
     }
 }

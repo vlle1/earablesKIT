@@ -14,7 +14,6 @@ namespace EarablesKIT.Models.DatabaseService
 
         public DBEntryToSave()
         {
-
         }
     }
 }
