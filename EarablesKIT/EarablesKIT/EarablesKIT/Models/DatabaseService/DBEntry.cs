@@ -41,10 +41,12 @@ namespace EarablesKIT.Models.DatabaseService
         /// <param name="sitUpAmount">THe amount of sitUps done on this Date</param>
         public DBEntry(DateTime date, int stepAmount, int pushUpAmount, int sitUpAmount)
         {
-            TrainingsData = new Dictionary<string, int>();
-            TrainingsData.Add(StepAmountIdentifier, stepAmount);
-            TrainingsData.Add(PushUpAmountIdentifier, pushUpAmount);
-            TrainingsData.Add(SitUpAmountIdentifier, sitUpAmount);
+            TrainingsData = new Dictionary<string, int>
+            {
+                {StepAmountIdentifier, stepAmount},
+                {PushUpAmountIdentifier, pushUpAmount},
+                {SitUpAmountIdentifier, sitUpAmount}
+            };
             Date = date;
         }
 
@@ -67,9 +69,11 @@ namespace EarablesKIT.Models.DatabaseService
         /// <returns>This object as a DBEntryToSave instance</returns>
         public DBEntryToSave ConvertToDBEntryToSave()
         {
-            DBEntryToSave entryToSave = new DBEntryToSave();
-            entryToSave.DateTime = this.Date;
-            entryToSave.TrainingsDataAsString = JsonConvert.SerializeObject(this.TrainingsData);
+            DBEntryToSave entryToSave = new DBEntryToSave
+            {
+                DateTime = this.Date, 
+                TrainingsDataAsString = JsonConvert.SerializeObject(this.TrainingsData)
+            };
             return entryToSave;
         }
 
@@ -82,9 +86,11 @@ namespace EarablesKIT.Models.DatabaseService
         public static DBEntry ParseDbEntry(DBEntryToSave entry)
         {
             Dictionary<string, int> trainingsData = JsonConvert.DeserializeObject<Dictionary<string,int>>(entry.TrainingsDataAsString);
-            DBEntry result = new DBEntry();
-            result.Date = entry.DateTime;
-            result.TrainingsData = trainingsData;
+            DBEntry result = new DBEntry
+            {
+                Date = entry.DateTime, 
+                TrainingsData = trainingsData
+            };
             return result;
         }
 

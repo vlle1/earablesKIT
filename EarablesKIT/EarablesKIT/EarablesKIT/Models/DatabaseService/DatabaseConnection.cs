@@ -63,7 +63,7 @@ namespace EarablesKIT.Models.DatabaseService
         /// <inheritdoc />
         public int SaveDBEntry(DBEntry entryArg)
         {
-            int primaryResult = -1;
+            int primaryResult;
             TableQuery<DBEntryToSave> resultQuery = _database.Table<DBEntryToSave>();
             DBEntry result = null;
 

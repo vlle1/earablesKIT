@@ -25,7 +25,7 @@ namespace ViewModelTests.Models.SettingsService
         [Fact]
         public void ParseUserTest()
         {
-            User expecteduser = null;
+            User expecteduser;
             expecteduser = new User("Bob", 70);
 
             User actual = User.ParseUser("username=Bob,steplength=70");

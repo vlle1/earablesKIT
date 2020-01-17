@@ -25,7 +25,7 @@ namespace EarablesKIT.Models.SettingsService
             get => _activeLanguage;
             set
             {
-                updateValue(LANGUAGE_PROPERTY, value.ToString());
+                UpdateValue(LANGUAGE_PROPERTY, value.ToString());
                 _activeLanguage = value;
             }
         }
@@ -44,7 +44,7 @@ namespace EarablesKIT.Models.SettingsService
                     return;
                 }
 
-                updateValue(SAMPLINGRATE_PROPERTY, (int) value);
+                UpdateValue(SAMPLINGRATE_PROPERTY, (int) value);
                 _samplingRate = value;
             }
         }
@@ -56,18 +56,18 @@ namespace EarablesKIT.Models.SettingsService
             get => _activeUser;
             set
             {
-                updateValue(USER_PROPERTY, value.ToString());
+                UpdateValue(USER_PROPERTY, value.ToString());
                 _activeUser = value;
             }
         }
 
         public SettingsService()
         {
-            loadSettings();
+            LoadSettings();
         }
 
 
-        private void loadSettings()
+        private void LoadSettings()
         {
             if (!Application.Current.Properties.ContainsKey(LANGUAGE_PROPERTY))
             {
@@ -146,7 +146,7 @@ namespace EarablesKIT.Models.SettingsService
             }
         }
 
-        private void updateValue(string key, object value)
+        private void UpdateValue(string key, object value)
         {
             Application.Current.Properties[key] = value;
             Application.Current.SavePropertiesAsync();
