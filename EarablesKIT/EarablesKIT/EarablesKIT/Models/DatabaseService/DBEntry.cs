@@ -95,7 +95,11 @@ namespace EarablesKIT.Models.DatabaseService
         }
 
 
-        //TODO wird diese Methode benötigt?
+        /// <summary>
+        /// Parses a string to a DBEntry
+        /// </summary>
+        /// <param name="entry">The entry as a string, which should get parsed</param>
+        /// <returns>The parsed instance of DBEntry</returns>
         public static DBEntry ParseDbEntry(string entry)
         {
             if (entry == null)

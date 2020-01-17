@@ -8,6 +8,10 @@ using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Models.SettingsService
 {
+    /// <summary>
+    /// Class SettingsService implements a Service which handles the settings user, language and samplingrate.
+    /// Saves the settings between the sessions.
+    /// </summary>
     public class SettingsService : ISettingsService
     {
         private const string LANGUAGE_PROPERTY = "Language";
@@ -20,6 +24,7 @@ namespace EarablesKIT.Models.SettingsService
 
         private CultureInfo _activeLanguage;
 
+        /// <inheritdoc />
         public CultureInfo ActiveLanguage
         {
             get => _activeLanguage;
@@ -32,6 +37,7 @@ namespace EarablesKIT.Models.SettingsService
 
         private SamplingRate _samplingRate;
 
+        /// <inheritdoc />
         public SamplingRate SamplingRate
         {
             get => _samplingRate;
@@ -51,6 +57,7 @@ namespace EarablesKIT.Models.SettingsService
 
         private User _activeUser;
 
+        /// <inheritdoc />
         public User ActiveUser
         {
             get => _activeUser;
@@ -61,6 +68,9 @@ namespace EarablesKIT.Models.SettingsService
             }
         }
 
+        /// <summary>
+        /// Constructor of class SettingsServices. Loads all properties or initializes them on the first start of the app.
+        /// </summary>
         public SettingsService()
         {
             LoadSettings();

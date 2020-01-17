@@ -5,6 +5,10 @@ using System.IO;
 
 namespace EarablesKIT.Models.DatabaseService
 {
+    /// <summary>
+    /// Class DatabaseConnection is the Connectionservice which handels the connection to the database.
+    /// (Stores, updates, removes entries of primitive type <see cref="DBEntryToSave"/> and its Wrapper class <see cref="DBEntry"/>
+    /// </summary>
     public  class DatabaseConnection : IDataBaseConnection
     {
 
@@ -14,6 +18,9 @@ namespace EarablesKIT.Models.DatabaseService
             "EarablesKIT_TrainingsData.db3");
 
         
+        /// <summary>
+        /// Constructor of the DatabaseConnection. Initializes the Database and creates the needed table
+        /// </summary>
         public DatabaseConnection()
         {
             _database = new SQLiteConnection(_path);
