@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
+using Newtonsoft.Json;
 
 namespace EarablesKIT.Models.DatabaseService
 {
@@ -13,15 +14,12 @@ namespace EarablesKIT.Models.DatabaseService
         public const string SitUpAmountIdentifier = "SitUps";
 
 
-        [PrimaryKey]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; private set; }
+
+        public Dictionary<string, int> TrainingsData { get; private set; }
 
 
-        [TextBlob(nameof(TrainingsDataAsString))]
-        public Dictionary<string, int> TrainingsData { get; set; }
-
-        public string TrainingsDataAsString { get; set; }
-        public DBEntry()
+        private DBEntry()
         {
             TrainingsData = new Dictionary<string, int>();
         }
@@ -45,6 +43,23 @@ namespace EarablesKIT.Models.DatabaseService
             }
 
             result = result.Substring(0, result.Length - 1);
+            return result;
+        }
+
+        public DBEntryToSave ConvertToDBEntryToSave()
+        {
+            DBEntryToSave entryToSave = new DBEntryToSave();
+            entryToSave.DateTime = this.Date;
+            entryToSave.TrainingsDataAsString = JsonConvert.SerializeObject(this.TrainingsData);
+            return entryToSave;
+        }
+
+        public static DBEntry ParseDbEntry(DBEntryToSave entry)
+        {
+            Dictionary<string, int> trainingsData = JsonConvert.DeserializeObject<Dictionary<string,int>>(entry.TrainingsDataAsString);
+            DBEntry result = new DBEntry();
+            result.Date = entry.DateTime;
+            result.TrainingsData = trainingsData;
             return result;
         }
 

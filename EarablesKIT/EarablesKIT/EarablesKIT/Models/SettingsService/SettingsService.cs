@@ -64,11 +64,6 @@ namespace EarablesKIT.Models.SettingsService
             loadSettings();
         }
 
-        //TODO UpdateUser anschauen. Wie genau speichert man die Daten, wenn die Schrittlänge geändert wird? wird kein neuer User angelegt.
-        public void updateUser()
-        {
-            updateValue(USER_PROPERTY, ActiveUser);
-        }
 
         private void loadSettings()
         {
