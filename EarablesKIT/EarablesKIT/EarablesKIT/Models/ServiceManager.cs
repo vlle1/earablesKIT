@@ -1,12 +1,7 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
-using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
-using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
-using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
-using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
+using EarablesKIT.Models.Library;
+using EarablesKIT.Models.SettingsService;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EarablesKIT.Models
@@ -21,11 +16,11 @@ namespace EarablesKIT.Models
         {
             IServiceCollection collection = new ServiceCollection();
 
-            collection.AddSingleton<AbstractStepActivity, StepActivityThreshold>();
-            collection.AddSingleton<AbstractRunningActivity, RunningActivityThreshold>();
+            collection.AddSingleton<IEarablesConnection, EarablesConnection>();
+            collection.AddSingleton<IDataBaseConnection, DatabaseConnection>();
 
-            collection.AddSingleton<AbstractPushUpActivity, PushUpActivityThreshold>();
-            collection.AddSingleton<AbstractSitUpActivity, SitUpActivityThreshold>();
+            collection.AddSingleton<ISettingsService, SettingsService.SettingsService>();
+            collection.AddSingleton<IActivityManager, ActivityManager>();
 
             return collection;
         }
