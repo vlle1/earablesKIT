@@ -22,7 +22,7 @@ namespace EarablesKIT
             DBEntry entryToSave = new DBEntry(DateTime.Today, 100,50,10);
 
             int saveDbEntry = dbConnection.SaveDBEntry(entryToSave);
-            List<DBEntry> actualEntry = dbConnection.GetAllEntriesAsync();
+            List<DBEntry> actualEntry = dbConnection.GetAllEntries();
 
             bool equal = entryToSave.ToString().Equals(actualEntry[0].ToString());
 

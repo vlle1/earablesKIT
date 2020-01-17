@@ -5,7 +5,7 @@ using System.IO;
 
 namespace EarablesKIT.Models.DatabaseService
 {
-    internal class DatabaseConnection : IDataBaseConnection
+    public  class DatabaseConnection : IDataBaseConnection
     {
 
         private readonly SQLiteConnection _database;
@@ -13,22 +13,25 @@ namespace EarablesKIT.Models.DatabaseService
         private readonly string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "EarablesKIT_TrainingsData.db3");
 
-        public SQLiteConnection Database => _database;
-
+        
         public DatabaseConnection()
         {
             _database = new SQLiteConnection(_path);
             _database.CreateTable<DBEntryToSave>();
         }
 
+
+
+        /// <inheritdoc />
         public void DeleteAllEntries()
         {
             _database.DropTable<DBEntryToSave>();
             _database.CreateTable<DBEntryToSave>();
         }
-        
 
-        public List<DBEntry> GetAllEntriesAsync()
+
+        /// <inheritdoc />
+        public List<DBEntry> GetAllEntries()
         {
             List<DBEntry> dBEntries = new List<DBEntry>();
             List<DBEntryToSave> dbEntriesString = _database.Table<DBEntryToSave>().ToList();
@@ -40,29 +43,24 @@ namespace EarablesKIT.Models.DatabaseService
         }
 
 
-        /// <summary>
-        /// Method <c>GetMostRecentEntriesAsync</c> connects to the SQLite Database and gets the amount' recent entries.
-        /// If the param amount is greater than the amount of DBEntries which are saved, all saved Entries will get returned. Careful, There are not amount' many DBEntries in this returning List!
-        /// </summary>
-        /// <param name="amount">The 'amount' lastest database entries</param>
-        /// <returns>A List of database entries wrapped in class <see cref="DBEntry"/>
-        /// If the Database doesn't have the amount DBEntries saved, returns all saved entries instead!</returns>
-        public List<DBEntry> GetMostRecentEntriesAsync(int amount)
+        /// <inheritdoc />
+        public List<DBEntry> GetMostRecentEntries(int amount)
         {
-            List<DBEntry> dbEntries = this.GetAllEntriesAsync();
+            if (amount <= 0)
+            {
+                return new List<DBEntry>();
+            }
+
+            List<DBEntry> dbEntries = this.GetAllEntries();
             if (amount >= dbEntries.Count)
             {
                 return dbEntries;
             }
 
-            return dbEntries.GetRange(0, amount);
+            return dbEntries.GetRange(dbEntries.Count-amount, amount);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="entryArg"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public int SaveDBEntry(DBEntry entryArg)
         {
             int primaryResult = -1;

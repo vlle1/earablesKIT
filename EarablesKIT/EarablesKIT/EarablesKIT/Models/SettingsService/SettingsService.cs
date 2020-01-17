@@ -37,7 +37,7 @@ namespace EarablesKIT.Models.SettingsService
             set
             {
                 var service = ServiceManager.ServiceProvider.GetService<IEarablesConnection>();
-                if (!service.SetSamplingRate((int)value))
+                if (!service.SetSamplingRate((int) value))
                 {
                     ExceptionHandlingViewModel.HandleException(new ArgumentException("Sampling rate failed to change!"));
                     return;

@@ -74,5 +74,7 @@ namespace ViewModelTests.Models.DatabaseService
             Assert.Equal(expected.DateTime, actual.DateTime);
             Assert.Equal(expected.TrainingsDataAsString, actual.TrainingsDataAsString);
         }
+
+
     }
 }

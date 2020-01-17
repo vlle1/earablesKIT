@@ -19,6 +19,11 @@ namespace EarablesKIT.Models.DatabaseService
         /// </summary>
         public DateTime Date { get; private set; }
 
+        /// <summary>
+        /// Dictionary containing the trainingsdata (steps, pushups, situps).
+        /// The keys are the constants StepAmountIdentifier, PushUpAmountIdentifier,
+        /// SitUpAmountIdentifier
+        /// </summary>
         public Dictionary<string, int> TrainingsData { get; private set; }
 
 
@@ -43,7 +48,6 @@ namespace EarablesKIT.Models.DatabaseService
             Date = date;
         }
 
-        /// <returns></returns>
         public override string ToString()
         {
             string result = Date.ToString("dd.MM.yyyy")+ ",";
@@ -57,7 +61,8 @@ namespace EarablesKIT.Models.DatabaseService
         }
 
         /// <summary>
-        /// Converts the current object to an instance of DBEntryToSave which gets saved in the database.
+        /// Converts the current object to an instance of DBEntryToSave which
+        /// is getting saved in the database.
         /// </summary>
         /// <returns>This object as a DBEntryToSave instance</returns>
         public DBEntryToSave ConvertToDBEntryToSave()
