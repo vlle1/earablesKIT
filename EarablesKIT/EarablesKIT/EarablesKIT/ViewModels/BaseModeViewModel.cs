@@ -10,17 +10,22 @@ namespace EarablesKIT.ViewModels
 
         public abstract void OnActivityDone(object sender, ActivityArgs args);
 
-        public abstract void StartActivity(); 
+        public abstract bool StartActivity(); 
 
         public abstract void StopActivity();
 
-        protected void CheckConnection()
+        protected bool CheckConnection()
         {
-			if (!ScanningPopUpViewModel.IsConnected)
+			if (ScanningPopUpViewModel.IsConnected)
 			{
-				// ShowScanningPopUp
+				return true;
 			}
-        }
+			else
+			{
+				ScanningPopUpViewModel.ShowPopUp();
+				return false;
+			}
+		}
 
     }
 }

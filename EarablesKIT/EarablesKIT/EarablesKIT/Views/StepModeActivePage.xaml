@@ -28,7 +28,7 @@
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
             </StackLayout>
-            <Grid Padding="30" RowSpacing="40">
+            <Grid Padding="20" RowSpacing="30">
                 <Label Text="Current Status"
                        VerticalTextAlignment="Center"
                        FontSize="Large"

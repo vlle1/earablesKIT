@@ -95,9 +95,9 @@ namespace EarablesKIT.ViewModels
 
 		public StepModeViewModel()
 		{
-			//_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-			//_stepActivity = (AbstractStepActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
-			//_runningActivity = (AbstractRunningActivity)ServiceManager.ServiceProvider.GetService(typeof(AbstractRunningActivity));
+			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+			_stepActivity = (AbstractStepActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
+			_runningActivity = (AbstractRunningActivity)ServiceManager.ServiceProvider.GetService(typeof(AbstractRunningActivity));
 			UpdateLastData();
 			IsRunning = false;
 			_timer = new Stopwatch();
@@ -119,12 +119,16 @@ namespace EarablesKIT.ViewModels
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
-		public override void StartActivity()
+		public override bool StartActivity()
 		{
-			//CheckConnection();
-			StepCounter = 0;
-			//_stepActivity.ActivityDone += OnActivityDone;
-			//_runningActivity.ActivityDone += OnRunningDone;
+			if (CheckConnection())
+			{
+				StepCounter = 0;
+				_stepActivity.ActivityDone += OnActivityDone;
+				_runningActivity.ActivityDone += OnRunningDone;
+				return true;
+			} 
+			return false;
 		}
 
 		public void HandlingTimer()
@@ -141,8 +145,8 @@ namespace EarablesKIT.ViewModels
 		public override void StopActivity()
 		{
 			_timer.Stop();
-			//_stepActivity.ActivityDone -= OnActivityDone;
-			//_runningActivity.ActivityDone -= OnRunningDone;
+			_stepActivity.ActivityDone -= OnActivityDone;
+			_runningActivity.ActivityDone -= OnRunningDone;
 			IsRunning = false;
 			ShowPopUp();
 			UpdateLastData();
@@ -150,21 +154,21 @@ namespace EarablesKIT.ViewModels
 
 		private void UpdateLastData()
 		{
-			//IDataBaseConnection DatabaseService = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
-			//List<DBEntry> Entries = (List<DBEntry>)DatabaseService.GetMostRecentEntriesAsync(1).Result;
-			//DBEntry entry = Entries[0];
-			//LastDataTime = entry.Date.ToString();
-			//StepsDoneLastTime = entry.TrainingsData["steps"].ToString();
-			//ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
-			//int dwlt = entry.TrainingsData["steps"] * setser.MyUser.Steplength;
-			//DistanceWalkedLastTime = dwlt.ToString();
+			IDataBaseConnection DatabaseService = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			List<DBEntry> Entries = (List<DBEntry>)DatabaseService.GetMostRecentEntriesAsync(1).Result;
+			DBEntry entry = Entries[0];
+			LastDataTime = entry.Date.ToString();
+			StepsDoneLastTime = entry.TrainingsData["steps"].ToString();
+			ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
+			int dwlt = entry.TrainingsData["steps"] * setser.MyUser.Steplength;
+			DistanceWalkedLastTime = dwlt.ToString();
 		}
 
 
 		private void UpdateFrequency()
 		{
 			double totalTime = _timer.Elapsed.Seconds;
-			StepFrequency = 60 * StepCounter / totalTime; //Schritte pro Minute
+			StepFrequency = 60 * StepCounter / totalTime; 
 		}
 
 		private void ShowPopUp()

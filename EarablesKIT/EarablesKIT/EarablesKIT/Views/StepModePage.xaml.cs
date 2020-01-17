@@ -22,9 +22,11 @@ namespace EarablesKIT.Views
 
 		public void OnStartButtonClicked(object sender, EventArgs args)
 		{
-			ViewModel.StartActivity(); //bool
-			ChangeView();
-			ViewModel.HandlingTimer();
+			if (ViewModel.StartActivity())
+			{
+				ChangeView();
+				ViewModel.HandlingTimer();
+			}
 		}
 
 
