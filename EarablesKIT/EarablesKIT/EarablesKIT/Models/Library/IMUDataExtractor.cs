@@ -6,59 +6,47 @@ namespace EarablesKIT.Models.Library
 {
     class IMUDataExtractor
     {
-        public static IMUDataEntry ExtractIMUDataString(byte[] bytes, double accScaleFactor, double gyroScaleFactor, short accoffset)
+        public static IMUDataEntry ExtractIMUDataString(byte[] bytesIMUData, double accScaleFactor, double gyroScaleFactor, byte[] bytesOffset)
         {
 
             // Offest noch bearbeiten
-
-            // Initialise all required Objects
-            IMUDataEntry imuDataEntry = new IMUDataEntry();
-            Accelerometer accelerometer = new Accelerometer();
-            Gyroscope gyroscope = new Gyroscope();
+            short AccOffsetX = (short)(bytesOffset[9] * 256 + bytesOffset[10]);
+            short AccOffsetY = (short)(bytesOffset[11] * 256 + bytesOffset[12]);
+            short AccOffsetZ = (short)(bytesOffset[13] * 256 + bytesOffset[14]);
 
             // Get the Value from the Accelerometer
-            short AccXRaw = (short)(bytes[10] * 256 + bytes[11]);
-            short AccYRaw = (short)(bytes[12] * 256 + bytes[13]);
-            short AccZRaw = (short)(bytes[14] * 256 + bytes[14]);
+            short AccXRaw = (short)(bytesIMUData[10] * 256 + bytesIMUData[11]);
+            short AccYRaw = (short)(bytesIMUData[12] * 256 + bytesIMUData[13]);
+            short AccZRaw = (short)(bytesIMUData[14] * 256 + bytesIMUData[14]);
 
-            // Scale the Accelerometervalues to G
-            float AccX = (float)(AccXRaw / accScaleFactor);
-            float AccY = (float)(AccYRaw / accScaleFactor);
-            float AccZ = (float)(AccZRaw / accScaleFactor);
-
-            // Set the Acceleration in G
-            accelerometer.G_X = AccX;
-            accelerometer.G_Y = AccY;
-            accelerometer.G_Z = AccZ;
+            // Calculate the Accelerometer in G
+            float AccGX = (float)(AccXRaw / accScaleFactor);
+            float AccGY = (float)(AccYRaw / accScaleFactor);
+            float AccGZ = (float)(AccZRaw / accScaleFactor);
 
             // Calculate the Acceleration in m/s^2
-            AccX = AccX * 9.80665f;
-            AccY = AccY * 9.80665f;
-            AccZ = AccZ * 9.80665f;
+            float AccMSX = AccGX * 9.80665f;
+            float AccMSY = AccGY * 9.80665f;
+            float AccMSZ = AccGZ * 9.80665f;
 
-            // Set the Acceleration in m/s^2
-            accelerometer.MperS_X = AccX;
-            accelerometer.MperS_Y = AccY;
-            accelerometer.MperS_Z = AccZ;
+            // Create the Accelerometervalues
+            Accelerometer accelerometer = new Accelerometer(AccGX, AccGY, AccGZ, AccMSX, AccMSY, AccMSZ);
 
             // Get the Value from the Gyroscope
-            short GyroXRaw = (short)(bytes[4] * 256 + bytes[5]);
-            short GyroYRaw = (short)(bytes[6] * 256 + bytes[7]);
-            short GyroZRaw = (short)(bytes[8] * 256 + bytes[9]);
+            short GyroXRaw = (short)(bytesIMUData[4] * 256 + bytesIMUData[5]);
+            short GyroYRaw = (short)(bytesIMUData[6] * 256 + bytesIMUData[7]);
+            short GyroZRaw = (short)(bytesIMUData[8] * 256 + bytesIMUData[9]);
 
             // Scale the Gyroscopevalues to deg/s
             float GyroX = (float)(GyroXRaw / gyroScaleFactor);
             float GyroY = (float)(GyroYRaw / gyroScaleFactor);
             float GyroZ = (float)(GyroZRaw / gyroScaleFactor);
+            
+            // Create the Gyroscopevalues
+            Gyroscope gyroscope = new Gyroscope(GyroX, GyroY, GyroZ);
 
-            // Set the Gyrochanges in deg/s
-            gyroscope.DegsPerSec_X = GyroX;
-            gyroscope.DegsPerSec_X = GyroY;
-            gyroscope.DegsPerSec_X = GyroZ;
-
-            // Set the Data in the IMUDataEntry
-            imuDataEntry.Acc = accelerometer;
-            imuDataEntry.Gyro = gyroscope;
+            // Create the IMUDataEntry
+            IMUDataEntry imuDataEntry = new IMUDataEntry(accelerometer, gyroscope);
 
             return imuDataEntry;
         }
@@ -156,5 +144,6 @@ namespace EarablesKIT.Models.Library
             }
             return ScaleFactor;
         }
+
     }
 }

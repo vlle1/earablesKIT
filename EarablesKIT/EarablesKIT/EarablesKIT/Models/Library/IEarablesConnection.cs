@@ -8,16 +8,8 @@ namespace EarablesKIT.Models.Library
 {
     interface IEarablesConnection
     {
-
-        EventHandler<DataEventArgs> IMUDataReceived { get; set; }
-
-        EventHandler<ButtonEventArgs> ButtonPressed { get; set; }
-
-        EventHandler<DeviceEventArgs> DeviceConnectionStateChanged { get; set; }
-
         
         List<IDevice> StartScanning();
-
 
         void ConnectToDevice(IDevice device);
 
@@ -30,6 +22,8 @@ namespace EarablesKIT.Models.Library
         void SetSamplingRate(int rate);
 
         bool IsBluetoothActive();
+
+        void CheckConnection();
       /*  void SetAccelerometerLPF(LPF_Accelerometer accelerometerLPF);
         LPF_Accelerometer GetAccelerometerLPF();
         void SetGyroscopeLPF(LPF_Gyroscope gyroscopeLPF);

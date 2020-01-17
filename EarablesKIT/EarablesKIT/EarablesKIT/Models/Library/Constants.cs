@@ -12,7 +12,7 @@ namespace EarablesKIT.Models.Library
         public static string PUSHBUTTON_CHAR { get => "0000ff09-0000-1000-8000-00805f9b34fb"; }
         public static string BATTERY_CHAR { get => "0000ff0a-0000-1000-8000-00805f9b34fb"; }
         public static string ACC_GYRO_LPF_CHAR { get => "0000ff0e-0000-1000-8000-00805f9b34fb"; }
-        public static string IMU_FULL_SCALE_RANGE_CHAR { get => throw new NotImplementedException(); }
+        public static string OFFSET_CHAR { get => "0000ff0d-0000-1000-8000-00805f9b34fb"; }
         public static string ACCES_SERVICE { get => "0000ff06-0000-1000-8000-00805f9b34fb"; }
     }
 }

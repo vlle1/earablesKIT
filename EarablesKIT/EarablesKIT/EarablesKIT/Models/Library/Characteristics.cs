@@ -19,5 +19,7 @@ namespace EarablesKIT.Models.Library
         public ICharacteristic IMUScaleRangeChar { get => imuScaleRangeChar; set => imuScaleRangeChar = value; }
         private ICharacteristic accelerometerGyroscopeLPFChar;
         public ICharacteristic AccelerometerGyroscopeLPFChar { get => accelerometerGyroscopeLPFChar; set => accelerometerGyroscopeLPFChar = value; }
+        private ICharacteristic offsetChar;
+        public ICharacteristic OffsetChar { get => offsetChar; set => offsetChar = value; }
     }
 }
