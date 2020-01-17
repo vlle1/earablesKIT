@@ -4,6 +4,7 @@ using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
+using EarablesKIT.Models.SettingsService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,70 +19,75 @@ namespace EarablesKIT.ViewModels
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private Stopwatch timer;
-		private AbstractStepActivity stepActivity { get; set; }
-		private AbstractRunningActivity runningActivity { get; set; }
-		private IActivityManager activityManager { get; set; }
+		private Stopwatch _timer;
+		private AbstractStepActivity _stepActivity { get; set; }
+		private AbstractRunningActivity _runningActivity { get; set; }
+		private IActivityManager _activityManager { get; set; }
+
+		private String _stepsDoneLastTime, _distanceWalkedLastTime, _lastDataTime;
+		private int _stepCounter, _distanceWalked;
+		private bool _isRunning;
+		private double _stepFrequency;
 		public string StepsDoneLastTime
 		{
-			get { return StepsDoneLastTime; }
+			get { return _stepsDoneLastTime; }
 			set
 			{
-				StepsDoneLastTime = value;
+				_stepsDoneLastTime = value;
 				OnPropertyChanged();
 			}
 		}
 		public string DistanceWalkedLastTime
 		{
-			get { return DistanceWalkedLastTime; }
+			get { return _distanceWalkedLastTime; }
 			set
 			{
-				DistanceWalkedLastTime = value;
+				_distanceWalkedLastTime = value;
 				OnPropertyChanged();
 			}
 		}
 		public string LastDataTime
 		{
-			get { return LastDataTime; }
+			get { return _lastDataTime; }
 			set
 			{
-				LastDataTime = value;
+				_lastDataTime = value;
 				OnPropertyChanged();
 			}
 		}
 		public int StepCounter
 		{
-			get { return StepCounter; }
+			get { return _stepCounter; }
 			set
 			{
-				StepCounter = value;
+				_stepCounter = value;
 				OnPropertyChanged();
 			}
 		}
 		public int DistanceWalked
 		{
-			get { return DistanceWalked; }
+			get { return _distanceWalked; }
 			set
 			{
-				DistanceWalked = value;
+				_distanceWalked = value;
 				OnPropertyChanged();
 			}
 		}
 		public bool IsRunning
 		{
-			get { return IsRunning; }
+			get { return _isRunning; }
 			set
 			{
-				IsRunning = value;
+				_isRunning = value;
 				OnPropertyChanged();
 			}
 		}
 		public double StepFrequency
 		{
-			get { return StepFrequency; }
+			get { return _stepFrequency; }
 			set
 			{
-				StepFrequency = value;
+				_stepFrequency = value;
 				OnPropertyChanged();
 			}
 		}
@@ -89,15 +95,13 @@ namespace EarablesKIT.ViewModels
 
 		public StepModeViewModel()
 		{
-			StartActivityCommand = new Command(() => StartActivity());
-			StopActivityCommand = new Command(() => StopActivity());
-			activityManager = (IActivityManager) ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-			stepActivity = (AbstractStepActivity) activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
-			runningActivity = (AbstractRunningActivity) ServiceManager.ServiceProvider.GetService(typeof(AbstractRunningActivity));
+			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+			_stepActivity = (AbstractStepActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
+			_runningActivity = (AbstractRunningActivity)ServiceManager.ServiceProvider.GetService(typeof(AbstractRunningActivity));
 			UpdateLastData();
 			IsRunning = false;
 		}
-		
+
 		public override void OnActivityDone(object sender, ActivityArgs args)
 		{
 			StepCounter++;
@@ -108,20 +112,23 @@ namespace EarablesKIT.ViewModels
 			RunningEventArgs RunningEvent = (RunningEventArgs)args;
 			//IsRunning = RunningEvent.Running; 
 		}
-		
+
 		protected void OnPropertyChanged([CallerMemberName] string name = "")
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
-		protected override void StartActivity()
+		public override void StartActivity()
 		{
 			CheckConnection();
 			StepCounter = 0;
-			stepActivity.ActivityDone += OnActivityDone;
-			runningActivity.ActivityDone += OnRunningDone;
-			timer.Start();
-			//Navigation.PushAsync(new StopModeActiveView());
+			_stepActivity.ActivityDone += OnActivityDone;
+			_runningActivity.ActivityDone += OnRunningDone;
+		}
+
+		public void HandlingTimer()
+		{
+			_timer.Start();
 			Device.StartTimer(TimeSpan.FromSeconds(3.0), () =>
 			{
 				UpdateFrequency();
@@ -129,11 +136,11 @@ namespace EarablesKIT.ViewModels
 			});
 		}
 
-		protected override void StopActivity()
+		public override void StopActivity()
 		{
-			timer.Stop();
-			stepActivity.ActivityDone -= OnActivityDone;
-			runningActivity.ActivityDone -= OnRunningDone;
+			_timer.Stop();
+			_stepActivity.ActivityDone -= OnActivityDone;
+			_runningActivity.ActivityDone -= OnRunningDone;
 			IsRunning = false;
 			ShowPopUp();
 			UpdateLastData();
@@ -141,17 +148,20 @@ namespace EarablesKIT.ViewModels
 
 		private void UpdateLastData()
 		{
-			//IDataBaseConnection DatabaseService = ServiceManager.ServiceProvider.GetService<IDataBaseConnection>();
-			//DBEntry entry = DatabaseService.getMostRecentEntriesAsync(1)[0];
-			//LastDataTime = entry.Date().ToString();
-			//StepsDoneLastTime = entry.TrainingsData["steps"]
-			//DistanceWalkedLastTime = StepsDoneLastTime * Steplength
+			IDataBaseConnection DatabaseService = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			List<DBEntry> Entries = (List<DBEntry>)DatabaseService.GetMostRecentEntriesAsync(1).Result;
+			DBEntry entry = Entries[0];
+			LastDataTime = entry.Date.ToString();
+			StepsDoneLastTime = entry.TrainingsData["steps"].ToString();
+			ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
+			int dwlt = entry.TrainingsData["steps"] * setser.MyUser.Steplength;
+			DistanceWalkedLastTime = dwlt.ToString();
 		}
 
 
 		private void UpdateFrequency()
 		{
-			double totalTime = timer.Elapsed.Seconds;
+			double totalTime = _timer.Elapsed.Seconds;
 			StepFrequency = 60 * StepCounter / totalTime; //Schritte pro Minute
 		}
 

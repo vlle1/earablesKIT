@@ -12,18 +12,32 @@ namespace EarablesKIT.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StepModePage : ContentPage
     {
+		StepModeViewModel ViewModel { get; set; }
         public StepModePage()
         {
             InitializeComponent();
-			var ViewModel = new StepModeViewModel();
-			BindingContext = ViewModel; //geändert
+			ViewModel = new StepModeViewModel();
+			BindingContext = ViewModel; 
         }
 
-		public void changeView()
+		public void OnStartButtonClicked(object sender, EventArgs args)
 		{
-			StepModeActivePage NeueView = new StepModeActivePage();
-			NeueView.BindingContext = this.BindingContext;
-			Navigation.PushAsync(NeueView);
+			ViewModel.StartActivity(); //bool
+			ChangeView();
+			ViewModel.HandlingTimer();
+		}
+
+
+		public async void ChangeView()
+		{
+			StepModeActivePage NewView = new StepModeActivePage(this);
+			NewView.BindingContext = this.BindingContext;
+			await Navigation.PushModalAsync(NewView);
+		}
+
+		public object ThrowingViewModel()
+		{
+			return ViewModel;
 		}
     }
 }

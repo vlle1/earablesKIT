@@ -123,4 +123,7 @@
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Wonderful MusicModeEntry page!</value>
   </data>
+  <data name="StepMode" xml:space="preserve">
+    <value>Stepmode</value>
+  </data>
 </root>

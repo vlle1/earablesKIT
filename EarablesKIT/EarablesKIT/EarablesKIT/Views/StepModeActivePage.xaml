@@ -4,12 +4,72 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.StepModeActivePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
+            <Label Text="{x:Static resource:AppResources.StepModeName}"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+            <StackLayout Spacing="0">
+                <Label Text="Currently Training"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+                <Label Text="22.01.2019"
+                   Padding="10"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+            </StackLayout>
+            <Grid Padding="30" RowSpacing="40">
+                <Label Text="Current Status"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       BackgroundColor="Beige"/>
+                <Label Text="You are Walking!"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       BackgroundColor="DeepSkyBlue"/>
+                <Label Text="1620"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large" 
+                       Grid.Row="1" 
+                       Grid.Column="0" 
+                       BackgroundColor="CornflowerBlue"/>
+                <Label Text="Steps Done During This Session" 
+                       FontSize="Large" 
+                       Grid.Row="1" 
+                       Grid.Column="1"/>
+                <Label Text="180" 
+                       VerticalTextAlignment="Center"
+                       FontSize="Large" 
+                       Grid.Row="2" 
+                       Grid.Column="0"
+                       BackgroundColor="CornflowerBlue"/>
+                <Label Text="Frequency in Steps per Minute" 
+                       FontSize="Large" 
+                       Grid.Row="2" 
+                       Grid.Column="1"/>
+            </Grid>
+            <Button Text="Stop Stepmode" 
+                    Clicked="OnStopButtonClicked"
+                    VerticalOptions="CenterAndExpand" 
+                    BackgroundColor="IndianRed" 
+                    BorderColor="Black" 
+                    BorderWidth="1" 
+                    CornerRadius="10" 
+                    HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

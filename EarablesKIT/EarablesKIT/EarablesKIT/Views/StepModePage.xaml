@@ -50,7 +50,7 @@
                        Grid.Column="1"/>
             </Grid>
             <Button Text="Start Stepmode" 
-                    Command="{Binding StartActivityCommand}" 
+                    Clicked="OnStartButtonClicked"
                     VerticalOptions="CenterAndExpand" 
                     BackgroundColor="CornflowerBlue" 
                     BorderColor="Black" 
