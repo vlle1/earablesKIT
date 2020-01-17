@@ -19,7 +19,7 @@ namespace EarablesKIT.Models.SettingsService
         public string Username
         {
             get => _username;
-            private set => _username = Regex.Match(value, USER_PATTERN).Success ? value : _username;
+            private set => _username = Regex.Match(value, @"\w+").Success ? value : _username;
         }
 
         private int _steplength = 70;
@@ -31,7 +31,7 @@ namespace EarablesKIT.Models.SettingsService
         {
             get => _steplength;
 
-            private set => _steplength = value > 0 ? value : _steplength;
+            private set => _steplength = value > 0 ? value : 0;
         }
 
         public User(string username, int steplength)

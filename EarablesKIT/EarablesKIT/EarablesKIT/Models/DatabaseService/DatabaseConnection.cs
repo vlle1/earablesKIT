@@ -13,25 +13,30 @@ namespace EarablesKIT.Models.DatabaseService
         private readonly string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "EarablesKIT_TrainingsData.db3");
 
+        public SQLiteConnection Database => _database;
+
         public DatabaseConnection()
         {
             _database = new SQLiteConnection(_path);
-            _database.CreateTable<DBEntry>();
+            _database.CreateTable<DBEntryToSave>();
         }
 
         public void DeleteAllEntries()
         {
-            _database.DropTable<DBEntry>();
+            _database.DropTable<DBEntryToSave>();
+            _database.CreateTable<DBEntryToSave>();
         }
         
-        public void ExportTrainingsData(string path)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<DBEntry> GetAllEntriesAsync()
         {
-            return _database.Table<DBEntry>().ToList();
+            List<DBEntry> dBEntries = new List<DBEntry>();
+            List<DBEntryToSave> dbEntriesString = _database.Table<DBEntryToSave>().ToList();
+            foreach (var entry in dbEntriesString)
+            {
+                dBEntries.Add(DBEntry.ParseDbEntry(entry));
+            }
+            return dBEntries;
         }
 
 
@@ -56,42 +61,48 @@ namespace EarablesKIT.Models.DatabaseService
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="entry"></param>
+        /// <param name="entryArg"></param>
         /// <returns></returns>
-        public int SaveDBEntry(DBEntry entry)
+        public int SaveDBEntry(DBEntry entryArg)
         {
             int primaryResult = -1;
-            TableQuery<DBEntry> resultQuery = _database.Table<DBEntry>();
+            TableQuery<DBEntryToSave> resultQuery = _database.Table<DBEntryToSave>();
             DBEntry result = null;
 
-            foreach (var s in resultQuery)
+            foreach (var dbEntry in resultQuery)
             {
-                if (s.Date.Equals(entry.Date))
+                if (dbEntry.DateTime.Equals(entryArg.Date))
                 {
-                    result = s;
+                    result = DBEntry.ParseDbEntry(dbEntry);
                     break;
                 }
             }
             // DBEntry result = resultQuery.First();
             if (result == null)
             {
-                primaryResult = _database.Insert(entry);
+                primaryResult = _database.Insert(entryArg.ConvertToDBEntryToSave());
             }
             else
             {
                 DBEntry toUpdate = result;
                 toUpdate.TrainingsData[DBEntry.StepAmountIdentifier] +=
-                    entry.TrainingsData[DBEntry.StepAmountIdentifier];
+                    entryArg.TrainingsData[DBEntry.StepAmountIdentifier];
 
                 toUpdate.TrainingsData[DBEntry.PushUpAmountIdentifier] +=
-                    entry.TrainingsData[DBEntry.PushUpAmountIdentifier];
+                    entryArg.TrainingsData[DBEntry.PushUpAmountIdentifier];
 
                 toUpdate.TrainingsData[DBEntry.SitUpAmountIdentifier] +=
-                    entry.TrainingsData[DBEntry.SitUpAmountIdentifier];
+                    entryArg.TrainingsData[DBEntry.SitUpAmountIdentifier];
 
-                primaryResult = _database.Update(toUpdate);
+                primaryResult = _database.Update(toUpdate.ConvertToDBEntryToSave());
             }
             return primaryResult;
+        }
+
+
+        public void ExportTrainingsData(string path)
+        {
+            throw new NotImplementedException();
         }
     }
 }

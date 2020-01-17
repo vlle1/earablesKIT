@@ -18,14 +18,17 @@ namespace EarablesKIT
 
             //Testing TODO
             DatabaseConnection dbConnection = new DatabaseConnection();
+            dbConnection.DeleteAllEntries();
             DBEntry entryToSave = new DBEntry(DateTime.Today, 100,50,10);
 
             int saveDbEntry = dbConnection.SaveDBEntry(entryToSave);
             List<DBEntry> actualEntry = dbConnection.GetAllEntriesAsync();
 
+            bool equal = entryToSave.ToString().Equals(actualEntry[0].ToString());
+
             MainPage.DisplayAlert("SaveDBEntry",
                 "saveDBEntryPrimaryKey: " + saveDbEntry + "\nDBEntry: " + entryToSave + "\nActual Entry: " +
-                actualEntry[0]+ " \nEqual? "+ entryToSave.Equals(actualEntry[0]), "Accept", "Cancel");
+                actualEntry[0]+ " \nEqual? "+ equal, "Accept", "Cancel");
         }
 
         protected override void OnStart()
