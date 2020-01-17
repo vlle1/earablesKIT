@@ -7,7 +7,7 @@ using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Models.SettingsService
 {
-    internal class SettingsService : ISettingsService
+    public class SettingsService : ISettingsService
     {
         private const string LANGUAGE_PROPERTY = "Language";
         private const string USER_PROPERTY = "User";

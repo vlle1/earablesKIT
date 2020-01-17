@@ -13,7 +13,7 @@ namespace ViewModelTests.Models.SettingsService
         [Fact]
         public void TestLoadSettings()
         {
-            //TODO Wenn Mocks drin sind
+            
         }
 
         [Fact]
