@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             mc:Ignorable="d"
+             x:Class="EarablesKIT.Views.PopUpScanningPage">
+    
+        <StackLayout Margin="12"
+                     Padding="24"
+                     Spacing="24"
+                     BackgroundColor="White"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+            <StackLayout>
+                <Label Text="{x:Static resource:AppResources.ScanningPopUpAlertLabel}" FontSize="Large" TextColor="Black"/>
+                <Button Text="{x:Static resource:AppResources.ScanningPopUpScanDevicesButton}" Pressed="OnScanningButtonPressed"/>
+            </StackLayout>
+            <StackLayout>
+            <ListView x:Name="DevicesListView" 
+                      ItemsSource="{Binding DevicesList}">
+                
+            </ListView>
+        </StackLayout>
+
+            <StackLayout>
+                <Button Text="{x:Static resource:AppResources.ScanningPopUpConnectButton}" Command="{Binding ConnectDeviceCommand}"/>
+                <Button Text="{x:Static resource:AppResources.ScanningPopUpCancelButton}" Command="{Binding CancelCommand}"  
+                        CommandParameter="{Binding Source=DevicesListView, Path=SelectedItem}"/>
+            </StackLayout>
+        </StackLayout>
+    
+</pages:PopupPage>

@@ -1,45 +1,78 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
 using Plugin.BLE.Abstractions.Contracts;
+using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Input;
+using EarablesKIT.Views;
 using Xamarin.Forms;
-using Rg.Plugins.Popup;
 
 namespace EarablesKIT.ViewModels
 {
-    class ScanningPopUpViewModel : INotifyPropertyChanged
+    internal class ScanningPopUpViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public static bool IsConnected { get; set; }
 
-        public static bool IsConnected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICommand ScanDevicesCommand => new Command(ScanDevices);
 
-        public Command ScanDevicesCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Command ConnectDeviceCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Command CancelCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICommand ConnectDeviceCommand => new Command(ConnectDevice);
 
-        public ObservableCollection<IDevice> DevicesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICommand CancelCommand => new Command(HidePopUp);
 
+        public ObservableCollection<string> DevicesList { get; set; }
+
+        private readonly IEarablesConnection _earablesConnectionService;
 
         public ScanningPopUpViewModel()
         {
-            throw new NotImplementedException();
+            DevicesList = new ObservableCollection<string>();
+            //_earablesConnectionService= (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+            //_earablesConnectionService.DeviceConnectionStateChanged += OnDeviceConnectionStateChanged;
         }
 
-        //TODO change EventArgs to DeviceEventArgs
         public void OnDeviceConnectionStateChanged(object sender, DeviceEventArgs args)
         {
-            throw new NotImplementedException();
+            IsConnected = args.Connected;
+            if (!args.Connected)
+            {
+                ShowPopUp();
+            }
         }
 
         public static void ShowPopUp()
         {
-            throw new NotImplementedException();
+            PopupNavigation.Instance.PushAsync(new PopUpScanningPage(), true);
         }
+
         public static void HidePopUp()
         {
-            throw new NotImplementedException();
+            PopupNavigation.Instance.PopAsync(true);
+        }
+
+        private void ScanDevices()
+        {
+            DevicesList.Clear();   
+            //List<IDevice> scannedDevices = _earablesConnectionService.StartScanning();
+            List<string> scannedDevices = new List<string>();
+            scannedDevices.Add("Entry1");
+            scannedDevices.Add("Entry2");
+            scannedDevices.Add("Entry3");
+            foreach (string device in scannedDevices)
+            {
+                DevicesList.Add(device);
+            }
+        }
+
+        private void ConnectDevice(object selectedItem)
+        {
+            //bool connectToDevice = _earablesConnectionService.ConnectToDevice(selectedItem);
+            Application.Current.MainPage.DisplayAlert("Connected!","You are " + selectedItem+"connected! ","Accept","Cancel");
         }
     }
 }

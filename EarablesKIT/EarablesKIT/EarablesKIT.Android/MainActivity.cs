@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Rg.Plugins.Popup.Services;
 
 namespace EarablesKIT.Droid
 {
@@ -19,6 +20,8 @@ namespace EarablesKIT.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
@@ -28,6 +31,13 @@ namespace EarablesKIT.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        public override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+                PopupNavigation.Instance.PopAsync(true);
+            }
         }
     }
 }

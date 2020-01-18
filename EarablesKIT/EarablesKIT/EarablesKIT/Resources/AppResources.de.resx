@@ -123,4 +123,16 @@
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Willkommen im Musikmodus!</value>
   </data>
+  <data name="ScanningPopUpAlertLabel" xml:space="preserve">
+    <value>Du bist mit keinem Gerät verbunden!</value>
+  </data>
+  <data name="ScanningPopUpCancelButton" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ScanningPopUpConnectButton" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="ScanningPopUpScanDevicesButton" xml:space="preserve">
+    <value>Suche Geräte</value>
+  </data>
 </root>

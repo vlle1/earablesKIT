@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using EarablesKIT.ViewModels;
+using Xamarin.Forms;
 using EarablesKIT.Views;
 
 namespace EarablesKIT
@@ -11,6 +12,8 @@ namespace EarablesKIT
             InitializeComponent();
 
             MainPage = new MainPage();
+            System.Threading.Thread.Sleep(2000);
+            ScanningPopUpViewModel.ShowPopUp();
         }
 
         protected override void OnStart()

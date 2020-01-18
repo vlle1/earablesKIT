@@ -77,5 +77,41 @@ namespace EarablesKIT.Resources {
                 return ResourceManager.GetString("MusicModeEntryLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No device connected!.
+        /// </summary>
+        internal static string ScanningPopUpAlertLabel {
+            get {
+                return ResourceManager.GetString("ScanningPopUpAlertLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ScanningPopUpCancelButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect.
+        /// </summary>
+        internal static string ScanningPopUpConnectButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpConnectButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan Devices.
+        /// </summary>
+        internal static string ScanningPopUpScanDevicesButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpScanDevicesButton", resourceCulture);
+            }
+        }
     }
 }

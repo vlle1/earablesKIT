@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace EarablesKIT.Models.Library
 {
@@ -10,7 +11,7 @@ namespace EarablesKIT.Models.Library
         public EventHandler<ButtonEventArgs> ButtonPressed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public bool ConnectToDevice(object device)
+        public bool ConnectToDevice(IDevice device)
         {
             throw new NotImplementedException();
         }
@@ -55,7 +56,7 @@ namespace EarablesKIT.Models.Library
             throw new NotImplementedException();
         }
 
-        public List<object> StartScanning()
+        public List<IDevice> StartScanning()
         {
             throw new NotImplementedException();
         }
