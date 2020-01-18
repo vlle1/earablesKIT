@@ -4,23 +4,24 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.StepModePage">
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
-            <Label Text="StepMode"
+            <Label Text="{x:Static resource:AppResources.StepModeNameLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
             <StackLayout Spacing="0">
-                <Label Text=" Last Trainings Date "
+                <Label Text="{x:Static resource:AppResources.StepModeTrainingsDateLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
-                <Label Text="22.01.2019"
+                <Label Text="{Binding LastDataTime}"
                    Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
@@ -28,28 +29,30 @@
                    BackgroundColor="CornflowerBlue"/>
             </StackLayout>
             <Grid Padding="20" RowSpacing="30">
-                <Label Text="10800"
+                <Label Text="{Binding StepsDoneLastTime}"
                        VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
                        FontSize="Large" 
                        Grid.Row="0" 
                        Grid.Column="0" 
                        BackgroundColor="CornflowerBlue"/>
-                <Label Text="Steps Done  &#x0a;Last Time" 
+                <Label Text="{x:Static resource:AppResources.StepModeLastStepsLabel}" 
                        FontSize="Large" 
                        Grid.Row="0" 
                        Grid.Column="1"/>
-                <Label Text="4,5 km" 
+                <Label Text="{Binding DistanceWalkedLastTime}" 
                        VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
                        FontSize="Large" 
                        Grid.Row="1" 
                        Grid.Column="0"
                        BackgroundColor="CornflowerBlue"/>
-                <Label Text="Distance Walked Last Time" 
+                <Label Text="{x:Static resource:AppResources.StepModeLastDistanceLabel}" 
                        FontSize="Large" 
                        Grid.Row="1" 
                        Grid.Column="1"/>
             </Grid>
-            <Button Text="Start Stepmode" 
+            <Button Text="{x:Static resource:AppResources.StepModeStartButton}" 
                     Clicked="OnStartButtonClicked"
                     VerticalOptions="CenterAndExpand" 
                     BackgroundColor="CornflowerBlue" 

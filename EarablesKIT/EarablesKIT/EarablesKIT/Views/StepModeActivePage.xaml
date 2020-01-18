@@ -8,20 +8,20 @@
              x:Class="EarablesKIT.Views.StepModeActivePage">
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
-            <Label Text="{x:Static resource:AppResources.StepModeName}"
+            <Label Text="{x:Static resource:AppResources.StepModeNameLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
             <StackLayout Spacing="0">
-                <Label Text="Currently Training"
+                <Label Text="{x:Static resource:AppResources.StepModeStartDataTime}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
-                <Label Text="22.01.2019"
+                <Label Text="{Binding CurrentDate}"
                    Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
@@ -29,40 +29,42 @@
                    BackgroundColor="CornflowerBlue"/>
             </StackLayout>
             <Grid Padding="20" RowSpacing="30">
-                <Label Text="Current Status"
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedStatusLabel}"
                        VerticalTextAlignment="Center"
                        FontSize="Large"
                        Grid.Row="0"
                        Grid.Column="0"
                        BackgroundColor="Beige"/>
-                <Label Text="You are Walking!"
+                <Label Text="{Binding StatusDisplay}"
                        VerticalTextAlignment="Center"
                        FontSize="Large"
                        Grid.Row="0"
                        Grid.Column="1"
                        BackgroundColor="DeepSkyBlue"/>
-                <Label Text="1620"
+                <Label Text="{Binding StepCounter} "
                        VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
                        FontSize="Large" 
                        Grid.Row="1" 
                        Grid.Column="0" 
                        BackgroundColor="CornflowerBlue"/>
-                <Label Text="Steps Done During This Session" 
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedStepsDoneLabel}" 
                        FontSize="Large" 
                        Grid.Row="1" 
                        Grid.Column="1"/>
-                <Label Text="180" 
+                <Label Text="{Binding StepFrequency}" 
                        VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
                        FontSize="Large" 
                        Grid.Row="2" 
                        Grid.Column="0"
                        BackgroundColor="CornflowerBlue"/>
-                <Label Text="Frequency in Steps per Minute" 
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedFrequencyLabel}" 
                        FontSize="Large" 
                        Grid.Row="2" 
                        Grid.Column="1"/>
             </Grid>
-            <Button Text="Stop Stepmode" 
+            <Button Text="{x:Static resource:AppResources.StepModeStopButton}" 
                     Clicked="OnStopButtonClicked"
                     VerticalOptions="CenterAndExpand" 
                     BackgroundColor="IndianRed" 

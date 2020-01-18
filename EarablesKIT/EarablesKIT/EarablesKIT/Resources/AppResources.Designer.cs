@@ -79,11 +79,92 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Stepmode ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Distance Walked Last Time ähnelt.
         /// </summary>
-        internal static string StepModeName {
+        internal static string StepModeLastDistanceLabel {
             get {
-                return ResourceManager.GetString("StepModeName", resourceCulture);
+                return ResourceManager.GetString("StepModeLastDistanceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Steps Taken Last Time ähnelt.
+        /// </summary>
+        internal static string StepModeLastStepsLabel {
+            get {
+                return ResourceManager.GetString("StepModeLastStepsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die StepMode ähnelt.
+        /// </summary>
+        internal static string StepModeNameLabel {
+            get {
+                return ResourceManager.GetString("StepModeNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Start Stepmode ähnelt.
+        /// </summary>
+        internal static string StepModeStartButton {
+            get {
+                return ResourceManager.GetString("StepModeStartButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Training Startet On/At ähnelt.
+        /// </summary>
+        internal static string StepModeStartDataTime {
+            get {
+                return ResourceManager.GetString("StepModeStartDataTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Stop Stepmode ähnelt.
+        /// </summary>
+        internal static string StepModeStopButton {
+            get {
+                return ResourceManager.GetString("StepModeStopButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Last Trainings Date ähnelt.
+        /// </summary>
+        internal static string StepModeTrainingsDateLabel {
+            get {
+                return ResourceManager.GetString("StepModeTrainingsDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Frequency in Steps per Minute ähnelt.
+        /// </summary>
+        internal static string StepModeUnbindedFrequencyLabel {
+            get {
+                return ResourceManager.GetString("StepModeUnbindedFrequencyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Current Status ähnelt.
+        /// </summary>
+        internal static string StepModeUnbindedStatusLabel {
+            get {
+                return ResourceManager.GetString("StepModeUnbindedStatusLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Steps Taken During This Session  ähnelt.
+        /// </summary>
+        internal static string StepModeUnbindedStepsDoneLabel {
+            get {
+                return ResourceManager.GetString("StepModeUnbindedStepsDoneLabel", resourceCulture);
             }
         }
     }
