@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using EarablesKIT.Models.Library;
+using Plugin.BLE.Abstractions.Contracts;
 using Xamarin.Forms;
+using Rg.Plugins.Popup;
 
 namespace EarablesKIT.ViewModels
 {
@@ -16,8 +19,7 @@ namespace EarablesKIT.ViewModels
         public Command ConnectDeviceCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Command CancelCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        //TODO change object in IDevice from BLE Lib
-        public ObservableCollection<object> DevicesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ObservableCollection<IDevice> DevicesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
         public ScanningPopUpViewModel()
@@ -26,7 +28,7 @@ namespace EarablesKIT.ViewModels
         }
 
         //TODO change EventArgs to DeviceEventArgs
-        public void OnDeviceConnectionStateChanged(object sender, EventArgs args)
+        public void OnDeviceConnectionStateChanged(object sender, DeviceEventArgs args)
         {
             throw new NotImplementedException();
         }
