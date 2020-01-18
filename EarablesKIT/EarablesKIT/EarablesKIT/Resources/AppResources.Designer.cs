@@ -61,6 +61,24 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Okay.
+        /// </summary>
+        internal static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wonderful DataOverviewPage!.
         /// </summary>
         internal static string DataOverviewPageEntryLabel {
@@ -70,11 +88,29 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
         /// </summary>
         internal static string MusicModeEntryLabel {
             get {
                 return ResourceManager.GetString("MusicModeEntryLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection failed!.
+        /// </summary>
+        internal static string ScanningPopUpAlertCouldntConnect {
+            get {
+                return ResourceManager.GetString("ScanningPopUpAlertCouldntConnect", resourceCulture);
             }
         }
         

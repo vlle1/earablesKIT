@@ -1,23 +1,22 @@
-﻿using EarablesKIT.ViewModels;
+﻿using EarablesKIT.Views;
 using Xamarin.Forms;
-using EarablesKIT.Views;
 
 namespace EarablesKIT
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();
-
             MainPage = new MainPage();
-            System.Threading.Thread.Sleep(2000);
-            ScanningPopUpViewModel.ShowPopUp();
         }
 
         protected override void OnStart()
         {
+            //Register eventmethode for ScanningPopUpViewModel
+            //TODO uncomment
+            //IEarablesConnection service = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+            //service.DeviceConnectionStateChanged += ScanningPopUpViewModel.OnDeviceConnectionStateChanged;
         }
 
         protected override void OnSleep()
