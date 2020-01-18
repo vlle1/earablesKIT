@@ -14,30 +14,36 @@ namespace EarablesKIT.Models.Extentionmodel
     class ActivityManager : IActivityManager
     {
         private ServiceProvider _activityProvider;
-        public List<Activity> activities = new List<Activity>();
+        public List<Activity> Activities = new List<Activity>();
 
-        public ServiceProvider ActitvityProvider { get => _activityProvider; set => _activityProvider = value; }
+        public ServiceProvider ActitvityProvider {
+            get => _activityProvider; 
+            set => _activityProvider = value; }
 
         public void OnIMUDataReceived(object sender, DataEventArgs args)
         {
-            throw new NotImplementedException();
-        }
-
-        public IServiceCollection ServiceRegistration()
-        {
-            IServiceCollection collection = new ServiceCollection();
-            collection.AddSingleton<AbstractStepActivity, StepActivityThreshold>();
-            collection.AddSingleton<AbstractRunningActivity, RunningActivityThreshold>();
-
-            collection.AddSingleton<AbstractPushUpActivity, PushUpActivityThreshold>();
-            collection.AddSingleton<AbstractSitUpActivity, SitUpActivityThreshold>();
-            
-            return collection;
+            foreach (Activity activity in Activities) activity.DataUpdate(args);
         }
 
         public ActivityManager()
         {
-            IEarablesConnection connection= (IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof (IEarablesConnection));
+
+           
+            _activityProvider = ServiceRegistration().BuildServiceProvider();
+          
+            IEarablesConnection connection = (IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof (IEarablesConnection));
+            //register at Library
+            connection.IMUDataReceived += OnIMUDataReceived;
+        }
+
+        private IServiceCollection ServiceRegistration()
+        {
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddSingleton<AbstractStepActivity, StepActivityThreshold>();
+            serviceCollection.AddSingleton<AbstractRunningActivity, RunningActivityThreshold>();
+            serviceCollection.AddSingleton<AbstractPushUpActivity, PushUpActivityThreshold>();
+            serviceCollection.AddSingleton<AbstractSitUpActivity, SitUpActivityThreshold>();
+            return serviceCollection;
         }
     }
 }
