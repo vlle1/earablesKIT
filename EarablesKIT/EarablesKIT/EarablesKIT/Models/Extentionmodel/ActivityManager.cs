@@ -15,7 +15,7 @@ namespace EarablesKIT.Models.Extentionmodel
             throw new NotImplementedException();
         }
 
-        public IServiceCollection ServiceRegistration()
+        public ServiceCollection ServiceRegistration()
         {
             throw new NotImplementedException();
         }
