@@ -11,20 +11,25 @@ using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel
 {
+    /// <inheritdoc/>
     class ActivityManager : IActivityManager
     {
         private ServiceProvider _activityProvider;
+        /// <summary>
+        /// This list contains all active Activities (Activities can register themselves by putting them into this list)
+        /// </summary>
         public List<Activity> Activities = new List<Activity>();
 
+        /// <inheritdoc/>
         public ServiceProvider ActitvityProvider {
             get => _activityProvider; 
             set => _activityProvider = value; }
 
+        /// <inheritdoc/>
         public void OnIMUDataReceived(object sender, DataEventArgs args)
         {
             foreach (Activity activity in Activities) activity.DataUpdate(args);
         }
-
         public ActivityManager()
         {
 
@@ -35,7 +40,10 @@ namespace EarablesKIT.Models.Extentionmodel
             //register at Library
             connection.IMUDataReceived += OnIMUDataReceived;
         }
-
+        /// <summary>
+        /// Method initializing the serviceCollection elements used in constructor.
+        /// </summary>
+        /// <returns>all services that should be registered</returns>
         private IServiceCollection ServiceRegistration()
         {
             IServiceCollection serviceCollection = new ServiceCollection();
