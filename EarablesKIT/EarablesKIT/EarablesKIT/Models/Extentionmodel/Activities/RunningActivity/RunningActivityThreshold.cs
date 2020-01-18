@@ -8,6 +8,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
     {
         protected override void Analyse()
         {
+            if ()
             throw new NotImplementedException();
         }
 
