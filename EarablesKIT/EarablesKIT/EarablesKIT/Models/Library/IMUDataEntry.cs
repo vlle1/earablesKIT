@@ -6,8 +6,15 @@ namespace EarablesKIT.Models.Library
 {
     class IMUDataEntry
     {
-        public Accelerometer Acc { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private Accelerometer acc;
+        public Accelerometer Acc { get => acc;}
+        private Gyroscope gyro;
+        public Gyroscope Gyro { get => gyro;}
 
-        public Gyroscope Gyro { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IMUDataEntry(Accelerometer acc, Gyroscope gyro)
+        {
+            this.acc = acc;
+            this.gyro = gyro;
+        }
     }
 }
