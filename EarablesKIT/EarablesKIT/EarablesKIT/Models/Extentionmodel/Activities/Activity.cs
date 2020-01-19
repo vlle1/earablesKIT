@@ -10,8 +10,8 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
     /// </summary>
     abstract class Activity
     {
-        private const int ANALYZE_TRIGGER_RATE = 20;
-        private const int BUFFER_MAX_SIZE = 100;
+        protected const int ANALYZE_TRIGGER_RATE = 20;
+        protected const int BUFFER_MAX_SIZE = 100;
         private int _bufferCounter = 0;
         /// <summary>
         /// _isActive is set to false when the algorithm is not keeping the queue up to date. Like this,
@@ -25,7 +25,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         /// <summary>
         /// The Buffer buffers incoming Data. The Data is used in Analyse().
         /// </summary>
-        private Queue<DataEventArgs> buffer;
+        protected Queue<DataEventArgs> buffer;
         
         /// <summary>
         /// This method is used to process incoming data.
@@ -60,7 +60,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         /// <summary>
         /// Whenever the Algorithm is started, it needs to reset all its old values.
         /// </summary>
-        protected void Activate()
+        protected virtual void Activate()
         {
             _isActive = true;
             _bufferCounter = 0;
