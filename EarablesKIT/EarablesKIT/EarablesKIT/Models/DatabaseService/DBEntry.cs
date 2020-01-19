@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.DatabaseService
 {
-    class DBEntry
+    public class DBEntry
     {
         public DateTime Date { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
