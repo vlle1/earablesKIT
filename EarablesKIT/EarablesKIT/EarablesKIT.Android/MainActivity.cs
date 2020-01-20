@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
+using Plugin.CurrentActivity;
 using Rg.Plugins.Popup.Services;
 
 namespace EarablesKIT.Droid
@@ -23,16 +24,10 @@ namespace EarablesKIT.Droid
             base.OnCreate(savedInstanceState);
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-
+            CrossCurrentActivity.Current.Activity = this;
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-        }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
         public override void OnBackPressed()
         {

@@ -7,8 +7,13 @@ using Plugin.BLE.Abstractions.Contracts;
 using Rg.Plugins.Popup.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using EarablesKIT.Annotations;
 using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -20,7 +25,7 @@ namespace EarablesKIT.ViewModels
     /// <item>an activity gets started without an active connection</item>
     /// </list>
     /// </summary>
-    internal class ScanningPopUpViewModel
+    internal class ScanningPopUpViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Property IsConnected represents if a device is currently connected
@@ -48,7 +53,7 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public ObservableCollection<IDevice> DevicesList { get; set; }
 
-        private readonly IEarablesConnection _earablesConnectionService;
+        private EarablesConnection _earablesConnectionService;
 
         /// <summary>
         /// Constructor ScanningPopUpViewModel initializes the attributes and properties
@@ -56,7 +61,18 @@ namespace EarablesKIT.ViewModels
         public ScanningPopUpViewModel()
         {
             DevicesList = new ObservableCollection<IDevice>();
-            _earablesConnectionService = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+            _earablesConnectionService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+            _earablesConnectionService.ScannedDeviceHandler += (sender, args) =>
+            {
+                DevicesList.Clear();
+                foreach (IDevice device in args.Devices)
+                {
+                    if (device.Name != null && device.Name.StartsWith("eSense"))
+                        DevicesList.Add(device);
+                }
+
+                OnPropertyChanged(nameof(DevicesList));
+            };
         }
 
         /// <summary>
@@ -92,16 +108,31 @@ namespace EarablesKIT.ViewModels
             PopupNavigation.Instance.PopAsync(true);
         }
 
-        private void ScanDevices()
+        private async void ScanDevices()
         {
             
             DevicesList.Clear();
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+            if (status != PermissionStatus.Granted)
+            {
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Unknown))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Need location", "Gunna need that location", "OK");
+                }
+
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Location });
+                status = results[Permission.Location];
+            }
+            
+            if (status != PermissionStatus.Granted)
+            {
+                await Application.Current.MainPage.DisplayAlert("Location Permission", "Denied!", "OK");
+                return;
+            }
+
             List<IDevice> scannedDevices = _earablesConnectionService.StartScanning();
 
-            foreach (IDevice device in scannedDevices)
-            {
-                DevicesList.Add(device);
-            }
+
         }
 
         private void ConnectDevice(IDevice selectedItem)
@@ -109,13 +140,24 @@ namespace EarablesKIT.ViewModels
             try
             {
                 _earablesConnectionService.ConnectToDevice(selectedItem);
-                HidePopUp();
+                if (_earablesConnectionService.GetConnection())
+                {
+                    HidePopUp();
+                }
             }
             catch (DeviceConnectionException e)
             {
                 Application.Current.MainPage.DisplayAlert(AppResources.Error,
                     AppResources.ScanningPopUpAlertCouldntConnect, AppResources.Accept);
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

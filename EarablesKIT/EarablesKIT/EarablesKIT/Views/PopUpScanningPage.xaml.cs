@@ -1,6 +1,7 @@
 ﻿using EarablesKIT.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using System;
+using System.ComponentModel;
 using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
@@ -22,11 +23,11 @@ namespace EarablesKIT.Views
             InitializeComponent();
             BindingContext = _viewModel = new ScanningPopUpViewModel();
             ConnectButton.IsEnabled = false;
+            _viewModel.PropertyChanged += UpdateList;
         }
 
-        private void OnScanningButtonPressed(object sender, EventArgs e)
+        public void UpdateList(object sender, PropertyChangedEventArgs eventArgs)
         {
-            _viewModel.ScanDevicesCommand.Execute(this);
             if (_viewModel.DevicesList.Count != 0)
             {
                 ConnectButton.IsEnabled = true;

@@ -6,7 +6,7 @@ using Plugin.BLE.Abstractions.EventArgs;
 
 namespace EarablesKIT.Models.Library
 {
-    interface IEarablesConnection
+    public interface IEarablesConnection
     {
         
         List<IDevice> StartScanning();
@@ -36,5 +36,7 @@ namespace EarablesKIT.Models.Library
         void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
         void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
         void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs args);
+
+        bool GetConnection();
     }
 }

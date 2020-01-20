@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using static EarablesKIT.Models.Library.Constants;
-using static EarablesKIT.Models.Library.IMUDataExtractor;
-using System.Text;
-using System.Threading.Tasks;
-using Android.Support.V4.Content;
-using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE;
-using Xamarin.Forms;
+﻿using Plugin.BLE;
 using Plugin.BLE.Abstractions;
-using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+using static EarablesKIT.Models.Library.Constants;
+using static EarablesKIT.Models.Library.IMUDataExtractor;
 
 namespace EarablesKIT.Models.Library
 {
-    class EarablesConnection : IEarablesConnection
+      class EarablesConnection : IEarablesConnection
     {
         private IBluetoothLE ble = CrossBluetoothLE.Current;
         private IAdapter adapter = CrossBluetoothLE.Current.Adapter;
@@ -36,6 +35,7 @@ namespace EarablesKIT.Models.Library
         public EventHandler<DataEventArgs> IMUDataReceived;
         public EventHandler<ButtonEventArgs> ButtonPressed;
         public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
+        public EventHandler<ScanDeviceArgs> ScannedDeviceHandler { get; set; }
 
         public EarablesConnection()
         {
@@ -45,7 +45,6 @@ namespace EarablesKIT.Models.Library
 
         public void ConnectToDevice(IDevice device)
         {
-
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
                 // Set the requiered Connection Parameters
@@ -56,7 +55,6 @@ namespace EarablesKIT.Models.Library
                     await adapter.StopScanningForDevicesAsync();
                     // Connect to the device
                     await adapter.ConnectToDeviceAsync(device, connectParams);
-
 
                     // Load all required characteristics
                     IService Service;
@@ -80,25 +78,17 @@ namespace EarablesKIT.Models.Library
                     adapter.DeviceConnected += OnDeviceConnected;
                     adapter.DeviceDisconnected += OnDeviceDisconnected;
                     adapter.DeviceConnectionLost += OnDeviceConnectionLost;
-                    
-
-
-
                 }
                 catch (DeviceConnectionException e)
                 {
                     throw e;
-
                 }
                 catch (Exception e)
                 {
                     throw e;
                 }
-                
             }));
         }
-
-
 
         public async void DisconnectFromDevice()
         {
@@ -108,7 +98,7 @@ namespace EarablesKIT.Models.Library
 
         public bool IsBluetoothActive()
         {
-            if(ble.State == BluetoothState.On)
+            if (ble.State == BluetoothState.On)
             {
                 return true;
             }
@@ -117,8 +107,6 @@ namespace EarablesKIT.Models.Library
                 return false;
             }
         }
-
-
 
         // Kann das private sein so we die anderen zwei und eine Methode für die zwei zeilen unter connected schreiben???
         public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
@@ -130,6 +118,7 @@ namespace EarablesKIT.Models.Library
                 DeviceConnectionStateChanged?.Invoke(this, e);
             }));
         }
+
         public void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
         {
             Device.BeginInvokeOnMainThread(new Action(() =>
@@ -175,7 +164,7 @@ namespace EarablesKIT.Models.Library
 
         public void SetSamplingRate(int rate)
         {
-            if(rate < 1 || rate > 100)
+            if (rate < 1 || rate > 100)
             {
                 throw new InvalideSamplerateException("The Samplerate has to be between 1 and 100");
             }
@@ -194,45 +183,28 @@ namespace EarablesKIT.Models.Library
          {
              FillDeviceList();
              return deviceList;
-
          }*/
 
-
-            // test
+        // test
         public List<IDevice> StartScanning()
         {
-            
-                FillDeviceList();
-
-                return deviceList;
-
+            FillDeviceList();
+            return deviceList;
         }
-        
 
         // Test public war eigentlich private
-        public async Task FillDeviceList()
+        public async void FillDeviceList()
         {
             try
-            {
-                var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                if (permissionStatus == PermissionStatus.Denied || permissionStatus == PermissionStatus.Disabled)
-                {
-                    Application.Current.MainPage.DisplayAlert("Keine Locationpermission! ", "Keine Location permission "+ permissionStatus.ToString(),
-                        "Accept");
-                    await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
-                }
+            { 
+                
                 deviceList.Clear();
-                adapter.ScanMode = ScanMode.LowLatency;
-                adapter.ScanTimeout = 10000;
-                adapter.DeviceDiscovered += (s, a) =>
-                {
-                    deviceList.Add(a.Device);
-                };
+                adapter.DeviceDiscovered += (s, a) => { deviceList.Add(a.Device); ScannedDeviceHandler?.Invoke(this, new ScanDeviceArgs(deviceList));};
 
                 if (!ble.Adapter.IsScanning)
                 {
                     await adapter.StartScanningForDevicesAsync();
-
+                    //ScannedDeviceHandler?.Invoke(this, new ScanDeviceArgs(deviceList));
                 }
             }
             catch (Exception e)
@@ -263,7 +235,7 @@ namespace EarablesKIT.Models.Library
             // Write the new accelerometerLPF in to the characteristic
             byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], bytesRead[4], bytesRead[5], Convert.ToByte(data3) };
             await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
-            // wird hier schon gesetzt und nicht erst wenn neue daten ankommen, da 
+            // wird hier schon gesetzt und nicht erst wenn neue daten ankommen, da
             config.AccelerometerLPF = accelerometerLPF;
         }
 
@@ -278,7 +250,7 @@ namespace EarablesKIT.Models.Library
         {
             CheckConnection();
             byte[] bytes = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            // read only the 4 LSBs 
+            // read only the 4 LSBs
             accEnumValue = (int)(bytes[6] & 0x0F);
         }
 
@@ -352,7 +324,6 @@ namespace EarablesKIT.Models.Library
             batteryVoltage = (bytes[3] * 256 + bytes[4]) / 1000f;
         }
 
-
         private async void setAccelerometerRange()
         {
             CheckConnection();
@@ -370,6 +341,7 @@ namespace EarablesKIT.Models.Library
             byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], bytesRead[4], Convert.ToByte(data2), bytesRead[6] };
             await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
         }
+
         private async void setGyroscopeRange()
         {
             CheckConnection();
@@ -394,6 +366,11 @@ namespace EarablesKIT.Models.Library
             {
                 throw new NoConnectionException("Error, no device connected");
             }
+        }
+
+        public bool GetConnection()
+        {
+            return connected;
         }
     }
 }

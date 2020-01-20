@@ -30,7 +30,7 @@
                  VerticalOptions="Center">
         <StackLayout>
             <Label Text="{x:Static resource:AppResources.ScanningPopUpAlertLabel}" FontSize="Large" TextColor="Black" />
-            <Button Text="{x:Static resource:AppResources.ScanningPopUpScanDevicesButton}" Pressed="OnScanningButtonPressed" />
+            <Button Text="{x:Static resource:AppResources.ScanningPopUpScanDevicesButton}" Command="{Binding ScanDevicesCommand}" />
         </StackLayout>
         <StackLayout>
             <ListView x:Name="DevicesListView"
