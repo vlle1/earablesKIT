@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using static EarablesKIT.Models.Library.Constants;
 using static EarablesKIT.Models.Library.IMUDataExtractor;
 using System.Text;
+using System.Threading.Tasks;
+using Android.Support.V4.Content;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE;
 using Xamarin.Forms;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 
 namespace EarablesKIT.Models.Library
 {
@@ -32,6 +36,12 @@ namespace EarablesKIT.Models.Library
         public EventHandler<DataEventArgs> IMUDataReceived;
         public EventHandler<ButtonEventArgs> ButtonPressed;
         public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
+
+        public EarablesConnection()
+        {
+            deviceList = new List<IDevice>();
+            config = new ConfigContainer();
+        }
 
         public void ConnectToDevice(IDevice device)
         {
@@ -191,17 +201,29 @@ namespace EarablesKIT.Models.Library
             // test
         public List<IDevice> StartScanning()
         {
-            return deviceList;
+            
+                FillDeviceList();
+
+                return deviceList;
 
         }
         
 
         // Test public war eigentlich private
-        public async void FillDeviceList()
+        public async Task FillDeviceList()
         {
             try
             {
+                var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                if (permissionStatus == PermissionStatus.Denied || permissionStatus == PermissionStatus.Disabled)
+                {
+                    Application.Current.MainPage.DisplayAlert("Keine Locationpermission! ", "Keine Location permission "+ permissionStatus.ToString(),
+                        "Accept");
+                    await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                }
                 deviceList.Clear();
+                adapter.ScanMode = ScanMode.LowLatency;
+                adapter.ScanTimeout = 10000;
                 adapter.DeviceDiscovered += (s, a) =>
                 {
                     deviceList.Add(a.Device);

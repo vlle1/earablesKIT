@@ -5,6 +5,9 @@ using EarablesKIT.Views;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
+using EarablesKIT.Models.Library;
+using EarablesKIT.ViewModels;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 
@@ -28,8 +31,16 @@ namespace EarablesKIT
         {
             //Register eventmethode for ScanningPopUpViewModel
             //TODO uncomment
-            //IEarablesConnection service = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
-            //service.DeviceConnectionStateChanged += ScanningPopUpViewModel.OnDeviceConnectionStateChanged;
+            EarablesConnection service = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+            service.DeviceConnectionStateChanged += ScanningPopUpViewModel.OnDeviceConnectionStateChanged;
+
+            this.showPopUp();
+        }
+
+        private async void showPopUp()
+        {
+            Thread.Sleep(5000);
+            ScanningPopUpViewModel.ShowPopUp();
         }
 
         protected override void OnSleep()

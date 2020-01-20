@@ -1,4 +1,5 @@
-﻿using EarablesKIT.Models;
+﻿using System;
+using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Resources;
 using EarablesKIT.Views;
@@ -7,6 +8,7 @@ using Rg.Plugins.Popup.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Plugin.BLE.Abstractions.Exceptions;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -78,6 +80,7 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public static void ShowPopUp()
         {
+
             PopupNavigation.Instance.PushAsync(new PopUpScanningPage(), true);
         }
 
@@ -91,6 +94,7 @@ namespace EarablesKIT.ViewModels
 
         private void ScanDevices()
         {
+            
             DevicesList.Clear();
             List<IDevice> scannedDevices = _earablesConnectionService.StartScanning();
 
@@ -102,13 +106,12 @@ namespace EarablesKIT.ViewModels
 
         private void ConnectDevice(IDevice selectedItem)
         {
-            bool couldConnect = _earablesConnectionService.ConnectToDevice(selectedItem);
-
-            if (couldConnect)
+            try
             {
+                _earablesConnectionService.ConnectToDevice(selectedItem);
                 HidePopUp();
             }
-            else
+            catch (DeviceConnectionException e)
             {
                 Application.Current.MainPage.DisplayAlert(AppResources.Error,
                     AppResources.ScanningPopUpAlertCouldntConnect, AppResources.Accept);

@@ -1,11 +1,13 @@
 ﻿using System;
-
+using Android;
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Rg.Plugins.Popup.Services;
 
 namespace EarablesKIT.Droid
@@ -37,6 +39,19 @@ namespace EarablesKIT.Droid
             if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
             {
                 PopupNavigation.Instance.PopAsync(true);
+            }
+        }
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Bluetooth) != Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation, Manifest.Permission.Bluetooth }, 0);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
             }
         }
     }

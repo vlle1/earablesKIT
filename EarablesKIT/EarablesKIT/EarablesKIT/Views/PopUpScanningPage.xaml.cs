@@ -11,6 +11,7 @@ namespace EarablesKIT.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopUpScanningPage : PopupPage
     {
+
         private ScanningPopUpViewModel _viewModel;
 
         /// <summary>
