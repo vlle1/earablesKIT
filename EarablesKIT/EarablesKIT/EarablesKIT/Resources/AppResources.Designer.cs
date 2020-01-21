@@ -185,45 +185,144 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Wonderful DataOverviewPage!.
         /// </summary>
-        internal static string DataOverviewPageEntryLabel {
+        internal static string DataOverviewPageEntryLabel1 {
             get {
-                return ResourceManager.GetString("DataOverviewPageEntryLabel", resourceCulture);
+                return ResourceManager.GetString("DataOverviewPageEntryLabel1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Something went wrong!.
         /// </summary>
-        internal static string DefaultError {
+        internal static string DefaultError1 {
             get {
-                return ResourceManager.GetString("DefaultError", resourceCulture);
+                return ResourceManager.GetString("DefaultError1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Exception!.
         /// </summary>
-        internal static string ErrorAlert {
+        internal static string ErrorAlert1 {
             get {
-                return ResourceManager.GetString("ErrorAlert", resourceCulture);
+                return ResourceManager.GetString("ErrorAlert1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
         /// </summary>
-        internal static string MusicModeEntryLabel {
+        internal static string MusicModeEntryLabel1 {
             get {
-                return ResourceManager.GetString("MusicModeEntryLabel", resourceCulture);
+                return ResourceManager.GetString("MusicModeEntryLabel1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
+        /// </summary>
+        internal static string MusicModeEntryLabel2 {
+            get {
+                return ResourceManager.GetString("MusicModeEntryLabel2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Okay.
         /// </summary>
-        internal static string Okay {
+        internal static string Okay1 {
             get {
-                return ResourceManager.GetString("Okay", resourceCulture);
+                return ResourceManager.GetString("Okay1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance Walked Last Time.
+        /// </summary>
+        internal static string StepModeLastDistanceLabel {
+            get {
+                return ResourceManager.GetString("StepModeLastDistanceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steps Taken Last Time.
+        /// </summary>
+        internal static string StepModeLastStepsLabel {
+            get {
+                return ResourceManager.GetString("StepModeLastStepsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to StepMode.
+        /// </summary>
+        internal static string StepModeNameLabel {
+            get {
+                return ResourceManager.GetString("StepModeNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Stepmode.
+        /// </summary>
+        internal static string StepModeStartButton {
+            get {
+                return ResourceManager.GetString("StepModeStartButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Training Started On/At.
+        /// </summary>
+        internal static string StepModeStartDataTime {
+            get {
+                return ResourceManager.GetString("StepModeStartDataTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop Stepmode.
+        /// </summary>
+        internal static string StepModeStopButton {
+            get {
+                return ResourceManager.GetString("StepModeStopButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Trainings Date.
+        /// </summary>
+        internal static string StepModeTrainingsDateLabel {
+            get {
+                return ResourceManager.GetString("StepModeTrainingsDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency in Steps per Minute.
+        /// </summary>
+        internal static string StepModeUnbindedFrequencyLabel {
+            get {
+                return ResourceManager.GetString("StepModeUnbindedFrequencyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Status.
+        /// </summary>
+        internal static string StepModeUnbindedStatusLabel {
+            get {
+                return ResourceManager.GetString("StepModeUnbindedStatusLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steps Taken During This Session .
+        /// </summary>
+        internal static string StepModeUnbindedStepsDoneLabel {
+            get {
+                return ResourceManager.GetString("StepModeUnbindedStepsDoneLabel", resourceCulture);
             }
         }
     }

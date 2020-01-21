@@ -118,26 +118,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DataOverviewPageEntryLabel" xml:space="preserve">
+  <data name="DataOverviewPageEntryLabel1" xml:space="preserve">
     <value>Wonderful DataOverviewPage!</value>
   </data>
-  <data name="DefaultError" xml:space="preserve">
+  <data name="DefaultError1" xml:space="preserve">
     <value>Something went wrong!</value>
   </data>
-  <data name="ErrorAlert" xml:space="preserve">
+  <data name="ErrorAlert1" xml:space="preserve">
     <value>Exception!</value>
   </data>
-  <data name="MusicModeEntryLabel" xml:space="preserve">
+  <data name="MusicModeEntryLabel1" xml:space="preserve">
     <value>Wonderful MusicModeEntry page!</value>
   </data>
-  <data name="Okay" xml:space="preserve">
+  <data name="MusicModeEntryLabel2" xml:space="preserve">
+    <value>Wonderful MusicModeEntry page!</value>
+  </data>
+  <data name="Okay1" xml:space="preserve">
     <value>Okay</value>
-  </data>
-  <data name="DataOverviewPageEntryLabel" xml:space="preserve">
-    <value>Wonderful DataOverviewPage!</value>
-  </data>
-  <data name="MusicModeEntryLabel" xml:space="preserve">
-    <value>Wonderful MusicModeEntry page!</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
     <value>Distance Walked Last Time</value>
