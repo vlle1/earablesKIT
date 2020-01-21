@@ -60,22 +60,19 @@ namespace EarablesKIT.ViewModels
             // TODO register eventHandler
 
             var earablesService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(EarablesConnection));
+            
+            // Benis popup
             earablesService.StartSampling();
 
             earablesService.IMUDataReceived += (object sender, DataEventArgs args) =>
             {
-                InsertData(args.Data);
+                if (this.Recording)
+                {
+                    TrainingsData.Add(args.Data);
+                }
             };
 
             TrainingsData = new ObservableCollection<IMUDataEntry>();
-        }
-
-        private void InsertData(IMUDataEntry data)
-        {
-            if (this.Recording)
-            {
-                TrainingsData.Add(data);
-            }
         }
     }
 }
