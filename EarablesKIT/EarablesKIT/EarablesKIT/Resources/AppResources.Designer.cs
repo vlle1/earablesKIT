@@ -70,11 +70,38 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong!.
+        /// </summary>
+        internal static string DefaultError {
+            get {
+                return ResourceManager.GetString("DefaultError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception!.
+        /// </summary>
+        internal static string ErrorAlert {
+            get {
+                return ResourceManager.GetString("ErrorAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
         /// </summary>
         internal static string MusicModeEntryLabel {
             get {
                 return ResourceManager.GetString("MusicModeEntryLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Okay.
+        /// </summary>
+        internal static string Okay {
+            get {
+                return ResourceManager.GetString("Okay", resourceCulture);
             }
         }
     }
