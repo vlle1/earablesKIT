@@ -6,7 +6,7 @@ using Plugin.BLE.Abstractions.EventArgs;
 
 namespace EarablesKIT.Models.Library
 {
-    interface IEarablesConnection
+    public interface IEarablesConnection
     {
         
         List<IDevice> StartScanning();

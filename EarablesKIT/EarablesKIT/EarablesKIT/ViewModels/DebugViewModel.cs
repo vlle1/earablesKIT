@@ -6,6 +6,8 @@ using System.Text;
 using EarablesKIT.Models.Library;
 using Xamarin.Forms;
 using System.ComponentModel;
+using EarablesKIT.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EarablesKIT.ViewModels
 {
@@ -26,7 +28,6 @@ namespace EarablesKIT.ViewModels
 
                     this.Recording = !this.Recording;
                     this.RecordingLabelText = this.Recording ? "Stop Recording" : "Start Recording";
-                    // RecordData(this.Recording);
                 });
             }
         }
@@ -58,46 +59,23 @@ namespace EarablesKIT.ViewModels
         {
             // TODO register eventHandler
 
-            //Dummy Event
-            Device.StartTimer(TimeSpan.FromSeconds(2), () =>
+            var earablesService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(EarablesConnection));
+            earablesService.StartSampling();
+
+            earablesService.IMUDataReceived += (object sender, DataEventArgs args) =>
             {
-                RecordData(this.Recording);
-                return true; // True = Repeat again, False = Stop the timer
-            });
-            ////
+                InsertData(args.Data);
+            };
 
             TrainingsData = new ObservableCollection<IMUDataEntry>();
         }
 
-        public void RecordData(bool recording)
+        private void InsertData(IMUDataEntry data)
         {
-            if (recording)
+            if (this.Recording)
             {
-                InsertData(null, null);
+                TrainingsData.Add(data);
             }
-        }
-
-        public void InsertData(DataEventArgs args, IMUDataEntry data)
-        {
-            TrainingsData.Add(
-                new IMUDataEntry
-                {
-                    Acc = new Accelerometer
-                    {
-                        G_X = 1.2f,
-                        G_Y = 1.4f,
-                        G_Z = 1.6f,
-                        MperS_X = 8,
-                        MperS_Y = 43.4f,
-                        MperS_Z = 3.4f
-                    },
-                    Gyro = new Gyroscope
-                    {
-                        DegsPerSec_X = 32.4f,
-                        DegsPerSec_Y = 32.4f,
-                        DegsPerSec_Z = 23.32f
-                    }
-                });
         }
     }
 }
