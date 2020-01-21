@@ -1,3 +1,4 @@
+
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
@@ -131,5 +132,41 @@
   </data>
   <data name="Okay" xml:space="preserve">
     <value>Okay</value>
+  </data>
+  <data name="DataOverviewPageEntryLabel" xml:space="preserve">
+    <value>Willkommen auf der Datenübersichtsseite!</value>
+  </data>
+  <data name="MusicModeEntryLabel" xml:space="preserve">
+    <value>Willkommen im Musikmodus!</value>
+  </data>
+  <data name="StepModeLastDistanceLabel" xml:space="preserve">
+    <value>Letztes Mal Gelaufene Distanz</value>
+  </data>
+  <data name="StepModeLastStepsLabel" xml:space="preserve">
+    <value>Letztes Mal Gelaufene Schritte</value>
+  </data>
+  <data name="StepModeNameLabel" xml:space="preserve">
+    <value>Laufmodus</value>
+  </data>
+  <data name="StepModeStartButton" xml:space="preserve">
+    <value>Laufmodus Starten</value>
+  </data>
+  <data name="StepModeStartDataTime" xml:space="preserve">
+    <value>Training Gestartet Am/Um</value>
+  </data>
+  <data name="StepModeStopButton" xml:space="preserve">
+    <value>Laufmodus Stoppen</value>
+  </data>
+  <data name="StepModeTrainingsDateLabel" xml:space="preserve">
+    <value>Letzter Trainingstag</value>
+  </data>
+  <data name="StepModeUnbindedFrequencyLabel" xml:space="preserve">
+    <value>Aktuelle Schrittfrequenz</value>
+  </data>
+  <data name="StepModeUnbindedStatusLabel" xml:space="preserve">
+    <value>Aktueller Status</value>
+  </data>
+  <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
+    <value>Aktuell Gelaufene Schritte</value>
   </data>
 </root>

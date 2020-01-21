@@ -30,12 +30,12 @@ namespace EarablesKIT.ViewModels
             throw new NotImplementedException();
         }
 
-        protected override void StartActivity()
+        public override bool StartActivity()
         {
             throw new NotImplementedException();
         }
 
-        protected override void StopActivity()
+        public override void StopActivity()
         {
             throw new NotImplementedException();
         }

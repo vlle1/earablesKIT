@@ -132,4 +132,41 @@
   <data name="Okay" xml:space="preserve">
     <value>Okay</value>
   </data>
+  <data name="DataOverviewPageEntryLabel" xml:space="preserve">
+    <value>Wonderful DataOverviewPage!</value>
+  </data>
+  <data name="MusicModeEntryLabel" xml:space="preserve">
+    <value>Wonderful MusicModeEntry page!</value>
+  </data>
+  <data name="StepModeLastDistanceLabel" xml:space="preserve">
+    <value>Distance Walked Last Time</value>
+  </data>
+  <data name="StepModeLastStepsLabel" xml:space="preserve">
+    <value>Steps Taken Last Time</value>
+  </data>
+  <data name="StepModeNameLabel" xml:space="preserve">
+    <value>Stepmode</value>
+  </data>
+  <data name="StepModeStartButton" xml:space="preserve">
+    <value>Start Stepmode</value>
+  </data>
+  <data name="StepModeStartDataTime" xml:space="preserve">
+    <value>Training Started On/At</value>
+  </data>
+  <data name="StepModeStopButton" xml:space="preserve">
+    <value>Stop Stepmode</value>
+  </data>
+  <data name="StepModeTrainingsDateLabel" xml:space="preserve">
+    <value>Last Trainings Date</value>
+  </data>
+  <data name="StepModeUnbindedFrequencyLabel" xml:space="preserve">
+    <value>Frequency in Steps per Minute</value>
+  </data>
+  <data name="StepModeUnbindedStatusLabel" xml:space="preserve">
+    <value>Current Status</value>
+  </data>
+  <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
+    <value>Steps Taken During This Session </value>
+  </data>
+
 </root>

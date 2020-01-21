@@ -1,5 +1,6 @@
 ﻿using EarablesKIT.Models.Extentionmodel.Activities;
 using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -7,21 +8,24 @@ namespace EarablesKIT.ViewModels
     abstract class BaseModeViewModel
     {
 
-        public Command StartActivityCommand { get; set; }
-        public Command StopActivityCommand { get; set; }
-
-
-
         public abstract void OnActivityDone(object sender, ActivityArgs args);
 
-        protected abstract void StartActivity();
+        public abstract bool StartActivity(); 
 
-        protected abstract void StopActivity();
+        public abstract void StopActivity();
 
-        protected void CheckConnection()
+        protected bool CheckConnection()
         {
-            throw new NotImplementedException();
-        }
+			//if (ScanningPopUpViewModel.IsConnected)
+			//{
+				return true;
+			//}
+			//else
+			//{
+			//	ScanningPopUpViewModel.ShowPopUp();
+			//	return false;
+			//}
+		}
 
     }
 }
