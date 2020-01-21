@@ -64,14 +64,14 @@ namespace EarablesKIT.ViewModels
             _earablesConnectionService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             _earablesConnectionService.ScannedDeviceHandler += (sender, args) =>
             {
-                DevicesList.Clear();
-                foreach (IDevice device in args.Devices)
-                {
-                    if (device.Name != null && device.Name.StartsWith("eSense"))
-                        DevicesList.Add(device);
-                }
 
-                OnPropertyChanged(nameof(DevicesList));
+                    if (args.Device.Name != null && args.Device.Name.StartsWith("eSense"))
+                    {
+                        DevicesList.Add(args.Device);
+                        OnPropertyChanged(nameof(DevicesList));
+                    }
+                
+
             };
         }
 
@@ -88,6 +88,10 @@ namespace EarablesKIT.ViewModels
             if (!args.Connected)
             {
                 ShowPopUp();
+            }
+            else
+            {
+                HidePopUp();
             }
         }
 
@@ -140,10 +144,6 @@ namespace EarablesKIT.ViewModels
             try
             {
                 _earablesConnectionService.ConnectToDevice(selectedItem);
-                if (_earablesConnectionService.GetConnection())
-                {
-                    HidePopUp();
-                }
             }
             catch (DeviceConnectionException e)
             {
