@@ -36,5 +36,7 @@ namespace EarablesKIT.Models.Library
         void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
         void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
         void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs args);
+
+        bool GetConnection();
     }
 }

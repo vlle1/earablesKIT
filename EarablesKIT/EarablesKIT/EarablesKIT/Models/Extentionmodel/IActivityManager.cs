@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EarablesKIT.Models.Extentionmodel
 {
-    interface IActivityManager : IManager
+    interface IActivityManager :  IManager
     {
         ServiceProvider ActitvityProvider { get; set; }
 
