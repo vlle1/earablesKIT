@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -12,10 +13,20 @@ namespace EarablesKIT.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string Username { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Steplength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public SamplingRate SamplingRate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public CultureInfo Language { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Command ClickSaveCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        private User _user;
+
+        public string Username { get => _user.Username;}
+        public int Steplength { get => _user.Steplength;}
+        public SamplingRate SamplingRate { get; set; }
+        public CultureInfo Language { get; set; }
+        public ICommand SaveClickedCommand => new Command(SaveClicked);
+
+        private void SaveClicked()
+        {
+            _user = new User("Bob", 20);
+            SamplingRate = SamplingRate.Hz_50;
+            Language = new CultureInfo("de-De");
+        }
     }
 }

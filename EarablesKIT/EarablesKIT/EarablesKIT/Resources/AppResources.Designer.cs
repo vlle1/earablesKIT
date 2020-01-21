@@ -115,6 +115,60 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string SettingsPageLanguage {
+            get {
+                return ResourceManager.GetString("SettingsPageLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samplingrate.
+        /// </summary>
+        internal static string SettingsPageSamplingrate {
+            get {
+                return ResourceManager.GetString("SettingsPageSamplingrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SettingsPageSave {
+            get {
+                return ResourceManager.GetString("SettingsPageSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steplength.
+        /// </summary>
+        internal static string SettingsPageSteplength {
+            get {
+                return ResourceManager.GetString("SettingsPageSteplength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        internal static string SettingsPageUsername {
+            get {
+                return ResourceManager.GetString("SettingsPageUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Distance Walked Last Time.
         /// </summary>
         internal static string StepModeLastDistanceLabel {

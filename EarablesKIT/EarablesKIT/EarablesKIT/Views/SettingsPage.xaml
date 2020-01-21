@@ -3,13 +3,103 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.SettingsPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Spacing="24" 
+                     Padding ="24" 
+                     Margin="0,0,0,0"
+                     BackgroundColor="White">
+
+            <StackLayout>
+                <Label Text="{x:Static Resource:AppResources.SettingsTitle}" 
+                       FontSize="Title" 
+                       TextColor="White"
+                       HorizontalTextAlignment="Center"
+                       Padding="20"
+                       BackgroundColor="#40ABF0"
+                       />
+                
+                <Grid ColumnSpacing="24" RowSpacing="24" Margin="0,30,0,0" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageUsername}" 
+                           Grid.Row="0" 
+                           Grid.Column="0" 
+                           FontSize="Medium"/>
+                    <Entry Grid.Row="0"
+                           Grid.Column="1" 
+                           Text="{Binding Username}"
+                           ClearButtonVisibility="WhileEditing" 
+                           Keyboard="Chat"
+                           WidthRequest="70"/>
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageSteplength}" 
+                           Grid.Row="1" 
+                           Grid.Column="0"
+                           FontSize="Medium"/>
+                    <Entry  ClearButtonVisibility="WhileEditing" 
+                            Keyboard="Numeric" 
+                            Grid.Row="1" 
+                            Grid.Column="1"
+                            FontSize="Medium"
+                            WidthRequest="70"
+                            Text="{Binding Steplength}"/>
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageSamplingrate}" 
+                           Grid.Row="2" 
+                           Grid.Column="0"
+                           FontSize="Medium"/>
+                    <Picker x:Name="SamplingratePicker"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            WidthRequest="70"
+                            SelectedItem="{Binding Samplingrate}">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>1_Hz</x:String>
+                                <x:String>20_Hz</x:String>
+                                <x:String>50_Hz</x:String>
+                                <x:String>80_Hz</x:String>
+                                <x:String>100_Hz</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageLanguage}" 
+                           Grid.Row="3" 
+                           Grid.Column="0"
+                           FontSize="Medium"/>
+                    <Picker x:Name="LanguagePicker"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            WidthRequest="70"
+                            SelectedItem="{Binding Language.DisplayName}" >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>20_Hz</x:String>
+                                <x:String>50_Hz</x:String>
+                                <x:String>80_Hz</x:String>
+                                <x:String>100_Hz</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Grid>
+            </StackLayout>
+            <Button Text="{x:Static Resource:AppResources.SettingsPageSave}" 
+                    Command="{Binding SaveClickedCommand}"
+                    VerticalOptions="CenterAndExpand" 
+                    BorderColor="DarkGray" 
+                    BorderWidth="1" 
+                    CornerRadius="20" 
+                    HorizontalOptions="Center"></Button>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

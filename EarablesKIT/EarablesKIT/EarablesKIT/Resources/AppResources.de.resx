@@ -135,6 +135,24 @@
   <data name="Okay" xml:space="preserve">
     <value>Okay</value>
   </data>
+  <data name="SettingsPageLanguage" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="SettingsPageSamplingrate" xml:space="preserve">
+    <value>Samplingrate</value>
+  </data>
+  <data name="SettingsPageSave" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="SettingsPageSteplength" xml:space="preserve">
+    <value>Schrittgröße</value>
+  </data>
+  <data name="SettingsPageUsername" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
     <value>Letztes Mal Gelaufene Distanz</value>
   </data>
