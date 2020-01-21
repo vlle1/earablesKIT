@@ -27,6 +27,7 @@ namespace EarablesKIT.Views
                 new HomeMenuItem { Id = MenuItemType.DataOverview, Title = "30-Day-Overview" },
                 new HomeMenuItem { Id = MenuItemType.Settings, Title = "Settings" },
                 new HomeMenuItem { Id = MenuItemType.ImportExport, Title = "Manage your Data" },
+                new HomeMenuItem { Id = MenuItemType.DebugMode, Title = "Debug" },
             };
             ListViewMenu.ItemsSource = menuItems;
 

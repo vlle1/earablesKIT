@@ -14,7 +14,8 @@ namespace EarablesKIT.Models
         ListenAndPerform,
         MusicMode,
         Settings,
-        StepMode
+        StepMode,
+        DebugMode
     }
     public class HomeMenuItem
     {

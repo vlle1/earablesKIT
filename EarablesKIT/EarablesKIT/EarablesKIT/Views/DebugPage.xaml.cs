@@ -10,12 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace EarablesKIT.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DebugView : ContentPage
+    public partial class DebugPage : ContentPage
     {
-        public DebugView()
+        public DebugPage()
         {
             InitializeComponent();
-            BindingContext = new DebugViewModel();
+            this.BindingContext = new DebugViewModel();
         }
     }
 }

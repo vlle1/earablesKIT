@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="EarablesKIT.Views.DebugPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="{Binding RecordingLabelText}" Command="{Binding ToggleRecordingCommand}"></Button>
+            <ListView ItemsSource="{Binding TrainingsData}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Acc.G_X}"/>
+                                <Label Text="{Binding Acc.G_Y}"/>
+                                <Label Text="{Binding Acc.G_Z}"/>
+                                <Label Text="{Binding Acc.MperS_X}"/>
+                                <Label Text="{Binding Acc.MperS_Y}"/>
+                                <Label Text="{Binding Acc.MperS_Z}"/>
+
+                                <Label Text="{Binding Acc.G_X}"/>
+                                <Label Text="{Binding Acc.G_Y}"/>
+                                <Label Text="{Binding Acc.G_Z}"/>
+                                <Label Text="{Binding Acc.MperS_X}"/>
+                                <Label Text="{Binding Acc.MperS_Y}"/>
+                                <Label Text="{Binding Acc.MperS_Z}"/>
+
+                                <Label Text="{Binding Gyro.DegsPerSec_X}"/>
+                                <Label Text="{Binding Gyro.DegsPerSec_Y}"/>
+                                <Label Text="{Binding Gyro.DegsPerSec_Z}"/>
+
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
