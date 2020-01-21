@@ -115,7 +115,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Training Startet On/At ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Training Started On/At ähnelt.
         /// </summary>
         internal static string StepModeStartDataTime {
             get {

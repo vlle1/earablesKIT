@@ -136,7 +136,7 @@
     <value>Start Stepmode</value>
   </data>
   <data name="StepModeStartDataTime" xml:space="preserve">
-    <value>Training Startet On/At</value>
+    <value>Training Started On/At</value>
   </data>
   <data name="StepModeStopButton" xml:space="preserve">
     <value>Stop Stepmode</value>

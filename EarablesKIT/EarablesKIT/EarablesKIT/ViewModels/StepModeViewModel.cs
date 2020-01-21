@@ -23,6 +23,7 @@ namespace EarablesKIT.ViewModels
 		private AbstractStepActivity _stepActivity { get; set; }
 		private AbstractRunningActivity _runningActivity { get; set; }
 		private IActivityManager _activityManager { get; set; }
+		private IDataBaseConnection _dataBaseConnection { get; set; }
 
 		private String _lastDataTime, _currentDate;
 		private int _stepCounter, _distanceWalked, _stepsDoneLastTime, _distanceWalkedLastTime;
@@ -118,12 +119,13 @@ namespace EarablesKIT.ViewModels
 			//_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
 			//_stepActivity = (AbstractStepActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
 			//_runningActivity = (AbstractRunningActivity)ServiceManager.ServiceProvider.GetService(typeof(AbstractRunningActivity));
+			//_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 			DistanceWalkedLastTime = 0;
 			StepsDoneLastTime = 0;
 			StepFrequency = 0.0;
 			DistanceWalked = 0;
-			LastDataTime = "DD.MM.YY";
-			CurrentDate = DateTime.Now.ToString();
+			LastDataTime = "01.01.2000"; 
+			CurrentDate = DateTime.Now.ToString(); // //Test
 			UpdateLastData();
 			IsRunning = false;
 			_timer = new Stopwatch();
@@ -176,20 +178,30 @@ namespace EarablesKIT.ViewModels
 			//_stepActivity.ActivityDone -= OnActivityDone;
 			//_runningActivity.ActivityDone -= OnRunningDone;
 			IsRunning = false;
+			SaveData();
 			ShowPopUp();
 			UpdateLastData();
 		}
 
+		private void SaveData()
+		{
+			//DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+			//DBEntry _entryNew = new DBEntry(_dt, _stepCounter, 0, 0);
+			//_dataBaseConnection.SaveDBEntry(_entryNew);
+		}
+
 		private void UpdateLastData()
 		{
-			//IDataBaseConnection DatabaseService = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
-			//List<DBEntry> Entries = (List<DBEntry>)DatabaseService.GetMostRecentEntriesAsync(1).Result;
-			//DBEntry entry = Entries[0];
-			//LastDataTime = entry.Date.ToString();
-			//StepsDoneLastTime = entry.TrainingsData["steps"].ToString();
-			//ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
-			//int dwlt = entry.TrainingsData["steps"] * setser.MyUser.Steplength;
-			//DistanceWalkedLastTime = dwlt.ToString();
+			//List<DBEntry> Entries = (List<DBEntry>)_dataBaseConnection.GetMostRecentEntriesAsync(1).Result;
+			//if (Entries.Count >= 1)
+			//{
+				//DBEntry entry = Entries[0];
+				//LastDataTime = entry.Date.ToString();
+				//StepsDoneLastTime = (int)entry.TrainingsData["steps"];
+				//ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
+				//int dwlt = StepsDoneLastTime * setser.MyUser.Steplength;
+				//DistanceWalkedLastTime = dwlt.ToString();
+			//}
 		}
 
 
