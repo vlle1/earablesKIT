@@ -10,6 +10,8 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.EventArgs;
 
+
+
 namespace EarablesKIT.Models.Library
 {
     class EarablesConnection : IEarablesConnection
@@ -17,9 +19,8 @@ namespace EarablesKIT.Models.Library
         private IBluetoothLE ble = CrossBluetoothLE.Current;
         private IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         private IDevice device;
-        private List<IDevice> deviceList;
-        private ConfigContainer config;
-        private Characteristics characters;
+        private ConfigContainer config = new ConfigContainer();
+        private Characteristics characters = new Characteristics();
         private int accEnumValue;
         private int gyroEnumValue;
         private bool connected;
@@ -32,9 +33,14 @@ namespace EarablesKIT.Models.Library
         public EventHandler<DataEventArgs> IMUDataReceived;
         public EventHandler<ButtonEventArgs> ButtonPressed;
         public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
+        public EventHandler<NewDeviceFoundArgs> NewDeviceFound;
 
         public void ConnectToDevice(IDevice device)
         {
+            if (connected)
+            {
+                throw new AllreadyConnectedException("Error, allready connected");
+            }
 
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
@@ -42,6 +48,10 @@ namespace EarablesKIT.Models.Library
                 var connectParams = new ConnectParameters(true, true);
                 try
                 {
+                    adapter.DeviceConnected += OnDeviceConnected;
+                    adapter.DeviceDisconnected += OnDeviceDisconnected;
+                    adapter.DeviceConnectionLost += OnDeviceConnectionLost;
+
                     // Stop scanning for devices to be sure that nothing goes wrong
                     await adapter.StopScanningForDevicesAsync();
                     // Connect to the device
@@ -59,7 +69,7 @@ namespace EarablesKIT.Models.Library
                     characters.AccelerometerGyroscopeLPFChar = await Service.GetCharacteristicAsync(Guid.Parse(ACC_GYRO_LPF_CHAR));
 
                     // Initialise the BatteryVoltage the first time after connection in case it will be used befor the Batteryvalue updates the first time
-                    initBatteryVoltage();
+                    await initBatteryVoltage();
 
                     // Register on the events from the Earables (sollte am besten in eine art Constructor)
                     characters.SensordataChar.ValueUpdated += OnValueUpdatedIMU;
@@ -67,12 +77,6 @@ namespace EarablesKIT.Models.Library
                     await characters.PushbuttonChar.StartUpdatesAsync();
                     characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
                     await characters.BatteryChar.StartUpdatesAsync();
-                    adapter.DeviceConnected += OnDeviceConnected;
-                    adapter.DeviceDisconnected += OnDeviceDisconnected;
-                    adapter.DeviceConnectionLost += OnDeviceConnectionLost;
-                    
-
-
 
                 }
                 catch (DeviceConnectionException e)
@@ -113,18 +117,20 @@ namespace EarablesKIT.Models.Library
         // Kann das private sein so we die anderen zwei und eine Methode für die zwei zeilen unter connected schreiben???
         public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
         {
+            connected = true;
             Device.BeginInvokeOnMainThread(new Action(() =>
             {
-                connected = true;
+                
                 DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
                 DeviceConnectionStateChanged?.Invoke(this, e);
             }));
         }
         public void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
         {
+            connected = false;
             Device.BeginInvokeOnMainThread(new Action(() =>
             {
-                connected = false;
+                
                 DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
                 DeviceConnectionStateChanged?.Invoke(this, e);
             }));
@@ -133,9 +139,9 @@ namespace EarablesKIT.Models.Library
         // Brauchen wir die methode wenn sie keinen unterschied macht zu der oben drüber? man kann ja was ergänzen um zu signalisieren, dass die verbindung abgebrochen wurde
         public void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs args)
         {
+            connected = false;
             Device.BeginInvokeOnMainThread(new Action(() =>
             {
-                connected = false;
                 DeviceConnectionStateChanged?.Invoke(this, new DeviceEventArgs(connected, args.Device.Name));
             }));
         }
@@ -180,31 +186,16 @@ namespace EarablesKIT.Models.Library
             await characters.StartStopIMUSamplingChar.WriteAsync(bytes);
         }
 
-        /* public List<IDevice> StartScanning()
-         {
-             FillDeviceList();
-             return deviceList;
 
-         }*/
-
-
-            // test
-        public List<IDevice> StartScanning()
-        {
-            return deviceList;
-
-        }
-        
-
-        // Test public war eigentlich private
-        public async void FillDeviceList()
+        public async void StartScanning()
         {
             try
             {
-                deviceList.Clear();
+               // deviceList.Clear();
                 adapter.DeviceDiscovered += (s, a) =>
                 {
-                    deviceList.Add(a.Device);
+                    NewDeviceFound?.Invoke(this, new NewDeviceFoundArgs(a.Device) );
+                   // deviceList.Add(a.Device);
                 };
 
                 if (!ble.Adapter.IsScanning)
@@ -316,7 +307,7 @@ namespace EarablesKIT.Models.Library
             }
         }
 
-        private async void initBatteryVoltage()
+        private async System.Threading.Tasks.Task initBatteryVoltage()
         {
             CheckConnection();
             byte[] bytes = await characters.BatteryChar.ReadAsync();

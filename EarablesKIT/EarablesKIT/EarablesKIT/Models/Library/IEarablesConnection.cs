@@ -9,7 +9,7 @@ namespace EarablesKIT.Models.Library
     interface IEarablesConnection
     {
         
-        List<IDevice> StartScanning();
+        void StartScanning();
 
         void ConnectToDevice(IDevice device);
 
