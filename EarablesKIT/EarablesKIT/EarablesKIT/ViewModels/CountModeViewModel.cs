@@ -25,8 +25,12 @@ namespace EarablesKIT.ViewModels
 		private IActivityManager _activityManager { get; set; }
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
-		private string _selectedActivity, _minutes, _seconds, _milliseconds;
-		public string SelectedActivity { get; set; }
+		private string _minutes, _seconds, _milliseconds;
+
+		private int _counter;
+
+		private Activity activeActivity { get; set; }
+		public ObservableCollection<string> PossibleActivities { get; set; }
 		public string Minutes
 		{
 			get { return _minutes; }
@@ -54,8 +58,17 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
-		public int Counter { get; set; }
-		public ObservableCollection<string> PossibleActivities { get; set; }
+		public int Counter
+		{
+			get { return _counter; }
+			set
+			{
+				_counter = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public string SelectedActivity { get; set; }
 
 		public CountModeViewModel()
 		{
@@ -63,14 +76,36 @@ namespace EarablesKIT.ViewModels
 			//_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
 			//_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
 			//_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
-			_timer = new Stopwatch();
-			PossibleActivities = new ObservableCollection<string>();
-			Minutes = "00";
-			Seconds = "00";
-			Milliseconds = "000";
-
-
+			PossibleActivities = new ObservableCollection<string>
+			{
+				"Push-ups",
+				"Sit-ups",
+				"Coming Soon",
+				"Why should I work out"
+			};
+			SelectedActivity = "Coming Soon";
 		}
+
+		private bool SelectActivity()
+		{
+			if (SelectedActivity.Equals("Push-ups"))
+			{
+				//activeActivity = _pushUpActivity;
+				//activeActivity.ActivityDone += OnActivityDone;
+				return true;
+			}
+			else
+			{
+				if (SelectedActivity.Equals("Sit-ups"))
+				{
+					//activeActivity = _sitUpActivity;
+					//activeActivity.ActivityDone += OnActivityDone;
+					return true;
+				}
+			}
+			return false;
+		}
+
 
 		protected void OnPropertyChanged([CallerMemberName] string name = "")
 		{
@@ -87,8 +122,13 @@ namespace EarablesKIT.ViewModels
 		{
 			if (CheckConnection())
 			{
-				
-				return true;
+				if (SelectActivity())
+				{
+					Counter = 0;
+					return true;
+				}
+				return false;
+
 			}
 			return false;
 		}
@@ -126,14 +166,37 @@ namespace EarablesKIT.ViewModels
 		public override void StopActivity()
 		{
 			StopTimer();
+			//activeActivity.ActivityDone -= OnActivityDone;
+			SaveData();
+			ShowPopUp();
 		}
 
-		public void StopTimer()
+		private void StopTimer()
 		{
 			_timer.Reset();
-			Milliseconds = _timer.Elapsed.Milliseconds.ToString();
-			Minutes = _timer.Elapsed.Minutes.ToString();
-			Seconds = _timer.Elapsed.Seconds.ToString();
+		}
+
+		private void SaveData()
+		{
+			//DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+			if (SelectedActivity.Equals("Push-ups"))
+			{
+				//DBEntry _entryNew = new DBEntry(_dt, 0, Counter, 0);
+				//_dataBaseConnection.SaveDBEntry(_entryNew);
+			}
+			else
+			{
+				if (SelectedActivity.Equals("Sit-ups"))
+				{
+					//DBEntry _entryNew = new DBEntry(_dt, 0, 0, Counter);
+					//_dataBaseConnection.SaveDBEntry(_entryNew);
+				}
+			}
+		}
+
+		private void ShowPopUp()
+		{
+			App.Current.MainPage.DisplayAlert("Result", "You have done " + Counter + " " + SelectedActivity + "!", "Cool");
 		}
 	}
 }

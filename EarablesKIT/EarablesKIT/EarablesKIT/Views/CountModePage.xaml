@@ -7,42 +7,33 @@
              xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.CountModePage">
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
+        <StackLayout Padding="10" Spacing="60" Margin="0,30,0,0">
             <Label Text="CountMode"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
-            <StackLayout Spacing="0">
+            <StackLayout Spacing="10">
                 <Label Text="Possible Activities"
                    Padding="20"
-                   FontSize="Title"
+                   FontSize="Large"
                    HorizontalTextAlignment="Center"
-                   TextColor="White"
-                   BackgroundColor="CornflowerBlue"/>
+                   BackgroundColor="PaleTurquoise"/>
+                <StackLayout Padding="20">
+                    <ListView x:Name="ActivityView" 
+                          ItemsSource="{Binding PossibleActivities}" 
+                          SelectedItem="{Binding SelectedActivity}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
             </StackLayout>
-            <StackLayout Padding="20">
-                <ListView x:Name="EmployeeView">
-                    <ListView.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>mono</x:String>
-                            <x:String>monodroid</x:String>
-                            <x:String>monotouch</x:String>
-                            <x:String>monorail</x:String>
-                            <x:String>monodevelop</x:String>
-                        </x:Array>
-                    </ListView.ItemsSource>
-                </ListView>
-            </StackLayout>
-            <Grid Padding="20" RowSpacing="30">
-                <Label Text="SelectedActivity"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Start"
-                       Grid.Row="0"
-                       Grid.Column="0"/>
-            </Grid>
             <Button Text="Start Countmode" 
+                    
                     Clicked="OnStartButtonClicked"
                     VerticalOptions="CenterAndExpand" 
                     BackgroundColor="CornflowerBlue" 

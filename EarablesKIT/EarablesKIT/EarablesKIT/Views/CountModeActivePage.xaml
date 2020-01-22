@@ -13,27 +13,38 @@
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
-            <Label HorizontalTextAlignment="Center" FontSize="24" Text="Timer"/>
-            <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Grid.Column="1" FontSize="30">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{Binding Minutes}"/>
-                        <Span Text=":"/>
-                        <Span Text="{Binding Seconds}"/>
-                        <Span Text=":"/>
-                        <Span Text="{Binding Milliseconds}" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-            <Label Text="Amount"
-                   Padding="20"
+            <Label HorizontalTextAlignment="Center" FontSize="24"/>
+            <Frame HasShadow="False" BorderColor="Gray" Padding="10,10,10,10" VerticalOptions="Center">
+                <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Grid.Column="1" FontSize="30">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Minutes}"/>
+                            <Span Text=":"/>
+                            <Span Text="{Binding Seconds}"/>
+                            <Span Text=":"/>
+                            <Span Text="{Binding Milliseconds}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Frame>
+            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Frame HasShadow="False" BorderColor="Gray" Padding="80,40,80,40" BackgroundColor="LightBlue">
+                    <Label Text="{Binding Counter}"
+                               FontSize="50"
+                               HorizontalTextAlignment="Center"
+                               VerticalOptions="FillAndExpand"
+                               HorizontalOptions="FillAndExpand"/>
+                </Frame>
+                <Label Text="{Binding SelectedActivity}"
+                   Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
+            </StackLayout>
             <Button Text="StopCountMode"
                     Clicked="OnStopButtonClicked"
-                    VerticalOptions="CenterAndExpand" 
+                    VerticalOptions="End" 
                     BackgroundColor="IndianRed" 
                     BorderColor="Black" 
                     BorderWidth="1" 
@@ -42,3 +53,4 @@
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+
