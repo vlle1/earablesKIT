@@ -124,7 +124,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Samplingrate.
+        ///   Looks up a localized string similar to Samplingrate (Hz).
         /// </summary>
         internal static string SettingsPageSamplingrate {
             get {
@@ -142,7 +142,16 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Steplength.
+        ///   Looks up a localized string similar to Saved!.
+        /// </summary>
+        internal static string SettingsPageSavingDone {
+            get {
+                return ResourceManager.GetString("SettingsPageSavingDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steplength (cm).
         /// </summary>
         internal static string SettingsPageSteplength {
             get {
@@ -156,6 +165,15 @@ namespace EarablesKIT.Resources {
         internal static string SettingsPageUsername {
             get {
                 return ResourceManager.GetString("SettingsPageUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving failed! Please check your inputs.
+        /// </summary>
+        internal static string SettingsPageWrongInput {
+            get {
+                return ResourceManager.GetString("SettingsPageWrongInput", resourceCulture);
             }
         }
         

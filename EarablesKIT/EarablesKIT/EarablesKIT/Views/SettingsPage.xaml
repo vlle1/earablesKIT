@@ -19,16 +19,32 @@
                        HorizontalTextAlignment="Center"
                        Padding="20"
                        BackgroundColor="#40ABF0"
-                       />
-                
+                />
+                <Frame x:Name="InformationFrame"
+                       CornerRadius="10"
+                       Padding="0"
+                       HasShadow="False"
+                       >
+                        <Label Text="{x:Static Resource:AppResources.SettingsTitle}" 
+                               x:Name="InformationLabel"
+                               FontSize="Small" 
+                               TextColor="White"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               HeightRequest="50"
+                               Padding="5"
+                               BackgroundColor="Transparent"
+                        />
+                </Frame>
                 <Grid ColumnSpacing="24" RowSpacing="24" Margin="0,30,0,0" HorizontalOptions="Center" VerticalOptions="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
@@ -36,22 +52,28 @@
                            Grid.Row="0" 
                            Grid.Column="0" 
                            FontSize="Medium"/>
-                    <Entry Grid.Row="0"
+                    <Entry x:Name="UsernameEntry" 
+                           Grid.Row="0"
                            Grid.Column="1" 
                            Text="{Binding Username}"
                            ClearButtonVisibility="WhileEditing" 
                            Keyboard="Chat"
-                           WidthRequest="70"/>
+                           WidthRequest="70"
+                           MaxLength="20"
+                           TextChanged="UsernameEntry_OnTextChanged"/>
                     <Label Text="{x:Static Resource:AppResources.SettingsPageSteplength}" 
                            Grid.Row="1" 
                            Grid.Column="0"
                            FontSize="Medium"/>
-                    <Entry  ClearButtonVisibility="WhileEditing" 
+                    <Entry  x:Name="SteplengthEntry"
+                            ClearButtonVisibility="WhileEditing" 
                             Keyboard="Numeric" 
                             Grid.Row="1" 
                             Grid.Column="1"
                             FontSize="Medium"
                             WidthRequest="70"
+                            MaxLength="4"
+                            TextChanged="SteplengthEntry_OnTextChanged"
                             Text="{Binding Steplength}"/>
                     <Label Text="{x:Static Resource:AppResources.SettingsPageSamplingrate}" 
                            Grid.Row="2" 
@@ -61,16 +83,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             WidthRequest="70"
-                            SelectedItem="{Binding Samplingrate}">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>1_Hz</x:String>
-                                <x:String>20_Hz</x:String>
-                                <x:String>50_Hz</x:String>
-                                <x:String>80_Hz</x:String>
-                                <x:String>100_Hz</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
+                            SelectedItem="{Binding SamplingRate}">
                     </Picker>
                     <Label Text="{x:Static Resource:AppResources.SettingsPageLanguage}" 
                            Grid.Row="3" 
@@ -80,20 +93,14 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             WidthRequest="70"
-                            SelectedItem="{Binding Language.DisplayName}" >
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>20_Hz</x:String>
-                                <x:String>50_Hz</x:String>
-                                <x:String>80_Hz</x:String>
-                                <x:String>100_Hz</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
+                            SelectedItem="{Binding Language}"
+                            ItemDisplayBinding="{Binding NativeName}">
                     </Picker>
                 </Grid>
             </StackLayout>
-            <Button Text="{x:Static Resource:AppResources.SettingsPageSave}" 
-                    Command="{Binding SaveClickedCommand}"
+            <Button x:Name="SaveButton"
+                    Text="{x:Static Resource:AppResources.SettingsPageSave}" 
+                    Clicked="ButtonSavedClicked"
                     VerticalOptions="CenterAndExpand" 
                     BorderColor="DarkGray" 
                     BorderWidth="1" 

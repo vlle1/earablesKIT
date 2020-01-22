@@ -139,16 +139,22 @@
     <value>Sprache</value>
   </data>
   <data name="SettingsPageSamplingrate" xml:space="preserve">
-    <value>Samplingrate</value>
+    <value>Samplingrate (Hz)</value>
   </data>
   <data name="SettingsPageSave" xml:space="preserve">
     <value>Speichern</value>
   </data>
+  <data name="SettingsPageSavingDone" xml:space="preserve">
+    <value>Gespeichert!</value>
+  </data>
   <data name="SettingsPageSteplength" xml:space="preserve">
-    <value>Schrittgröße</value>
+    <value>Schrittgröße (cm)</value>
   </data>
   <data name="SettingsPageUsername" xml:space="preserve">
     <value>Benutzername</value>
+  </data>
+  <data name="SettingsPageWrongInput" xml:space="preserve">
+    <value>Das Speichern ist fehlgeschlagen! Überprüfe deine Eingaben</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Einstellungen</value>

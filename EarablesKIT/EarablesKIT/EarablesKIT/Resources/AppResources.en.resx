@@ -139,16 +139,22 @@
     <value>Language</value>
   </data>
   <data name="SettingsPageSamplingrate" xml:space="preserve">
-    <value>Samplingrate</value>
+    <value>Samplingrate (Hz)</value>
   </data>
   <data name="SettingsPageSave" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SettingsPageSavingDone" xml:space="preserve">
+    <value>Saved!</value>
+  </data>
   <data name="SettingsPageSteplength" xml:space="preserve">
-    <value>Steplength</value>
+    <value>Steplength (cm)</value>
   </data>
   <data name="SettingsPageUsername" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="SettingsPageWrongInput" xml:space="preserve">
+    <value>Saving failed! Please check your inputs</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Settings</value>
