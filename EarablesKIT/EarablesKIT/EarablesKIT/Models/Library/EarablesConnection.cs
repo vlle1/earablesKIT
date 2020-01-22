@@ -25,8 +25,8 @@ namespace EarablesKIT.Models.Library
         private Characteristics characters;
         private int accEnumValue;
         private int gyroEnumValue;
-        private bool connected;
-        public bool Connected { get => connected; }
+        private bool connected = true;
+        public bool Connected { get => connected;} 
         public LPF_Accelerometer AccLPF { get => GetAccelerometerLPF(); set => SetAccelerometerLPF(value); }
         public LPF_Gyroscope GyroLPF { get => GetGyroscopeLPF(); set => SetGyroscopeLPF(value); }
         private float batteryVoltage;
@@ -41,6 +41,7 @@ namespace EarablesKIT.Models.Library
         {
             deviceList = new List<IDevice>();
             config = new ConfigContainer();
+            characters = new Characteristics();
         }
 
         public void ConnectToDevice(IDevice device)
@@ -51,6 +52,11 @@ namespace EarablesKIT.Models.Library
                 var connectParams = new ConnectParameters(true, true);
                 try
                 {
+
+                    adapter.DeviceConnected += OnDeviceConnected;
+                    adapter.DeviceDisconnected += OnDeviceDisconnected;
+                    adapter.DeviceConnectionLost += OnDeviceConnectionLost;
+
                     // Stop scanning for devices to be sure that nothing goes wrong
                     await adapter.StopScanningForDevicesAsync();
                     // Connect to the device
@@ -75,9 +81,6 @@ namespace EarablesKIT.Models.Library
                     await characters.PushbuttonChar.StartUpdatesAsync();
                     characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
                     await characters.BatteryChar.StartUpdatesAsync();
-                    adapter.DeviceConnected += OnDeviceConnected;
-                    adapter.DeviceDisconnected += OnDeviceDisconnected;
-                    adapter.DeviceConnectionLost += OnDeviceConnectionLost;
                 }
                 catch (DeviceConnectionException e)
                 {
@@ -111,9 +114,9 @@ namespace EarablesKIT.Models.Library
         // Kann das private sein so we die anderen zwei und eine Methode für die zwei zeilen unter connected schreiben???
         public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
         {
+            connected = true;
             Device.BeginInvokeOnMainThread(new Action(() =>
             {
-                connected = true;
                 DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
                 DeviceConnectionStateChanged?.Invoke(this, e);
             }));
@@ -121,9 +124,9 @@ namespace EarablesKIT.Models.Library
 
         public void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
         {
+            connected = false;
             Device.BeginInvokeOnMainThread(new Action(() =>
             {
-                connected = false;
                 DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
                 DeviceConnectionStateChanged?.Invoke(this, e);
             }));
@@ -199,7 +202,7 @@ namespace EarablesKIT.Models.Library
             { 
                 
                 deviceList.Clear();
-                adapter.DeviceDiscovered += (s, a) => { deviceList.Add(a.Device); ScannedDeviceHandler?.Invoke(this, new ScanDeviceArgs(deviceList));};
+                adapter.DeviceDiscovered += (s, a) => { deviceList.Add(a.Device); ScannedDeviceHandler?.Invoke(this, new ScanDeviceArgs(a.Device));};
 
                 if (!ble.Adapter.IsScanning)
                 {

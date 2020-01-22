@@ -7,11 +7,11 @@ namespace EarablesKIT.Models.Library
 {
     class ScanDeviceArgs
     {
-        public List<IDevice> Devices { get; }
+        public IDevice Device { get; }
 
-        public ScanDeviceArgs(List<IDevice> devices)
+        public ScanDeviceArgs(IDevice device)
         {
-            this.Devices = devices;
+            this.Device = device;
         }
     }
 }
