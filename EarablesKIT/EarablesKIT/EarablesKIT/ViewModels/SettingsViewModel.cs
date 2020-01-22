@@ -1,44 +1,62 @@
-﻿using EarablesKIT.Models.SettingsService;
+﻿using EarablesKIT.Models;
+using EarablesKIT.Models.SettingsService;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
-using System.Text;
-using System.Windows.Input;
-using EarablesKIT.Resources;
-using Xamarin.Forms;
-using static EarablesKIT.Models.SettingsService.SamplingRate;
 
 namespace EarablesKIT.ViewModels
 {
-    class SettingsViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// Class SettingsViewModel contains the logic behind the Settingspage. Builds the connection to the <see cref="SettingsService"/>
+    /// </summary>
+    internal class SettingsViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
 
         private User _user;
 
         private ISettingsService _settingsService;
 
-        public string Username { get => _user.Username;}
-        public int Steplength { get => _user.Steplength;}
+        /// <summary>
+        /// The active username
+        /// </summary>
+        public string Username { get => _user.Username; }
+        /// <summary>
+        /// The active steplength of the user
+        /// </summary>
+        public int Steplength { get => _user.Steplength; }
 
         private SamplingRate _samplingrate;
-        public int SamplingRate => (int) _samplingrate;
+        public int SamplingRate => (int)_samplingrate;
 
+        /// <summary>
+        /// The active language
+        /// </summary>
         public CultureInfo Language { get; private set; }
 
+        /// <summary>
+        /// Constructor for SettingsViewModel. Loads the Settings (username, steplength, samplingrate, language)
+        /// </summary>
         public SettingsViewModel()
         {
-            _user = new User("Bob", 20);
-            _samplingrate = Hz_50;
-            Language = new CultureInfo("de-De");
+            _settingsService = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
+            _user = _settingsService.ActiveUser;
+            _samplingrate = _settingsService.SamplingRate;
+            Language = _settingsService.ActiveLanguage;
         }
 
-
+        /// <summary>
+        /// Method SaveClicked gets called when the "Save button" is clicked. It tries to save the
+        /// new settings given as the arguments. Returns true if the saving was completed without an exception; false otherwise
+        /// </summary>
+        /// <param name="chosenUsername">The new username</param>
+        /// <param name="chosenSteplength">The new steplength</param>
+        /// <param name="chosenSamplingRate">The new Samplingrate</param>
+        /// <param name="chosenCultureInfo">The new Language</param>
+        /// <returns>Bool, if the saving was completed without an exception</returns>
         public bool SaveClicked(string chosenUsername, int chosenSteplength, SamplingRate chosenSamplingRate, CultureInfo chosenCultureInfo)
         {
             bool needToSave = false;
+
+            //Check if the username or steplength have changed
             if (!chosenUsername.Equals(Username) || chosenSteplength != Steplength)
             {
                 try
@@ -54,11 +72,13 @@ namespace EarablesKIT.ViewModels
                 }
             }
 
+
+            //Check if the samplingrate has changed
             if (_samplingrate != chosenSamplingRate)
             {
                 try
                 {
-                    //_settingsService.SamplingRate = _samplingrate;
+                    _settingsService.SamplingRate = _samplingrate;
                     _samplingrate = chosenSamplingRate;
                     needToSave = true;
                 }
@@ -69,9 +89,10 @@ namespace EarablesKIT.ViewModels
                 }
             }
 
+            //Check if the language has changed
             if (!Equals(Language, chosenCultureInfo))
             {
-                //_settingsService.ActiveLanguage = chosenCultureInfo;
+                _settingsService.ActiveLanguage = chosenCultureInfo;
                 Language = chosenCultureInfo;
                 needToSave = true;
             }

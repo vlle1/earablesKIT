@@ -7,88 +7,85 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.SettingsPage">
     <ContentPage.Content>
-        <StackLayout Spacing="24" 
-                     Padding ="24" 
+        <StackLayout Spacing="24"
+                     Padding ="24"
                      Margin="0,0,0,0"
                      BackgroundColor="White">
 
             <StackLayout>
-                <Label Text="{x:Static Resource:AppResources.SettingsTitle}" 
-                       FontSize="Title" 
+                <Label Text="{x:Static Resource:AppResources.SettingsTitle}"
+                       FontSize="Title"
                        TextColor="White"
                        HorizontalTextAlignment="Center"
                        Padding="20"
-                       BackgroundColor="#40ABF0"
-                />
+                       BackgroundColor="LightSkyBlue" />
                 <Frame x:Name="InformationFrame"
                        CornerRadius="10"
                        Padding="0"
-                       HasShadow="False"
-                       >
-                        <Label Text="{x:Static Resource:AppResources.SettingsTitle}" 
+                       HasShadow="False">
+                    <Label Text="{x:Static Resource:AppResources.SettingsTitle}"
                                x:Name="InformationLabel"
-                               FontSize="Small" 
+                               FontSize="Small"
                                TextColor="White"
                                HorizontalTextAlignment="Center"
                                VerticalTextAlignment="Center"
                                HeightRequest="50"
                                Padding="5"
-                               BackgroundColor="Transparent"
-                        />
+                               BackgroundColor="Transparent" />
                 </Frame>
                 <Grid ColumnSpacing="24" RowSpacing="24" Margin="0,30,0,0" HorizontalOptions="Center" VerticalOptions="Center">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="{x:Static Resource:AppResources.SettingsPageUsername}" 
-                           Grid.Row="0" 
-                           Grid.Column="0" 
-                           FontSize="Medium"/>
-                    <Entry x:Name="UsernameEntry" 
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageUsername}"
                            Grid.Row="0"
-                           Grid.Column="1" 
+                           Grid.Column="0"
+                           FontSize="Medium" />
+                    <Entry x:Name="UsernameEntry"
+                           Grid.Row="0"
+                           Grid.Column="1"
                            Text="{Binding Username}"
-                           ClearButtonVisibility="WhileEditing" 
+                           ClearButtonVisibility="WhileEditing"
                            Keyboard="Chat"
                            WidthRequest="70"
                            MaxLength="20"
-                           TextChanged="UsernameEntry_OnTextChanged"/>
-                    <Label Text="{x:Static Resource:AppResources.SettingsPageSteplength}" 
-                           Grid.Row="1" 
+                           TextChanged="UsernameEntry_OnTextChanged" />
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageSteplength}"
+                           Grid.Row="1"
                            Grid.Column="0"
-                           FontSize="Medium"/>
+                           FontSize="Medium" />
                     <Entry  x:Name="SteplengthEntry"
-                            ClearButtonVisibility="WhileEditing" 
-                            Keyboard="Numeric" 
-                            Grid.Row="1" 
+                            ClearButtonVisibility="WhileEditing"
+                            Keyboard="Numeric"
+                            Grid.Row="1"
                             Grid.Column="1"
                             FontSize="Medium"
                             WidthRequest="70"
                             MaxLength="4"
                             TextChanged="SteplengthEntry_OnTextChanged"
-                            Text="{Binding Steplength}"/>
-                    <Label Text="{x:Static Resource:AppResources.SettingsPageSamplingrate}" 
-                           Grid.Row="2" 
+                            Text="{Binding Steplength}" />
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageSamplingrate}"
+                           Grid.Row="2"
                            Grid.Column="0"
-                           FontSize="Medium"/>
+                           FontSize="Medium" />
                     <Picker x:Name="SamplingratePicker"
                             Grid.Row="2"
                             Grid.Column="1"
                             WidthRequest="70"
                             SelectedItem="{Binding SamplingRate}">
                     </Picker>
-                    <Label Text="{x:Static Resource:AppResources.SettingsPageLanguage}" 
-                           Grid.Row="3" 
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageLanguage}"
+                           Grid.Row="3"
                            Grid.Column="0"
-                           FontSize="Medium"/>
+                           FontSize="Medium" />
                     <Picker x:Name="LanguagePicker"
                             Grid.Row="3"
                             Grid.Column="1"
@@ -99,14 +96,13 @@
                 </Grid>
             </StackLayout>
             <Button x:Name="SaveButton"
-                    Text="{x:Static Resource:AppResources.SettingsPageSave}" 
+                    Text="{x:Static Resource:AppResources.SettingsPageSave}"
                     Clicked="ButtonSavedClicked"
-                    VerticalOptions="CenterAndExpand" 
-                    BorderColor="DarkGray" 
-                    BorderWidth="1" 
-                    CornerRadius="20" 
+                    VerticalOptions="CenterAndExpand"
+                    BorderColor="DarkGray"
+                    BorderWidth="1"
+                    CornerRadius="20"
                     HorizontalOptions="Center"></Button>
-            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

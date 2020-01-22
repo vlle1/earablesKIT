@@ -101,7 +101,7 @@ namespace EarablesKIT.Models.SettingsService
                 }
                 catch (CultureNotFoundException)
                 {
-                    //TODO Fehlerverhalten klären
+
                     ExceptionHandlingViewModel.HandleException(new CultureNotFoundException("Language couldn't be loaded!"));
                     ActiveLanguage = CultureInfo.CurrentUICulture;
                 }
