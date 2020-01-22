@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="EarablesKIT.Views.CountModeActivePage">
+    <ContentPage.Content>
+        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
+            <Label Text="CountMode"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+            <Label HorizontalTextAlignment="Center" FontSize="24" Text="Timer"/>
+            <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Grid.Column="1" FontSize="30">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding Minutes}"/>
+                        <Span Text=":"/>
+                        <Span Text="{Binding Seconds}"/>
+                        <Span Text=":"/>
+                        <Span Text="{Binding Milliseconds}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="Amount"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+            <Button Text="StopCountMode"
+                    Clicked="OnStopButtonClicked"
+                    VerticalOptions="CenterAndExpand" 
+                    BackgroundColor="IndianRed" 
+                    BorderColor="Black" 
+                    BorderWidth="1" 
+                    CornerRadius="10" 
+                    HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -4,12 +4,52 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.CountModePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
+            <Label Text="CountMode"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+            <StackLayout Spacing="0">
+                <Label Text="Possible Activities"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+            </StackLayout>
+            <StackLayout Padding="20">
+                <ListView x:Name="EmployeeView">
+                    <ListView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>mono</x:String>
+                            <x:String>monodroid</x:String>
+                            <x:String>monotouch</x:String>
+                            <x:String>monorail</x:String>
+                            <x:String>monodevelop</x:String>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                </ListView>
+            </StackLayout>
+            <Grid Padding="20" RowSpacing="30">
+                <Label Text="SelectedActivity"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Start"
+                       Grid.Row="0"
+                       Grid.Column="0"/>
+            </Grid>
+            <Button Text="Start Countmode" 
+                    Clicked="OnStartButtonClicked"
+                    VerticalOptions="CenterAndExpand" 
+                    BackgroundColor="CornflowerBlue" 
+                    BorderColor="Black" 
+                    BorderWidth="1" 
+                    CornerRadius="10" 
+                    HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
