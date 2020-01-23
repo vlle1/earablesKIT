@@ -23,7 +23,7 @@ namespace EarablesKIT.Models.Library
 
         bool IsBluetoothActive();
 
-        void CheckConnection();
+        
       /*  void SetAccelerometerLPF(LPF_Accelerometer accelerometerLPF);
         LPF_Accelerometer GetAccelerometerLPF();
         void SetGyroscopeLPF(LPF_Gyroscope gyroscopeLPF);
