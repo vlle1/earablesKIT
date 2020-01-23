@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
-	class StepModeViewModel : BaseModeViewModel, INotifyPropertyChanged
+	public class StepModeViewModel : BaseModeViewModel, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,12 +25,12 @@ namespace EarablesKIT.ViewModels
 		private IActivityManager _activityManager { get; set; }
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
-		private String _lastDataTime, _currentDate;
+		private string _lastDataTime, _currentDate;
 		private int _stepCounter, _distanceWalked, _stepsDoneLastTime, _distanceWalkedLastTime;
 		private bool _isRunning;
 		private double _stepFrequency;
 
-		public String CurrentDate
+		public string CurrentDate
 		{
 			get { return _currentDate; }
 			set
@@ -138,8 +138,7 @@ namespace EarablesKIT.ViewModels
 
 		public void OnRunningDone(object sender, ActivityArgs args)
 		{
-			RunningEventArgs RunningEvent = (RunningEventArgs)args;
-			//IsRunning = RunningEvent.Running; 
+			//IsRunning = (RunningEventArgs)args.Running;
 		}
 
 		protected void OnPropertyChanged([CallerMemberName] string name = "")

@@ -12,16 +12,12 @@ namespace EarablesKIT.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class StepModeActivePage : ContentPage
 	{
-		private StepModePage _StepModePage { get; set; }
 		private StepModeViewModel ViewModel { get; set; }
-		public StepModeActivePage(StepModePage smp)
+		public StepModeActivePage(StepModeViewModel smvm)
 		{
 			InitializeComponent();
-			_StepModePage = smp;
-			ViewModel = (StepModeViewModel) smp.ThrowingViewModel();
+			ViewModel = smvm;
 		}
-
-
 		public void OnStopButtonClicked(object sender, EventArgs args)
 		{
 			ViewModel.StopActivity();
