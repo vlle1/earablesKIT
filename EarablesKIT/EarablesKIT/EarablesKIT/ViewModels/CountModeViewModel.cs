@@ -1,16 +1,11 @@
-﻿using EarablesKIT.Models;
-using EarablesKIT.Models.DatabaseService;
+﻿using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
-using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
-using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -22,12 +17,11 @@ namespace EarablesKIT.ViewModels
 		private Stopwatch _timer;
 		private ActivityWrapper _pushUpActivity { get; set; }
 		private ActivityWrapper _sitUpActivity { get; set; }
+		private ActivityWrapper _comingSoon { get; set; }
 		private IActivityManager _activityManager { get; set; }
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
 		private string _minutes, _seconds, _milliseconds;
-
-		private int _counter;
 
 		public ObservableCollection<ActivityWrapper> PossibleActivities { get; set; }
 		public string Minutes
@@ -57,47 +51,40 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
-		public int Counter
-		{
-			get { return _counter; }
-			set
-			{
-				_counter = value;
-				OnPropertyChanged();
-			}
-		}
+		
 
 		public ActivityWrapper SelectedActivity { get; set; }
 
 		public CountModeViewModel()
 		{
-			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-			_pushUpActivity._activity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
-			_sitUpActivity._activity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
+			_pushUpActivity = new ActivityWrapper();
+			_sitUpActivity = new ActivityWrapper();
+			_comingSoon = new ActivityWrapper();
+			//_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+			//_pushUpActivity._activity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
+			//_sitUpActivity._activity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
 			_pushUpActivity._name = "Push-ups";
 			_sitUpActivity._name = "Sit-ups";
-			_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
-			PossibleActivities = new ObservableCollection<ActivityWrapper>();
+			_comingSoon._name = "Coming soon";
+			//_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
+			PossibleActivities = new ObservableCollection<ActivityWrapper>
+			{
+				_pushUpActivity,
+				_sitUpActivity,
+				_comingSoon
+			};
+			SelectedActivity = _pushUpActivity;
+
 		}
 
-		private bool SelectActivity()
+		private bool RegisterActivity()
 		{
-			if (SelectedActivity.Equals("Push-ups"))
-			{
-				//activeActivity = _pushUpActivity;
-				//activeActivity.ActivityDone += OnActivityDone;
+			//if (SelectedActivity._activity != null)
+			//{
+				//SelectedActivity._activity.ActivityDone += OnActivityDone;
 				return true;
-			}
-			else
-			{
-				if (SelectedActivity.Equals("Sit-ups"))
-				{
-					//activeActivity = _sitUpActivity;
-					//activeActivity.ActivityDone += OnActivityDone;
-					return true;
-				}
-			}
-			return false;
+			//}
+			//return false;
 		}
 
 
@@ -109,16 +96,17 @@ namespace EarablesKIT.ViewModels
 
 		public override void OnActivityDone(object sender, ActivityArgs args)
 		{
-			Counter++;
+			SelectedActivity.Counter++;
 		}
 
 		public override bool StartActivity()
 		{
 			if (CheckConnection())
 			{
-				if (SelectActivity())
+				if (RegisterActivity())
 				{
-					Counter = 0;
+					_pushUpActivity.Counter = 0;
+					_sitUpActivity.Counter = 0;
 					return true;
 				}
 				return false;
@@ -160,7 +148,7 @@ namespace EarablesKIT.ViewModels
 		public override void StopActivity()
 		{
 			StopTimer();
-			//activeActivity.ActivityDone -= OnActivityDone;
+			//SelectedActivity._activity.ActivityDone -= OnActivityDone;
 			SaveData();
 			ShowPopUp();
 		}
@@ -173,24 +161,13 @@ namespace EarablesKIT.ViewModels
 		private void SaveData()
 		{
 			//DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-			if (SelectedActivity.Equals("Push-ups"))
-			{
-				//DBEntry _entryNew = new DBEntry(_dt, 0, Counter, 0);
-				//_dataBaseConnection.SaveDBEntry(_entryNew);
-			}
-			else
-			{
-				if (SelectedActivity.Equals("Sit-ups"))
-				{
-					//DBEntry _entryNew = new DBEntry(_dt, 0, 0, Counter);
-					//_dataBaseConnection.SaveDBEntry(_entryNew);
-				}
-			}
+			//DBEntry _entryNew = new DBEntry(_dt, 0, _pushUpActivity.Counter, _sitUpActivity.Counter);
+			//_dataBaseConnection.SaveDBEntry(_entryNew);
 		}
 
 		private void ShowPopUp()
 		{
-			App.Current.MainPage.DisplayAlert("Result", "You have done " + Counter + " " + SelectedActivity + "!", "Cool");
+			App.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity._name + "!", "Cool");
 		}
 	}
 }

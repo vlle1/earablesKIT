@@ -26,14 +26,13 @@
                           SelectedItem="{Binding SelectedActivity}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextCell Text="{Binding}"/>
+                                <TextCell Text="{Binding _name}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
             </StackLayout>
             <Button Text="Start Countmode" 
-                    
                     Clicked="OnStartButtonClicked"
                     VerticalOptions="CenterAndExpand" 
                     BackgroundColor="CornflowerBlue" 

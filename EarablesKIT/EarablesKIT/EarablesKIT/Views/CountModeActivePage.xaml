@@ -29,13 +29,13 @@
             </Frame>
             <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <Frame HasShadow="False" BorderColor="Gray" Padding="80,40,80,40" BackgroundColor="LightBlue">
-                    <Label Text="{Binding Counter}"
+                    <Label Text="{Binding SelectedActivity.Counter}"
                                FontSize="50"
                                HorizontalTextAlignment="Center"
                                VerticalOptions="FillAndExpand"
                                HorizontalOptions="FillAndExpand"/>
                 </Frame>
-                <Label Text="{Binding SelectedActivity}"
+                <Label Text="{Binding SelectedActivity._name}"
                    Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
