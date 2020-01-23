@@ -126,11 +126,17 @@
   <data name="ErrorAlert" xml:space="preserve">
     <value>Exception!</value>
   </data>
-  <data name="MusicModeEntryLabel" xml:space="preserve">
-    <value>Wonderful MusicModeEntry page!</value>
-  </data>
   <data name="MusicModeEntryLabel1" xml:space="preserve">
     <value>Wonderful MusicModeEntry page!</value>
+  </data>
+  <data name="MusicModeStart" xml:space="preserve">
+    <value>Start Music Mode</value>
+  </data>
+  <data name="MusicModeStop" xml:space="preserve">
+    <value>Stop Music Mode</value>
+  </data>
+  <data name="MusicModeTitle" xml:space="preserve">
+    <value>Music Mode</value>
   </data>
   <data name="Okay" xml:space="preserve">
     <value>Okay</value>

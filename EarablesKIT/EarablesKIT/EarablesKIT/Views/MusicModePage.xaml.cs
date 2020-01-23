@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarablesKIT.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace EarablesKIT.Views
         public MusicModePage()
         {
             InitializeComponent();
+            BindingContext = new MusicModeViewModel();
         }
     }
 }

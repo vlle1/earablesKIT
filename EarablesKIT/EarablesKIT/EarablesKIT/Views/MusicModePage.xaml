@@ -8,9 +8,11 @@
              x:Class="EarablesKIT.Views.MusicModePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{x:Static resource:AppResources.MusicModeEntryLabel}"
+            <Button Text="{Binding IsActive}" Command="{Binding TriggerActivity}"></Button>
+            <!--Label Text="{x:Static resource:AppResources.MusicModeEntryLabel}"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" /-->
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>
