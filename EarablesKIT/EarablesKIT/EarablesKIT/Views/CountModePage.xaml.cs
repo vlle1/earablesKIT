@@ -31,7 +31,7 @@ namespace EarablesKIT.Views
 
 		public async void ChangeView()
 		{
-			CountModeActivePage NewView = new CountModeActivePage(this.ViewModel);
+			CountModeActivePage NewView = new CountModeActivePage(ViewModel);
 			NewView.BindingContext = this.BindingContext;
 			await Navigation.PushModalAsync(NewView);
 		}

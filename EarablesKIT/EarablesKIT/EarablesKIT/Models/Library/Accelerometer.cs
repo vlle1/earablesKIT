@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
-    class Accelerometer
+    public class Accelerometer
     {
         public float MperS_X { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public float MperS_Y { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

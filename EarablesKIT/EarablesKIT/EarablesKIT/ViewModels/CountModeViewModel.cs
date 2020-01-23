@@ -20,8 +20,8 @@ namespace EarablesKIT.ViewModels
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		private Stopwatch _timer;
-		private AbstractPushUpActivity _pushUpActivity { get; set; }
-		private AbstractSitUpActivity _sitUpActivity { get; set; }
+		private ActivityWrapper _pushUpActivity { get; set; }
+		private ActivityWrapper _sitUpActivity { get; set; }
 		private IActivityManager _activityManager { get; set; }
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
@@ -29,8 +29,7 @@ namespace EarablesKIT.ViewModels
 
 		private int _counter;
 
-		private Activity activeActivity { get; set; }
-		public ObservableCollection<string> PossibleActivities { get; set; }
+		public ObservableCollection<ActivityWrapper> PossibleActivities { get; set; }
 		public string Minutes
 		{
 			get { return _minutes; }
@@ -68,22 +67,17 @@ namespace EarablesKIT.ViewModels
 			}
 		}
 
-		public string SelectedActivity { get; set; }
+		public ActivityWrapper SelectedActivity { get; set; }
 
 		public CountModeViewModel()
 		{
-			//_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-			//_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
-			//_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
-			//_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
-			PossibleActivities = new ObservableCollection<string>
-			{
-				"Push-ups",
-				"Sit-ups",
-				"Coming Soon",
-				"Why should I work out"
-			};
-			SelectedActivity = "Coming Soon";
+			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+			_pushUpActivity._activity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
+			_sitUpActivity._activity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
+			_pushUpActivity._name = "Push-ups";
+			_sitUpActivity._name = "Sit-ups";
+			_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
+			PossibleActivities = new ObservableCollection<ActivityWrapper>();
 		}
 
 		private bool SelectActivity()
