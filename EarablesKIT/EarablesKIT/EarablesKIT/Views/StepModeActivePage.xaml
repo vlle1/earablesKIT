@@ -29,14 +29,20 @@
                    BackgroundColor="CornflowerBlue"/>
             </StackLayout>
             <Grid Padding="20" RowSpacing="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
                 <Label Text="{x:Static resource:AppResources.StepModeUnbindedStatusLabel}"
                        VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
                        FontSize="Large"
                        Grid.Row="0"
                        Grid.Column="0"
                        BackgroundColor="Beige"/>
                 <Label Text="{Binding StatusDisplay}"
                        VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
                        FontSize="Large"
                        Grid.Row="0"
                        Grid.Column="1"

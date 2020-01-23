@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
-	class CountModeViewModel : BaseModeViewModel, INotifyPropertyChanged
+	public class CountModeViewModel : BaseModeViewModel, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

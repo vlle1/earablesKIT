@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
-    abstract class BaseModeViewModel
+    public abstract class BaseModeViewModel
     {
 
         public abstract void OnActivityDone(object sender, ActivityArgs args);

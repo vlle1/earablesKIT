@@ -13,10 +13,10 @@ namespace EarablesKIT.Views
 	public partial class CountModeActivePage : ContentPage
 	{
 		private CountModeViewModel ViewModel { get; set; }
-		public CountModeActivePage(CountModePage cmp)
+		public CountModeActivePage(CountModeViewModel cmvm)
 		{
 			InitializeComponent();
-			ViewModel = (CountModeViewModel) cmp.ThrowingViewModel();
+			ViewModel = cmvm;
 		}
 
 		public void OnStopButtonClicked(object sender, EventArgs args)
