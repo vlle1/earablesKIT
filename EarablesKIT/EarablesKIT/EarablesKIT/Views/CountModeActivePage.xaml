@@ -4,10 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.CountModeActivePage">
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
-            <Label Text="CountMode"
+            <Label Text="{x:Static resource:AppResources.CountModeNameLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
@@ -42,7 +43,7 @@
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
             </StackLayout>
-            <Button Text="StopCountMode"
+            <Button Text="{x:Static resource:AppResources.StopCountModeButton}"
                     Clicked="OnStopButtonClicked"
                     VerticalOptions="End" 
                     BackgroundColor="IndianRed" 

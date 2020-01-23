@@ -8,31 +8,33 @@
              x:Class="EarablesKIT.Views.CountModePage">
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="60" Margin="0,30,0,0">
-            <Label Text="CountMode"
+            <Label Text="{x:Static resource:AppResources.CountModeNameLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
             <StackLayout Spacing="10">
-                <Label Text="Possible Activities"
+                <Label Text="{x:Static resource:AppResources.PossibleActivitiesLabel}"
                    Padding="20"
                    FontSize="Large"
                    HorizontalTextAlignment="Center"
                    BackgroundColor="PaleTurquoise"/>
                 <StackLayout Padding="20">
-                    <ListView x:Name="ActivityView" 
+                    <Frame HasShadow="False" BorderColor="Gray" Padding="10,10,10,10">
+                        <ListView x:Name="ActivityView" 
                           ItemsSource="{Binding PossibleActivities}" 
                           SelectedItem="{Binding SelectedActivity}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextCell Text="{Binding _name}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Text="{Binding _name}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Frame>
                 </StackLayout>
             </StackLayout>
-            <Button Text="Start Countmode" 
+            <Button Text="{x:Static resource:AppResources.StartCountModeButton}" 
                     Clicked="OnStartButtonClicked"
                     VerticalOptions="CenterAndExpand" 
                     BackgroundColor="CornflowerBlue" 
