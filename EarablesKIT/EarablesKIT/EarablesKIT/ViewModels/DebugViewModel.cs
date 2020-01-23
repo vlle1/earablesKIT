@@ -61,7 +61,7 @@ namespace EarablesKIT.ViewModels
 
             var earablesService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(EarablesConnection));
             
-            // Benis popup
+            // Bennis popup
             earablesService.StartSampling();
 
             earablesService.IMUDataReceived += (object sender, DataEventArgs args) =>
