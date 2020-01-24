@@ -120,8 +120,20 @@
   <data name="CountModeNameLabel" xml:space="preserve">
     <value>Zählmodus</value>
   </data>
+  <data name="DataOverviewPageDeleteButton" xml:space="preserve">
+    <value>Daten löschen</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Willkommen auf der Datenübersichtsseite!</value>
+  </data>
+  <data name="DataOverviewPageExportButton" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="DataOverviewPageImportButton" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
   </data>
   <data name="DefaultError" xml:space="preserve">
     <value>Es ist ein Fehler aufgetreten!</value>
@@ -140,6 +152,12 @@
   </data>
   <data name="PossibleActivitiesLabel" xml:space="preserve">
     <value>Mögliche Aktivitäten</value>
+  </data>
+  <data name="PushUps" xml:space="preserve">
+    <value>Liegestütze</value>
+  </data>
+  <data name="SitUps" xml:space="preserve">
+    <value>SitUps</value>
   </data>
   <data name="StartCountModeButton" xml:space="preserve">
     <value>Zählmodus Starten</value>
@@ -173,6 +191,9 @@
   </data>
   <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
     <value>Aktuell Gelaufene Schritte</value>
+  </data>
+  <data name="Steps" xml:space="preserve">
+    <value>Schritte</value>
   </data>
   <data name="StopCountModeButton" xml:space="preserve">
     <value>Zählmodus Stoppen</value>

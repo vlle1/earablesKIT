@@ -120,8 +120,20 @@
   <data name="CountModeNameLabel" xml:space="preserve">
     <value>CountMode</value>
   </data>
+  <data name="DataOverviewPageDeleteButton" xml:space="preserve">
+    <value>Delete Data</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
-    <value>Wonderful DataOverviewPage!</value>
+    <value>Welcome to your Dataoverview</value>
+  </data>
+  <data name="DataOverviewPageExportButton" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="DataOverviewPageImportButton" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="DefaultError" xml:space="preserve">
     <value>Something went wrong!</value>
@@ -140,6 +152,12 @@
   </data>
   <data name="PossibleActivitiesLabel" xml:space="preserve">
     <value>Possible Activities</value>
+  </data>
+  <data name="PushUps" xml:space="preserve">
+    <value>PushUps</value>
+  </data>
+  <data name="SitUps" xml:space="preserve">
+    <value>SitUps</value>
   </data>
   <data name="StartCountModeButton" xml:space="preserve">
     <value>Start CountMode</value>
@@ -173,6 +191,9 @@
   </data>
   <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
     <value>Steps Taken During This Session </value>
+  </data>
+  <data name="Steps" xml:space="preserve">
+    <value>Steps</value>
   </data>
   <data name="StopCountModeButton" xml:space="preserve">
     <value>Stop CountMode</value>

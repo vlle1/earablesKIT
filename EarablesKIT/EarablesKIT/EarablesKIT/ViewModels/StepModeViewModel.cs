@@ -196,7 +196,7 @@ namespace EarablesKIT.ViewModels
 			//{
 				//DBEntry entry = Entries[0];
 				//LastDataTime = entry.Date.ToString();
-				//StepsDoneLastTime = (int)entry.TrainingsData["steps"];
+				//StepsDoneLastTime = (int)entry.TrainingsDataDBEntries["steps"];
 				//ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
 				//int dwlt = StepsDoneLastTime * setser.MyUser.Steplength;
 				//DistanceWalkedLastTime = dwlt.ToString();
