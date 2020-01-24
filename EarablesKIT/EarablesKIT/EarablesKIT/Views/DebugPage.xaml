@@ -26,7 +26,14 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label Text="{Binding AbsGAcc}">
+            
+            <Label Text="{Binding AbsGAcc}" FontSize="Large">
+            </Label>
+            <Label Text="{Binding InfoString}" FontSize="Large">
+            </Label>
+            <Label Text="{Binding ReferenceAcc}" FontSize="Large">
+            </Label>
+            <Label Text="{Binding Counter}" FontSize="150">
             </Label>
         </StackLayout>
     </ContentPage.Content>

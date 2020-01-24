@@ -17,7 +17,47 @@ namespace EarablesKIT.ViewModels
     {
 
         public ObservableCollection<IMUDataEntry> TrainingsData { get ; private set; }
+        private int cooldown = 0;
+        private double _referenceAcc = 1;
+        public double ReferenceAcc
+        {
+            get
+            {
+                return _referenceAcc;
+            }
+            set
+            {
+                _referenceAcc= value;
+                OnPropertyChanged("ReferenceAcc");
+            }
+        }
+        private string _infoString = "";
+        public string InfoString
+        {
+            get
+            {
+                return _infoString;
+            }
+            set
+            {
+                _infoString = value;
+                OnPropertyChanged("InfoString");
+            }
+        }
 
+        private int _counter = 0;
+        public int Counter
+        {
+            get
+            {
+                return _counter;
+            }
+            set
+            {
+                _counter = value;
+                OnPropertyChanged("Counter");
+            }
+        }
         private double _absAcc;
         public double AbsGAcc
         {
@@ -89,7 +129,24 @@ namespace EarablesKIT.ViewModels
                     TrainingsData.Clear();
                     TrainingsData.Add(args.Data);
                     AbsGAcc = Math.Pow(args.Data.Acc.G_X, 2) + Math.Pow(args.Data.Acc.G_Y, 2) + Math.Pow(args.Data.Acc.G_Z, 2);
+                    ReferenceAcc = (AbsGAcc + 100 * ReferenceAcc)/101;
+                    if (AbsGAcc > 1.2 * ReferenceAcc)
+                    {
+                        if (cooldown == 0)
+                        {
+                            Counter++;
+                            cooldown = 15;
+                            InfoString = "new tick is" + "[coming soon]";
+                        }
+                        else
+                        {
+                            InfoString += " c";
+                        }
+                    }
+
+                    if (cooldown > 0) cooldown--;
                 }
+                
             };
 
             TrainingsData = new ObservableCollection<IMUDataEntry>();
