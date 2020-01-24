@@ -11,22 +11,30 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.EventArgs;
 
 
-
 namespace EarablesKIT.Models.Library
 {
+    /// <summary>
+    /// This class is responsible for the connection with teh earables
+    /// </summary>
      class EarablesConnection : IEarablesConnection
     {
+        //
         private IBluetoothLE ble = CrossBluetoothLE.Current;
         private IAdapter adapter = CrossBluetoothLE.Current.Adapter;
+        // The connectet device
         private IDevice device;
+        // Saves the configurations
         private ConfigContainer config = new ConfigContainer();
+        // Holds all characteristics
         private Characteristics characters = new Characteristics();
+        // The connection state
         private bool connected = false;
         public bool Connected { get => connected; }
         public bool IsBluetoothActive { get => CheckIsBluetoothActive(); }
         public int SampleRate { get => config.Samplerate; set => config.Samplerate = value; }
         public LPF_Accelerometer AccLPF { get => GetAccelerometerLPF(); set => SetAccelerometerLPF(value); }
         public LPF_Gyroscope GyroLPF { get => GetGyroscopeLPF(); set => SetGyroscopeLPF(value); }
+        // The current batteryvoltage
         private float batteryVoltage;
         public float BatteryVoltage { get => batteryVoltage; }
 
@@ -35,8 +43,13 @@ namespace EarablesKIT.Models.Library
         public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
         public EventHandler<NewDeviceFoundArgs> NewDeviceFound;
 
+        /// <summary>
+        ///  Connect to a device
+        /// </summary>
+        /// <param name="device"> Is the device which should connect</param>
         public void ConnectToDevice(IDevice device)
         {
+            // Connectioncheck
             if (connected)
             {
                 throw new AllreadyConnectedException("Error, allready connected");
@@ -44,12 +57,16 @@ namespace EarablesKIT.Models.Library
 
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
-                // Set the requiered Connection Parameters
+                // Set the requiered connection Parameters
                 var connectParams = new ConnectParameters(true, true);
 
-                // adapter.DeviceConnected += OnDeviceConnected;
+                // Register on the events from the earables
                 adapter.DeviceDisconnected += OnDeviceDisconnected;
                 adapter.DeviceConnectionLost += OnDeviceConnectionLost;
+                // adapter.DeviceConnected += OnDeviceConnected;
+                characters.SensordataChar.ValueUpdated += OnValueUpdatedIMU;
+                characters.PushbuttonChar.ValueUpdated += OnPushButtonPressed;
+                characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
 
                 // Stop scanning for devices to be sure that nothing goes wrong
                 await adapter.StopScanningForDevicesAsync();
@@ -67,17 +84,15 @@ namespace EarablesKIT.Models.Library
                 characters.OffsetChar = await Service.GetCharacteristicAsync(Guid.Parse(OFFSET_CHAR));
                 characters.AccelerometerGyroscopeLPFChar = await Service.GetCharacteristicAsync(Guid.Parse(ACC_GYRO_LPF_CHAR));
 
-
-                // Set Scalefactors on norm
+                // Set scalefactors on norm
                 byte[] bytes = { 0x59, 0x20, 0x04, 0x06, 0x08, 0x08, 0x06 };
                 await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytes);
 
-                // Register on the events from the Earables (sollte am besten in eine art Constructor)
-                characters.SensordataChar.ValueUpdated += OnValueUpdatedIMU;
-                characters.PushbuttonChar.ValueUpdated += OnPushButtonPressed;
+                // Starts the updating from the characteristics
                 await characters.PushbuttonChar.StartUpdatesAsync();
-                characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
                 await characters.BatteryChar.StartUpdatesAsync();
+
+                // Throw event connected
                 connected = true;
                 DeviceEventArgs e = new DeviceEventArgs(connected, device.Name);
                 DeviceConnectionStateChanged?.Invoke(this, e);
@@ -89,14 +104,19 @@ namespace EarablesKIT.Models.Library
             }));
         }
 
-
-
+        /// <summary>
+        /// Disconnects from the device
+        /// </summary>
         public async void DisconnectFromDevice()
         {
             CheckConnection();
             await adapter.DisconnectDeviceAsync(device);
         }
 
+        /// <summary>
+        /// Checks if Bluetooth on the smartphone is on
+        /// </summary>
+        /// <returns></returns>
         private bool CheckIsBluetoothActive()
         {
             if (ble.State == BluetoothState.On)
@@ -121,6 +141,13 @@ namespace EarablesKIT.Models.Library
         //          DeviceConnectionStateChanged?.Invoke(this, e);
         //      }));
         //  }
+
+
+        /// <summary>
+        /// Catches the event DeviceDisconnected from the earables and throws the event DeviceConnectionStateChanged
+        /// </summary>
+        /// <param name="sender">The Objekt which has thrown the event</param>
+        /// <param name="args">The arguments from the exception</param>
         private void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
         {
             connected = false;
@@ -141,6 +168,11 @@ namespace EarablesKIT.Models.Library
             }));
         }
 
+        /// <summary>
+        /// Notice if the Button on the earables is pressed and throws the event ButtonPressed
+        /// </summary>
+        /// <param name="sender">The Objekt which has thrown the event</param>
+        /// <param name="args">The arguments from the exception</param>
         private void OnPushButtonPressed(object sender, CharacteristicUpdatedEventArgs args)
         {
             byte[] bytes = args.Characteristic.Value;
@@ -153,6 +185,11 @@ namespace EarablesKIT.Models.Library
             }
         }
 
+        /// <summary>
+        /// Notice if new Data from the imu is recived and throws the event IMUDataRecived
+        /// </summary>
+        /// <param name="sender">The Objekt which has thrown the event</param>
+        /// <param name="args">The arguments from the exception</param>
         private void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
             byte[] bytesIMUValue = args.Characteristic.Value;
@@ -161,26 +198,38 @@ namespace EarablesKIT.Models.Library
         }
 
 
+        /// <summary>
+        /// Starts the sampling
+        /// </summary>
         public void StartSampling()
         {
             CheckConnection();
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
+                // Read the current value from the characteristic
                 byte[] bytesScaleFactor = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
+                // Extract the actual gyroscope scalefactor from the bytearray
                 config.GyroScaleFactor = IMUDataExtractor.ExctractIMUScaleFactorGyroscope(bytesScaleFactor);
+                // Extract the actual accelerometer scalefactor from the bytearray
                 config.AccScaleFactor = IMUDataExtractor.ExtractIMUScaleFactorAccelerometer(bytesScaleFactor);
+                // Read the bytearray for the offset
                 config.ByteOffset = await characters.OffsetChar.ReadAsync();
+                // Starts the updating for the characteristic
                 await characters.SensordataChar.StartUpdatesAsync();
+                // Starts the sampling
                 byte[] bytes = { 0x53, Convert.ToByte(config.Samplerate + 3), 0x02, 0x01, Convert.ToByte(config.Samplerate) };
                 await characters.StartStopIMUSamplingChar.WriteAsync(bytes);
             }));
         }
 
-
+        /// <summary>
+        /// Starts the Scanning
+        /// </summary>
         public async void StartScanning()
         {
             adapter.DeviceDiscovered += (s, a) =>
             {
+                // Throws an event if new devices are discoverd
                 NewDeviceFound?.Invoke(this, new NewDeviceFoundArgs(a.Device));
             };
 
@@ -190,14 +239,23 @@ namespace EarablesKIT.Models.Library
             }
         }
 
+        /// <summary>
+        /// Stops the sampling
+        /// </summary>
         public async void StopSampling()
         {
             CheckConnection();
+            // Stops updating the characteristic
             await characters.SensordataChar.StopUpdatesAsync();
+            // Stops the sampling
             byte[] bytes = { 0x53, 0x02, 0x02, 0x00, 0x00 };
             await characters.StartStopIMUSamplingChar.WriteAsync(bytes);
         }
 
+        /// <summary>
+        /// Sets the aaccelerometerLPF
+        /// </summary>
+        /// <param name="accelerometerLPF">The value on which the accelerometerLPF should be set</param>
         private async void SetAccelerometerLPF(LPF_Accelerometer accelerometerLPF)
         {
             CheckConnection();
@@ -212,17 +270,22 @@ namespace EarablesKIT.Models.Library
             // Write the new accelerometerLPF in to the characteristic
             byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], bytesRead[4], bytesRead[5], Convert.ToByte(data3) };
             await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
-            // wird hier schon gesetzt und nicht erst wenn neue daten ankommen, da 
             config.AccelerometerLPF = accelerometerLPF;
-            //accEnumValue = (int)accelerometerLPF;
         }
 
+        /// <summary>
+        /// Returns the current LPF for the accelerometer
+        /// </summary>
+        /// <returns>Returns the LPF for the accelerometer</returns>
         private LPF_Accelerometer GetAccelerometerLPF()
         {
             return config.AccelerometerLPF;
         }
 
-        // Not needed but helpfull for testing
+        /// <summary>
+        /// Get the accelerometerLPF from the device
+        /// Not needed but helpfull for testing
+        /// </summary>
         private async void GetAccelerometerLPFFromDevice()
         {
             CheckConnection();
@@ -231,11 +294,14 @@ namespace EarablesKIT.Models.Library
             int accEnumValue = (int)(bytes[6] & 0x0F);
         }
 
-
+        /// <summary>
+        /// Sets the gyroscope LPF
+        /// </summary>
+        /// <param name="gyroscopeLPF">The value on which the gyroscopeLPF should be set</param>
         private async void SetGyroscopeLPF(LPF_Gyroscope gyroscopeLPF)
         {
             CheckConnection();
-            // The Bytes that needed to be modified
+            // The bytes that needed to be modified
             int data0 = 0;
             int data1 = 0;
             // Read the characteristic to calculate the checksum, Data0 and Data1
@@ -250,7 +316,7 @@ namespace EarablesKIT.Models.Library
                 // set the 3 LSBs on the required value
                 data0 = data0 | (int)gyroscopeLPF;
             }
-            //If the LPF for the Gyroscope is OFF only Data1 need to be modified
+            //If the LPF for the gyroscope is OFF only Data1 need to be modified
             else
             {
                 // set the 2 LSBs on 1
@@ -258,26 +324,32 @@ namespace EarablesKIT.Models.Library
             }
             // Calculate the checksum
             int checksum = bytesRead[2] + (int)data0 + (int)data1 + bytesRead[5] + bytesRead[6];
-            // Write the new GyroscopeLPF in to the characteristic
+            // Write the new gyroscopeLPF in to the characteristic
             byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], Convert.ToByte(data0), Convert.ToByte(data1), bytesRead[5], bytesRead[6] };
             await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
             config.GyroscopeLPF = gyroscopeLPF;
-            //gyroEnumValue = (int)gyroscopeLPF;
         }
 
+        /// <summary>
+        /// Returns the current LPF for the gyroscope
+        /// </summary>
+        /// <returns>Returns the LPF for the gyroscope</returns>
         private LPF_Gyroscope GetGyroscopeLPF()
         {
             return config.GyroscopeLPF;
         }
 
-        // Not needed but helpfull for testing
+        /// <summary>
+        /// Get the gyroscopeLPF from the device
+        /// Not needed but helpfull for testing
+        /// </summary>
         private async void GetGyroscopeLPFFromDevice()
         {
             CheckConnection();
             byte[] bytes = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
             // read only the 2 LSBs and checks if the Gyro LPF is bypassed
             int b = (int)(bytes[4] & 0x03);
-            // If the Gyro LPF is bypassed it is representet as OFF in the LPF_Gyroscope Enum
+            // If the gyro LPF is bypassed it is representet as OFF in the LPF_Gyroscope Enum
             if (b == 0)
             {
                 int gyroEnumValue = (int)(bytes[3] & 0x07);
@@ -288,7 +360,10 @@ namespace EarablesKIT.Models.Library
             }
         }
 
-
+        /// <summary>
+        /// Sets the batteryVoltage
+        /// </summary>
+        /// <returns>Returns a Task cause it is a async method</returns>
         private async System.Threading.Tasks.Task initBatteryVoltage()
         {
             CheckConnection();
@@ -296,6 +371,11 @@ namespace EarablesKIT.Models.Library
             batteryVoltage = (bytes[3] * 256 + bytes[4]) / 1000f;
         }
 
+        /// <summary>
+        /// Notice if the batterychar changes and updates the batteryvalue
+        /// </summary>
+        /// <param name="sender">The Objekt which has thrown the event</param>
+        /// <param name="args">The arguments from the exception</param>
         private void GetBatteryVoltageFromDevice(object sender, CharacteristicUpdatedEventArgs args)
         {
             CheckConnection();
@@ -303,7 +383,10 @@ namespace EarablesKIT.Models.Library
             batteryVoltage = (bytes[3] * 256 + bytes[4]) / 1000f;
         }
 
-        // Not needed but helpfull for testing
+        /// <summary>
+        /// Set the accelerometer range
+        /// Not needed but helpfull for testing
+        /// </summary>
         private async void setAccelerometerRange()
         {
             CheckConnection();
@@ -321,7 +404,10 @@ namespace EarablesKIT.Models.Library
             await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
         }
 
-        // Not needed but helpfull for testing
+        /// <summary>
+        /// Set the gyroscope range
+        /// Not needed but helpfull for testing
+        /// </summary>
         private async void setGyroscopeRange()
         {
             CheckConnection();
@@ -339,6 +425,9 @@ namespace EarablesKIT.Models.Library
             await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
         }
 
+        /// <summary>
+        /// Checks if the earables are still connected
+        /// </summary>
         private void CheckConnection()
         {
             if (!connected)
