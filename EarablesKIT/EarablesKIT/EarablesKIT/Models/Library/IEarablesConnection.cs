@@ -9,7 +9,7 @@ namespace EarablesKIT.Models.Library
     public interface IEarablesConnection
     {
         
-        List<IDevice> StartScanning();
+        void StartScanning();
 
         void ConnectToDevice(IDevice device);
 
@@ -23,7 +23,7 @@ namespace EarablesKIT.Models.Library
 
         bool IsBluetoothActive();
 
-        void CheckConnection();
+        
       /*  void SetAccelerometerLPF(LPF_Accelerometer accelerometerLPF);
         LPF_Accelerometer GetAccelerometerLPF();
         void SetGyroscopeLPF(LPF_Gyroscope gyroscopeLPF);
@@ -33,7 +33,7 @@ namespace EarablesKIT.Models.Library
 
         void OnPushButtonPressed(object sender, CharacteristicUpdatedEventArgs args);
 
-        void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
+       // void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
         void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args);
         void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs args);
 
