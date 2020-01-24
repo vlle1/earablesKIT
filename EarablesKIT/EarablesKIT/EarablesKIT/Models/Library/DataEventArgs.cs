@@ -4,13 +4,16 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
+    /// <summary>
+    /// This class contains all arguments which are necessary if there are new IMUDates
+    /// </summary>
     class DataEventArgs
     {
-        // Brauch man hier getter und setter? Man kann die doch einfach weglassenoder zummindest die setter weil sie nur im Constrictor gesetzt werden
+        private IMUDataEntry data;
+        public IMUDataEntry Data { get => data; set => data = value; }
+        private ConfigContainer configs;
 
-        public IMUDataEntry Data; //{ get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public ConfigContainer Configs; // { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ConfigContainer Configs { get => configs; set => configs = value; }
 
         public DataEventArgs(IMUDataEntry data, ConfigContainer configs)
         {

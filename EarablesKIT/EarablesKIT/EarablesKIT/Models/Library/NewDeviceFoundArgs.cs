@@ -5,7 +5,10 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
-    class NewDeviceFoundArgs
+    /// <summary>
+    /// This class contains all arguments which are necessary if a new device is found
+    /// </summary>
+    public class NewDeviceFoundArgs
     {
         public IDevice device;
 

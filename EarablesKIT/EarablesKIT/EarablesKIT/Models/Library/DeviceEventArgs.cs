@@ -4,11 +4,15 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
-    class DeviceEventArgs
+    /// <summary>
+    /// This class contains all arguments which are necessary if the connection state changes
+    /// </summary>
+    public class DeviceEventArgs
     {
-        // Brauch man hier getter und setter? Man kann die doch einfach weglassenoder zummindest die setter weil sie nur im Constrictor gesetzt werden
-        public bool Connected; // { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string DeviceName; // { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private bool connected;
+        public bool Connected  { get => connected; set => connected = value; }
+        private string deviceName;
+        public string DeviceName { get => deviceName; set => deviceName = value; }
 
         public DeviceEventArgs(bool connected, string deviceName)
         {

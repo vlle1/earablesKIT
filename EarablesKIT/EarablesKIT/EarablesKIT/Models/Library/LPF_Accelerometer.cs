@@ -4,6 +4,9 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
+    /// <summary>
+    /// This enum contains all values for the accelerometer LPF
+    /// </summary>
     public enum LPF_Accelerometer
     {
         Hz460 = 0,
