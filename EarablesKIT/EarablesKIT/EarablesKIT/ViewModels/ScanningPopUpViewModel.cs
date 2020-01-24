@@ -62,7 +62,7 @@ namespace EarablesKIT.ViewModels
         {
             DevicesList = new ObservableCollection<IDevice>();
             _earablesConnectionService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
-            _earablesConnectionService.ScannedDeviceHandler += (sender, args) =>
+            _earablesConnectionService.NewDeviceFound += (sender, args) =>
             {
 
                     if (args.Device.Name != null && args.Device.Name.StartsWith("eSense"))
@@ -134,7 +134,7 @@ namespace EarablesKIT.ViewModels
                 return;
             }
 
-            List<IDevice> scannedDevices = _earablesConnectionService.StartScanning();
+            _earablesConnectionService.StartScanning();
 
 
         }

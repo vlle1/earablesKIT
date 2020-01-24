@@ -26,7 +26,7 @@ namespace EarablesKIT.Models.Library
         private Characteristics characters = new Characteristics();
         private int accEnumValue;
         private int gyroEnumValue;
-        private bool connected = true;
+        private bool connected = false;
         public bool Connected { get => connected;} 
         public LPF_Accelerometer AccLPF { get => GetAccelerometerLPF(); set => SetAccelerometerLPF(value); }
         public LPF_Gyroscope GyroLPF { get => GetGyroscopeLPF(); set => SetGyroscopeLPF(value); }
@@ -40,7 +40,6 @@ namespace EarablesKIT.Models.Library
 
         public EarablesConnection()
         {
-            deviceList = new List<IDevice>();
             config = new ConfigContainer();
             characters = new Characteristics();
         }
