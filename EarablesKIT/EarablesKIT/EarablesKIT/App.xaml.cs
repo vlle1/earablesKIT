@@ -34,12 +34,12 @@ namespace EarablesKIT
             EarablesConnection service = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             service.DeviceConnectionStateChanged += ScanningPopUpViewModel.OnDeviceConnectionStateChanged;
 
+            if(!service.Connected)
             this.showPopUp();
         }
 
         private async void showPopUp()
         {
-            Thread.Sleep(5000);
             ScanningPopUpViewModel.ShowPopUp();
         }
 

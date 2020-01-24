@@ -13,6 +13,8 @@ using Xamarin.Forms;
 using static EarablesKIT.Models.Library.Constants;
 using static EarablesKIT.Models.Library.IMUDataExtractor;
 
+
+
 namespace EarablesKIT.Models.Library
 {
       class EarablesConnection : IEarablesConnection
@@ -20,12 +22,11 @@ namespace EarablesKIT.Models.Library
         private IBluetoothLE ble = CrossBluetoothLE.Current;
         private IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         private IDevice device;
-        private List<IDevice> deviceList;
-        private ConfigContainer config;
-        private Characteristics characters;
+        private ConfigContainer config = new ConfigContainer();
+        private Characteristics characters = new Characteristics();
         private int accEnumValue;
         private int gyroEnumValue;
-        private bool connected = true;
+        private bool connected = false;
         public bool Connected { get => connected;} 
         public LPF_Accelerometer AccLPF { get => GetAccelerometerLPF(); set => SetAccelerometerLPF(value); }
         public LPF_Gyroscope GyroLPF { get => GetGyroscopeLPF(); set => SetGyroscopeLPF(value); }
@@ -35,25 +36,27 @@ namespace EarablesKIT.Models.Library
         public EventHandler<DataEventArgs> IMUDataReceived;
         public EventHandler<ButtonEventArgs> ButtonPressed;
         public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
-        public EventHandler<ScanDeviceArgs> ScannedDeviceHandler { get; set; }
+        public EventHandler<NewDeviceFoundArgs> NewDeviceFound;
 
         public EarablesConnection()
         {
-            deviceList = new List<IDevice>();
             config = new ConfigContainer();
             characters = new Characteristics();
         }
 
         public void ConnectToDevice(IDevice device)
         {
+            if (connected)
+            {
+                throw new AllreadyConnectedException("Error, allready connected");
+            }
+
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
                 // Set the requiered Connection Parameters
                 var connectParams = new ConnectParameters(true, true);
-                try
-                {
 
-                    adapter.DeviceConnected += OnDeviceConnected;
+                   // adapter.DeviceConnected += OnDeviceConnected;
                     adapter.DeviceDisconnected += OnDeviceDisconnected;
                     adapter.DeviceConnectionLost += OnDeviceConnectionLost;
 
@@ -61,6 +64,7 @@ namespace EarablesKIT.Models.Library
                     await adapter.StopScanningForDevicesAsync();
                     // Connect to the device
                     await adapter.ConnectToDeviceAsync(device, connectParams);
+                    this.device = device;
 
                     // Load all required characteristics
                     IService Service;
@@ -72,24 +76,20 @@ namespace EarablesKIT.Models.Library
                     characters.OffsetChar = await Service.GetCharacteristicAsync(Guid.Parse(OFFSET_CHAR));
                     characters.AccelerometerGyroscopeLPFChar = await Service.GetCharacteristicAsync(Guid.Parse(ACC_GYRO_LPF_CHAR));
 
-                    // Initialise the BatteryVoltage the first time after connection in case it will be used befor the Batteryvalue updates the first time
-                    initBatteryVoltage();
-
                     // Register on the events from the Earables (sollte am besten in eine art Constructor)
                     characters.SensordataChar.ValueUpdated += OnValueUpdatedIMU;
                     characters.PushbuttonChar.ValueUpdated += OnPushButtonPressed;
                     await characters.PushbuttonChar.StartUpdatesAsync();
                     characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
                     await characters.BatteryChar.StartUpdatesAsync();
-                }
-                catch (DeviceConnectionException e)
-                {
-                    throw e;
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                    connected = true;
+                    DeviceEventArgs e = new DeviceEventArgs(connected, device.Name);
+                    DeviceConnectionStateChanged?.Invoke(this, e);
+
+                    // Initialise the BatteryVoltage the first time after connection in case it will be used befor the Batteryvalue updates the first time
+                    await initBatteryVoltage();
+
+
             }));
         }
 
@@ -112,16 +112,15 @@ namespace EarablesKIT.Models.Library
         }
 
         // Kann das private sein so we die anderen zwei und eine Methode für die zwei zeilen unter connected schreiben???
-        public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
-        {
-            connected = true;
-            Device.BeginInvokeOnMainThread(new Action(() =>
-            {
-                DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
-                DeviceConnectionStateChanged?.Invoke(this, e);
-            }));
-        }
-
+      //  public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
+      //  {
+      //      connected = true;
+      //      Device.BeginInvokeOnMainThread(new Action(() =>
+      //      {
+      //          DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
+      //          DeviceConnectionStateChanged?.Invoke(this, e);
+      //      }));
+      //  }
         public void OnDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
         {
             connected = false;
@@ -135,9 +134,9 @@ namespace EarablesKIT.Models.Library
         // Brauchen wir die methode wenn sie keinen unterschied macht zu der oben drüber? man kann ja was ergänzen um zu signalisieren, dass die verbindung abgebrochen wurde
         public void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs args)
         {
+            connected = false;
             Device.BeginInvokeOnMainThread(new Action(() =>
             {
-                connected = false;
                 DeviceConnectionStateChanged?.Invoke(this, new DeviceEventArgs(connected, args.Device.Name));
             }));
         }
@@ -154,14 +153,10 @@ namespace EarablesKIT.Models.Library
             }
         }
 
-        public async void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
+        public void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
             byte[] bytesIMUValue = args.Characteristic.Value;
-            byte[] bytesScaleFactor = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            double gyroScaleFactor = IMUDataExtractor.ExctractIMUScaleFactorGyroscope(bytesScaleFactor);
-            int accScaleFactor = IMUDataExtractor.ExtractIMUScaleFactorAccelerometer(bytesScaleFactor);
-            byte[] bytesOffset = await characters.OffsetChar.ReadAsync();
-            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, accScaleFactor, gyroScaleFactor, bytesOffset);
+            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, config.ByteOffset);
             IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
         }
 
@@ -174,46 +169,36 @@ namespace EarablesKIT.Models.Library
             config.Samplerate = rate;
         }
 
-        public async void StartSampling()
+        public void StartSampling()
         {
             CheckConnection();
-            await characters.SensordataChar.StartUpdatesAsync();
-            byte[] bytes = { 0x53, Convert.ToByte(config.Samplerate + 3), 0x02, 0x01, Convert.ToByte(config.Samplerate) };
-            await characters.StartStopIMUSamplingChar.WriteAsync(bytes);
+            Device.BeginInvokeOnMainThread(new Action(async () =>
+            {
+                byte[] bytesScaleFactor = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
+                config.GyroScaleFactor = IMUDataExtractor.ExctractIMUScaleFactorGyroscope(bytesScaleFactor);
+                config.AccScaleFactor = IMUDataExtractor.ExtractIMUScaleFactorAccelerometer(bytesScaleFactor);
+                config.ByteOffset = await characters.OffsetChar.ReadAsync();
+                await characters.SensordataChar.StartUpdatesAsync();
+                byte[] bytes = { 0x53, Convert.ToByte(config.Samplerate + 3), 0x02, 0x01, Convert.ToByte(config.Samplerate) };
+                await characters.StartStopIMUSamplingChar.WriteAsync(bytes);
+            }));
         }
 
-        /* public List<IDevice> StartScanning()
-         {
-             FillDeviceList();
-             return deviceList;
-         }*/
 
-        // test
-        public List<IDevice> StartScanning()
+        public async void StartScanning()
         {
-            FillDeviceList();
-            return deviceList;
-        }
-
-        // Test public war eigentlich private
-        public async void FillDeviceList()
-        {
-            try
-            { 
-                
-                deviceList.Clear();
-                adapter.DeviceDiscovered += (s, a) => { deviceList.Add(a.Device); ScannedDeviceHandler?.Invoke(this, new ScanDeviceArgs(a.Device));};
+               // deviceList.Clear();
+                adapter.DeviceDiscovered += (s, a) =>
+                {
+                    NewDeviceFound?.Invoke(this, new NewDeviceFoundArgs(a.Device) );
+                   // deviceList.Add(a.Device);
+                };
 
                 if (!ble.Adapter.IsScanning)
                 {
                     await adapter.StartScanningForDevicesAsync();
                     //ScannedDeviceHandler?.Invoke(this, new ScanDeviceArgs(deviceList));
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
         }
 
         public async void StopSampling()
@@ -313,7 +298,7 @@ namespace EarablesKIT.Models.Library
             }
         }
 
-        private async void initBatteryVoltage()
+        private async System.Threading.Tasks.Task initBatteryVoltage()
         {
             CheckConnection();
             byte[] bytes = await characters.BatteryChar.ReadAsync();
@@ -363,7 +348,7 @@ namespace EarablesKIT.Models.Library
             await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
         }
 
-        public void CheckConnection()
+        private void CheckConnection()
         {
             if (!connected)
             {
