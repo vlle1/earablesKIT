@@ -79,7 +79,7 @@ namespace EarablesKIT.Models.Library
                     // Register on the events from the Earables (sollte am besten in eine art Constructor)
                     characters.SensordataChar.ValueUpdated += OnValueUpdatedIMU;
                     characters.PushbuttonChar.ValueUpdated += OnPushButtonPressed;
-                    await characters.PushbuttonChar.StartUpdatesAsync();
+                   await characters.PushbuttonChar.StartUpdatesAsync();
                     characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
                     await characters.BatteryChar.StartUpdatesAsync();
                     connected = true;
