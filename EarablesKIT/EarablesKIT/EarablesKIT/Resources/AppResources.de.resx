@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CountModeNameLabel" xml:space="preserve">
+    <value>Zählmodus</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Willkommen auf der Datenübersichtsseite!</value>
   </data>
@@ -134,6 +137,12 @@
   </data>
   <data name="Okay" xml:space="preserve">
     <value>Okay</value>
+  </data>
+  <data name="PossibleActivitiesLabel" xml:space="preserve">
+    <value>Mögliche Aktivitäten</value>
+  </data>
+  <data name="StartCountModeButton" xml:space="preserve">
+    <value>Zählmodus Starten</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
     <value>Letztes Mal Gelaufene Distanz</value>
@@ -164,5 +173,8 @@
   </data>
   <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
     <value>Aktuell Gelaufene Schritte</value>
+  </data>
+  <data name="StopCountModeButton" xml:space="preserve">
+    <value>Zählmodus Stoppen</value>
   </data>
 </root>

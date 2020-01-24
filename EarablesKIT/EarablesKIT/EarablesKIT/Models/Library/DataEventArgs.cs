@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
-    class DataEventArgs
+    public class DataEventArgs
     {
         public IMUDataEntry Data { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 

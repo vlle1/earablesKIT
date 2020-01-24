@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
-    class ConfigContainer
+    public class ConfigContainer
     {
         public int Samplerate { get => throw new NotImplementedException();}
 
