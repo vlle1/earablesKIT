@@ -12,6 +12,9 @@ namespace EarablesKIT.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DataOverviewPage : ContentPage
     {
+        /// <summary>
+        /// Default constructor for page DataOverview
+        /// </summary>
         public DataOverviewPage()
         {
             InitializeComponent();
