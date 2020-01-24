@@ -129,9 +129,6 @@ namespace EarablesKIT.Models.Library
             }
         }
 
-
-
-
         //  public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
         //  {
         //      connected = true;
@@ -242,14 +239,17 @@ namespace EarablesKIT.Models.Library
         /// <summary>
         /// Stops the sampling
         /// </summary>
-        public async void StopSampling()
+        public void StopSampling()
         {
             CheckConnection();
-            // Stops updating the characteristic
-            await characters.SensordataChar.StopUpdatesAsync();
-            // Stops the sampling
-            byte[] bytes = { 0x53, 0x02, 0x02, 0x00, 0x00 };
-            await characters.StartStopIMUSamplingChar.WriteAsync(bytes);
+            Device.BeginInvokeOnMainThread(new Action(async () =>
+            {
+                // Stops updating the characteristic
+                await characters.SensordataChar.StopUpdatesAsync();
+                // Stops the sampling
+                byte[] bytes = { 0x53, 0x02, 0x02, 0x00, 0x00 };
+                await characters.StartStopIMUSamplingChar.WriteAsync(bytes);
+            }));
         }
 
         /// <summary>
@@ -259,18 +259,21 @@ namespace EarablesKIT.Models.Library
         private async void SetAccelerometerLPF(LPF_Accelerometer accelerometerLPF)
         {
             CheckConnection();
-            // Read the characteristic to calculate the checksum and Data3
-            byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            // clear the 4 LSBs from data3
-            int data3 = bytesRead[6] & 0xF0;
-            // set the 4 LSBs from data3 on the required value
-            data3 = data3 | (int)accelerometerLPF;
-            // calculate checksum
-            int checksum = bytesRead[2] + bytesRead[3] + bytesRead[4] + bytesRead[5] + (int)data3;
-            // Write the new accelerometerLPF in to the characteristic
-            byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], bytesRead[4], bytesRead[5], Convert.ToByte(data3) };
-            await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
-            config.AccelerometerLPF = accelerometerLPF;
+            Device.BeginInvokeOnMainThread(new Action(async () =>
+            {
+                // Read the characteristic to calculate the checksum and Data3
+                byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
+                // clear the 4 LSBs from data3
+                int data3 = bytesRead[6] & 0xF0;
+                // set the 4 LSBs from data3 on the required value
+                data3 = data3 | (int)accelerometerLPF;
+                // calculate checksum
+                int checksum = bytesRead[2] + bytesRead[3] + bytesRead[4] + bytesRead[5] + (int)data3;
+                // Write the new accelerometerLPF in to the characteristic
+                byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], bytesRead[4], bytesRead[5], Convert.ToByte(data3) };
+                await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
+                config.AccelerometerLPF = accelerometerLPF;
+            }));
         }
 
         /// <summary>
@@ -301,33 +304,36 @@ namespace EarablesKIT.Models.Library
         private async void SetGyroscopeLPF(LPF_Gyroscope gyroscopeLPF)
         {
             CheckConnection();
-            // The bytes that needed to be modified
-            int data0 = 0;
-            int data1 = 0;
-            // Read the characteristic to calculate the checksum, Data0 and Data1
-            byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            // clear the 2 LSBs from Data1
-            data1 = bytesRead[4] & 0xFC;
-            // If the LPF for the Gyroscope is anithing except OFF both Bytes need to be modified
-            if ((int)gyroscopeLPF < 8)
+            Device.BeginInvokeOnMainThread(new Action(async () =>
             {
-                // clear the 3 LSBs
-                data0 = bytesRead[3] & 0xF8;
-                // set the 3 LSBs on the required value
-                data0 = data0 | (int)gyroscopeLPF;
-            }
-            //If the LPF for the gyroscope is OFF only Data1 need to be modified
-            else
-            {
-                // set the 2 LSBs on 1
-                data1 = data1 | 0x01;
-            }
-            // Calculate the checksum
-            int checksum = bytesRead[2] + (int)data0 + (int)data1 + bytesRead[5] + bytesRead[6];
-            // Write the new gyroscopeLPF in to the characteristic
-            byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], Convert.ToByte(data0), Convert.ToByte(data1), bytesRead[5], bytesRead[6] };
-            await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
-            config.GyroscopeLPF = gyroscopeLPF;
+                // The bytes that needed to be modified
+                int data0 = 0;
+                int data1 = 0;
+                // Read the characteristic to calculate the checksum, Data0 and Data1
+                byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
+                // clear the 2 LSBs from Data1
+                data1 = bytesRead[4] & 0xFC;
+                // If the LPF for the Gyroscope is anithing except OFF both Bytes need to be modified
+                if ((int)gyroscopeLPF < 8)
+                {
+                    // clear the 3 LSBs
+                    data0 = bytesRead[3] & 0xF8;
+                    // set the 3 LSBs on the required value
+                    data0 = data0 | (int)gyroscopeLPF;
+                }
+                //If the LPF for the gyroscope is OFF only Data1 need to be modified
+                else
+                {
+                    // set the 2 LSBs on 1
+                    data1 = data1 | 0x01;
+                }
+                // Calculate the checksum
+                int checksum = bytesRead[2] + (int)data0 + (int)data1 + bytesRead[5] + bytesRead[6];
+                // Write the new gyroscopeLPF in to the characteristic
+                byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], Convert.ToByte(data0), Convert.ToByte(data1), bytesRead[5], bytesRead[6] };
+                await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
+                config.GyroscopeLPF = gyroscopeLPF;
+            }));
         }
 
         /// <summary>
@@ -390,18 +396,21 @@ namespace EarablesKIT.Models.Library
         private async void setAccelerometerRange()
         {
             CheckConnection();
-            // Range kann sein 0x00 = 2g, 0x08 = 4g, 0x10 = 8g, 0x18 = 16g
-            int range = 0x00;
-            byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            //clear Bit 4 and 3 from Data2
-            int data2 = bytesRead[5] & 0xE7;
-            // Set Data2 to the right value
-            data2 = data2 | range;
-            // Calculate chechsum
-            int checksum = bytesRead[2] + bytesRead[3] + bytesRead[4] + data2 + bytesRead[6];
-            // Write the new Accelerometerrange on the Earables
-            byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], bytesRead[4], Convert.ToByte(data2), bytesRead[6] };
-            await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
+            Device.BeginInvokeOnMainThread(new Action(async () =>
+            {
+                // Range kann sein 0x00 = 2g, 0x08 = 4g, 0x10 = 8g, 0x18 = 16g
+                int range = 0x00;
+                byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
+                //clear Bit 4 and 3 from Data2
+                int data2 = bytesRead[5] & 0xE7;
+                // Set Data2 to the right value
+                data2 = data2 | range;
+                // Calculate chechsum
+                int checksum = bytesRead[2] + bytesRead[3] + bytesRead[4] + data2 + bytesRead[6];
+                // Write the new Accelerometerrange on the Earables
+                byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], bytesRead[4], Convert.ToByte(data2), bytesRead[6] };
+                await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
+            }));
         }
 
         /// <summary>
@@ -411,18 +420,21 @@ namespace EarablesKIT.Models.Library
         private async void setGyroscopeRange()
         {
             CheckConnection();
-            // Range kann sein 0x00 = 250deg/s, 0x08 = 500deg/s, 0x10 = 1000deg/s, 0x18 = 2000deg/s
-            int range = 0x18;
-            byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            //clear Bit 4 and 3 from Data1
-            int data1 = bytesRead[4] & 0xE7;
-            // Set Data1 to the right value
-            data1 = data1 | range;
-            // Calculate chechsum
-            int checksum = bytesRead[2] + bytesRead[3] + data1 + bytesRead[5] + bytesRead[6];
-            // Write the new Gyroscoperange on the Earables
-            byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], Convert.ToByte(data1), bytesRead[5], bytesRead[6] };
-            await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
+            Device.BeginInvokeOnMainThread(new Action(async () =>
+            {
+                // Range kann sein 0x00 = 250deg/s, 0x08 = 500deg/s, 0x10 = 1000deg/s, 0x18 = 2000deg/s
+                int range = 0x18;
+                byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
+                //clear Bit 4 and 3 from Data1
+                int data1 = bytesRead[4] & 0xE7;
+                // Set Data1 to the right value
+                data1 = data1 | range;
+                // Calculate chechsum
+                int checksum = bytesRead[2] + bytesRead[3] + data1 + bytesRead[5] + bytesRead[6];
+                // Write the new Gyroscoperange on the Earables
+                byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], Convert.ToByte(data1), bytesRead[5], bytesRead[6] };
+                await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
+            }));
         }
 
         /// <summary>
