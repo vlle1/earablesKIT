@@ -15,8 +15,6 @@ namespace EarablesKIT.Models.Library
         public LPF_Gyroscope GyroscopeLPF { get => gyroscopeLPF; set => gyroscopeLPF = value; }
         private LPF_Accelerometer accelerometerLPF = LPF_Accelerometer.Hz5;
         public LPF_Accelerometer AccelerometerLPF { get => accelerometerLPF; set => accelerometerLPF = value; }
-        private byte[] byteOffset;
-        public byte[] ByteOffset { get => byteOffset; set => byteOffset = value; }
         private int accScaleFactor;
         public int AccScaleFactor { get => accScaleFactor; set => accScaleFactor = value; }
         private double gyroScaleFactor;

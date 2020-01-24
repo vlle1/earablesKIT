@@ -25,6 +25,8 @@ namespace EarablesKIT.Models.Library
         private IDevice device;
         // Saves the configurations
         private ConfigContainer config = new ConfigContainer();
+        // caching the bytearray which contains the offset
+        private byte[] byteOffset;
         // Holds all characteristics
         private Characteristics characters = new Characteristics();
         // The connection state
@@ -190,7 +192,7 @@ namespace EarablesKIT.Models.Library
         private void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
             byte[] bytesIMUValue = args.Characteristic.Value;
-            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, config.ByteOffset);
+            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
             IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
         }
 
@@ -210,7 +212,7 @@ namespace EarablesKIT.Models.Library
                 // Extract the actual accelerometer scalefactor from the bytearray
                 config.AccScaleFactor = IMUDataExtractor.ExtractIMUScaleFactorAccelerometer(bytesScaleFactor);
                 // Read the bytearray for the offset
-                config.ByteOffset = await characters.OffsetChar.ReadAsync();
+                byteOffset = await characters.OffsetChar.ReadAsync();
                 // Starts the updating for the characteristic
                 await characters.SensordataChar.StartUpdatesAsync();
                 // Starts the sampling
