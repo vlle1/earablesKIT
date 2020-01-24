@@ -30,11 +30,6 @@ namespace EarablesKIT.ViewModels
         {
             var dataBaseConnection = (IDataBaseConnection) ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 
-            for (int i = 1; i <= 31; i++)
-            {
-                dataBaseConnection.SaveDBEntry(new DBEntry(new DateTime(2000, 01, i), 1337, 69, 42));
-            }
-
             List<DBEntry> entries = dataBaseConnection.GetMostRecentEntries(30);
             entries.Reverse();
             TrainingsDataDbEntries = new ObservableCollection<DBEntry>(entries);
