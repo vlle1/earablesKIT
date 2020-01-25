@@ -128,15 +128,25 @@ namespace EarablesKIT.ViewModels
                 {
                     TrainingsData.Clear();
                     TrainingsData.Add(args.Data);
+                    if (
+                            Math.Abs(args.Data.Gyro.DegsPerSec_Y) +
+                            Math.Abs(args.Data.Gyro.DegsPerSec_Z) > 60)
+                    {
+                        InfoString = "gyro intervention";
+                        cooldown = 30;
+                    }
+
                     AbsGAcc = Math.Pow(args.Data.Acc.G_X, 2) + Math.Pow(args.Data.Acc.G_Y, 2) + Math.Pow(args.Data.Acc.G_Z, 2);
                     ReferenceAcc = (AbsGAcc + 100 * ReferenceAcc)/101;
                     if (AbsGAcc > 1.2 * ReferenceAcc)
                     {
                         if (cooldown == 0)
                         {
+                            
                             Counter++;
                             cooldown = 15;
                             InfoString = "new tick is" + "[coming soon]";
+                            
                         }
                         else
                         {

@@ -13,14 +13,14 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Acc.G_X}"/>
+                                <!-- <Label Text="{Binding Acc.G_X}"/>
                                 <Label Text="{Binding Acc.G_Y}"/>
                                 <Label Text="{Binding Acc.G_Z}"/>
-
-                                <!---<Label Text="{Binding Gyro.DegsPerSec_X}"/>
+-->
+                                <Label Text="{Binding Gyro.DegsPerSec_X}"/>
                                 <Label Text="{Binding Gyro.DegsPerSec_Y}"/>
                                 <Label Text="{Binding Gyro.DegsPerSec_Z}"/>
-                                   -->
+                                   
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
