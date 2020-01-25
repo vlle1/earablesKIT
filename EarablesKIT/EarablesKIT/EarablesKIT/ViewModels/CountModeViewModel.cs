@@ -57,15 +57,12 @@ namespace EarablesKIT.ViewModels
 
 		public CountModeViewModel()
 		{
-			_pushUpActivity = new ActivityWrapper();
-			_sitUpActivity = new ActivityWrapper();
-			_comingSoon = new ActivityWrapper();
+			_pushUpActivity = new ActivityWrapper("Push-ups");
+			_sitUpActivity = new ActivityWrapper("Sit-ups");
+			_comingSoon = new ActivityWrapper("Coming soon");
 			//_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
 			//_pushUpActivity._activity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
 			//_sitUpActivity._activity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
-			_pushUpActivity._name = "Push-ups";
-			_sitUpActivity._name = "Sit-ups";
-			_comingSoon._name = "Coming soon";
 			//_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
 			PossibleActivities = new ObservableCollection<ActivityWrapper>
 			{

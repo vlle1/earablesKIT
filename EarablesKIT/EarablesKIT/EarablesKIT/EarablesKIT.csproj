@@ -43,6 +43,9 @@
     <EmbeddedResource Update="Views\CountModeActivePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\ListenAndPerformActivePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\StepModeActivePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>

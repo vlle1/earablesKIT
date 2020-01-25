@@ -10,6 +10,8 @@ namespace EarablesKIT.ViewModels
 		public Activity _activity { get; set; }
 		public string _name { get; set; }
 
+		public int ResultCounter;
+
 		private int _counter;
 
 		public int Counter
@@ -17,14 +19,19 @@ namespace EarablesKIT.ViewModels
 			get { return _counter; }
 			set
 			{
+				if (value == 0)
+				{
+					ResultCounter += _counter;
+				}
 				_counter = value;
 				OnPropertyChanged();
 			}
 		}
 
-		public ActivityWrapper()
+		public ActivityWrapper(string Name)
 		{
 			Counter = 0;
+			_name = Name;
 		}
 
 		protected void OnPropertyChanged([CallerMemberName] string name = "")
