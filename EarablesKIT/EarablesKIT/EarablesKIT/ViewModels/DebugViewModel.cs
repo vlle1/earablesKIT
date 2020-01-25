@@ -19,7 +19,10 @@ namespace EarablesKIT.ViewModels
         public ObservableCollection<IMUDataEntry> TrainingsData { get ; private set; }
         private int cooldown = 0;
         private double _referenceAcc = 1;
-        public double ReferenceAcc
+        private double _accRefX = -1;
+        private double _accRefY = 0;
+        private double _accRefZ = 0;
+        public double AbsRefGAcc
         {
             get
             {
@@ -124,29 +127,37 @@ namespace EarablesKIT.ViewModels
 
             earablesService.IMUDataReceived += (object sender, DataEventArgs args) =>
             {
+                Accelerometer av = args.Data.Acc;
+                
                 if (this.Recording)
                 {
                     TrainingsData.Clear();
                     TrainingsData.Add(args.Data);
-                    if (
-                            Math.Abs(args.Data.Gyro.DegsPerSec_Y) +
-                            Math.Abs(args.Data.Gyro.DegsPerSec_Z) > 60)
-                    {
-                        InfoString = "gyro intervention";
-                        cooldown = 30;
-                    }
-
-                    AbsGAcc = Math.Pow(args.Data.Acc.G_X, 2) + Math.Pow(args.Data.Acc.G_Y, 2) + Math.Pow(args.Data.Acc.G_Z, 2);
-                    ReferenceAcc = (AbsGAcc + 100 * ReferenceAcc)/101;
-                    if (AbsGAcc > 1.2 * ReferenceAcc)
+                    
+                    AbsGAcc = Math.Sqrt(Math.Pow(av.G_X, 2) + Math.Pow(av.G_Y, 2) + Math.Pow(av.G_Z, 2));
+                    AbsRefGAcc = (AbsGAcc + 100 * AbsRefGAcc)/101;
+                    _accRefX = (av.G_X + 100 * _accRefX) / 101;
+                    _accRefY = (av.G_Y + 100 * _accRefY) / 101;
+                    _accRefZ = (av.G_Z + 100 * _accRefZ) / 101;
+                    if (AbsGAcc > 1.1 * AbsRefGAcc)
                     {
                         if (cooldown == 0)
                         {
-                            
-                            Counter++;
-                            cooldown = 15;
-                            InfoString = "new tick is" + "[coming soon]";
-                            
+                            cooldown = 18;
+                            //winkelcheck
+                            if ((_accRefX * args.Data.Acc.G_X + _accRefY * args.Data.Acc.G_Y + _accRefZ * args.Data.Acc.G_Z)
+                                / AbsGAcc / AbsRefGAcc > 0.89)
+                            {
+                                Counter++;
+                                
+                                InfoString = "new tick is" + "[coming soon]";
+
+                            } else
+                            {
+                                InfoString = "falscher Winkel"+ Math.Round((_accRefX * args.Data.Acc.G_X + _accRefY * args.Data.Acc.G_Y + _accRefZ * args.Data.Acc.G_Z)
+                                / AbsGAcc / AbsRefGAcc,2) +" erkannt. Aktuell "+Math.Round(av.G_X,2)+" "+ Math.Round(av.G_Y, 2) + " "+ Math.Round(av.G_Z, 2) + ", Ref" + Math.Round(_accRefX,2) + " " + Math.Round(_accRefY, 2) + " "+ Math.Round(_accRefZ, 2) + ". ";
+                            }
+
                         }
                         else
                         {
