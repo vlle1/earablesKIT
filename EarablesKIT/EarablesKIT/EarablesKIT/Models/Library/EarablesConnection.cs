@@ -74,7 +74,7 @@ namespace EarablesKIT.Models.Library
                 await adapter.StopScanningForDevicesAsync();
                 // Connect to the device
                 await adapter.ConnectToDeviceAsync(device, connectParams);
-                this.device = device;
+                
 
                 // Load all required characteristics
                 IService Service;
@@ -91,10 +91,18 @@ namespace EarablesKIT.Models.Library
                 await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytes);
 
                 // Starts the updating from the characteristics
-                await characters.PushbuttonChar.StartUpdatesAsync();
-                await characters.BatteryChar.StartUpdatesAsync();
+                try
+                {
+                    await characters.PushbuttonChar.StartUpdatesAsync();
+                    await characters.BatteryChar.StartUpdatesAsync();
+                }
+                catch (Exception exc)
+                {
+                    throw new ConnectionFailedException("Failed to connect. Please try again");
+                }
 
                 // Throw event connected
+                this.device = device;
                 connected = true;
                 DeviceEventArgs e = new DeviceEventArgs(connected, device.Name);
                 DeviceConnectionStateChanged?.Invoke(this, e);
@@ -191,9 +199,17 @@ namespace EarablesKIT.Models.Library
         /// <param name="args">The arguments from the exception</param>
         private void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
-            byte[] bytesIMUValue = args.Characteristic.Value;
-            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
-            IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
+            try
+            {
+                byte[] bytesIMUValue = args.Characteristic.Value;
+                IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
+                IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
+            }
+            catch (System.ArgumentOutOfRangeException exc)
+            {
+                // somethimes this exception gets thrown. In that case ignore the new value
+            }
+
         }
 
 
