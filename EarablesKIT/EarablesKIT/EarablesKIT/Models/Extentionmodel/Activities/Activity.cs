@@ -10,9 +10,11 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
     /// </summary>
     abstract class Activity
     {
-        protected const int ANALYZE_TRIGGER_RATE = 20;
-        protected const int BUFFER_MAX_SIZE = 100;
-        private int _bufferCounter = 0;
+        /// <summary>
+        /// the frequency of the incoming data (how many values per second)
+        /// </summary>
+        protected int _frequency = 50;
+        
         /// <summary>
         /// _isActive is set to false when the algorithm is not keeping the queue up to date. Like this,
         /// the Queue and other things can be reset when the algorithm is starting to work again.
@@ -22,10 +24,6 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
        /// This EventHandler handles every ViewModel that wants to get notified when the activity is detected.
        /// </summary>
         public EventHandler<ActivityArgs> ActivityDone { get; set; }
-        /// <summary>
-        /// The Buffer buffers incoming Data. The Data is used in Analyse().
-        /// </summary>
-        protected Queue<DataEventArgs> buffer;
         
         /// <summary>
         /// This method is used to process incoming data.
@@ -41,30 +39,19 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
             if (ActivityDone != null)
             {
                 if (!_isActive) Activate();
-                _bufferCounter++;
-                buffer.Enqueue(data);
-                if (buffer.Count == BUFFER_MAX_SIZE)
-                {
-                    buffer.Dequeue();
-                }
-                if (_bufferCounter % 10 == 0)
-                {
-                    this.Analyse();
-                    _bufferCounter = 0;
-                }
+                _frequency = data.Configs.Samplerate;
+                Analyse(data);
             }
 
         }
 
-        protected abstract void Analyse();
+        protected abstract void Analyse(DataEventArgs data);
         /// <summary>
         /// Whenever the Algorithm is started, it needs to reset all its old values.
         /// </summary>
         protected virtual void Activate()
         {
             _isActive = true;
-            _bufferCounter = 0;
-            buffer = new Queue<DataEventArgs>();
         }
     }
 }
