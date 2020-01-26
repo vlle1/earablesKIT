@@ -14,6 +14,9 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
         //the cosinus of the angle that the current acceleration direction is maximally allowed 
         //to differ from the average acceleration direction (about 27 degree)
         private const double ANGLE_TOLERANCE_COS = 0.89;
+
+        //the duration of the cooldown after a step in seconds
+        private const double COOLDOWN_DURATION = 0.3;
         //the remaining time in seconds that no step should be detected (e.g. after detected step)
         private double cooldown = 0;
 
@@ -46,8 +49,8 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
                 //threshold is passed
                 if (cooldown <= 0)
                 {
-                    //set cooldown, no matter what motion has been registered (maybe change this to only when step recognized, but first check in debug branch)
-                    cooldown = 0.3;
+                    //set cooldown, no matter what motion has been registered
+                    cooldown = COOLDOWN_DURATION;
                     //check if direction of current value and average head in the same direction using simple formula for cosinus
                     if ((_avgAccX * accV.G_X + _avgAccY * accV.G_Y + _avgAccZ * accV.G_Z)
                         / accVAbs / _avgAccAbsolute > ANGLE_TOLERANCE_COS)
@@ -58,14 +61,9 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
                     }
 
                 }
-                else
-                {
-                    //kniebeuge avoidance: after 0.2s of overload 
-                    //maybe revert step (first test this feature in debug branch)
-                }
             }
 
-            if (cooldown > 0) cooldown--;
+            if (cooldown > 0) cooldown -= 1.0 / _frequency;
         }
         override protected void Activate()
         {

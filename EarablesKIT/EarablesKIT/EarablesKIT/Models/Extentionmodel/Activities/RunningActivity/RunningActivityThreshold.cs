@@ -14,7 +14,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
     class RunningActivityThreshold : AbstractRunningActivity
     {
         //after this time has passed while no step was detected the user is considered standing.
-        private const double TIMEOUT_LENGTH = 1;
+        private const double TIMEOUT_LENGTH = 1.1;
 
         private double _timeout_counter;
         
@@ -52,12 +52,12 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
             //if user is running we need to find out if he times out
             if (_runningState)
             {
-                if (_timeout_counter < 0)
+                if (_timeout_counter <= 0)
                 {
                     //no longer running.
                     this.changeDetected();
                 }
-                _timeout_counter -= 1.0 / _frequency;
+                else _timeout_counter -= 1.0 / _frequency;
             }  
         }
     }
