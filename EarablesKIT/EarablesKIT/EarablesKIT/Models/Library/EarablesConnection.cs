@@ -204,17 +204,9 @@ namespace EarablesKIT.Models.Library
         /// <param name="args">The arguments from the exception</param>
         private void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
-            try
-            {
-                byte[] bytesIMUValue = args.Characteristic.Value;
-                IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
-                IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
-            }
-            catch (System.ArgumentOutOfRangeException exc)
-            {
-                // somethimes this exception gets thrown. In that case ignore the new value
-            }
-
+            byte[] bytesIMUValue = args.Characteristic.Value;
+            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
+            IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
         }
 
 
