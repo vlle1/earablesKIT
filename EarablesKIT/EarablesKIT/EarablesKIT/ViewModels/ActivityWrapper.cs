@@ -28,10 +28,11 @@ namespace EarablesKIT.ViewModels
 			}
 		}
 
-		public ActivityWrapper(string Name)
+		public ActivityWrapper(string Name, Activity activity)
 		{
 			Counter = 0;
 			_name = Name;
+			_activity = activity;
 		}
 
 		protected void OnPropertyChanged([CallerMemberName] string name = "")

@@ -1,6 +1,9 @@
-﻿using EarablesKIT.Models.DatabaseService;
+﻿using EarablesKIT.Models;
+using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
+using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
+using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,9 +18,11 @@ namespace EarablesKIT.ViewModels
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		private Stopwatch _timer;
-		private ActivityWrapper _pushUpActivity { get; set; }
-		private ActivityWrapper _sitUpActivity { get; set; }
+		private ActivityWrapper _pushUpActivityWrapper { get; set; }
+		private ActivityWrapper _sitUpActivityWrapper { get; set; }
 		private ActivityWrapper _comingSoon { get; set; }
+		private AbstractPushUpActivity _pushUpActivity { get; set; }
+		private AbstractSitUpActivity _sitUpActivity { get; set; }
 		private IActivityManager _activityManager { get; set; }
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
@@ -51,26 +56,26 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
-		
+
 
 		public ActivityWrapper SelectedActivity { get; set; }
 
 		public CountModeViewModel()
 		{
-			_pushUpActivity = new ActivityWrapper("Push-ups");
-			_sitUpActivity = new ActivityWrapper("Sit-ups");
-			_comingSoon = new ActivityWrapper("Coming soon");
 			//_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-			//_pushUpActivity._activity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
-			//_sitUpActivity._activity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
+			//_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
+			//_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
 			//_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
+			_pushUpActivityWrapper = new ActivityWrapper("Push-ups", null); //_pushUpActivity statt null
+			_sitUpActivityWrapper = new ActivityWrapper("Sit-ups", null); //_sitUpActivity statt null
+			_comingSoon = new ActivityWrapper("Coming soon", null);
 			PossibleActivities = new ObservableCollection<ActivityWrapper>
 			{
-				_pushUpActivity,
-				_sitUpActivity,
+				_pushUpActivityWrapper,
+				_sitUpActivityWrapper,
 				_comingSoon
 			};
-			SelectedActivity = _pushUpActivity;
+			SelectedActivity = _pushUpActivityWrapper;
 
 		}
 
@@ -78,8 +83,8 @@ namespace EarablesKIT.ViewModels
 		{
 			//if (SelectedActivity._activity != null)
 			//{
-				//SelectedActivity._activity.ActivityDone += OnActivityDone;
-				return true;
+			//SelectedActivity._activity.ActivityDone += OnActivityDone;
+			return true;
 			//}
 			//return false;
 		}
@@ -102,8 +107,8 @@ namespace EarablesKIT.ViewModels
 			{
 				if (RegisterActivity())
 				{
-					_pushUpActivity.Counter = 0;
-					_sitUpActivity.Counter = 0;
+					_pushUpActivityWrapper.Counter = 0;
+					_sitUpActivityWrapper.Counter = 0;
 					return true;
 				}
 				return false;
@@ -158,7 +163,7 @@ namespace EarablesKIT.ViewModels
 		private void SaveData()
 		{
 			//DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-			//DBEntry _entryNew = new DBEntry(_dt, 0, _pushUpActivity.Counter, _sitUpActivity.Counter);
+			//DBEntry _entryNew = new DBEntry(_dt, 0, _pushUpActivityWrapper.Counter, _sitUpActivityWrapper.Counter);
 			//_dataBaseConnection.SaveDBEntry(_entryNew);
 		}
 
