@@ -16,7 +16,7 @@ namespace EarablesKIT.Models.Library
     /// <summary>
     /// This class is responsible for the connection with teh earables
     /// </summary>
-     class EarablesConnection : IEarablesConnection
+    class EarablesConnection : IEarablesConnection
     {
         //
         private IBluetoothLE ble = CrossBluetoothLE.Current;
@@ -51,11 +51,13 @@ namespace EarablesKIT.Models.Library
         /// <param name="device"> Is the device which should connect</param>
         public void ConnectToDevice(IDevice device)
         {
+
             // Connectioncheck
             if (connected)
             {
                 throw new AllreadyConnectedException("Error, allready connected");
             }
+            this.device = device;
 
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
@@ -66,15 +68,12 @@ namespace EarablesKIT.Models.Library
                 adapter.DeviceDisconnected += OnDeviceDisconnected;
                 adapter.DeviceConnectionLost += OnDeviceConnectionLost;
                 // adapter.DeviceConnected += OnDeviceConnected;
-                characters.SensordataChar.ValueUpdated += OnValueUpdatedIMU;
-                characters.PushbuttonChar.ValueUpdated += OnPushButtonPressed;
-                characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
 
                 // Stop scanning for devices to be sure that nothing goes wrong
                 await adapter.StopScanningForDevicesAsync();
                 // Connect to the device
                 await adapter.ConnectToDeviceAsync(device, connectParams);
-                
+
 
                 // Load all required characteristics
                 IService Service;
@@ -101,8 +100,12 @@ namespace EarablesKIT.Models.Library
                     throw new ConnectionFailedException("Failed to connect. Please try again");
                 }
 
+                // Register the listeners to the characteristicevents
+                characters.SensordataChar.ValueUpdated += OnValueUpdatedIMU;
+                characters.PushbuttonChar.ValueUpdated += OnPushButtonPressed;
+                characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
+
                 // Throw event connected
-                this.device = device;
                 connected = true;
                 DeviceEventArgs e = new DeviceEventArgs(connected, device.Name);
                 DeviceConnectionStateChanged?.Invoke(this, e);
