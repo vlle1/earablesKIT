@@ -1,12 +1,16 @@
-﻿using EarablesKIT.Models.DatabaseService;
+﻿using EarablesKIT.Models;
+using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
+using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
+using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -23,10 +27,9 @@ namespace EarablesKIT.ViewModels
 		public ICommand EditActivityCommand { get; set; }
 
 		private Stopwatch _timer;
-		private ActivityWrapper _pushUpActivity { get; set; }
-		private ActivityWrapper _sitUpActivity { get; set; }
-		private ActivityWrapper _pause { get; set; }
-
+		private int _pushUpResult, _sitUpResult;
+		private AbstractPushUpActivity _pushUpActivity { get; set; }
+		private AbstractSitUpActivity _sitUpActivity { get; set; }
 		private IActivityManager _activityManager { get; set; }
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 		public ActivityWrapper ActiveActivity { get; set; }
@@ -66,23 +69,21 @@ namespace EarablesKIT.ViewModels
 
 		public ListenAndPerformViewModel()
 		{
-			AddActivityCommand = new Command(() => AddActivity());
+			AddActivityCommand = new Command(() => AddActivity(ActivityList.Count));
 			RemoveActivityCommand = new Command(() => RemoveActivity());
 			EditActivityCommand = new Command(() => EditActivity());
-			_pushUpActivity = new ActivityWrapper("Push-ups");
-			_sitUpActivity = new ActivityWrapper("Sit-ups");
-			_pause = new ActivityWrapper("Pause");
 			//_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-			//_pushUpActivity._activity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
-			//_sitUpActivity._activity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
+			//_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
+			//_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
 			//_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
+
 			ActivityList = new ObservableCollection<ActivityWrapper>
 			{
-				_pushUpActivity,
-				_pause,
-				_sitUpActivity
+				new ActivityWrapper("Push-ups", _pushUpActivity),
+				new ActivityWrapper("Pause", null),
+				new ActivityWrapper("Sit-ups", _sitUpActivity)
 
-			};
+		};
 			ActivityAmounts = new ObservableCollection<int>{
 				10,
 				10,
@@ -113,6 +114,24 @@ namespace EarablesKIT.ViewModels
 		public override void StopActivity()
 		{
 			StopTimer();
+			if (ActiveActivity._activity.ActivityDone != null)
+			{
+				ActiveActivity._activity.ActivityDone -= OnActivityDone;
+			}
+			SaveData();
+			ShowPopUp();
+		}
+
+		public void IncreaseResultCounter()
+		{
+			if (ActiveActivity._name.Equals("Push-ups"))
+			{
+				_sitUpResult += ActiveActivity.Counter;
+			}
+			if (ActiveActivity._name.Equals("Sit-ups"))
+			{
+				_pushUpResult += ActiveActivity.Counter;
+			}
 		}
 
 		public void DoActivities()
@@ -129,6 +148,7 @@ namespace EarablesKIT.ViewModels
 
 					}
 					ActivityList.ElementAt(i)._activity.ActivityDone -= OnActivityDone;
+					IncreaseResultCounter();
 				}
 				else
 				{
@@ -182,12 +202,6 @@ namespace EarablesKIT.ViewModels
 		private void StopTimer()
 		{
 			_timer.Reset();
-			if (ActiveActivity._activity.ActivityDone != null)
-			{
-				ActiveActivity._activity.ActivityDone -= OnActivityDone;
-			}
-			SaveData();
-			ShowPopUp();
 		}
 
 		private void SaveData()
@@ -199,33 +213,33 @@ namespace EarablesKIT.ViewModels
 
 		private void ShowPopUp()
 		{
-			App.Current.MainPage.DisplayAlert("Result", "You have done " + _pushUpActivity.ResultCounter + " "
-				+ _pushUpActivity._name + " and " + _sitUpActivity.ResultCounter + " " + _sitUpActivity._name + "!", "Cool");
+			App.Current.MainPage.DisplayAlert("Result", "You have done " + _pushUpResult + " "
+				+ "Push-ups" + " and " + _sitUpResult + " " + "Sit-ups" + "!", "Cool");
 		}
 
-		private async void AddActivity()
+		private async void AddActivity(int Index)
 		{
-			string result = await App.Current.MainPage.DisplayActionSheet("Select an Activity:", "Cancel", null, _pushUpActivity._name, _sitUpActivity._name, _pause._name);
-			if (result.Equals(_pushUpActivity._name))
+			string result = await App.Current.MainPage.DisplayActionSheet("Select an Activity:", "Cancel", null, "Push-ups", "Sit-ups", "Pause");
+			if (result.Equals("Push-ups"))
 			{
-				ActivityList.Add(_pushUpActivity);
+				ActivityList.Insert(Index, new ActivityWrapper("Push-ups", _pushUpActivity));
 			}
-			if (result.Equals(_sitUpActivity._name))
+			if (result.Equals("Sit-ups"))
 			{
-				ActivityList.Add(_sitUpActivity);
+				ActivityList.Insert(Index, new ActivityWrapper("Sit-ups", _sitUpActivity));
 			}
-			if (result.Equals(_pause._name))
+			if (result.Equals("Pause"))
 			{
-				ActivityList.Add(_pause);
+				ActivityList.Insert(Index, new ActivityWrapper("Pause", null));
 			}
 			if (ActivityList.Count > ActivityAmounts.Count)
 			{
-				string res = await App.Current.MainPage.DisplayPromptAsync("Adding Activity",
+				string res = await App.Current.MainPage.DisplayPromptAsync("Adding Activity", //Exception für Negatives
 					"Enter the amount of repetitions", "OK", "Cancel", "10", 3, Keyboard.Numeric);
 				if (res != null)
 				{
 					int amount = int.Parse(res);
-					ActivityAmounts.Add(amount);
+					ActivityAmounts.Insert(Index, amount);
 				}
 				else
 				{
@@ -236,7 +250,7 @@ namespace EarablesKIT.ViewModels
 
 		private void RemoveActivity()
 		{
-			if (ActivityList.Count > 0)
+			if (ActivityList.Count > 0 && ActivityList.Contains(SelectedActivity))
 			{
 				int Index = ActivityList.IndexOf(SelectedActivity);
 				ActivityList.Remove(SelectedActivity);
@@ -246,12 +260,13 @@ namespace EarablesKIT.ViewModels
 
 		private void EditActivity()
 		{
-			int Index = ActivityList.IndexOf(SelectedActivity);
-			ActivityList.Remove(SelectedActivity);
-			ActivityAmounts.RemoveAt(Index);
-			AddActivity();
-			ActivityList.Move(ActivityList.Count - 1, Index);
-			ActivityAmounts.Move(ActivityAmounts.Count - 1, Index);
+			if (SelectedActivity != null && ActivityList.Contains(SelectedActivity))
+			{
+				int Index = ActivityList.IndexOf(SelectedActivity);
+				ActivityList.Remove(SelectedActivity);
+				ActivityAmounts.RemoveAt(Index);
+				AddActivity(Index);		
+			}
 
 		}
 	}
