@@ -169,7 +169,7 @@ namespace EarablesKIT.ViewModels
 
 		private void ShowPopUp()
 		{
-			App.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity._name + "!", "Cool");
+			App.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity.Name + "!", "Cool");
 		}
 	}
 }

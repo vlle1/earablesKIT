@@ -28,11 +28,20 @@ namespace EarablesKIT.ViewModels
 
 		private Stopwatch _timer;
 		private int _pushUpResult, _sitUpResult;
+		private ActivityWrapper _activeActivity;
 		private AbstractPushUpActivity _pushUpActivity { get; set; }
 		private AbstractSitUpActivity _sitUpActivity { get; set; }
 		private IActivityManager _activityManager { get; set; }
 		private IDataBaseConnection _dataBaseConnection { get; set; }
-		public ActivityWrapper ActiveActivity { get; set; }
+		public ActivityWrapper ActiveActivity
+		{
+			get { return _activeActivity; }
+			set
+			{
+				_activeActivity = value;
+				OnPropertyChanged();
+			}
+		}
 		public ActivityWrapper SelectedActivity { get; set; }
 		public ObservableCollection<ActivityWrapper> ActivityList { get; set; }
 		public ObservableCollection<int> ActivityAmounts { get; set; }
@@ -82,8 +91,7 @@ namespace EarablesKIT.ViewModels
 				new ActivityWrapper("Push-ups", _pushUpActivity),
 				new ActivityWrapper("Pause", null),
 				new ActivityWrapper("Sit-ups", _sitUpActivity)
-
-		};
+			};
 			ActivityAmounts = new ObservableCollection<int>{
 				10,
 				10,
@@ -114,21 +122,21 @@ namespace EarablesKIT.ViewModels
 		public override void StopActivity()
 		{
 			StopTimer();
-			if (ActiveActivity._activity.ActivityDone != null)
-			{
-				ActiveActivity._activity.ActivityDone -= OnActivityDone;
-			}
+			//if (ActiveActivity._activity.ActivityDone != null)
+			//{
+			//ActiveActivity._activity.ActivityDone -= OnActivityDone;
+			//}
 			SaveData();
 			ShowPopUp();
 		}
 
 		public void IncreaseResultCounter()
 		{
-			if (ActiveActivity._name.Equals("Push-ups"))
+			if (ActiveActivity.Name.Equals("Push-ups"))
 			{
 				_sitUpResult += ActiveActivity.Counter;
 			}
-			if (ActiveActivity._name.Equals("Sit-ups"))
+			if (ActiveActivity.Name.Equals("Sit-ups"))
 			{
 				_pushUpResult += ActiveActivity.Counter;
 			}
@@ -140,7 +148,7 @@ namespace EarablesKIT.ViewModels
 			{
 				ActiveActivity = ActivityList.ElementAt(i);
 				ActiveActivity.Counter = 0;
-				if (ActiveActivity._activity != null)
+				/*if (ActiveActivity._activity != null)
 				{
 					ActiveActivity._activity.ActivityDone += OnActivityDone;
 					while (ActiveActivity.Counter < ActivityAmounts.ElementAt(i))
@@ -151,20 +159,20 @@ namespace EarablesKIT.ViewModels
 					IncreaseResultCounter();
 				}
 				else
-				{
+				{*/
 					ActiveActivity.Counter = ActivityAmounts.ElementAt(i);
 					Stopwatch pauseTimer = new Stopwatch();
 					pauseTimer.Start();
-					while (ActiveActivity.Counter > 0)
+					/*while (ActiveActivity.Counter > 0)
 					{
 						Device.StartTimer(TimeSpan.FromSeconds(1), () =>
 						{
 							ActiveActivity.Counter--;
 							return true;
 						});
-					}
+					}*/
 
-				}
+				//}
 
 			}
 		}
@@ -265,7 +273,7 @@ namespace EarablesKIT.ViewModels
 				int Index = ActivityList.IndexOf(SelectedActivity);
 				ActivityList.Remove(SelectedActivity);
 				ActivityAmounts.RemoveAt(Index);
-				AddActivity(Index);		
+				AddActivity(Index);
 			}
 
 		}

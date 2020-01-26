@@ -36,7 +36,7 @@
                                VerticalOptions="FillAndExpand"
                                HorizontalOptions="FillAndExpand"/>
                 </Frame>
-                <Label Text="{Binding SelectedActivity._name}"
+                <Label Text="{Binding SelectedActivity.Name}"
                    Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"

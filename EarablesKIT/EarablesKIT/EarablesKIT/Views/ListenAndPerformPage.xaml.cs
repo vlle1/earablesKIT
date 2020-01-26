@@ -22,17 +22,17 @@ namespace EarablesKIT.Views
 
 		}
 
-		public void OnStartButtonClicked(object sender, EventArgs args)
+		public async void OnStartButtonClicked(object sender, EventArgs args) //Async gemacht, change View rückgabe geändert
 		{
 			if (ViewModel.StartActivity())
 			{
-				ChangeView();
+				await ChangeView();
 				ViewModel.StartTimer();
-				//ViewModel.DoActivities();
+				ViewModel.DoActivities();
 			}
 		}
 
-		public async void ChangeView()
+		public async Task ChangeView()
 		{
 			ListenAndPerformActivePage NewView = new ListenAndPerformActivePage(ViewModel);
 			NewView.BindingContext = this.BindingContext;

@@ -6,10 +6,57 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.ListenAndPerformActivePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
+            <Label Text="Listen And Perform"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+            <Frame HasShadow="False" BorderColor="Gray" Padding="10,10,10,10" VerticalOptions="Center">
+                <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Grid.Column="1" FontSize="30">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Minutes}"/>
+                            <Span Text=":"/>
+                            <Span Text="{Binding Seconds}"/>
+                            <Span Text=":"/>
+                            <Span Text="{Binding Milliseconds}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Frame>
+           
+            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label Text="Current Activity"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+                <Frame HasShadow="False" BorderColor="Gray" Padding="80,40,80,40" BackgroundColor="LightBlue">
+                    <Label Text="{Binding ActiveActivity.Counter}"
+                           FontSize="50"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalOptions="FillAndExpand"/>
+                </Frame>
+                <Label Text="{Binding ActiveActivity.Name}"
+                   Padding="10"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
+            </StackLayout>
+            <Button Text="Stop Workout"
+                    Clicked="OnStopButtonClicked"
+                    VerticalOptions="End" 
+                    BackgroundColor="IndianRed" 
+                    BorderColor="Black" 
+                    BorderWidth="1" 
+                    CornerRadius="10" 
+                    HorizontalOptions="Center"/>
+        
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
