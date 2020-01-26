@@ -4,14 +4,20 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
-    class DeviceEventArgs
+    /// <summary>
+    /// This class contains all arguments which are necessary if the connection state changes
+    /// </summary>
+    public class DeviceEventArgs
     {
-        public bool Connected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string DeviceName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private bool connected;
+        public bool Connected  { get => connected; set => connected = value; }
+        private string deviceName;
+        public string DeviceName { get => deviceName; set => deviceName = value; }
 
         public DeviceEventArgs(bool connected, string deviceName)
         {
-            throw new NotImplementedException();
+            Connected = connected;
+            DeviceName = deviceName;
         }
     }
 }
