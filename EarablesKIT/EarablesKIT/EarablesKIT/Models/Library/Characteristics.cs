@@ -5,6 +5,9 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
+    /// <summary>
+    /// This class provides all characteristics
+    /// </summary>
     class Characteristics
     {
         private ICharacteristic startStopIMUSamplingChar;

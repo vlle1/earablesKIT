@@ -4,7 +4,10 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
-    class AllreadyConnectedException : Exception
+    /// <summary>
+    /// This exception is thrown if someone tries to connect to a device while a connection allready exists
+    /// </summary>
+    public class AllreadyConnectedException : Exception
     {
             public AllreadyConnectedException(string message) : base(message)
             {
