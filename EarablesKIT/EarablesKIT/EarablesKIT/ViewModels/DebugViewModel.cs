@@ -141,45 +141,62 @@ namespace EarablesKIT.ViewModels
                 
                 //Accelerometer av = args.Data.Acc;
 
-                if (this.Recording)
+                if (this.Recording && cooldown <= 0)
                 {
                     OneValue = args.Data;
                     Accelerometer av = OneValue.Acc;
-                
-                    AbsGAcc = Math.Sqrt(Math.Pow(av.G_X, 2) + Math.Pow(av.G_Y, 2) + Math.Pow(av.G_Z, 2));
-                    AbsRefGAcc = (AbsGAcc + 100 * AbsRefGAcc)/101;
-                    _accRefX = (av.G_X + 100 * _accRefX) / 101;
-                    _accRefY = (av.G_Y + 100 * _accRefY) / 101;
-                    _accRefZ = (av.G_Z + 100 * _accRefZ) / 101;
-                    if (AbsGAcc > 1.15 * AbsRefGAcc)
+
+                    double relevant = Math.Sqrt(Math.Pow(av.G_Z, 2) + Math.Pow(av.G_Y, 2) + Math.Pow(av.G_X, 2));
+                    switch (Counter)
                     {
-                        if (cooldown == 0)
-                        {
-                            cooldown = 25;
-                            //winkelcheck
-                            if ((_accRefX * args.Data.Acc.G_X + _accRefY * args.Data.Acc.G_Y + _accRefZ * args.Data.Acc.G_Z)
-                                / AbsGAcc / AbsRefGAcc > 0.89)
+                        case 0:
                             {
-                                Counter++;
-                                
-                                InfoString = "new tick is" + "[coming soon]";
-
-                            } else
-                            {
-                                InfoString = "falscher Winkel"+ Math.Round((_accRefX * args.Data.Acc.G_X + _accRefY * args.Data.Acc.G_Y + _accRefZ * args.Data.Acc.G_Z)
-                                / AbsGAcc / AbsRefGAcc,2) +" erkannt. Aktuell "+Math.Round(av.G_X,2)+" "+ Math.Round(av.G_Y, 2) + " "+ Math.Round(av.G_Z, 2) + ", Ref" + Math.Round(_accRefX,2) + " " + Math.Round(_accRefY, 2) + " "+ Math.Round(_accRefZ, 2) + ". ";
+                                //oben vermutet, aber nicht klar
+                                if (relevant < 0.8)
+                                {
+                                    Counter = 1;
+                                    InfoString = "runter mit " + relevant;
+                                    cooldown = 0;
+                                }
+                                break;
                             }
-
-                        }
-                        else
-                        {
-                            InfoString += " c";
-                        }
+                        case 1:
+                            {
+                                if (relevant > 1.15)
+                                {
+                                    Counter = 2;
+                                    InfoString += "  stopp mit " + relevant;
+                                    cooldown = 15;
+                                }
+                                break;
+                            }
+                        case 2:
+                            {
+                                if (relevant > 1.15)
+                                {
+                                    Counter = 3;
+                                    InfoString += "  hoch mit " + relevant;
+                                    cooldown = 0;
+                                }
+                                break;
+                            }
+                        case 3:
+                            {
+                                //oben vermutet, aber nicht klar
+                                if (relevant < 0.8)
+                                {
+                                    Counter = 0;
+                                    InfoString += "ende mit " + relevant;
+                                    cooldown = 15;
+                                }
+                                break;
+                            }
                     }
 
-                    if (cooldown > 0) cooldown--;
                 }
-                
+
+                cooldown--;
+
             };
 
         }

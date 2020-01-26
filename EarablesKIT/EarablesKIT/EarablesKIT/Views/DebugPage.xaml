@@ -42,9 +42,7 @@
             </Label>
             <Label Text="{Binding Counter}" FontSize="150">
             </Label>
-            <Label Text="{Binding ReferenceAcc}" FontSize="Large">
-            </Label>
-            
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
