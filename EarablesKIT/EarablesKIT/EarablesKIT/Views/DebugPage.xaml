@@ -8,15 +8,24 @@
     <ContentPage.Content>
         <StackLayout>
             <Button Text="{Binding RecordingLabelText}" Command="{Binding ToggleRecordingCommand}"></Button>
-            <ListView ItemsSource="{Binding TrainingsData}">
+
+
+            <Label Text="{Binding OneValue.Acc.G_X}"/>
+            <Label Text="{Binding OneValue.Acc.G_Y}"/>
+            <Label Text="{Binding OneValue.Acc.G_Z}"/>
+
+            <Label Text="{Binding OneValue.Gyro.DegsPerSec_X}"/>
+            <Label Text="{Binding OneValue.Gyro.DegsPerSec_Y}"/>
+            <Label Text="{Binding OneValue.Gyro.DegsPerSec_Z}"/>
+            <!--<ListView ItemsSource="{Binding TrainingsData}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <!-- <Label Text="{Binding Acc.G_X}"/>
+                            <StackLayout>
+                                <Label Text="{Binding Acc.G_X}"/>
                                 <Label Text="{Binding Acc.G_Y}"/>
                                 <Label Text="{Binding Acc.G_Z}"/>
--->
+
                                 <Label Text="{Binding Gyro.DegsPerSec_X}"/>
                                 <Label Text="{Binding Gyro.DegsPerSec_Y}"/>
                                 <Label Text="{Binding Gyro.DegsPerSec_Z}"/>
@@ -26,15 +35,16 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
+            -->
             <Label Text="{Binding AbsGAcc}" FontSize="Large">
             </Label>
             <Label Text="{Binding InfoString}" FontSize="Large">
             </Label>
-            <Label Text="{Binding ReferenceAcc}" FontSize="Large">
-            </Label>
             <Label Text="{Binding Counter}" FontSize="150">
             </Label>
+            <Label Text="{Binding ReferenceAcc}" FontSize="Large">
+            </Label>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

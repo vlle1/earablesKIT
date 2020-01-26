@@ -16,9 +16,8 @@ namespace EarablesKIT.ViewModels
     public class DebugViewModel : INotifyPropertyChanged
     {
 
-        public ObservableCollection<IMUDataEntry> TrainingsData { get ; private set; }
         private int cooldown = 0;
-        private double _referenceAcc = 1;
+        private double _accRef = 1;
         private double _accRefX = -1;
         private double _accRefY = 0;
         private double _accRefZ = 0;
@@ -26,12 +25,25 @@ namespace EarablesKIT.ViewModels
         {
             get
             {
-                return _referenceAcc;
+                return _accRef;
             }
             set
             {
-                _referenceAcc= value;
+                _accRef= value;
                 OnPropertyChanged("ReferenceAcc");
+            }
+        }
+        private IMUDataEntry _oneValue = new IMUDataEntry(new Accelerometer(0, 0, 0, 0, 0, 0), new Gyroscope(0, 0, 0));
+        public IMUDataEntry OneValue
+        {
+            get
+            {
+                return _oneValue;
+            }
+            set
+            {
+                _oneValue = value;
+                OnPropertyChanged("OneValue");
             }
         }
         private string _infoString = "";
@@ -82,7 +94,6 @@ namespace EarablesKIT.ViewModels
                 {
                     if (!this.Recording)
                     {
-                        TrainingsData.Clear();
                     }
 
                     this.Recording = !this.Recording;
@@ -127,23 +138,24 @@ namespace EarablesKIT.ViewModels
 
             earablesService.IMUDataReceived += (object sender, DataEventArgs args) =>
             {
-                Accelerometer av = args.Data.Acc;
                 
+                //Accelerometer av = args.Data.Acc;
+
                 if (this.Recording)
                 {
-                    TrainingsData.Clear();
-                    TrainingsData.Add(args.Data);
-                    
+                    OneValue = args.Data;
+                    Accelerometer av = OneValue.Acc;
+                
                     AbsGAcc = Math.Sqrt(Math.Pow(av.G_X, 2) + Math.Pow(av.G_Y, 2) + Math.Pow(av.G_Z, 2));
                     AbsRefGAcc = (AbsGAcc + 100 * AbsRefGAcc)/101;
                     _accRefX = (av.G_X + 100 * _accRefX) / 101;
                     _accRefY = (av.G_Y + 100 * _accRefY) / 101;
                     _accRefZ = (av.G_Z + 100 * _accRefZ) / 101;
-                    if (AbsGAcc > 1.1 * AbsRefGAcc)
+                    if (AbsGAcc > 1.15 * AbsRefGAcc)
                     {
                         if (cooldown == 0)
                         {
-                            cooldown = 18;
+                            cooldown = 25;
                             //winkelcheck
                             if ((_accRefX * args.Data.Acc.G_X + _accRefY * args.Data.Acc.G_Y + _accRefZ * args.Data.Acc.G_Z)
                                 / AbsGAcc / AbsRefGAcc > 0.89)
@@ -170,7 +182,6 @@ namespace EarablesKIT.ViewModels
                 
             };
 
-            TrainingsData = new ObservableCollection<IMUDataEntry>();
         }
     }
 }

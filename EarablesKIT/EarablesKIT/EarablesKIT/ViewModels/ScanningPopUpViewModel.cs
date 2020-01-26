@@ -65,7 +65,7 @@ namespace EarablesKIT.ViewModels
             _earablesConnectionService.NewDeviceFound += (sender, args) =>
             {
 
-                    if (args.Device.Name != null && args.Device.Name.StartsWith("eSense"))
+                    if (args.Device.Name != null)
                     {
                         DevicesList.Add(args.Device);
                         OnPropertyChanged(nameof(DevicesList));
