@@ -38,12 +38,14 @@ namespace EarablesKIT.Models.Library
         public LPF_Gyroscope GyroLPF { get => GetGyroscopeLPF(); set => SetGyroscopeLPF(value); }
         // The current batteryvoltage
         private float batteryVoltage;
+
+        public event EventHandler<DataEventArgs> IMUDataReceived;
+        public event EventHandler<ButtonEventArgs> ButtonPressed;
+        public event EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
+        public event EventHandler<NewDeviceFoundArgs> NewDeviceFound;
+
         public float BatteryVoltage { get => batteryVoltage; }
 
-        public EventHandler<DataEventArgs> IMUDataReceived;
-        public EventHandler<ButtonEventArgs> ButtonPressed;
-        public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
-        public EventHandler<NewDeviceFoundArgs> NewDeviceFound;
 
         /// <summary>
         ///  Connect to a device

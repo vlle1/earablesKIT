@@ -24,12 +24,12 @@ namespace EarablesKIT.Models.Library
         // Returns the batteryvoltage
         float BatteryVoltage { get;}
 
-        /*
+        
         event EventHandler<DataEventArgs> IMUDataReceived;
         event EventHandler<ButtonEventArgs> ButtonPressed;
         event EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
         event EventHandler<NewDeviceFoundArgs> NewDeviceFound;
-        */
+        
         /// <summary>
         /// Starts the Scanning
         /// </summary>
