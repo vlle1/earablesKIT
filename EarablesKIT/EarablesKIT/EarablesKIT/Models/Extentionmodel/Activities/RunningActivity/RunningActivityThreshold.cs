@@ -1,62 +1,64 @@
-﻿using EarablesKIT.Models.Library;
+﻿using EarablesKIT.Models.Extentionmodel;
+using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
+using EarablesKIT.Models.Library;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// This Activity just checks if a step can be detected to tell the user is walking
+    /// The user is considered not running after a timeout
+    /// </summary>
     class RunningActivityThreshold : AbstractRunningActivity
     {
-        private const float THRESHOLD_MOVING = 0.01F;
-        /// <summary>
-        /// This Activity calculates the difference of the most recent accelerometer values to determine if the user is moving
-        /// </summary>
-        protected override void Analyse()
-        {
-            Queue<DataEventArgs>.Enumerator enumerator = buffer.GetEnumerator();
-            //user is running. now count check if user was completely inactive during last values
-            //this implementation is only for testing purposes and doesn't make much sense...
+        //after this time has passed while no step was detected the user is considered standing.
+        private const double TIMEOUT_LENGTH = 1;
 
-            if (_runningState)
-            {
-                //change, if there is any movement during the last x values
-                for (int i = 1; i<ANALYZE_TRIGGER_RATE; i++)
-                {
-                    if (enumerator.Current.Data.Acc.G_X >= THRESHOLD_MOVING)
-                    {
-                        changeDetected();
-                        return;
-                    }
-                    if (!enumerator.MoveNext()) return ; //end of collection
-                }
-            }
-            else
-            {
-                //change, if there is no movement during the last x values
-                for (int i=1; i<ANALYZE_TRIGGER_RATE*2;i++ )
-                {
-                    if (enumerator.Current.Data.Acc.G_X >= THRESHOLD_MOVING)
-                    {
-                        return;
-                    }
-                    if (!enumerator.MoveNext()) break;
-                }
-                changeDetected();
-            }
-
-        }
-
-        public RunningActivityThreshold()
-        {
-            //ActivityDone (EventHandler) muss nicht instanziiert werden, auch wenn das im Entwurf steht
-        }
+        private double _timeout_counter;
+        
+        private AbstractStepActivity _subDetection = 
+            ((AbstractStepActivity)
+            ((ActivityManager) ServiceManager.ServiceProvider.GetService(typeof(IActivityManager)))
+                .ActitvityProvider.GetService(typeof(AbstractStepActivity)));
+        
 
         override protected void Activate()
         {
-            //apply all the resetting of Activity class
             base.Activate();
             _runningState = false;
+            _subDetection.ActivityDone += OnStepRecognized;
+        }
+        //is called when a step is recognized and refreshes the timeout
+        private void OnStepRecognized(object sender, ActivityArgs e)
+        {
+            _timeout_counter = TIMEOUT_LENGTH;
+            //if not running (walking) so far, now 
+            if (!_runningState) changeDetected();
+        }
+
+        /// <summary>
+        /// See class description.
+        /// </summary>
+        protected override void Analyse(DataEventArgs data)
+        {
+            if (ActivityDone == null)
+            {
+                //unregister from stepActivity
+                _subDetection.ActivityDone -= OnStepRecognized;
+                return;
+            }
+            //if user is running we need to find out if he times out
+            if (_runningState)
+            {
+                if (_timeout_counter < 0)
+                {
+                    //no longer running.
+                    this.changeDetected();
+                }
+                _timeout_counter -= 1.0 / _frequency;
+            }  
         }
     }
 }
