@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.ListenAndPerformActivePage">
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
+        <StackLayout Padding="10" Spacing="20" Margin="0,20,0,0">
             <Label Text="Listen And Perform"
                    Padding="20"
                    FontSize="Title"
@@ -26,8 +26,8 @@
                     </Label.FormattedText>
                 </Label>
             </Frame>
-           
-            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+
+            <StackLayout Margin="0,10,0,0" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
                 <Label Text="Current Activity"
                    Padding="20"
                    FontSize="Title"
@@ -41,12 +41,16 @@
                            VerticalOptions="FillAndExpand"
                            HorizontalOptions="FillAndExpand"/>
                 </Frame>
+                <ProgressBar
+                    ProgressColor="Gray"
+                    Progress="0.2"/>
                 <Label Text="{Binding ActiveActivity.Name}"
                    Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
+                
             </StackLayout>
             <Button Text="Stop Workout"
                     Clicked="OnStopButtonClicked"
@@ -56,7 +60,6 @@
                     BorderWidth="1" 
                     CornerRadius="10" 
                     HorizontalOptions="Center"/>
-        
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -26,9 +26,10 @@ namespace EarablesKIT.Views
 		{
 			if (ViewModel.StartActivity())
 			{
-				await ChangeView();
 				ViewModel.StartTimer();
-				ViewModel.DoActivities();
+				await ChangeView();
+				
+				
 			}
 		}
 
