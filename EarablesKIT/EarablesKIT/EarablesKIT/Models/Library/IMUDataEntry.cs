@@ -4,10 +4,24 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
+    /// <summary>
+    /// This class contains all information from the accelerometer and the gyroscope 
+    /// </summary>
     public class IMUDataEntry
     {
-        public Accelerometer Acc { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public Gyroscope Gyro { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private Accelerometer acc;
+        public Accelerometer Acc { get => acc;}
+        private Gyroscope gyro;
+        public Gyroscope Gyro { get => gyro;}
+        /// <summary>
+        ///  Constructor to set all values at once
+        /// </summary>
+        /// <param name="acc"> The acceleration values </param>
+        /// <param name="gyro"> The gyroscope values</param>
+        public IMUDataEntry(Accelerometer acc, Gyroscope gyro)
+        {
+            this.acc = acc;
+            this.gyro = gyro;
+        }
     }
 }
