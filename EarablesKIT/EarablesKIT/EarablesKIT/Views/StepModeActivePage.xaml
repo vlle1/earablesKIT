@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
-             x:Class="EarablesKIT.Views.StepModePage">
+             x:Class="EarablesKIT.Views.StepModeActivePage">
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
             <Label Text="{x:Static resource:AppResources.StepModeNameLabel}"
@@ -15,13 +15,13 @@
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
             <StackLayout Spacing="0">
-                <Label Text="{x:Static resource:AppResources.StepModeTrainingsDateLabel}"
+                <Label Text="{x:Static resource:AppResources.StepModeStartDataTime}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
-                <Label Text="{Binding LastDataTime}"
+                <Label Text="{Binding CurrentDate}"
                    Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
@@ -29,33 +29,51 @@
                    BackgroundColor="CornflowerBlue"/>
             </StackLayout>
             <Grid Padding="20" RowSpacing="30">
-                <Label Text="{Binding StepsDoneLastTime}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedStatusLabel}"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Large"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       BackgroundColor="Beige"/>
+                <Label Text="{Binding StatusDisplay}"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Large"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       BackgroundColor="DeepSkyBlue"/>
+                <Label Text="{Binding StepCounter} "
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center"
                        FontSize="Large" 
-                       Grid.Row="0" 
+                       Grid.Row="1" 
                        Grid.Column="0" 
                        BackgroundColor="CornflowerBlue"/>
-                <Label Text="{x:Static resource:AppResources.StepModeLastStepsLabel}" 
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedStepsDoneLabel}" 
                        FontSize="Large" 
-                       Grid.Row="0" 
+                       Grid.Row="1" 
                        Grid.Column="1"/>
-                <Label Text="{Binding DistanceWalkedLastTime}" 
+                <Label Text="{Binding StepFrequency}" 
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center"
                        FontSize="Large" 
-                       Grid.Row="1" 
+                       Grid.Row="2" 
                        Grid.Column="0"
                        BackgroundColor="CornflowerBlue"/>
-                <Label Text="{x:Static resource:AppResources.StepModeLastDistanceLabel}" 
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedFrequencyLabel}" 
                        FontSize="Large" 
-                       Grid.Row="1" 
+                       Grid.Row="2" 
                        Grid.Column="1"/>
             </Grid>
-            <Button Text="{x:Static resource:AppResources.StepModeStartButton}" 
-                    Clicked="OnStartButtonClicked"
+            <Button Text="{x:Static resource:AppResources.StepModeStopButton}" 
+                    Clicked="OnStopButtonClicked"
                     VerticalOptions="CenterAndExpand" 
-                    BackgroundColor="CornflowerBlue" 
+                    BackgroundColor="IndianRed" 
                     BorderColor="Black" 
                     BorderWidth="1" 
                     CornerRadius="10" 

@@ -8,7 +8,8 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
     /// <summary>
     /// An activity provides an algorithm that throws certain events if a certain activity is detected.
     /// </summary>
-    abstract class Activity
+    public abstract class Activity
+
     {
         /// <summary>
         /// the frequency of the incoming data (how many values per second)

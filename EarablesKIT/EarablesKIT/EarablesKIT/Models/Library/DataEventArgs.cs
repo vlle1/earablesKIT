@@ -7,7 +7,7 @@ namespace EarablesKIT.Models.Library
     /// <summary>
     /// This class contains all arguments which are necessary if there are new IMUDates
     /// </summary>
-    class DataEventArgs
+    public class DataEventArgs
     {
         private IMUDataEntry data;
         public IMUDataEntry Data { get => data; set => data = value; }
