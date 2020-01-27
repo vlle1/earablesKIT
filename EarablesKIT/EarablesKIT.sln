@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EarablesKIT", "EarablesKIT\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A04B298F-B785-4A54-9DD5-CD0EB56CCF00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelTests", "ViewModelTests\ViewModelTests.csproj", "{E1A252AD-9449-416F-9F54-9AF8B1B7823D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelTests", "ViewModelTests\ViewModelTests.csproj", "{E1A252AD-9449-416F-9F54-9AF8B1B7823D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

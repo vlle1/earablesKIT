@@ -16,5 +16,6 @@ namespace EarablesKIT.Views
         {
             InitializeComponent();
         }
+
     }
 }

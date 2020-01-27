@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities
 {
-    abstract class Activity
+    public abstract class Activity
     {
         public EventHandler<ActivityArgs> ActivityDone { get; set; }
 

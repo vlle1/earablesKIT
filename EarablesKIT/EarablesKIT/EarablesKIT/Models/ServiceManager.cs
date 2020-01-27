@@ -1,14 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using EarablesKIT.Models.DatabaseService;
+using EarablesKIT.Models.Extentionmodel;
+using EarablesKIT.Models.Library;
+using EarablesKIT.Models.SettingsService;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EarablesKIT.Models
 {
-    class ServiceManager
+    /// <summary>
+    /// Class ServiceManager contains the different Servii and provides them to other components like the viewmodel
+    /// </summary>
+    class ServiceManager : IManager
     {
-        private static ServiceProvider serviceProvider;
+        private static ServiceProvider _serviceProvider;
 
-        public static ServiceProvider ServiceProvider { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /// <summary>
+        /// Property ServiceProvider is a static property which handles the singleton instance and initializes it.
+        /// </summary>
+        public static ServiceProvider ServiceProvider => _serviceProvider ?? (_serviceProvider = ServiceRegistration().BuildServiceProvider());
+
+        private static IServiceCollection ServiceRegistration()
+        {
+            IServiceCollection collection = new ServiceCollection();
+
+            collection.AddSingleton<IEarablesConnection, EarablesConnection>();
+            collection.AddSingleton<IDataBaseConnection, DatabaseConnection>();
+
+            collection.AddSingleton<ISettingsService, SettingsService.SettingsService>();
+            collection.AddSingleton<IActivityManager, ActivityManager>();
+
+            return collection;
+        }
     }
+
 }
