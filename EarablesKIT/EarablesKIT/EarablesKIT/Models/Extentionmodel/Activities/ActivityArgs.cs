@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities
 {
-    interface ActivityArgs
+    public interface ActivityArgs
     {
     }
 }

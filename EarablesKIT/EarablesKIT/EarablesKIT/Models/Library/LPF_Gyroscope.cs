@@ -4,6 +4,9 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
+    /// <summary>
+    /// This enum contains all values for the gyroscope LPF
+    /// </summary>
     public enum LPF_Gyroscope
     {
         Hz250 = 0,

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CountModeNameLabel" xml:space="preserve">
+    <value>Zählmodus</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Okay</value>
   </data>
@@ -125,6 +128,12 @@
   </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Willkommen auf der Datenübersichtsseite!</value>
+  </data>
+  <data name="DefaultError" xml:space="preserve">
+    <value>Es ist ein Fehler aufgetreten!</value>
+  </data>
+  <data name="ErrorAlert" xml:space="preserve">
+    <value>Fehler!</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Fehler!</value>
@@ -155,5 +164,50 @@
   </data>
   <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
     <value>Bluetooth ist nicht aktiv!</value>
+  </data>
+  <data name="MusicModeEntryLabel1" xml:space="preserve">
+    <value>Willkommen im Musikmodus!</value>
+  </data>
+  <data name="Okay" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="PossibleActivitiesLabel" xml:space="preserve">
+    <value>Mögliche Aktivitäten</value>
+  </data>
+  <data name="StartCountModeButton" xml:space="preserve">
+    <value>Zählmodus Starten</value>
+  </data>
+  <data name="StepModeLastDistanceLabel" xml:space="preserve">
+    <value>Letztes Mal Gelaufene Distanz</value>
+  </data>
+  <data name="StepModeLastStepsLabel" xml:space="preserve">
+    <value>Letztes Mal Gelaufene Schritte</value>
+  </data>
+  <data name="StepModeNameLabel" xml:space="preserve">
+    <value>Laufmodus</value>
+  </data>
+  <data name="StepModeStartButton" xml:space="preserve">
+    <value>Laufmodus Starten</value>
+  </data>
+  <data name="StepModeStartDataTime" xml:space="preserve">
+    <value>Training Gestartet Am/Um</value>
+  </data>
+  <data name="StepModeStopButton" xml:space="preserve">
+    <value>Laufmodus Stoppen</value>
+  </data>
+  <data name="StepModeTrainingsDateLabel" xml:space="preserve">
+    <value>Letzter Trainingstag</value>
+  </data>
+  <data name="StepModeUnbindedFrequencyLabel" xml:space="preserve">
+    <value>Aktuelle Schrittfrequenz</value>
+  </data>
+  <data name="StepModeUnbindedStatusLabel" xml:space="preserve">
+    <value>Aktueller Status</value>
+  </data>
+  <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
+    <value>Aktuell Gelaufene Schritte</value>
+  </data>
+  <data name="StopCountModeButton" xml:space="preserve">
+    <value>Zählmodus Stoppen</value>
   </data>
 </root>

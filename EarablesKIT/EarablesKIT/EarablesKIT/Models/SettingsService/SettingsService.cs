@@ -44,7 +44,8 @@ namespace EarablesKIT.Models.SettingsService
             set
             {
                 var service = ServiceManager.ServiceProvider.GetService<IEarablesConnection>();
-                try
+                //TODO uncomment
+                /*if (!service.SetSamplingRate((int) value))
                 {
                     service.SetSamplingRate((int) value);
                 }
@@ -52,7 +53,7 @@ namespace EarablesKIT.Models.SettingsService
                 {
                     ExceptionHandlingViewModel.HandleException(e);
                     return;
-                }
+                }*/
 
                 UpdateValue(SAMPLINGRATE_PROPERTY, (int) value);
                 _samplingRate = value;

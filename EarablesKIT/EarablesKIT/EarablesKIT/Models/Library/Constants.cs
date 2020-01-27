@@ -4,9 +4,11 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
+    /// <summary>
+    /// This class contains the Guid parse strings for the characteristics
+    /// </summary>
     class Constants
     {
-
         public static string START_STOP_IMU_SAMPLING_CHAR { get => "0000ff07-0000-1000-8000-00805f9b34fb"; } 
         public static string SENSORDATA_CHAR { get => "0000ff08-0000-1000-8000-00805f9b34fb"; }
         public static string PUSHBUTTON_CHAR { get => "0000ff09-0000-1000-8000-00805f9b34fb"; }
