@@ -42,8 +42,12 @@
                            HorizontalOptions="FillAndExpand"/>
                 </Frame>
                 <ProgressBar
-                    ProgressColor="Gray"
-                    Progress="0.2"/>
+                    ProgressColor="Orange"
+                    Progress="{Binding ProgressLive}"
+                    IsVisible="True"
+                    HeightRequest="30"
+                    
+                    />
                 <Label Text="{Binding ActiveActivity.Name}"
                    Padding="10"
                    FontSize="Title"

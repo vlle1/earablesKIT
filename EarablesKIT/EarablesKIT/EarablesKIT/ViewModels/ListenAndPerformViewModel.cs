@@ -33,6 +33,7 @@ namespace EarablesKIT.ViewModels
 		private Stopwatch _timer;
 		private Timer PauseTimer;
 		private int _pushUpResult, _sitUpResult, Repetitions;
+		private double _progress;
 		private ActivityWrapper _activeActivity;
 
 		private IEnumerator<ActivityWrapper> ActivityIterator;
@@ -85,6 +86,16 @@ namespace EarablesKIT.ViewModels
 			}
 		}
 
+		public double ProgressLive
+		{
+			get { return _progress; }
+			set
+			{
+				_progress = value;
+				OnPropertyChanged();
+			}
+		}
+
 		public ListenAndPerformViewModel()
 		{
 			AddActivityCommand = new Command(() => AddActivity(ActivityList.Count));
@@ -116,6 +127,7 @@ namespace EarablesKIT.ViewModels
 		public override void OnActivityDone(object sender, ActivityArgs args)
 		{
 			ActiveActivity.Counter++;
+			ProgressLive = Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
 			if (ActiveActivity.Counter >= Repetitions)
 			{
 				ActiveActivity._activity.ActivityDone -= OnActivityDone;
@@ -134,6 +146,7 @@ namespace EarablesKIT.ViewModels
 		private void OnTimedEvent(object source, ElapsedEventArgs e)
 		{
 			ActiveActivity.Counter--;
+			ProgressLive = Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
 			if (ActiveActivity.Counter == 0)
 			{
 				PauseTimer.Stop();
@@ -158,10 +171,12 @@ namespace EarablesKIT.ViewModels
 			{
 				ActiveActivity.Counter = 0;
 				ActiveActivity._activity.ActivityDone += OnActivityDone;
+				ProgressLive = 0;
 			}
 			else
 			{*/
 			ActiveActivity.Counter = Repetitions;
+			ProgressLive = 1;
 			PauseTimer = new Timer();
 			PauseTimer.Interval = 1000;
 			PauseTimer.Elapsed += OnTimedEvent;
@@ -324,23 +339,5 @@ namespace EarablesKIT.ViewModels
 			}
 
 		}
-
-		/*else
-					{ //Pause
-						Stopwatch pauseTimer = new Stopwatch();
-		pauseTimer.Start();
-
-						Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-						{
-							ActiveActivity.Counter--;
-							if (pauseTimer.Elapsed.Seconds >= 10)
-							{
-								CheckNextActivity();
-								return false;
-							}
-							return true;
-
-						});
-					}*/
 	}
 }
