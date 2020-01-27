@@ -120,6 +120,18 @@
   <data name="CountModeNameLabel" xml:space="preserve">
     <value>CountMode</value>
   </data>
+  <data name="DatabaseConnectionFileParseError" xml:space="preserve">
+    <value>Couldn't parse the given file!</value>
+  </data>
+  <data name="DataBaseErrorFailedToSave" xml:space="preserve">
+    <value>Couldn't save the data!</value>
+  </data>
+  <data name="DataBaseFileDoesntExistError" xml:space="preserve">
+    <value>Path doesn't exist!</value>
+  </data>
+  <data name="DataBaseStorageFileName" xml:space="preserve">
+    <value>Trainingsdata_EarblesKIT.txt</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Wonderful DataOverviewPage!</value>
   </data>
@@ -128,6 +140,21 @@
   </data>
   <data name="ErrorAlert" xml:space="preserve">
     <value>Exception!</value>
+  </data>
+  <data name="ImportExportDeleteDataButton" xml:space="preserve">
+    <value>Delete trainingsdata</value>
+  </data>
+  <data name="ImportExportExportButton" xml:space="preserve">
+    <value>Export trainingsdata</value>
+  </data>
+  <data name="ImportExportFileError" xml:space="preserve">
+    <value>File couldn't get picked correctly!</value>
+  </data>
+  <data name="ImportExportImportButton" xml:space="preserve">
+    <value>Import trainingsdata</value>
+  </data>
+  <data name="ImportExportLabel" xml:space="preserve">
+    <value>Datamanagement</value>
   </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Wonderful MusicModeEntry page!</value>

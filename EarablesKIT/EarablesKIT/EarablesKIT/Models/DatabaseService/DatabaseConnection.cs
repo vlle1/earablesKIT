@@ -1,6 +1,11 @@
-﻿using SQLite;
+﻿using EarablesKIT.Resources;
+using EarablesKIT.ViewModels;
+using Plugin.FilePicker.Abstractions;
+using Plugin.Permissions;
+using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace EarablesKIT.Models.DatabaseService
@@ -104,10 +109,66 @@ namespace EarablesKIT.Models.DatabaseService
             return primaryResult;
         }
 
+        public void ImportTrainingsData(FileData file)
+        {
+            if(file == null || string.IsNullOrEmpty(file.FileName))
+            {
+                ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+            }
+
+            string content = System.Text.Encoding.Default.GetString(file.DataArray);
+            string[] lines = content.Split(
+                new[] { "\r\n", "\r", "\n" },
+                StringSplitOptions.None
+            );
+
+            List<DBEntry> parsedEntries = new List<DBEntry>();
+            foreach(string entry in lines)
+            {
+                DBEntry dbEntry = DBEntry.ParseDbEntry(entry);
+                if(dbEntry == null)
+                {
+                    ExceptionHandlingViewModel.HandleException(new ArgumentException(AppResources.DatabaseConnectionFileParseError));
+                    return;
+                }
+                else
+                {
+                    parsedEntries.Add(dbEntry);
+                }
+            }
+            foreach(DBEntry entry in parsedEntries)
+            {
+                this.SaveDBEntry(entry);
+            }
+        }
+
 
         public void ExportTrainingsData(string path)
         {
-            throw new NotImplementedException();
+
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            {
+                ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+            }
+            path.Trim();
+
+            List<DBEntry> entries = GetAllEntries();
+            string toWrite = "";
+            foreach(DBEntry entry in entries)
+            {
+                toWrite += entry.ToString() + "\n";
+            }
+            if (entries.Count == 0) return;
+            toWrite = toWrite.Remove(toWrite.Length - 1);
+
+            try
+            {
+                File.WriteAllText(path, toWrite);
+            }
+            catch(Exception)
+            {
+                ExceptionHandlingViewModel.HandleException(new FileLoadException(AppResources.DataBaseErrorFailedToSave));
+            }
         }
     }
 }

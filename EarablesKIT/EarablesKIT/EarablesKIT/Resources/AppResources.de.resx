@@ -120,6 +120,18 @@
   <data name="CountModeNameLabel" xml:space="preserve">
     <value>Zählmodus</value>
   </data>
+  <data name="DatabaseConnectionFileParseError" xml:space="preserve">
+    <value>Konnte den angegeben Pfad nicht lesen</value>
+  </data>
+  <data name="DataBaseErrorFailedToSave" xml:space="preserve">
+    <value>Speichern fehlgeschlagen!</value>
+  </data>
+  <data name="DataBaseFileDoesntExistError" xml:space="preserve">
+    <value>Angegebener Pfad existiert nicht!</value>
+  </data>
+  <data name="DataBaseStorageFileName" xml:space="preserve">
+    <value>Trainingsdaten_EarblesKIT.txt</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Willkommen auf der Datenübersichtsseite!</value>
   </data>
@@ -128,6 +140,21 @@
   </data>
   <data name="ErrorAlert" xml:space="preserve">
     <value>Fehler!</value>
+  </data>
+  <data name="ImportExportDeleteDataButton" xml:space="preserve">
+    <value>Traningsdaten löschen</value>
+  </data>
+  <data name="ImportExportExportButton" xml:space="preserve">
+    <value>Trainingsdaten exportieren</value>
+  </data>
+  <data name="ImportExportFileError" xml:space="preserve">
+    <value>Die Datei konnte nicht richtig ausgewählt werden!</value>
+  </data>
+  <data name="ImportExportImportButton" xml:space="preserve">
+    <value>Trainingsdaten importieren</value>
+  </data>
+  <data name="ImportExportLabel" xml:space="preserve">
+    <value>Dateimanagement</value>
   </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Willkommen im Musikmodus!</value>

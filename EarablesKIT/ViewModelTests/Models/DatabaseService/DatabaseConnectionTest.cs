@@ -1,4 +1,5 @@
 ﻿using EarablesKIT.Models.DatabaseService;
+using Plugin.FilePicker;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -155,6 +156,19 @@ namespace ViewModelTests.Models.DatabaseService
             Assert.Equal(actual.TrainingsData[DBEntry.StepAmountIdentifier] + 100, actualDBEntry2.TrainingsData[DBEntry.StepAmountIdentifier]);
             Assert.Equal(actual.TrainingsData[DBEntry.PushUpAmountIdentifier] + 50, actualDBEntry2.TrainingsData[DBEntry.PushUpAmountIdentifier]);
             Assert.Equal(actual.TrainingsData[DBEntry.SitUpAmountIdentifier] + 20, actualDBEntry2.TrainingsData[DBEntry.SitUpAmountIdentifier]);
+        }
+
+        [Fact]
+        public void TestExport()
+        {
+            DatabaseConnection dbToTest = new DatabaseConnection();
+            dbToTest.SaveDBEntry(new DBEntry(DateTime.Parse("26.04.2000"), 100, 20, 10));
+            dbToTest.SaveDBEntry(new DBEntry(DateTime.Parse("25.04.2000"), 10, 50, 15));
+            dbToTest.SaveDBEntry(new DBEntry(DateTime.Parse("22.04.2000"), 170, 10, 230));
+            dbToTest.SaveDBEntry(new DBEntry(DateTime.Parse("27.04.2000"), 130, 20, 10));
+            
+
+
         }
     }
 }

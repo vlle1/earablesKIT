@@ -7,10 +7,6 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.DataOverviewPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{x:Static resource:AppResources.DataOverviewPageEntryLabel}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+       
     </ContentPage.Content>
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.FilePicker.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace EarablesKIT.Models.DatabaseService
         /// If the Database doesn't have the amount DBEntries saved, returns all saved entries instead!</returns>
         List<DBEntry> GetMostRecentEntries(int amount);
 
-        //void ImportTrainingsData(FileData file);
+        void ImportTrainingsData(FileData file);
 
         void ExportTrainingsData(string path);
 
@@ -42,6 +43,8 @@ namespace EarablesKIT.Models.DatabaseService
         /// Method DeleteAllEntries deletes all stored entries in the database. Simply drops the proper table.
         /// </summary>
         void DeleteAllEntries();
+
+
 
     }
 }
