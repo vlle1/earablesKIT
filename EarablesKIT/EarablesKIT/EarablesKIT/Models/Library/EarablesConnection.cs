@@ -123,6 +123,7 @@ namespace EarablesKIT.Models.Library
 
                 // Initialise the BatteryVoltage the first time after connection in case it will be used befor the Batteryvalue updates the first time
                 await initBatteryVoltage();
+                this.StartSampling();
 
 
             }));
@@ -211,7 +212,7 @@ namespace EarablesKIT.Models.Library
         /// </summary>
         /// <param name="sender">The Objekt which has thrown the event</param>
         /// <param name="args">The arguments from the exception</param>
-        private void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
+        public void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
             byte[] bytesIMUValue = args.Characteristic.Value;
             IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);

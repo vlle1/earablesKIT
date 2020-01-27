@@ -117,7 +117,7 @@ namespace EarablesKIT.ViewModels
             
             DevicesList.Clear();
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-            if (!_earablesConnectionService.IsBluetoothActive())
+            if (!_earablesConnectionService.IsBluetoothActive)
             {
                 await Application.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
                 return;

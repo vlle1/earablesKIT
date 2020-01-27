@@ -15,7 +15,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
 
         public SitUpActivityThreshold()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
