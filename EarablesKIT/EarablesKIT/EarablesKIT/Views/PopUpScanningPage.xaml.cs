@@ -1,7 +1,11 @@
-﻿using EarablesKIT.ViewModels;
+﻿using EarablesKIT.Resources;
+using EarablesKIT.ViewModels;
+using Plugin.BLE.Abstractions.Contracts;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.ComponentModel;
+using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
@@ -36,6 +40,22 @@ namespace EarablesKIT.Views
             else
             {
                 ConnectButton.IsEnabled = false;
+            }
+        }
+
+        private void ConnectButton_Clicked(object sender, EventArgs e)
+        {
+            IDevice selectedDevice = (IDevice)DevicesListView.SelectedItem;
+            ConnectButton.IsEnabled = false;
+            try
+            {
+                _viewModel.ConnectDeviceCommand.Execute(selectedDevice);
+            }
+            catch (Exception)
+            {
+                AlertLabel.Text = AppResources.Error + ": " + AppResources.ScanningPopUpAlertCouldntConnect;
+                
+                ConnectButton.IsEnabled = true;
             }
         }
     }

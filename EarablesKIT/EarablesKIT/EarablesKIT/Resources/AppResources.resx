@@ -144,7 +144,16 @@
   <data name="ScanningPopUpConnectButton" xml:space="preserve">
     <value>Connect</value>
   </data>
+  <data name="ScanningPopUpLocationDenied" xml:space="preserve">
+    <value>Location denied!</value>
+  </data>
+  <data name="ScanningPopUpPermissionLocationNeeded" xml:space="preserve">
+    <value>Location permission is needed!</value>
+  </data>
   <data name="ScanningPopUpScanDevicesButton" xml:space="preserve">
     <value>Scan Devices</value>
+  </data>
+  <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
+    <value>Bluetooth is not active!</value>
   </data>
 </root>

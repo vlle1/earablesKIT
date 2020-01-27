@@ -65,7 +65,7 @@ namespace EarablesKIT.ViewModels
             _earablesConnectionService.NewDeviceFound += (sender, args) =>
             {
 
-                    if (args.Device.Name != null && args.Device.Name.StartsWith("eSense"))
+                    if (args.Device.Name != null && args.Device.Name.StartsWith("eSense") && !DevicesList.Contains(args.Device))
                     {
                         DevicesList.Add(args.Device);
                         OnPropertyChanged(nameof(DevicesList));
@@ -117,11 +117,16 @@ namespace EarablesKIT.ViewModels
             
             DevicesList.Clear();
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+            if (!_earablesConnectionService.IsBluetoothActive())
+            {
+                await Application.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
+                return;
+            }
             if (status != PermissionStatus.Granted)
             {
                 if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Unknown))
                 {
-                    await Application.Current.MainPage.DisplayAlert("Need location", "Gunna need that location", "OK");
+                    await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpPermissionLocationNeeded, AppResources.Accept);
                 }
 
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Location });
@@ -130,12 +135,11 @@ namespace EarablesKIT.ViewModels
             
             if (status != PermissionStatus.Granted)
             {
-                await Application.Current.MainPage.DisplayAlert("Location Permission", "Denied!", "OK");
+                await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpLocationDenied, AppResources.Accept);
                 return;
             }
 
             _earablesConnectionService.StartScanning();
-
 
         }
 
@@ -144,11 +148,12 @@ namespace EarablesKIT.ViewModels
             try
             {
                 _earablesConnectionService.ConnectToDevice(selectedItem);
+
             }
             catch (DeviceConnectionException e)
             {
-                Application.Current.MainPage.DisplayAlert(AppResources.Error,
-                    AppResources.ScanningPopUpAlertCouldntConnect, AppResources.Accept);
+                DevicesList.Clear();
+                throw e;
             }
         }
 

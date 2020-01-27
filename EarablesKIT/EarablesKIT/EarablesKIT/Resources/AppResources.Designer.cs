@@ -142,11 +142,38 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location denied!.
+        /// </summary>
+        internal static string ScanningPopUpLocationDenied {
+            get {
+                return ResourceManager.GetString("ScanningPopUpLocationDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location permission is needed!.
+        /// </summary>
+        internal static string ScanningPopUpPermissionLocationNeeded {
+            get {
+                return ResourceManager.GetString("ScanningPopUpPermissionLocationNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan Devices.
         /// </summary>
         internal static string ScanningPopUpScanDevicesButton {
             get {
                 return ResourceManager.GetString("ScanningPopUpScanDevicesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bluetooth is not active!.
+        /// </summary>
+        internal static string ScanningPopUpTurnBluetoothOn {
+            get {
+                return ResourceManager.GetString("ScanningPopUpTurnBluetoothOn", resourceCulture);
             }
         }
     }
