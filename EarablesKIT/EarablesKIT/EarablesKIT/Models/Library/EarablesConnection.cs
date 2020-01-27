@@ -38,12 +38,14 @@ namespace EarablesKIT.Models.Library
         public LPF_Gyroscope GyroLPF { get => GetGyroscopeLPF(); set => SetGyroscopeLPF(value); }
         // The current batteryvoltage
         private float batteryVoltage;
+
+        public event EventHandler<DataEventArgs> IMUDataReceived;
+        public event EventHandler<ButtonEventArgs> ButtonPressed;
+        public event EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
+        public event EventHandler<NewDeviceFoundArgs> NewDeviceFound;
+
         public float BatteryVoltage { get => batteryVoltage; }
 
-        public EventHandler<DataEventArgs> IMUDataReceived;
-        public EventHandler<ButtonEventArgs> ButtonPressed;
-        public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
-        public EventHandler<NewDeviceFoundArgs> NewDeviceFound;
 
         /// <summary>
         ///  Connect to a device
@@ -202,17 +204,9 @@ namespace EarablesKIT.Models.Library
         /// <param name="args">The arguments from the exception</param>
         private void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
-            try
-            {
-                byte[] bytesIMUValue = args.Characteristic.Value;
-                IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
-                IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
-            }
-            catch (System.ArgumentOutOfRangeException exc)
-            {
-                // somethimes this exception gets thrown. In that case ignore the new value
-            }
-
+            byte[] bytesIMUValue = args.Characteristic.Value;
+            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
+            IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
         }
 
 
