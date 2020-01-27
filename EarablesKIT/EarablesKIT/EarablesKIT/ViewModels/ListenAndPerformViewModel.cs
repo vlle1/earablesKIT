@@ -146,7 +146,7 @@ namespace EarablesKIT.ViewModels
 		private void OnTimedEvent(object source, ElapsedEventArgs e)
 		{
 			ActiveActivity.Counter--;
-			ProgressLive = Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
+			ProgressLive = 1 - Math.Round((double) ActiveActivity.Counter / Repetitions, 2);
 			if (ActiveActivity.Counter == 0)
 			{
 				PauseTimer.Stop();
@@ -176,7 +176,7 @@ namespace EarablesKIT.ViewModels
 			else
 			{*/
 			ActiveActivity.Counter = Repetitions;
-			ProgressLive = 1;
+			ProgressLive = 0;
 			PauseTimer = new Timer();
 			PauseTimer.Interval = 1000;
 			PauseTimer.Elapsed += OnTimedEvent;
