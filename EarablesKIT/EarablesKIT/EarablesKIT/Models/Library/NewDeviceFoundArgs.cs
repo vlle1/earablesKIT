@@ -10,11 +10,11 @@ namespace EarablesKIT.Models.Library
     /// </summary>
     public class NewDeviceFoundArgs
     {
-        public IDevice device;
+        public IDevice Device;
 
         public NewDeviceFoundArgs(IDevice device)
         {
-            this.device = device;    
+            this.Device = device;    
         }
     }
 }

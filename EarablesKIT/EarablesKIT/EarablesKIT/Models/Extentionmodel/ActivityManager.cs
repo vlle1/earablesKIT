@@ -35,7 +35,11 @@ namespace EarablesKIT.Models.Extentionmodel
 
            
             _activityProvider = ServiceRegistration().BuildServiceProvider();
-          
+
+            Activities.Add((Activity)_activityProvider.GetService(typeof(AbstractStepActivity)));
+            Activities.Add((Activity)_activityProvider.GetService(typeof(AbstractRunningActivity)));
+            Activities.Add((Activity)_activityProvider.GetService(typeof(AbstractPushUpActivity)));
+            Activities.Add((Activity)_activityProvider.GetService(typeof(AbstractSitUpActivity)));
             IEarablesConnection connection = (IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof (IEarablesConnection));
             //register at Library
             connection.IMUDataReceived += OnIMUDataReceived;

@@ -120,6 +120,12 @@
   <data name="CountModeNameLabel" xml:space="preserve">
     <value>Zählmodus</value>
   </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbruch</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Willkommen auf der Datenübersichtsseite!</value>
   </data>
@@ -129,8 +135,35 @@
   <data name="ErrorAlert" xml:space="preserve">
     <value>Fehler!</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler!</value>
+  </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Willkommen im Musikmodus!</value>
+  </data>
+  <data name="ScanningPopUpAlertCouldntConnect" xml:space="preserve">
+    <value>Verbindung konnte nicht hergestellt werden!</value>
+  </data>
+  <data name="ScanningPopUpAlertLabel" xml:space="preserve">
+    <value>Du bist mit keinem Gerät verbunden!</value>
+  </data>
+  <data name="ScanningPopUpCancelButton" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ScanningPopUpConnectButton" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="ScanningPopUpLocationDenied" xml:space="preserve">
+    <value>Standorterlaubnis verweigert!</value>
+  </data>
+  <data name="ScanningPopUpPermissionLocationNeeded" xml:space="preserve">
+    <value>Standorterlaubnis wird benötigt!</value>
+  </data>
+  <data name="ScanningPopUpScanDevicesButton" xml:space="preserve">
+    <value>Suche Geräte</value>
+  </data>
+  <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
+    <value>Bluetooth ist nicht aktiv!</value>
   </data>
   <data name="MusicModeEntryLabel1" xml:space="preserve">
     <value>Willkommen im Musikmodus!</value>

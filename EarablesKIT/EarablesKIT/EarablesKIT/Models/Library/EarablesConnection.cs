@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Plugin.BLE;
+using Plugin.BLE.Abstractions;
+using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using static EarablesKIT.Models.Library.Constants;
 using static EarablesKIT.Models.Library.IMUDataExtractor;
-using System.Text;
-using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE;
-using Xamarin.Forms;
-using Plugin.BLE.Abstractions;
-using Plugin.BLE.Abstractions.Exceptions;
-using Plugin.BLE.Abstractions.EventArgs;
 
 
 namespace EarablesKIT.Models.Library
@@ -47,6 +50,12 @@ namespace EarablesKIT.Models.Library
         public float BatteryVoltage { get => batteryVoltage; }
 
 
+        public EarablesConnection()
+        {
+            config = new ConfigContainer();
+            characters = new Characteristics();
+        }
+
         /// <summary>
         ///  Connect to a device
         /// </summary>
@@ -69,7 +78,7 @@ namespace EarablesKIT.Models.Library
                 // Register on the events from the earables
                 adapter.DeviceDisconnected += OnDeviceDisconnected;
                 adapter.DeviceConnectionLost += OnDeviceConnectionLost;
-                // adapter.DeviceConnected += OnDeviceConnected;
+                //adapter.DeviceConnected += OnDeviceConnected;
 
                 // Stop scanning for devices to be sure that nothing goes wrong
                 await adapter.StopScanningForDevicesAsync();
@@ -115,7 +124,6 @@ namespace EarablesKIT.Models.Library
                 // Initialise the BatteryVoltage the first time after connection in case it will be used befor the Batteryvalue updates the first time
                 await initBatteryVoltage();
 
-
             }));
         }
 
@@ -144,15 +152,15 @@ namespace EarablesKIT.Models.Library
             }
         }
 
-        //  public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
-        //  {
-        //      connected = true;
-        //      Device.BeginInvokeOnMainThread(new Action(() =>
-        //      {
-        //          DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
-        //          DeviceConnectionStateChanged?.Invoke(this, e);
-        //      }));
-        //  }
+          /*public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
+          {
+              connected = true;
+              Device.BeginInvokeOnMainThread(new Action(() =>
+              {
+                  DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
+                  DeviceConnectionStateChanged?.Invoke(this, e);
+              }));
+          }*/
 
 
         /// <summary>
@@ -202,13 +210,21 @@ namespace EarablesKIT.Models.Library
         /// </summary>
         /// <param name="sender">The Objekt which has thrown the event</param>
         /// <param name="args">The arguments from the exception</param>
-        private void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
+        public void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
             byte[] bytesIMUValue = args.Characteristic.Value;
             IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
             IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
         }
 
+        public void SetSamplingRate(int rate)
+        {
+            if(rate < 1 || rate > 100)
+            {
+                throw new InvalideSamplerateException("The Samplerate has to be between 1 and 100");
+            }
+            config.Samplerate = rate;
+        }
 
         /// <summary>
         /// Starts the sampling
@@ -461,6 +477,11 @@ namespace EarablesKIT.Models.Library
             {
                 throw new NoConnectionException("Error, no device connected");
             }
+        }
+
+        public bool GetConnection()
+        {
+            return connected;
         }
     }
 }
