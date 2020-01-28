@@ -1,6 +1,7 @@
 ﻿using EarablesKIT.Models.Library;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
@@ -52,7 +53,10 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
                     }
                 }
             }
-            if (_cooldown > 0) _cooldown -= 1 / _frequency;
+            if (_cooldown > 0)
+            {
+                _cooldown -= (1.0 / _frequency);
+            }
         }
     }
 }
