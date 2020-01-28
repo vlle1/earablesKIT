@@ -92,6 +92,7 @@ namespace EarablesKIT.ViewModels
             else
             {
                 HidePopUp();
+                ((IEarablesConnection) ServiceManager.ServiceProvider.GetService((typeof(IEarablesConnection)))).StartSampling();
             }
         }
 

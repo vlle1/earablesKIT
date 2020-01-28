@@ -78,7 +78,7 @@ namespace EarablesKIT.Models.Library
                 // Register on the events from the earables
                 adapter.DeviceDisconnected += OnDeviceDisconnected;
                 adapter.DeviceConnectionLost += OnDeviceConnectionLost;
-                // adapter.DeviceConnected += OnDeviceConnected;
+                //adapter.DeviceConnected += OnDeviceConnected;
 
                 // Stop scanning for devices to be sure that nothing goes wrong
                 await adapter.StopScanningForDevicesAsync();
@@ -123,8 +123,6 @@ namespace EarablesKIT.Models.Library
 
                 // Initialise the BatteryVoltage the first time after connection in case it will be used befor the Batteryvalue updates the first time
                 await initBatteryVoltage();
-                this.StartSampling();
-
 
             }));
         }
@@ -154,15 +152,15 @@ namespace EarablesKIT.Models.Library
             }
         }
 
-        //  public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
-        //  {
-        //      connected = true;
-        //      Device.BeginInvokeOnMainThread(new Action(() =>
-        //      {
-        //          DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
-        //          DeviceConnectionStateChanged?.Invoke(this, e);
-        //      }));
-        //  }
+          /*public void OnDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs args)
+          {
+              connected = true;
+              Device.BeginInvokeOnMainThread(new Action(() =>
+              {
+                  DeviceEventArgs e = new DeviceEventArgs(connected, args.Device.Name);
+                  DeviceConnectionStateChanged?.Invoke(this, e);
+              }));
+          }*/
 
 
         /// <summary>
