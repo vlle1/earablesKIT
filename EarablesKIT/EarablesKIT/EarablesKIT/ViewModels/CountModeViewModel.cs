@@ -10,6 +10,7 @@ using EarablesKIT.Models;
 using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using Xamarin.Forms;
+using EarablesKIT.Models.Library;
 
 namespace EarablesKIT.ViewModels
 {
@@ -108,6 +109,7 @@ namespace EarablesKIT.ViewModels
 			{
 				if (RegisterActivity())
 				{
+                    ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
 					_pushUpActivity.Counter = 0;
 					_sitUpActivity.Counter = 0;
 					return true;

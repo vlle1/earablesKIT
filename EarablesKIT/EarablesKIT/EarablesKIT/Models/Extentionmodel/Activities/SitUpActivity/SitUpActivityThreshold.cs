@@ -9,7 +9,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
     {
         protected override void Analyse(DataEventArgs data)
         {
-            throw new NotImplementedException();
+            
         }
 
 

@@ -11,7 +11,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
     /// This Activity just checks if a step can be detected to tell the user is walking
     /// The user is considered not running after a timeout
     /// </summary>
-    class RunningActivityThreshold : AbstractRunningActivity
+    public class RunningActivityThreshold : AbstractRunningActivity
     {
         //after this time has passed while no step was detected the user is considered standing.
         private const double TIMEOUT_LENGTH = 1.1;
@@ -23,6 +23,11 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
             ((ActivityManager) ServiceManager.ServiceProvider.GetService(typeof(IActivityManager)))
                 .ActitvityProvider.GetService(typeof(AbstractStepActivity)));
         
+
+        public RunningActivityThreshold()
+        {
+
+        }
 
         override protected void Activate()
         {
