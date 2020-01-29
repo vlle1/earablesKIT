@@ -18,7 +18,10 @@
                    HorizontalTextAlignment="Center"
                    Padding="20"
                    BackgroundColor="LightSkyBlue" />
-            <Button x:Name="ExportButton" Text="{x:Static resource:AppResources.ImportExportExportButton}" Clicked="ExportButton_Clicked"/>
+            <Label x:Name="InformationLabel" 
+                   Text="{x:Static resource:AppResources.ImportExportInformationLabel}" 
+                   HorizontalTextAlignment="Center" />
+            <Button x:Name="ExportButton" IsEnabled="False" Text="{x:Static resource:AppResources.ImportExportExportButton}" Clicked="ExportButton_Clicked"/>
             <Button x:Name="ImportButton" Text="{x:Static resource:AppResources.ImportExportImportButton}" Clicked="ImportButton_Clicked"/>
             <Button x:Name="DeleteDataButton" Text="{x:Static resource:AppResources.ImportExportDeleteDataButton}" Command="{Binding DeleteDataCommand}"/>
         </StackLayout>

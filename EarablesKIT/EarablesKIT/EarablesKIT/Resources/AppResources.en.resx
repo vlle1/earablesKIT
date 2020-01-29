@@ -153,6 +153,9 @@
   <data name="ImportExportImportButton" xml:space="preserve">
     <value>Import trainingsdata</value>
   </data>
+  <data name="ImportExportInformationLabel" xml:space="preserve">
+    <value>Import/Export file needs to end with .txt</value>
+  </data>
   <data name="ImportExportLabel" xml:space="preserve">
     <value>Datamanagement</value>
   </data>

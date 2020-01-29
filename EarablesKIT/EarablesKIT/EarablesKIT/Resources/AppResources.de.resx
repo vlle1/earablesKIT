@@ -153,6 +153,9 @@
   <data name="ImportExportImportButton" xml:space="preserve">
     <value>Trainingsdaten importieren</value>
   </data>
+  <data name="ImportExportInformationLabel" xml:space="preserve">
+    <value>Ausgewählte Dateien müssen die Endung .txt besitzen.</value>
+  </data>
   <data name="ImportExportLabel" xml:space="preserve">
     <value>Dateimanagement</value>
   </data>

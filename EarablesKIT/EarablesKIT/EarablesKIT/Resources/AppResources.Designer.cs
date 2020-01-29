@@ -169,6 +169,15 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import/Export file needs to end with .txt.
+        /// </summary>
+        internal static string ImportExportInformationLabel {
+            get {
+                return ResourceManager.GetString("ImportExportInformationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datamanagement.
         /// </summary>
         internal static string ImportExportLabel {
