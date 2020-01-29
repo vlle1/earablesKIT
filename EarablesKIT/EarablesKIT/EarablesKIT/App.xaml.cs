@@ -10,6 +10,7 @@ using EarablesKIT.Models.Library;
 using EarablesKIT.ViewModels;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using MediaManager;
 
 namespace EarablesKIT
 {
@@ -24,6 +25,7 @@ namespace EarablesKIT
                 (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
             System.Globalization.CultureInfo.CurrentUICulture =
                 (SettingsService).ActiveLanguage;
+            CrossMediaManager.Current.Init();
         }
 
         protected override void OnStart()

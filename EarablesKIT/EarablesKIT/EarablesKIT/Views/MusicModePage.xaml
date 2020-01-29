@@ -9,8 +9,16 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{x:Static resource:AppResources.MusicModeEntryLabel}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="Title"/>
+            <Button Text="{Binding StartStopLabel}" Command="{Binding ToggleMusicMode}"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"></Button>
+            <Label FontSize="Small"
+                   VerticalOptions="End"
+                   HorizontalOptions="Center"
+                   Text="https://www.flaticon.com/authors/roundicons"></Label>
+            <Image Source="https://xamarin.com/content/images/pages/forms/example-app.png" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
