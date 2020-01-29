@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CountModeNameLabel" xml:space="preserve">
+    <value>CountMode</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Wonderful DataOverviewPage!</value>
   </data>
@@ -126,6 +135,9 @@
   <data name="ErrorAlert" xml:space="preserve">
     <value>Exception!</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Wonderful MusicModeEntry page!</value>
   </data>
@@ -134,6 +146,12 @@
   </data>
   <data name="Okay" xml:space="preserve">
     <value>Okay</value>
+  </data>
+  <data name="PossibleActivitiesLabel" xml:space="preserve">
+    <value>Possible Activities</value>
+  </data>
+  <data name="StartCountModeButton" xml:space="preserve">
+    <value>Start CountMode</value>
   </data>
   <data name="SettingsPageLanguage" xml:space="preserve">
     <value>Language</value>
@@ -188,5 +206,32 @@
   </data>
   <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
     <value>Steps Taken During This Session </value>
+  </data>
+  <data name="StopCountModeButton" xml:space="preserve">
+    <value>Stop CountMode</value>
+  </data>
+  <data name="ScanningPopUpAlertCouldntConnect" xml:space="preserve">
+    <value>Connection failed!</value>
+  </data>
+  <data name="ScanningPopUpAlertLabel" xml:space="preserve">
+    <value>No device connected!</value>
+  </data>
+  <data name="ScanningPopUpCancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ScanningPopUpConnectButton" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="ScanningPopUpLocationDenied" xml:space="preserve">
+    <value>Location denied!</value>
+  </data>
+  <data name="ScanningPopUpPermissionLocationNeeded" xml:space="preserve">
+    <value>Location permission is needed!</value>
+  </data>
+  <data name="ScanningPopUpScanDevicesButton" xml:space="preserve">
+    <value>Scan Devices</value>
+  </data>
+  <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
+    <value>Bluetooth is not active!</value>
   </data>
 </root>

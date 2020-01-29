@@ -29,17 +29,11 @@ namespace EarablesKIT.Views
 			}
 		}
 
-
 		public async void ChangeView()
 		{
-			StepModeActivePage NewView = new StepModeActivePage(this);
+			StepModeActivePage NewView = new StepModeActivePage(ViewModel);
 			NewView.BindingContext = this.BindingContext;
 			await Navigation.PushModalAsync(NewView);
-		}
-
-		public object ThrowingViewModel()
-		{
-			return ViewModel;
 		}
     }
 }

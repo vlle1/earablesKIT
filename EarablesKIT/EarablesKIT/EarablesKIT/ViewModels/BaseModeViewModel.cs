@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
-    abstract class BaseModeViewModel
+    public abstract class BaseModeViewModel
     {
 
         public abstract void OnActivityDone(object sender, ActivityArgs args);
@@ -16,15 +16,15 @@ namespace EarablesKIT.ViewModels
 
         protected bool CheckConnection()
         {
-			//if (ScanningPopUpViewModel.IsConnected)
-			//{
+			if (ScanningPopUpViewModel.IsConnected)
+			{
 				return true;
-			//}
-			//else
-			//{
-			//	ScanningPopUpViewModel.ShowPopUp();
-			//	return false;
-			//}
+			}
+			else
+			{
+				ScanningPopUpViewModel.ShowPopUp();
+				return false;
+			}
 		}
 
     }

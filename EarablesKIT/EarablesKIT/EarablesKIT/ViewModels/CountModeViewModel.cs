@@ -1,58 +1,178 @@
-﻿using EarablesKIT.Models.Extentionmodel.Activities;
+﻿using EarablesKIT.Models.DatabaseService;
+using EarablesKIT.Models.Extentionmodel;
+using EarablesKIT.Models.Extentionmodel.Activities;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using EarablesKIT.Models;
+using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
+using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
+using Xamarin.Forms;
+using EarablesKIT.Models.Library;
 
 namespace EarablesKIT.ViewModels
 {
-    class CountModeViewModel : BaseModeViewModel, INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
+	public class CountModeViewModel : BaseModeViewModel, INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler PropertyChanged;
 
-        public string SelectedActivity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ObservableCollection<string> PossibleActivities { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Minutes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Seconds { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Milliseconds { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Counter { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		private Stopwatch _timer;
+		private ActivityWrapper _pushUpActivity { get; set; }
+		private ActivityWrapper _sitUpActivity { get; set; }
+		private ActivityWrapper _comingSoon { get; set; }
+		private IActivityManager _activityManager { get; set; }
+		private IDataBaseConnection _dataBaseConnection { get; set; }
 
-        
-        public CountModeViewModel()
-        {
-            throw new NotImplementedException();
-        }
+		private string _minutes, _seconds, _milliseconds;
 
-        
-        public override void OnActivityDone(object sender, ActivityArgs args)
-        {
-            throw new NotImplementedException();
-        }
+		public ObservableCollection<ActivityWrapper> PossibleActivities { get; set; }
+		public string Minutes
+		{
+			get { return _minutes; }
+			set
+			{
+				_minutes = value;
+				OnPropertyChanged();
+			}
+		}
+		public string Seconds
+		{
+			get { return _seconds; }
+			set
+			{
+				_seconds = value;
+				OnPropertyChanged();
+			}
+		}
+		public string Milliseconds
+		{
+			get { return _milliseconds; }
+			set
+			{
+				_milliseconds = value;
+				OnPropertyChanged();
+			}
+		}
+		
 
-        public override bool StartActivity()
-        {
-            throw new NotImplementedException();
-        }
+		public ActivityWrapper SelectedActivity { get; set; }
 
-        public override void StopActivity()
-        {
-            throw new NotImplementedException();
-        }
+		public CountModeViewModel()
+		{
+			_pushUpActivity = new ActivityWrapper();
+			_sitUpActivity = new ActivityWrapper();
+			_comingSoon = new ActivityWrapper();
+			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+			_pushUpActivity._activity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
+			_sitUpActivity._activity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
+			_pushUpActivity._name = "Push-ups";
+			_sitUpActivity._name = "Sit-ups";
+			_comingSoon._name = "Coming soon";
+			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			PossibleActivities = new ObservableCollection<ActivityWrapper>
+			{
+				_pushUpActivity,
+				_sitUpActivity,
+				_comingSoon
+			};
+			SelectedActivity = _pushUpActivity;
 
-        private void StartTimer()
-        {
-            throw new NotImplementedException();
-        }
+		}
 
-        private void StopTimer()
-        {
-            throw new NotImplementedException();
-        }
+		private bool RegisterActivity()
+		{
+			if (SelectedActivity != null && SelectedActivity._activity != null)
+			{
+				SelectedActivity._activity.ActivityDone += OnActivityDone;
+				return true;
+			}
+			return false;
+		}
 
-        private void ShowPopUp()
-        {
-            throw new NotImplementedException();
-        }
-    }
+
+		protected void OnPropertyChanged([CallerMemberName] string name = "")
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+		}
+
+
+		public override void OnActivityDone(object sender, ActivityArgs args)
+		{
+			SelectedActivity.Counter++;
+		}
+
+		public override bool StartActivity()
+		{
+			if (CheckConnection())
+			{
+				if (RegisterActivity())
+				{
+                    ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+					_pushUpActivity.Counter = 0;
+					_sitUpActivity.Counter = 0;
+					return true;
+				}
+				return false;
+
+			}
+			return false;
+		}
+
+		public void StartTimer()
+		{
+			Minutes = "00"; Seconds = "00"; Milliseconds = "000";
+			_timer = new Stopwatch();
+			_timer.Start();
+			Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
+			{
+				if (_timer.Elapsed.Minutes.ToString().Length == 1)
+				{
+					Minutes = "0" + _timer.Elapsed.Minutes.ToString();
+				}
+				else
+				{
+					Minutes = _timer.Elapsed.Minutes.ToString();
+				}
+
+				if (_timer.Elapsed.Seconds.ToString().Length == 1)
+				{
+					Seconds = "0" + _timer.Elapsed.Seconds.ToString();
+				}
+				else
+				{
+					Seconds = _timer.Elapsed.Seconds.ToString();
+				}
+
+				Milliseconds = _timer.Elapsed.Milliseconds.ToString();
+				return true;
+			});
+		}
+
+		public override void StopActivity()
+		{
+			StopTimer();
+			SelectedActivity._activity.ActivityDone -= OnActivityDone;
+			SaveData();
+			ShowPopUp();
+		}
+
+		private void StopTimer()
+		{
+			_timer.Reset();
+		}
+
+		private void SaveData()
+		{
+			DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+			DBEntry _entryNew = new DBEntry(_dt, 0, _pushUpActivity.Counter, _sitUpActivity.Counter);
+			_dataBaseConnection.SaveDBEntry(_entryNew);
+		}
+
+		private void ShowPopUp()
+		{
+			Application.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity._name + "!", "Cool");
+		}
+	}
 }
