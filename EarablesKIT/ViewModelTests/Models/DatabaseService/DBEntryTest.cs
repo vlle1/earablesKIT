@@ -4,6 +4,7 @@ using System.Text;
 using Xunit;
 using EarablesKIT.Models.DatabaseService;
 using Newtonsoft.Json;
+using Plugin.FilePicker.Abstractions;
 
 namespace ViewModelTests.Models.DatabaseService
 {
@@ -74,7 +75,6 @@ namespace ViewModelTests.Models.DatabaseService
             Assert.Equal(expected.DateTime, actual.DateTime);
             Assert.Equal(expected.TrainingsDataAsString, actual.TrainingsDataAsString);
         }
-
 
     }
 }

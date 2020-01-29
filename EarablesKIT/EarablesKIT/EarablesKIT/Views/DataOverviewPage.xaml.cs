@@ -20,5 +20,6 @@ namespace EarablesKIT.Views
             InitializeComponent();
             BindingContext = new DataOverviewViewModel();
         }
+
     }
 }

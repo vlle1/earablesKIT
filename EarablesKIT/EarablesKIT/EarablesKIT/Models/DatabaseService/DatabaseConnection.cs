@@ -1,7 +1,16 @@
-﻿using SQLite;
+﻿using EarablesKIT.Resources;
+using EarablesKIT.ViewModels;
+using Plugin.FilePicker.Abstractions;
+using Plugin.Permissions;
+using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using Plugin.FilePicker;
+using Plugin.Permissions.Abstractions;
+using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace EarablesKIT.Models.DatabaseService
 {
@@ -104,10 +113,71 @@ namespace EarablesKIT.Models.DatabaseService
             return primaryResult;
         }
 
+        public void ImportTrainingsData(FileData file)
+        {
+            if(file == null || string.IsNullOrEmpty(file.FileName))
+            {
+                ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+            }
+
+            string content = System.Text.Encoding.Default.GetString(file.DataArray);
+            string[] lines = content.Split(
+                new[] { "\r\n", "\r", "\n" },
+                StringSplitOptions.None
+            );
+
+            List<DBEntry> parsedEntries = new List<DBEntry>();
+            foreach(string entry in lines)
+            {
+                DBEntry dbEntry = DBEntry.ParseDbEntry(entry);
+                if(dbEntry == null)
+                {
+                    ExceptionHandlingViewModel.HandleException(new ArgumentException(AppResources.DatabaseConnectionFileParseError));
+                    return;
+                }
+                else
+                {
+                    parsedEntries.Add(dbEntry);
+                }
+            }
+            foreach(DBEntry entry in parsedEntries)
+            {
+                this.SaveDBEntry(entry);
+            }
+        }
+
 
         public void ExportTrainingsData(string path)
         {
-            throw new NotImplementedException();
+
+            /*string fileName = "/storage/emulated/0/Android/data/count.txt";
+            bool debugBool = string.IsNullOrEmpty(path.FilePath);
+            Debug.WriteLine(fileName);
+            Debug.WriteLine(path.FilePath);
+            //debugBool = !File.Exists(fileToWrite);
+            if (debugBool)
+            {
+                ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+                return;
+            }
+
+            List<DBEntry> entries = GetAllEntries();
+            string toWrite = "";
+            foreach(DBEntry entry in entries)
+            {
+                toWrite += entry.ToString() + "\n";
+            }
+            if (entries.Count == 0) return;
+            toWrite = toWrite.Remove(toWrite.Length - 1);
+
+            try
+            {
+                File.WriteAllText(fileName, toWrite);
+            }
+            catch(Exception e)
+            {
+                ExceptionHandlingViewModel.HandleException(new FileLoadException(AppResources.DataBaseErrorFailedToSave));
+            }*/
         }
     }
 }

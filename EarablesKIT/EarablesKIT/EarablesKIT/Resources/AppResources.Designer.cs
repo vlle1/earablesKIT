@@ -64,6 +64,7 @@ namespace EarablesKIT.Resources {
         ///   Sucht eine lokalisierte Zeichenfolge, die CountMode ähnelt.
         ///   Looks up a localized string similar to Okay.
         ///   Looks up a localized string similar to CountMode.
+        ///   Looks up a localized string similar to CountMode.
         /// </summary>
         internal static string Accept {
             get {
@@ -91,6 +92,7 @@ namespace EarablesKIT.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Delete Data.
+        ///   Looks up a localized string similar to Couldn&apos;t parse the given file!.
         /// </summary>
         internal static string DataOverviewPageDeleteButton {
             get {
@@ -101,6 +103,42 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Welcome to your Dataoverview.
         /// </summary>
+        internal static string DatabaseConnectionFileParseError {
+            get {
+                return ResourceManager.GetString("DatabaseConnectionFileParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t save the data!.
+        /// </summary>
+        internal static string DataBaseErrorFailedToSave {
+            get {
+                return ResourceManager.GetString("DataBaseErrorFailedToSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path doesn&apos;t exist!.
+        /// </summary>
+        internal static string DataBaseFileDoesntExistError {
+            get {
+                return ResourceManager.GetString("DataBaseFileDoesntExistError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trainingsdata_EarblesKIT.txt.
+        /// </summary>
+        internal static string DataBaseStorageFileName {
+            get {
+                return ResourceManager.GetString("DataBaseStorageFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wonderful DataOverviewPage!.
+        /// </summary>
         internal static string DataOverviewPageEntryLabel {
             get {
                 return ResourceManager.GetString("DataOverviewPageEntryLabel", resourceCulture);
@@ -110,6 +148,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Something went wrong! ähnelt.
         ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Something went wrong!.
         /// </summary>
         internal static string Error {
             get {
@@ -164,6 +203,61 @@ namespace EarablesKIT.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
+        ///   Looks up a localized string similar to Delete trainingsdata.
+        /// </summary>
+        internal static string ImportExportDeleteDataButton {
+            get {
+                return ResourceManager.GetString("ImportExportDeleteDataButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export trainingsdata.
+        /// </summary>
+        internal static string ImportExportExportButton {
+            get {
+                return ResourceManager.GetString("ImportExportExportButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File couldn&apos;t get picked correctly!.
+        /// </summary>
+        internal static string ImportExportFileError {
+            get {
+                return ResourceManager.GetString("ImportExportFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import trainingsdata.
+        /// </summary>
+        internal static string ImportExportImportButton {
+            get {
+                return ResourceManager.GetString("ImportExportImportButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import/Export file needs to end with .txt.
+        /// </summary>
+        internal static string ImportExportInformationLabel {
+            get {
+                return ResourceManager.GetString("ImportExportInformationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datamanagement.
+        /// </summary>
+        internal static string ImportExportLabel {
+            get {
+                return ResourceManager.GetString("ImportExportLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
         /// </summary>
         internal static string MusicModeEntryLabel {
             get {
@@ -192,6 +286,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Possible Activities ähnelt.
         ///   Looks up a localized string similar to Language.
+        ///   Looks up a localized string similar to Possible Activities.
         ///   Looks up a localized string similar to Possible Activities.
         /// </summary>
         internal static string SettingsPageLanguage {
@@ -274,6 +369,7 @@ namespace EarablesKIT.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to PushUps.
+        ///   Looks up a localized string similar to Start CountMode.
         /// </summary>
         internal static string PushUps {
             get {
@@ -391,6 +487,7 @@ namespace EarablesKIT.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Steps.
+        ///   Looks up a localized string similar to Stop CountMode.
         /// </summary>
         internal static string Steps {
             get {
