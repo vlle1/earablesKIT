@@ -23,7 +23,7 @@
                    HorizontalTextAlignment="Center" />
             <Button x:Name="ExportButton" IsEnabled="False" Text="{x:Static resource:AppResources.ImportExportExportButton}" Clicked="ExportButton_Clicked"/>
             <Button x:Name="ImportButton" Text="{x:Static resource:AppResources.ImportExportImportButton}" Clicked="ImportButton_Clicked"/>
-            <Button x:Name="DeleteDataButton" Text="{x:Static resource:AppResources.ImportExportDeleteDataButton}" Command="{Binding DeleteDataCommand}"/>
+            <Button x:Name="DeleteDataButton" Text="{x:Static resource:AppResources.ImportExportDeleteDataButton}" Command="{Binding DeleteCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
