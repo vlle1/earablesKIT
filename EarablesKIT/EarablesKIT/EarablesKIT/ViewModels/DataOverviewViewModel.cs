@@ -36,5 +36,21 @@ namespace EarablesKIT.ViewModels
 
         }
 
+        /// <summary>
+        /// Eventmethod OnAppearing is called when the page receives the focus of the app. TrainingsDataDbEntries gets updated.
+        /// </summary>
+        /// <param name="sender">Sender of the event</param>
+        /// <param name="e">EventArgs of the event</param>
+        public void OnAppearing(object sender, EventArgs e)
+        {
+            var dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+            List<DBEntry> entries = dataBaseConnection.GetMostRecentEntries(30);
+            entries.Reverse();
+            TrainingsDataDbEntries.Clear();
+            foreach (DBEntry dbEntry in entries)
+            {
+                TrainingsDataDbEntries.Add(dbEntry);
+            }
+        }
     }
 }
