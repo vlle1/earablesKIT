@@ -285,4 +285,28 @@
   <data name="StopCountModeButton" xml:space="preserve">
     <value>Zählmodus Stoppen</value>
   </data>
+  <data name="AddActivityButton" xml:space="preserve">
+    <value>Hinzu fügen</value>
+  </data>
+  <data name="CurrentActivityUnbindedLabel" xml:space="preserve">
+    <value>Aktuelle Übung</value>
+  </data>
+  <data name="EditActivityButton" xml:space="preserve">
+    <value>Bear beiten</value>
+  </data>
+  <data name="ListenAndPerformNameLabel" xml:space="preserve">
+    <value>Lauschen Und Agieren</value>
+  </data>
+  <data name="RemoveActivityButton" xml:space="preserve">
+    <value>Ent fernen</value>
+  </data>
+  <data name="StartWorkoutButton" xml:space="preserve">
+    <value>Training Starten</value>
+  </data>
+  <data name="StopWorkoutButton" xml:space="preserve">
+    <value>Training Stoppen</value>
+  </data>
+  <data name="WorkoutPlanLabel" xml:space="preserve">
+    <value>Trainingsplan</value>
+  </data>
 </root>

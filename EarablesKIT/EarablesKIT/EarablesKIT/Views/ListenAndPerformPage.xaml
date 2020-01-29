@@ -4,16 +4,17 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.ListenAndPerformPage">
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
-            <Label Text="Listen And Perform"
+            <Label Text="{x:Static resource:AppResources.ListenAndPerformNameLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
-            <Label Text="Workout Plan"
+            <Label Text="{x:Static resource:AppResources.WorkoutPlanLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
@@ -52,7 +53,7 @@
                     </ListView>
                 </Frame>
                 <Grid Padding="0" ColumnSpacing="20" Margin="0,10,0,0">
-                    <Button Text="Add Activity"
+                    <Button Text="{x:Static resource:AppResources.AddActivityButton}"
                         HeightRequest="60"
                         VerticalOptions="CenterAndExpand" 
                         BackgroundColor="AliceBlue" 
@@ -63,7 +64,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Command="{Binding AddActivityCommand}"/>
-                    <Button Text="Remove Activity"
+                    <Button Text="{x:Static resource:AppResources.RemoveActivityButton}"
                         HeightRequest="60"
                         Grid.Row="0"
                         Grid.Column="1"
@@ -73,7 +74,7 @@
                         BorderWidth="1"
                         CornerRadius="10"
                         Command="{Binding RemoveActivityCommand}"/>
-                    <Button Text="Edit Activity"
+                    <Button Text="{x:Static resource:AppResources.EditActivityButton}"
                         HeightRequest="60"
                         Grid.Row="0"
                         Grid.Column="2"
@@ -85,7 +86,7 @@
                         Command="{Binding EditActivityCommand}"/>
                 </Grid>
             </StackLayout>
-            <Button Text="Start Workout" 
+            <Button Text="{x:Static resource:AppResources.StartWorkoutButton}" 
                     Clicked="OnStartButtonClicked"
                     VerticalOptions="CenterAndExpand" 
                     BackgroundColor="CornflowerBlue" 
