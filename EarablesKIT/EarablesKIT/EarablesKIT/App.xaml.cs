@@ -24,7 +24,6 @@ namespace EarablesKIT
                 (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
             System.Globalization.CultureInfo.CurrentUICulture =
                 (SettingsService).ActiveLanguage;
-
         }
 
         protected override void OnStart()
