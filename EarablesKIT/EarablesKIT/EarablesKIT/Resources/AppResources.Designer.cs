@@ -61,7 +61,28 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CountMode ähnelt.
+        ///   Looks up a localized string similar to Okay.
         ///   Looks up a localized string similar to CountMode.
+        ///   Looks up a localized string similar to CountMode.
+        /// </summary>
+        internal static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wonderful DataOverviewPage!.
         /// </summary>
         internal static string CountModeNameLabel {
             get {
@@ -70,7 +91,17 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Data.
         ///   Looks up a localized string similar to Couldn&apos;t parse the given file!.
+        /// </summary>
+        internal static string DataOverviewPageDeleteButton {
+            get {
+                return ResourceManager.GetString("DataOverviewPageDeleteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to your Dataoverview.
         /// </summary>
         internal static string DatabaseConnectionFileParseError {
             get {
@@ -115,6 +146,44 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Something went wrong! ähnelt.
+        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Something went wrong!.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
+        /// </summary>
+        internal static string DataOverviewPageExportButton {
+            get {
+                return ResourceManager.GetString("DataOverviewPageExportButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        internal static string DataOverviewPageImportButton {
+            get {
+                return ResourceManager.GetString("DataOverviewPageImportButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong!.
         /// </summary>
         internal static string DefaultError {
@@ -133,6 +202,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
         ///   Looks up a localized string similar to Delete trainingsdata.
         /// </summary>
         internal static string ImportExportDeleteDataButton {
@@ -214,11 +284,105 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Possible Activities ähnelt.
+        ///   Looks up a localized string similar to Language.
         ///   Looks up a localized string similar to Possible Activities.
+        ///   Looks up a localized string similar to Possible Activities.
+        /// </summary>
+        internal static string SettingsPageLanguage {
+            get {
+                return ResourceManager.GetString("SettingsPageLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samplingrate (Hz).
+        /// </summary>
+        internal static string SettingsPageSamplingrate {
+            get {
+                return ResourceManager.GetString("SettingsPageSamplingrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SettingsPageSave {
+            get {
+                return ResourceManager.GetString("SettingsPageSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved!.
+        /// </summary>
+        internal static string SettingsPageSavingDone {
+            get {
+                return ResourceManager.GetString("SettingsPageSavingDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steplength (cm).
+        /// </summary>
+        internal static string SettingsPageSteplength {
+            get {
+                return ResourceManager.GetString("SettingsPageSteplength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        internal static string SettingsPageUsername {
+            get {
+                return ResourceManager.GetString("SettingsPageUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving failed! Please check your inputs.
+        /// </summary>
+        internal static string SettingsPageWrongInput {
+            get {
+                return ResourceManager.GetString("SettingsPageWrongInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance Walked Last Time.
         /// </summary>
         internal static string PossibleActivitiesLabel {
             get {
                 return ResourceManager.GetString("PossibleActivitiesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PushUps.
+        ///   Looks up a localized string similar to Start CountMode.
+        /// </summary>
+        internal static string PushUps {
+            get {
+                return ResourceManager.GetString("PushUps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SitUps.
+        /// </summary>
+        internal static string SitUps {
+            get {
+                return ResourceManager.GetString("SitUps", resourceCulture);
             }
         }
         
@@ -322,11 +486,93 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Steps.
+        ///   Looks up a localized string similar to Stop CountMode.
+        /// </summary>
+        internal static string Steps {
+            get {
+                return ResourceManager.GetString("Steps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop CountMode.
         /// </summary>
         internal static string StopCountModeButton {
             get {
                 return ResourceManager.GetString("StopCountModeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection failed!.
+        /// </summary>
+        internal static string ScanningPopUpAlertCouldntConnect {
+            get {
+                return ResourceManager.GetString("ScanningPopUpAlertCouldntConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No device connected!.
+        /// </summary>
+        internal static string ScanningPopUpAlertLabel {
+            get {
+                return ResourceManager.GetString("ScanningPopUpAlertLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ScanningPopUpCancelButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect.
+        /// </summary>
+        internal static string ScanningPopUpConnectButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpConnectButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location denied!.
+        /// </summary>
+        internal static string ScanningPopUpLocationDenied {
+            get {
+                return ResourceManager.GetString("ScanningPopUpLocationDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location permission is needed!.
+        /// </summary>
+        internal static string ScanningPopUpPermissionLocationNeeded {
+            get {
+                return ResourceManager.GetString("ScanningPopUpPermissionLocationNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan Devices.
+        /// </summary>
+        internal static string ScanningPopUpScanDevicesButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpScanDevicesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bluetooth is not active!.
+        /// </summary>
+        internal static string ScanningPopUpTurnBluetoothOn {
+            get {
+                return ResourceManager.GetString("ScanningPopUpTurnBluetoothOn", resourceCulture);
             }
         }
     }

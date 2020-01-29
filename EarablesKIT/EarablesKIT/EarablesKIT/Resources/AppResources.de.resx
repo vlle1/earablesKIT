@@ -120,6 +120,15 @@
   <data name="CountModeNameLabel" xml:space="preserve">
     <value>Zählmodus</value>
   </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbruch</value>
+  </data>
+  <data name="DataOverviewPageDeleteButton" xml:space="preserve">
+    <value>Daten löschen</value>
+  </data>
   <data name="DatabaseConnectionFileParseError" xml:space="preserve">
     <value>Konnte den angegeben Pfad nicht lesen</value>
   </data>
@@ -135,10 +144,22 @@
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Willkommen auf der Datenübersichtsseite!</value>
   </data>
+  <data name="DataOverviewPageExportButton" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="DataOverviewPageImportButton" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
   <data name="DefaultError" xml:space="preserve">
     <value>Es ist ein Fehler aufgetreten!</value>
   </data>
   <data name="ErrorAlert" xml:space="preserve">
+    <value>Fehler!</value>
+  </data>
+  <data name="Error" xml:space="preserve">
     <value>Fehler!</value>
   </data>
   <data name="ImportExportDeleteDataButton" xml:space="preserve">
@@ -162,6 +183,30 @@
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Willkommen im Musikmodus!</value>
   </data>
+  <data name="ScanningPopUpAlertCouldntConnect" xml:space="preserve">
+    <value>Verbindung konnte nicht hergestellt werden!</value>
+  </data>
+  <data name="ScanningPopUpAlertLabel" xml:space="preserve">
+    <value>Du bist mit keinem Gerät verbunden!</value>
+  </data>
+  <data name="ScanningPopUpCancelButton" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ScanningPopUpConnectButton" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="ScanningPopUpLocationDenied" xml:space="preserve">
+    <value>Standorterlaubnis verweigert!</value>
+  </data>
+  <data name="ScanningPopUpPermissionLocationNeeded" xml:space="preserve">
+    <value>Standorterlaubnis wird benötigt!</value>
+  </data>
+  <data name="ScanningPopUpScanDevicesButton" xml:space="preserve">
+    <value>Suche Geräte</value>
+  </data>
+  <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
+    <value>Bluetooth ist nicht aktiv!</value>
+  </data>
   <data name="MusicModeEntryLabel1" xml:space="preserve">
     <value>Willkommen im Musikmodus!</value>
   </data>
@@ -171,8 +216,38 @@
   <data name="PossibleActivitiesLabel" xml:space="preserve">
     <value>Mögliche Aktivitäten</value>
   </data>
+  <data name="PushUps" xml:space="preserve">
+    <value>Liegestütze</value>
+  </data>
+  <data name="SitUps" xml:space="preserve">
+    <value>SitUps</value>
+  </data>
   <data name="StartCountModeButton" xml:space="preserve">
     <value>Zählmodus Starten</value>
+  </data>
+  <data name="SettingsPageLanguage" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="SettingsPageSamplingrate" xml:space="preserve">
+    <value>Samplingrate (Hz)</value>
+  </data>
+  <data name="SettingsPageSave" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="SettingsPageSavingDone" xml:space="preserve">
+    <value>Gespeichert!</value>
+  </data>
+  <data name="SettingsPageSteplength" xml:space="preserve">
+    <value>Schrittgröße (cm)</value>
+  </data>
+  <data name="SettingsPageUsername" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="SettingsPageWrongInput" xml:space="preserve">
+    <value>Das Speichern ist fehlgeschlagen! Überprüfe deine Eingaben</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Einstellungen</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
     <value>Letztes Mal Gelaufene Distanz</value>
@@ -203,6 +278,9 @@
   </data>
   <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
     <value>Aktuell Gelaufene Schritte</value>
+  </data>
+  <data name="Steps" xml:space="preserve">
+    <value>Schritte</value>
   </data>
   <data name="StopCountModeButton" xml:space="preserve">
     <value>Zählmodus Stoppen</value>

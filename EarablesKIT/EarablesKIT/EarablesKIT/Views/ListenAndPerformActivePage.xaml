@@ -4,17 +4,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
-             x:Class="EarablesKIT.Views.CountModeActivePage">
+             x:Class="EarablesKIT.Views.ListenAndPerformActivePage">
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
-            <Label Text="{x:Static resource:AppResources.CountModeNameLabel}"
+        <StackLayout Padding="10" Spacing="20" Margin="0,20,0,0">
+            <Label Text="Listen And Perform"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
-            <Label HorizontalTextAlignment="Center" FontSize="24"/>
             <Frame HasShadow="False" BorderColor="Gray" Padding="10,10,10,10" VerticalOptions="Center">
                 <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Grid.Column="1" FontSize="30">
                     <Label.FormattedText>
@@ -28,22 +26,37 @@
                     </Label.FormattedText>
                 </Label>
             </Frame>
-            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+
+            <StackLayout Margin="0,10,0,0" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Label Text="Current Activity"
+                   Padding="20"
+                   FontSize="Title"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   BackgroundColor="CornflowerBlue"/>
                 <Frame HasShadow="False" BorderColor="Gray" Padding="80,40,80,40" BackgroundColor="LightBlue">
-                    <Label Text="{Binding SelectedActivity.Counter}"
-                               FontSize="50"
-                               HorizontalTextAlignment="Center"
-                               VerticalOptions="FillAndExpand"
-                               HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding ActiveActivity.Counter}"
+                           FontSize="50"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalOptions="FillAndExpand"/>
                 </Frame>
-                <Label Text="{Binding SelectedActivity.Name}"
+                <ProgressBar
+                    ProgressColor="Orange"
+                    Progress="{Binding ProgressLive}"
+                    IsVisible="True"
+                    HeightRequest="30"
+                    
+                    />
+                <Label Text="{Binding ActiveActivity.Name}"
                    Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
+                
             </StackLayout>
-            <Button Text="{x:Static resource:AppResources.StopCountModeButton}"
+            <Button Text="Stop Workout"
                     Clicked="OnStopButtonClicked"
                     VerticalOptions="End" 
                     BackgroundColor="IndianRed" 
@@ -54,4 +67,3 @@
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
-

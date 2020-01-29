@@ -27,7 +27,7 @@
                           SelectedItem="{Binding SelectedActivity}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextCell Text="{Binding _name}"/>
+                                    <TextCell Text="{Binding Name}"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>

@@ -8,10 +8,9 @@ namespace EarablesKIT.ViewModels
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public Activity _activity { get; set; }
-		public string _name { get; set; }
+		public string Name { get; set;}
 
 		private int _counter;
-
 		public int Counter
 		{
 			get { return _counter; }
@@ -22,9 +21,11 @@ namespace EarablesKIT.ViewModels
 			}
 		}
 
-		public ActivityWrapper()
+		public ActivityWrapper(string name, Activity activity)
 		{
 			Counter = 0;
+			Name = name;
+			_activity = activity;
 		}
 
 		protected void OnPropertyChanged([CallerMemberName] string name = "")
@@ -32,7 +33,7 @@ namespace EarablesKIT.ViewModels
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
-		
+
 
 	}
 }

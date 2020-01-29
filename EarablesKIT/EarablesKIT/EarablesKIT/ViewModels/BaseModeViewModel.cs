@@ -16,15 +16,15 @@ namespace EarablesKIT.ViewModels
 
         protected bool CheckConnection()
         {
-			//if (ScanningPopUpViewModel.IsConnected)
-			//{
+			if (ScanningPopUpViewModel.IsConnected)
+			{
 				return true;
-			//}
-			//else
-			//{
-			//	ScanningPopUpViewModel.ShowPopUp();
-			//	return false;
-			//}
+			}
+			else
+			{
+				ScanningPopUpViewModel.ShowPopUp();
+				return false;
+			}
 		}
 
     }

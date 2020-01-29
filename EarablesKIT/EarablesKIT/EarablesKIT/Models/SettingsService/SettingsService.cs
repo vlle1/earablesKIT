@@ -47,7 +47,11 @@ namespace EarablesKIT.Models.SettingsService
                 //TODO uncomment
                 /*if (!service.SetSamplingRate((int) value))
                 {
-                    ExceptionHandlingViewModel.HandleException(new ArgumentException("Sampling rate failed to change!"));
+                    service.SetSamplingRate((int) value);
+                }
+                catch(Exception e)
+                {
+                    ExceptionHandlingViewModel.HandleException(e);
                     return;
                 }*/
 
@@ -101,7 +105,7 @@ namespace EarablesKIT.Models.SettingsService
                 }
                 catch (CultureNotFoundException)
                 {
-                    //TODO Fehlerverhalten klären
+
                     ExceptionHandlingViewModel.HandleException(new CultureNotFoundException("Language couldn't be loaded!"));
                     ActiveLanguage = CultureInfo.CurrentUICulture;
                 }

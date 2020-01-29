@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice>Motorola moto g%287%29 power</SelectedDevice>
-    <DefaultDevice>pixel_c_pie_9_0_api_28</DefaultDevice>
-    <AndroidDesignerPreferredTheme>Theme.AppCompat.Light.NoActionBar</AndroidDesignerPreferredTheme>
+    <SelectedDevice>pixel_2_pie_9_0_api_28</SelectedDevice>
+    <DefaultDevice>pixel_2_pie_9_0_api_28</DefaultDevice>
   </PropertyGroup>
 </Project>

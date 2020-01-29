@@ -1,45 +1,60 @@
-﻿using System;
+﻿using Plugin.BLE.Abstractions.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace EarablesKIT.Models.Library
 {
-    interface IEarablesConnection
+    /// <summary>
+    /// Offers the interfaces to comunicate with the earables
+    /// </summary>
+    public interface IEarablesConnection
     {
-        EventHandler<DataEventArgs> IMUDataReceived { get; set; }
+        // Returns the connection status
+        bool Connected { get; }
+        // Set/Get the samplerate of the earables
+        int SampleRate { get; set; }
+        // Returns if the Bluetooth on your device is on
+        bool IsBluetoothActive { get; }
+        // Set/Get the LPF for the accelerometer
+        LPF_Accelerometer AccLPF { get; set; }
+        // SetGet the LPF for the gyroscope
+        LPF_Gyroscope GyroLPF { get; set; }
+        // Returns the batteryvoltage
+        float BatteryVoltage { get;}
 
-        EventHandler<ButtonEventArgs> ButtonPressed { get; set; }
-
-        EventHandler<DeviceEventArgs> DeviceConnectionStateChanged { get; set; }
-
-        //TODO ändern in korrektes IDevice aus BLE Lib anstatt object
-        List<object> StartScanning();
-
-        //TODO hier auch ändern in IDevice
-        bool ConnectToDevice(object device);
-
-        bool DisconnectFromDevice();
-
-        bool StartSampling();
         
-        bool StopSampling();
+        event EventHandler<DataEventArgs> IMUDataReceived;
+        event EventHandler<ButtonEventArgs> ButtonPressed;
+        event EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
+        event EventHandler<NewDeviceFoundArgs> NewDeviceFound;
+        
+        /// <summary>
+        /// Starts the Scanning
+        /// </summary>
+        void StartScanning();
 
-        bool SetSamplingRate(int rate);
+        /// <summary>
+        ///  Connect to a device
+        /// </summary>
+        /// <param name="device"> Is the device which should connect</param>
+        void ConnectToDevice(IDevice device);
 
-        //TODO weitere Getter Setter für die LowPassFilter hinzufügern ODER als Property (ist besser)
+        /// <summary>
+        /// Disconnects from the device
+        /// </summary>
+        void DisconnectFromDevice();
 
+        /// <summary>
+        /// Starts the sampling
+        /// </summary>
+        void StartSampling();
+        
+        /// <summary>
+        /// Stops the sampling
+        /// </summary>
+        void StopSampling();
 
-
-        bool IsBluetoothActive();
-
-        bool IsConnected();
-
-
-        //TODO wahrscheinlich hier die Args ändern, je nach dem, was die BLE Lib wirft
-        void OnValueUpdatedIMU(object sender, EventArgs args);
-
-        void OnPushButtonPressed(object sender, EventArgs args);
-
-        void OnDeviceConnected(object sender, EventArgs args);
     }
 }
