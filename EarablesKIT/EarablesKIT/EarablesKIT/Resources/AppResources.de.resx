@@ -120,6 +120,12 @@
   <data name="CountModeNameLabel" xml:space="preserve">
     <value>Zählmodus</value>
   </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbruch</value>
+  </data>
   <data name="DataOverviewPageDeleteButton" xml:space="preserve">
     <value>Daten löschen</value>
   </data>
@@ -141,8 +147,35 @@
   <data name="ErrorAlert" xml:space="preserve">
     <value>Fehler!</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler!</value>
+  </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Willkommen im Musikmodus!</value>
+  </data>
+  <data name="ScanningPopUpAlertCouldntConnect" xml:space="preserve">
+    <value>Verbindung konnte nicht hergestellt werden!</value>
+  </data>
+  <data name="ScanningPopUpAlertLabel" xml:space="preserve">
+    <value>Du bist mit keinem Gerät verbunden!</value>
+  </data>
+  <data name="ScanningPopUpCancelButton" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ScanningPopUpConnectButton" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="ScanningPopUpLocationDenied" xml:space="preserve">
+    <value>Standorterlaubnis verweigert!</value>
+  </data>
+  <data name="ScanningPopUpPermissionLocationNeeded" xml:space="preserve">
+    <value>Standorterlaubnis wird benötigt!</value>
+  </data>
+  <data name="ScanningPopUpScanDevicesButton" xml:space="preserve">
+    <value>Suche Geräte</value>
+  </data>
+  <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
+    <value>Bluetooth ist nicht aktiv!</value>
   </data>
   <data name="MusicModeEntryLabel1" xml:space="preserve">
     <value>Willkommen im Musikmodus!</value>
@@ -161,6 +194,30 @@
   </data>
   <data name="StartCountModeButton" xml:space="preserve">
     <value>Zählmodus Starten</value>
+  </data>
+  <data name="SettingsPageLanguage" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="SettingsPageSamplingrate" xml:space="preserve">
+    <value>Samplingrate (Hz)</value>
+  </data>
+  <data name="SettingsPageSave" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="SettingsPageSavingDone" xml:space="preserve">
+    <value>Gespeichert!</value>
+  </data>
+  <data name="SettingsPageSteplength" xml:space="preserve">
+    <value>Schrittgröße (cm)</value>
+  </data>
+  <data name="SettingsPageUsername" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="SettingsPageWrongInput" xml:space="preserve">
+    <value>Das Speichern ist fehlgeschlagen! Überprüfe deine Eingaben</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Einstellungen</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
     <value>Letztes Mal Gelaufene Distanz</value>

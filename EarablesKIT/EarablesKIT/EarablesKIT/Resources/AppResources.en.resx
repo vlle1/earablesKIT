@@ -120,6 +120,12 @@
   <data name="CountModeNameLabel" xml:space="preserve">
     <value>CountMode</value>
   </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="DataOverviewPageDeleteButton" xml:space="preserve">
     <value>Delete Data</value>
   </data>
@@ -141,6 +147,9 @@
   <data name="ErrorAlert" xml:space="preserve">
     <value>Exception!</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
     <value>Wonderful MusicModeEntry page!</value>
   </data>
@@ -161,6 +170,30 @@
   </data>
   <data name="StartCountModeButton" xml:space="preserve">
     <value>Start CountMode</value>
+  </data>
+  <data name="SettingsPageLanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingsPageSamplingrate" xml:space="preserve">
+    <value>Samplingrate (Hz)</value>
+  </data>
+  <data name="SettingsPageSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SettingsPageSavingDone" xml:space="preserve">
+    <value>Saved!</value>
+  </data>
+  <data name="SettingsPageSteplength" xml:space="preserve">
+    <value>Steplength (cm)</value>
+  </data>
+  <data name="SettingsPageUsername" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="SettingsPageWrongInput" xml:space="preserve">
+    <value>Saving failed! Please check your inputs</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
     <value>Distance Walked Last Time</value>
@@ -197,5 +230,29 @@
   </data>
   <data name="StopCountModeButton" xml:space="preserve">
     <value>Stop CountMode</value>
+  </data>
+  <data name="ScanningPopUpAlertCouldntConnect" xml:space="preserve">
+    <value>Connection failed!</value>
+  </data>
+  <data name="ScanningPopUpAlertLabel" xml:space="preserve">
+    <value>No device connected!</value>
+  </data>
+  <data name="ScanningPopUpCancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ScanningPopUpConnectButton" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="ScanningPopUpLocationDenied" xml:space="preserve">
+    <value>Location denied!</value>
+  </data>
+  <data name="ScanningPopUpPermissionLocationNeeded" xml:space="preserve">
+    <value>Location permission is needed!</value>
+  </data>
+  <data name="ScanningPopUpScanDevicesButton" xml:space="preserve">
+    <value>Scan Devices</value>
+  </data>
+  <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
+    <value>Bluetooth is not active!</value>
   </data>
 </root>
