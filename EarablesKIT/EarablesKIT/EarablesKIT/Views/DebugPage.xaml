@@ -10,13 +10,13 @@
             <Button Text="{Binding RecordingLabelText}" Command="{Binding ToggleRecordingCommand}"></Button>
 
 
-            <Label Text="{Binding OneValue.Acc.G_X}"/>
-            <Label Text="{Binding OneValue.Acc.G_Y}"/>
-            <Label Text="{Binding OneValue.Acc.G_Z}"/>
-
-            <Label Text="{Binding OneValue.Gyro.DegsPerSec_X}"/>
-            <Label Text="{Binding OneValue.Gyro.DegsPerSec_Y}"/>
-            <Label Text="{Binding OneValue.Gyro.DegsPerSec_Z}"/>
+            <Label FontSize="Large" Text="{Binding OneValue.Acc.G_X}"/>
+            <Label FontSize="Large" Text="{Binding OneValue.Acc.G_Y}"/>
+            <Label FontSize="Large" Text="{Binding OneValue.Acc.G_Z}"/>
+            <Label Text="----------"></Label>
+            <Label FontSize="Large" Text="{Binding OneValue.Gyro.DegsPerSec_X}"/>
+            <Label FontSize="Large" Text="{Binding OneValue.Gyro.DegsPerSec_Y}"/>
+            <Label FontSize="Large" Text="{Binding OneValue.Gyro.DegsPerSec_Z}"/>
             <!--<ListView ItemsSource="{Binding TrainingsData}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

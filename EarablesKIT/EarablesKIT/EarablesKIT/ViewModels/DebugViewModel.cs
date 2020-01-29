@@ -15,12 +15,24 @@ namespace EarablesKIT.ViewModels
 {
     public class DebugViewModel : INotifyPropertyChanged
     {
+        private const int STATE_COUNT = 3;
+        //in the following the conditions for a state increment are specified (from state index to state index + 1):
+        //the cooldown after the last state-change has to be over and some value of the IMU Data has to be higher/equal or lower as some threshold
+        //true iff a threshold has to be underrun instead of exceeded.
+        private readonly bool[] LOWER = { true, false, true };
+        //represents the value of the IMU Data that is used for the comparison.
+        //0,1,2 ar Accelerometer X,Y,Z (in G) and 3,4,5 are Gyroscope X,Y,Z
+        private readonly int[] VALUE_INDEX = { 1, 5, 5 }; 
 
-        private int cooldown = 0;
-        private double _accRef = 1;
-        private double _accRefX = -1;
-        private double _accRefY = 0;
-        private double _accRefZ = 0;
+        //the threshold that needs to be passed
+        private readonly double[] THRESHOLD = { 1.15, 100, -100 };
+
+        //_state represents a state machine with four states:
+        //0 represents starting position, 
+        //1 represents going up,
+        //2 represents going down,
+        private int _state;
+        private double _accRef = 1;//not needed
         public double AbsRefGAcc
         {
             get
@@ -86,6 +98,7 @@ namespace EarablesKIT.ViewModels
                 OnPropertyChanged("AbsGAcc");
             }
         }
+        EarablesConnection _earablesService;
         public Command ToggleRecordingCommand
         {
             get
@@ -94,7 +107,9 @@ namespace EarablesKIT.ViewModels
                 {
                     if (!this.Recording)
                     {
+                        _earablesService.StartSampling();
                     }
+                    else _earablesService.StopSampling();
 
                     this.Recording = !this.Recording;
                     this.RecordingLabelText = this.Recording ? "Stop Recording" : "Start Recording";
@@ -129,76 +144,45 @@ namespace EarablesKIT.ViewModels
 
         public DebugViewModel()
         {
-            // TODO register eventHandler
-
-            var earablesService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+            _earablesService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             
-            // Bennis popup
-            earablesService.StartSampling();
+            
 
-            earablesService.IMUDataReceived += (object sender, DataEventArgs args) =>
-            {
-                
-                //Accelerometer av = args.Data.Acc;
-
-                if (this.Recording && cooldown <= 0)
+            _earablesService.IMUDataReceived += (object sender, DataEventArgs args) =>
                 {
                     OneValue = args.Data;
-                    Accelerometer av = OneValue.Acc;
+                    Analyze(args);
+                };
 
-                    double relevant = Math.Sqrt(Math.Pow(av.G_Z, 2) + Math.Pow(av.G_Y, 2) + Math.Pow(av.G_X, 2));
-                    switch (Counter)
+        }
+        private void Analyze(DataEventArgs data)
+        {
+
+                Accelerometer newAccValue = data.Data.Acc;
+                double[] dataAsArray = { 
+                    data.Data.Acc.G_X, 
+                    data.Data.Acc.G_Y, 
+                    data.Data.Acc.G_Z, 
+                    data.Data.Gyro.DegsPerSec_X, 
+                    data.Data.Gyro.DegsPerSec_Y, 
+                    data.Data.Gyro.DegsPerSec_Z 
+                };
+                //check if condition is fulfilled
+                if (LOWER[_state] == ( dataAsArray[VALUE_INDEX[_state]]< THRESHOLD[_state]))
+                {
+                    _state++;
+                    //check if all states have been passed and activity therefore is detected
+                    if (_state % STATE_COUNT == 0)
                     {
-                        case 0:
-                            {
-                                //oben vermutet, aber nicht klar
-                                if (relevant < 0.8)
-                                {
-                                    Counter = 1;
-                                    InfoString = "runter mit " + relevant;
-                                    cooldown = 0;
-                                }
-                                break;
-                            }
-                        case 1:
-                            {
-                                if (relevant > 1.15)
-                                {
-                                    Counter = 2;
-                                    InfoString += "  stopp mit " + relevant;
-                                    cooldown = 15;
-                                }
-                                break;
-                            }
-                        case 2:
-                            {
-                                if (relevant > 1.15)
-                                {
-                                    Counter = 3;
-                                    InfoString += "  hoch mit " + relevant;
-                                    cooldown = 0;
-                                }
-                                break;
-                            }
-                        case 3:
-                            {
-                                //oben vermutet, aber nicht klar
-                                if (relevant < 0.8)
-                                {
-                                    Counter = 0;
-                                    InfoString += "ende mit " + relevant;
-                                    cooldown = 15;
-                                }
-                                break;
-                            }
+                        _state = 0;
+                        //-- ActivityDone.Invoke(this, new PushUpEventArgs());
+                        
                     }
-
-                }
-
-                cooldown--;
-
-            };
-
+                    
+                    Counter = _state;
+                    //++ 
+                
+            }
         }
     }
 }
