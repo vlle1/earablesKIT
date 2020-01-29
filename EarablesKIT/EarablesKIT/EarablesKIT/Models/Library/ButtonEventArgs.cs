@@ -4,7 +4,10 @@ using System.Text;
 
 namespace EarablesKIT.Models.Library
 {
-    class ButtonEventArgs
+    /// <summary>
+    /// This are the eventarguments if the button on the earables is pressed
+    /// </summary>
+    public class ButtonEventArgs
     {
     }
 }

@@ -9,7 +9,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using EarablesKIT.Models;
+using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
+using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using Xamarin.Forms;
+using EarablesKIT.Models.Library;
 
 namespace EarablesKIT.ViewModels
 {
@@ -62,13 +66,13 @@ namespace EarablesKIT.ViewModels
 
 		public CountModeViewModel()
 		{
-			//_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-			//_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
-			//_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
-			//_dataBaseConnection = (IDataBaseConnection)_activityManager.ActitvityProvider.GetService(typeof(IDataBaseConnection));
-			_pushUpActivityWrapper = new ActivityWrapper("Push-ups", null); //_pushUpActivity statt null
-			_sitUpActivityWrapper = new ActivityWrapper("Sit-ups", null); //_sitUpActivity statt null
+			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+			_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
+			_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
+			_pushUpActivityWrapper = new ActivityWrapper("Push-ups", _pushUpActivity); //_pushUpActivity statt null
+			_sitUpActivityWrapper = new ActivityWrapper("Sit-ups", _sitUpActivity); //_sitUpActivity statt null
 			_comingSoon = new ActivityWrapper("Coming soon", null);
+			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 			PossibleActivities = new ObservableCollection<ActivityWrapper>
 			{
 				_pushUpActivityWrapper,
@@ -76,17 +80,16 @@ namespace EarablesKIT.ViewModels
 				_comingSoon
 			};
 			SelectedActivity = _pushUpActivityWrapper;
-
 		}
 
 		private bool RegisterActivity()
 		{
-			//if (SelectedActivity._activity != null)
-			//{
-			//SelectedActivity._activity.ActivityDone += OnActivityDone;
-			return true;
-			//}
-			//return false;
+			if (SelectedActivity != null && SelectedActivity._activity != null)
+			{
+				SelectedActivity._activity.ActivityDone += OnActivityDone;
+				return true;
+			}
+			return false;
 		}
 
 
@@ -107,8 +110,9 @@ namespace EarablesKIT.ViewModels
 			{
 				if (RegisterActivity())
 				{
-					_pushUpActivityWrapper.Counter = 0;
-					_sitUpActivityWrapper.Counter = 0;
+                    ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+					_pushUpActivity.Counter = 0;
+					_sitUpActivity.Counter = 0;
 					return true;
 				}
 				return false;
@@ -150,7 +154,7 @@ namespace EarablesKIT.ViewModels
 		public override void StopActivity()
 		{
 			StopTimer();
-			//SelectedActivity._activity.ActivityDone -= OnActivityDone;
+			SelectedActivity._activity.ActivityDone -= OnActivityDone;
 			SaveData();
 			ShowPopUp();
 		}
@@ -162,14 +166,14 @@ namespace EarablesKIT.ViewModels
 
 		private void SaveData()
 		{
-			//DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-			//DBEntry _entryNew = new DBEntry(_dt, 0, _pushUpActivityWrapper.Counter, _sitUpActivityWrapper.Counter);
-			//_dataBaseConnection.SaveDBEntry(_entryNew);
+			DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+			DBEntry _entryNew = new DBEntry(_dt, 0, _pushUpActivityWrapper.Counter, _sitUpActivityWrapper.Counter);
+			_dataBaseConnection.SaveDBEntry(_entryNew);
 		}
 
 		private void ShowPopUp()
 		{
-			App.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity.Name + "!", "Cool");
+			Application.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity._name + "!", "Cool");
 		}
 	}
 }

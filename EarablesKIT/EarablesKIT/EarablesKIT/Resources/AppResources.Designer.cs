@@ -62,6 +62,25 @@ namespace EarablesKIT.Resources {
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die CountMode ähnelt.
+        ///   Looks up a localized string similar to Okay.
+        /// </summary>
+        internal static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wonderful DataOverviewPage!.
         /// </summary>
         internal static string CountModeNameLabel {
             get {
@@ -80,6 +99,16 @@ namespace EarablesKIT.Resources {
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Something went wrong! ähnelt.
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
         /// </summary>
         internal static string DefaultError {
             get {
@@ -237,6 +266,78 @@ namespace EarablesKIT.Resources {
         internal static string StopCountModeButton {
             get {
                 return ResourceManager.GetString("StopCountModeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection failed!.
+        /// </summary>
+        internal static string ScanningPopUpAlertCouldntConnect {
+            get {
+                return ResourceManager.GetString("ScanningPopUpAlertCouldntConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No device connected!.
+        /// </summary>
+        internal static string ScanningPopUpAlertLabel {
+            get {
+                return ResourceManager.GetString("ScanningPopUpAlertLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ScanningPopUpCancelButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect.
+        /// </summary>
+        internal static string ScanningPopUpConnectButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpConnectButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location denied!.
+        /// </summary>
+        internal static string ScanningPopUpLocationDenied {
+            get {
+                return ResourceManager.GetString("ScanningPopUpLocationDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location permission is needed!.
+        /// </summary>
+        internal static string ScanningPopUpPermissionLocationNeeded {
+            get {
+                return ResourceManager.GetString("ScanningPopUpPermissionLocationNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan Devices.
+        /// </summary>
+        internal static string ScanningPopUpScanDevicesButton {
+            get {
+                return ResourceManager.GetString("ScanningPopUpScanDevicesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bluetooth is not active!.
+        /// </summary>
+        internal static string ScanningPopUpTurnBluetoothOn {
+            get {
+                return ResourceManager.GetString("ScanningPopUpTurnBluetoothOn", resourceCulture);
             }
         }
     }
