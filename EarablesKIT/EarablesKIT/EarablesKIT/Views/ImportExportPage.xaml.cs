@@ -53,7 +53,7 @@ namespace EarablesKIT.Views
             try
             {
                 filedata = await CrossFilePicker.Current.PickFile();
-                if (filedata.FilePath.EndsWith(".txt"))
+                if (filedata == null || string.IsNullOrEmpty(filedata.FilePath) || !filedata.FilePath.EndsWith(".txt"))
                 {
                     ExceptionHandlingViewModel.HandleException(new Exception(AppResources.ImportExportFileError));
                     return;
@@ -65,7 +65,7 @@ namespace EarablesKIT.Views
                 return;
             }
 
-            _viewModel.ExportCommand.Execute(filedata.FilePath);
+            _viewModel.ExportCommand.Execute(filedata);
         }
 
         private void DeleteEntries()

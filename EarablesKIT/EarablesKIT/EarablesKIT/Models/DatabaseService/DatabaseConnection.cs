@@ -7,6 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using Plugin.FilePicker;
+using Plugin.Permissions.Abstractions;
+using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace EarablesKIT.Models.DatabaseService
 {
@@ -146,11 +150,16 @@ namespace EarablesKIT.Models.DatabaseService
         public void ExportTrainingsData(string path)
         {
 
-            if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            /*string fileName = "/storage/emulated/0/Android/data/count.txt";
+            bool debugBool = string.IsNullOrEmpty(path.FilePath);
+            Debug.WriteLine(fileName);
+            Debug.WriteLine(path.FilePath);
+            //debugBool = !File.Exists(fileToWrite);
+            if (debugBool)
             {
                 ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+                return;
             }
-            path.Trim();
 
             List<DBEntry> entries = GetAllEntries();
             string toWrite = "";
@@ -163,12 +172,12 @@ namespace EarablesKIT.Models.DatabaseService
 
             try
             {
-                File.WriteAllText(path, toWrite);
+                File.WriteAllText(fileName, toWrite);
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 ExceptionHandlingViewModel.HandleException(new FileLoadException(AppResources.DataBaseErrorFailedToSave));
-            }
+            }*/
         }
     }
 }
