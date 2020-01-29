@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
 {
-    class PushUpEventArgs : CountableActivityArgs
+    public class PushUpEventArgs : CountableActivityArgs
     {
     }
 }
