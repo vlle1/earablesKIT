@@ -126,8 +126,20 @@
   <data name="Cancel" xml:space="preserve">
     <value>Abbruch</value>
   </data>
+  <data name="DataOverviewPageDeleteButton" xml:space="preserve">
+    <value>Daten löschen</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Willkommen auf der Datenübersichtsseite!</value>
+  </data>
+  <data name="DataOverviewPageExportButton" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="DataOverviewPageImportButton" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
   </data>
   <data name="DefaultError" xml:space="preserve">
     <value>Es ist ein Fehler aufgetreten!</value>
@@ -174,8 +186,38 @@
   <data name="PossibleActivitiesLabel" xml:space="preserve">
     <value>Mögliche Aktivitäten</value>
   </data>
+  <data name="PushUps" xml:space="preserve">
+    <value>Liegestütze</value>
+  </data>
+  <data name="SitUps" xml:space="preserve">
+    <value>SitUps</value>
+  </data>
   <data name="StartCountModeButton" xml:space="preserve">
     <value>Zählmodus Starten</value>
+  </data>
+  <data name="SettingsPageLanguage" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="SettingsPageSamplingrate" xml:space="preserve">
+    <value>Samplingrate (Hz)</value>
+  </data>
+  <data name="SettingsPageSave" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="SettingsPageSavingDone" xml:space="preserve">
+    <value>Gespeichert!</value>
+  </data>
+  <data name="SettingsPageSteplength" xml:space="preserve">
+    <value>Schrittgröße (cm)</value>
+  </data>
+  <data name="SettingsPageUsername" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="SettingsPageWrongInput" xml:space="preserve">
+    <value>Das Speichern ist fehlgeschlagen! Überprüfe deine Eingaben</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Einstellungen</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
     <value>Letztes Mal Gelaufene Distanz</value>
@@ -206,6 +248,9 @@
   </data>
   <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
     <value>Aktuell Gelaufene Schritte</value>
+  </data>
+  <data name="Steps" xml:space="preserve">
+    <value>Schritte</value>
   </data>
   <data name="StopCountModeButton" xml:space="preserve">
     <value>Zählmodus Stoppen</value>

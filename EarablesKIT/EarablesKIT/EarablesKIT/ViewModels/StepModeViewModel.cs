@@ -4,7 +4,7 @@ using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
-using EarablesKIT.Models.Library;
+using EarablesKIT.Models.Library;
 using EarablesKIT.Models.SettingsService;
 using System;
 using System.Collections.Generic;
