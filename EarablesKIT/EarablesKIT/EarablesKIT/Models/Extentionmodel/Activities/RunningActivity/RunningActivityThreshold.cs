@@ -21,7 +21,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         private double _timeout_counter;
 
         private AbstractStepActivity _subDetection;
-            
+
 
         public RunningActivityThreshold()
         {
@@ -30,11 +30,9 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
 
         override protected void Activate()
         {
-            Debug.WriteLine("XXXXXXXXXXXXX run activated");
-
             //the subdetection algorithm can only be registered now, because IActivityManager has to already be initialized
             if (_subDetection == null)
-                _subDetection =(AbstractStepActivity)
+                _subDetection = (AbstractStepActivity)
                             ((IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager)))
                             .ActitvityProvider.GetService(typeof(AbstractStepActivity));
 
@@ -55,7 +53,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         /// </summary>
         protected override void Analyse(DataEventArgs data)
         {
-            
+
             if (ActivityDone == null)
             {
                 //unregister from stepActivity
@@ -71,7 +69,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
                     this.changeDetected();
                 }
                 else _timeout_counter -= 1.0 / _frequency;
-            }  
+            }
         }
     }
 }
