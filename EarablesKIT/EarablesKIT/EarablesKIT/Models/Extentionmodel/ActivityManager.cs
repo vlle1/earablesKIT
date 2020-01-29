@@ -46,7 +46,7 @@ namespace EarablesKIT.Models.Extentionmodel
             Activities.Add(((Activity)_activityProvider.GetService(typeof(AbstractStepActivity))));
             Activities.Add(((Activity)_activityProvider.GetService(typeof(AbstractSitUpActivity))));
             Activities.Add(((Activity)_activityProvider.GetService(typeof(AbstractPushUpActivity))));
-            //Activities.Add(((Activity)_activityProvider.GetService(typeof(AbstractRunningActivity))));
+            Activities.Add(((Activity)_activityProvider.GetService(typeof(AbstractRunningActivity))));
         }
         /// <summary>
         /// Method initializing the serviceCollection elements used in constructor.
