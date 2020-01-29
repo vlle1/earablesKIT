@@ -9,9 +9,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using EarablesKIT.Models;
-using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
-using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using Xamarin.Forms;
 using EarablesKIT.Models.Library;
 
@@ -69,8 +66,8 @@ namespace EarablesKIT.ViewModels
 			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
 			_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
 			_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
-			_pushUpActivityWrapper = new ActivityWrapper("Push-ups", _pushUpActivity); //_pushUpActivity statt null
-			_sitUpActivityWrapper = new ActivityWrapper("Sit-ups", _sitUpActivity); //_sitUpActivity statt null
+			_pushUpActivityWrapper = new ActivityWrapper("Push-ups", _pushUpActivity); 
+			_sitUpActivityWrapper = new ActivityWrapper("Sit-ups", _sitUpActivity); 
 			_comingSoon = new ActivityWrapper("Coming soon", null);
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 			PossibleActivities = new ObservableCollection<ActivityWrapper>
@@ -111,8 +108,8 @@ namespace EarablesKIT.ViewModels
 				if (RegisterActivity())
 				{
                     ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
-					_pushUpActivity.Counter = 0;
-					_sitUpActivity.Counter = 0;
+					_pushUpActivityWrapper.Counter = 0;
+					_sitUpActivityWrapper.Counter = 0;
 					return true;
 				}
 				return false;
@@ -173,7 +170,7 @@ namespace EarablesKIT.ViewModels
 
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity._name + "!", "Cool");
+			Application.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity.Name + "!", "Cool");
 		}
 	}
 }
