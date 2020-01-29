@@ -15,22 +15,23 @@ namespace EarablesKIT.ViewModels
 {
     public class DebugViewModel : INotifyPropertyChanged
     {
-        private const int STATE_COUNT = 3;
+        private const int STATE_COUNT = 4;
         //in the following the conditions for a state increment are specified (from state index to state index + 1):
         //the cooldown after the last state-change has to be over and some value of the IMU Data has to be higher/equal or lower as some threshold
         //true iff a threshold has to be underrun instead of exceeded.
-        private readonly bool[] LOWER = { true, false, true };
+        private readonly bool[] LOWER = { true, false, false, true };
         //represents the value of the IMU Data that is used for the comparison.
         //0,1,2 ar Accelerometer X,Y,Z (in G) and 3,4,5 are Gyroscope X,Y,Z
-        private readonly int[] VALUE_INDEX = { 1, 5, 5 }; 
+        private readonly int[] VALUE_INDEX = { 1, 5, 1, 5 }; 
 
         //the threshold that needs to be passed
-        private readonly double[] THRESHOLD = { 1.15, 100, -100 };
+        private readonly double[] THRESHOLD = { -1, 100, 0, -100 };
 
         //_state represents a state machine with four states:
         //0 represents starting position, 
         //1 represents going up,
-        //2 represents going down,
+        //2 represents being upright
+        //3 represents going down,
         private int _state;
         private double _accRef = 1;//not needed
         public double AbsRefGAcc
@@ -170,17 +171,21 @@ namespace EarablesKIT.ViewModels
                 //check if condition is fulfilled
                 if (LOWER[_state] == ( dataAsArray[VALUE_INDEX[_state]]< THRESHOLD[_state]))
                 {
-                    _state++;
+
+                if (_state == 1) InfoString = "";
+                //++
+                InfoString += "state " + _state + " mit " + dataAsArray[1] + " in  YAcc\n";
+                _state++;
                     //check if all states have been passed and activity therefore is detected
-                    if (_state % STATE_COUNT == 0)
-                    {
-                        _state = 0;
-                        //-- ActivityDone.Invoke(this, new PushUpEventArgs());
+                if (_state % STATE_COUNT == 0)
+                {
+                    _state = 0;
+                    //-- ActivityDone.Invoke(this, new PushUpEventArgs());
+
                         
-                    }
-                    
-                    Counter = _state;
-                    //++ 
+                }
+                Counter = _state;
+                //++ 
                 
             }
         }
