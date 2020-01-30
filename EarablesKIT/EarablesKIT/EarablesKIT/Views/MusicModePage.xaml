@@ -11,14 +11,24 @@
             <Label Text="{x:Static resource:AppResources.MusicModeEntryLabel}"
                    HorizontalOptions="CenterAndExpand"
                    FontSize="Title"/>
-            <Button Text="{Binding StartStopLabel}" Command="{Binding ToggleMusicMode}"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="CenterAndExpand"></Button>
-            <Label FontSize="Small"
-                   VerticalOptions="End"
-                   HorizontalOptions="Center"
-                   Text="https://www.flaticon.com/authors/roundicons"></Label>
-            <Image Source="https://xamarin.com/content/images/pages/forms/example-app.png" />
+            <Grid VerticalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Button Text="{Binding StartStopLabel}"
+                        Command="{Binding ToggleMusicMode}"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="Center"
+                        Grid.Row="0"/>
+                <Label Text="{Binding CurrentStatusLabel}"
+                       FontSize="Large"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Center"
+                       Grid.Row="1"/>
+            </Grid>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -4,11 +4,15 @@ using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Resources;
 using MediaManager;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -31,7 +35,8 @@ namespace EarablesKIT.ViewModels
                 if (_running)
                 {
                     CrossMediaManager.Current.Play();
-                } else
+                }
+                else
                 {
                     CrossMediaManager.Current.Pause();
                 }
@@ -47,8 +52,9 @@ namespace EarablesKIT.ViewModels
                 _musicModeActive = !_musicModeActive;
                 if (_musicModeActive)
                 {
-                    StartActivity();
-                } else
+                    if (!StartActivity()) _musicModeActive = !_musicModeActive;
+                }
+                else
                 {
                     StopActivity();
                 }
@@ -57,11 +63,17 @@ namespace EarablesKIT.ViewModels
             });
         }
 
-        
+
         public string StartStopLabel
         {
             get => _musicModeActive ? "Stop" : "Start";
         }
+
+        public string CurrentStatusLabel
+        {
+            get => IsRunning ? AppResources.MusicModeCurrentStatusLabelWalking : AppResources.MusicModeCurrentStatusLabelStanding;
+        }
+
 
         private async void InitMusic(string urlPath)
         {
@@ -74,7 +86,6 @@ namespace EarablesKIT.ViewModels
 
         public MusicModeViewModel()
         {
-            InitMusic("https://sampleswap.org/samples-ghost/PUBLIC%20DOMAIN%20MUSIC/3337[kb]Extracts-from-the-Ballet-Suite-Scherazada.mp3.mp3");
             _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
             _runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
         }
@@ -105,6 +116,7 @@ namespace EarablesKIT.ViewModels
              */
             if (CheckConnection())
             {
+                InitMusic("https://sampleswap.org/samples-ghost/PUBLIC%20DOMAIN%20MUSIC/3337[kb]Extracts-from-the-Ballet-Suite-Scherazada.mp3.mp3");
                 _runningActivity.ActivityDone += OnActivityDone;
                 ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
                 return true;
@@ -117,8 +129,7 @@ namespace EarablesKIT.ViewModels
 
         public override void StopActivity()
         {
-            _running = false;
-            InitMusic("https://sampleswap.org/samples-ghost/PUBLIC%20DOMAIN%20MUSIC/3337[kb]Extracts-from-the-Ballet-Suite-Scherazada.mp3.mp3");
+            IsRunning = false;
             ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StopSampling();
             _runningActivity.ActivityDone -= OnActivityDone;
         }

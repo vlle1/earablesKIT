@@ -340,7 +340,25 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Wonderful MusicModeEntry page! ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die You are standing ähnelt.
+        /// </summary>
+        internal static string MusicModeCurrentStatusLabelStanding {
+            get {
+                return ResourceManager.GetString("MusicModeCurrentStatusLabelStanding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You are walking ähnelt.
+        /// </summary>
+        internal static string MusicModeCurrentStatusLabelWalking {
+            get {
+                return ResourceManager.GetString("MusicModeCurrentStatusLabelWalking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die MusicMode ähnelt.
         /// </summary>
         internal static string MusicModeEntryLabel {
             get {

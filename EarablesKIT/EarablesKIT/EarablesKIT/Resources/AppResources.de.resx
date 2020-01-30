@@ -351,4 +351,10 @@
   <data name="YouHaveDone" xml:space="preserve">
     <value>Du hast</value>
   </data>
+  <data name="MusicModeCurrentStatusLabelStanding" xml:space="preserve">
+    <value>Du stehst gerade</value>
+  </data>
+  <data name="MusicModeCurrentStatusLabelWalking" xml:space="preserve">
+    <value>Du gehst gerade</value>
+  </data>
 </root>
