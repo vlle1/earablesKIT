@@ -113,7 +113,6 @@ namespace ViewModelTests.Models.DatabaseService
             Assert.Empty(mostRecentEntries);
         }
 
-        //TODO Vielleicht überarbeiten, da nicht komplett unabhängig von anderen Methoden
         [Fact]
         public void TestAddEntry()
         {

@@ -28,8 +28,6 @@ namespace EarablesKIT
 
         protected override void OnStart()
         {
-            //Register eventmethode for ScanningPopUpViewModel
-            //TODO uncomment
             EarablesConnection service = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             service.DeviceConnectionStateChanged += ScanningPopUpViewModel.OnDeviceConnectionStateChanged;
 

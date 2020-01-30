@@ -53,7 +53,6 @@
                            Grid.Row="0"
                            Grid.Column="1"
                            Text="{Binding Username}"
-                           ClearButtonVisibility="WhileEditing"
                            Keyboard="Chat"
                            WidthRequest="70"
                            MaxLength="20"
@@ -63,7 +62,6 @@
                            Grid.Column="0"
                            FontSize="Medium" />
                     <Entry  x:Name="SteplengthEntry"
-                            ClearButtonVisibility="WhileEditing"
                             Keyboard="Numeric"
                             Grid.Row="1"
                             Grid.Column="1"
@@ -80,6 +78,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             WidthRequest="70"
+                            SelectedIndexChanged="SamplingratePicker_OnSelectedIndexChanged"
                             SelectedItem="{Binding SamplingRate}">
                     </Picker>
                     <Label Text="{x:Static Resource:AppResources.SettingsPageLanguage}"
@@ -90,6 +89,7 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             WidthRequest="70"
+                            SelectedIndexChanged="LanguagePicker_OnSelectedIndexChanged"
                             SelectedItem="{Binding Language}"
                             ItemDisplayBinding="{Binding NativeName}">
                     </Picker>
