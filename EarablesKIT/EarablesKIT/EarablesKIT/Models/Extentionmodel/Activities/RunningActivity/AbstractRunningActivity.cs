@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
+﻿namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
 {
     /// <summary>
     /// This activity detects changes of the running state of the user.

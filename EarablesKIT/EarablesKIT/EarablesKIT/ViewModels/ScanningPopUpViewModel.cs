@@ -1,11 +1,9 @@
-﻿using System;
-using EarablesKIT.Models;
+﻿using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Resources;
 using EarablesKIT.Views;
 using Plugin.BLE.Abstractions.Contracts;
 using Rg.Plugins.Popup.Services;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

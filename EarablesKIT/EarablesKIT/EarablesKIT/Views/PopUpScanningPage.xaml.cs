@@ -4,8 +4,6 @@ using Plugin.BLE.Abstractions.Contracts;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.ComponentModel;
-using System.Windows.Input;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Library
+﻿namespace EarablesKIT.Models.Library
 {
     /// <summary>
     /// This class exctract the informations from the bytearrays

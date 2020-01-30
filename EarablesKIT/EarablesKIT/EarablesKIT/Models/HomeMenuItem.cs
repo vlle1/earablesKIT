@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models
+﻿namespace EarablesKIT.Models
 {
     public enum MenuItemType
     {

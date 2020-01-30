@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using SQLite;
-using SQLiteNetExtensions.Attributes;
 using Newtonsoft.Json;
 
 namespace EarablesKIT.Models.DatabaseService
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DBEntry
     {
 

@@ -1,7 +1,6 @@
 ﻿using EarablesKIT.Models;
 using EarablesKIT.Models.DatabaseService;
 using Plugin.FilePicker.Abstractions;
-using System;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;

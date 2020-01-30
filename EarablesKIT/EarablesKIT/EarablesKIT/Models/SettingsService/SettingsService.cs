@@ -2,7 +2,6 @@
 using EarablesKIT.ViewModels;
 using System;
 using System.Globalization;
-using EarablesKIT.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

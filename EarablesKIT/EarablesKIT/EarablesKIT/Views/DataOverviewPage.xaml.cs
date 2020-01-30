@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EarablesKIT.Models;
-using EarablesKIT.Models.DatabaseService;
-using EarablesKIT.ViewModels;
+﻿using EarablesKIT.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

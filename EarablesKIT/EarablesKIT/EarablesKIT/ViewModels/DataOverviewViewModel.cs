@@ -2,12 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using EarablesKIT.Models;
-using Xamarin.Forms;
 using IDataBaseConnection = EarablesKIT.Models.DatabaseService.IDataBaseConnection;
 
 namespace EarablesKIT.ViewModels

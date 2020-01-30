@@ -1,7 +1,5 @@
 ﻿using EarablesKIT.Models.Extentionmodel.Activities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EarablesKIT.ViewModels
 {

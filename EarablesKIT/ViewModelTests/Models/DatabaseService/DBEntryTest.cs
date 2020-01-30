@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using EarablesKIT.Models.DatabaseService;
 using Newtonsoft.Json;
-using Plugin.FilePicker.Abstractions;
 
 namespace ViewModelTests.Models.DatabaseService
 {

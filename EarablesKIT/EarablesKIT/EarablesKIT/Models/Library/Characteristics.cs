@@ -1,7 +1,4 @@
 ﻿using Plugin.BLE.Abstractions.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EarablesKIT.Models.Library
 {

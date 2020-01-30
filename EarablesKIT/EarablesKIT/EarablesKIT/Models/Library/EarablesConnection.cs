@@ -2,13 +2,7 @@
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
-using Plugin.BLE.Abstractions.Exceptions;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using static EarablesKIT.Models.Library.Constants;
 using static EarablesKIT.Models.Library.IMUDataExtractor;

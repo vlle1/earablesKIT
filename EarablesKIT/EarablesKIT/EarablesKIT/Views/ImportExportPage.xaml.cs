@@ -1,14 +1,8 @@
-﻿using EarablesKIT.Models;
-using EarablesKIT.Models.DatabaseService;
-using EarablesKIT.Resources;
+﻿using EarablesKIT.Resources;
 using EarablesKIT.ViewModels;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
