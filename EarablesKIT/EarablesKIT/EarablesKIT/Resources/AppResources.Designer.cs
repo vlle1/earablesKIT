@@ -79,11 +79,47 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Adding Activity ähnelt.
+        /// </summary>
+        internal static string AddingActivity {
+            get {
+                return ResourceManager.GetString("AddingActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die and ähnelt.
+        /// </summary>
+        internal static string And {
+            get {
+                return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
         /// </summary>
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Coming soon ähnelt.
+        /// </summary>
+        internal static string Coming_soon {
+            get {
+                return ResourceManager.GetString("Coming soon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cool ähnelt.
+        /// </summary>
+        internal static string Cool {
+            get {
+                return ResourceManager.GetString("Cool", resourceCulture);
             }
         }
         
@@ -196,11 +232,29 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        internal static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Edit Activity ähnelt.
         /// </summary>
         internal static string EditActivityButton {
             get {
                 return ResourceManager.GetString("EditActivityButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enter the amount of repetitions ähnelt.
+        /// </summary>
+        internal static string EnterRepetitions {
+            get {
+                return ResourceManager.GetString("EnterRepetitions", resourceCulture);
             }
         }
         
@@ -304,6 +358,15 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Next Activity, ähnelt.
+        /// </summary>
+        internal static string NextActivity {
+            get {
+                return ResourceManager.GetString("NextActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Okay ähnelt.
         /// </summary>
         internal static string Okay {
@@ -313,11 +376,29 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Pause ähnelt.
+        /// </summary>
+        internal static string Pause {
+            get {
+                return ResourceManager.GetString("Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Possible Activities ähnelt.
         /// </summary>
         internal static string PossibleActivitiesLabel {
             get {
                 return ResourceManager.GetString("PossibleActivitiesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Push-ups ähnelt.
+        /// </summary>
+        internal static string Push_ups {
+            get {
+                return ResourceManager.GetString("Push-ups", resourceCulture);
             }
         }
         
@@ -336,6 +417,15 @@ namespace EarablesKIT.Resources {
         internal static string RemoveActivityButton {
             get {
                 return ResourceManager.GetString("RemoveActivityButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Result ähnelt.
+        /// </summary>
+        internal static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
             }
         }
         
@@ -412,6 +502,24 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Seconds ähnelt.
+        /// </summary>
+        internal static string Seconds {
+            get {
+                return ResourceManager.GetString("Seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select an Activity: ähnelt.
+        /// </summary>
+        internal static string SelectAnActivity {
+            get {
+                return ResourceManager.GetString("SelectAnActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Language ähnelt.
         /// </summary>
         internal static string SettingsPageLanguage {
@@ -480,6 +588,15 @@ namespace EarablesKIT.Resources {
         internal static string SettingsTitle {
             get {
                 return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sit-ups ähnelt.
+        /// </summary>
+        internal static string Sit_ups {
+            get {
+                return ResourceManager.GetString("Sit-ups", resourceCulture);
             }
         }
         
@@ -633,6 +750,15 @@ namespace EarablesKIT.Resources {
         internal static string WorkoutPlanLabel {
             get {
                 return ResourceManager.GetString("WorkoutPlanLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You have done ähnelt.
+        /// </summary>
+        internal static string YouHaveDone {
+            get {
+                return ResourceManager.GetString("YouHaveDone", resourceCulture);
             }
         }
     }

@@ -309,4 +309,46 @@
   <data name="WorkoutPlanLabel" xml:space="preserve">
     <value>Workout Plan</value>
   </data>
+  <data name="AddingActivity" xml:space="preserve">
+    <value>Adding Activity</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="Coming soon" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
+  <data name="Cool" xml:space="preserve">
+    <value>Cool</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EnterRepetitions" xml:space="preserve">
+    <value>Enter the amount of repetitions</value>
+  </data>
+  <data name="NextActivity" xml:space="preserve">
+    <value>Next Activity,</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Push-ups" xml:space="preserve">
+    <value>Push-ups</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Seconds</value>
+  </data>
+  <data name="SelectAnActivity" xml:space="preserve">
+    <value>Select an Activity:</value>
+  </data>
+  <data name="Sit-ups" xml:space="preserve">
+    <value>Sit-ups</value>
+  </data>
+  <data name="YouHaveDone" xml:space="preserve">
+    <value>You have done</value>
+  </data>
 </root>

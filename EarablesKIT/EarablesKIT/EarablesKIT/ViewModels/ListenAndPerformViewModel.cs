@@ -5,6 +5,7 @@ using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Resources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -106,9 +107,9 @@ namespace EarablesKIT.ViewModels
 
 			ActivityList = new ObservableCollection<ActivityWrapper>
 			{
-				new ActivityWrapper("Push-ups", _pushUpActivity, 10),
-				new ActivityWrapper("Pause", null, 10),
-				new ActivityWrapper("Sit-ups", _sitUpActivity, 10)
+				new ActivityWrapper(AppResources.Push_ups, _pushUpActivity, 10),
+				new ActivityWrapper(AppResources.Pause, null, 10),
+				new ActivityWrapper(AppResources.Sit_ups, _sitUpActivity, 10)
 			};
 		}
 
@@ -183,13 +184,13 @@ namespace EarablesKIT.ViewModels
 
 		public async Task SpeakActivity(int Amount)
 		{
-			if (!ActiveActivity.Name.Equals("Pause"))
+			if (!ActiveActivity.Name.Equals(AppResources.Pause))
 			{
-				await TextToSpeech.SpeakAsync("Nächste Übung," + Amount + "" + ActiveActivity.Name);
+				await TextToSpeech.SpeakAsync(AppResources.NextActivity + Amount + "" + ActiveActivity.Name);
 			}
 			else
 			{
-				await TextToSpeech.SpeakAsync(Amount + "Sekunden" + ActiveActivity.Name);
+				await TextToSpeech.SpeakAsync(Amount + AppResources.Seconds + ActiveActivity.Name);
 			}
 		}
 
@@ -222,11 +223,11 @@ namespace EarablesKIT.ViewModels
 
 		public void IncreaseResultCounter()
 		{
-			if (ActiveActivity.Name.Equals("Push-ups"))
+			if (ActiveActivity.Name.Equals(AppResources.Push_ups))
 			{
 				_pushUpResult += ActiveActivity.Counter;
 			}
-			if (ActiveActivity.Name.Equals("Sit-ups"))
+			if (ActiveActivity.Name.Equals(AppResources.Sit_ups))
 			{
 				_sitUpResult += ActiveActivity.Counter;
 			}
@@ -276,30 +277,32 @@ namespace EarablesKIT.ViewModels
 
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert("Result", "You have done " + _pushUpResult + " "
-				+ "Push-ups" + " and " + _sitUpResult + " " + "Sit-ups" + "!", "Cool");
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + _pushUpResult + " "
+				+ AppResources.Push_ups + " " +  AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups + " " 
+				+ AppResources.Done + "!", AppResources.Cool);
 		}
 
 		private async void AddActivity(int Index)
 		{
-			string newActivity = await Application.Current.MainPage.DisplayActionSheet("Select an Activity:", "Cancel", null, "Push-ups", "Sit-ups", "Pause");
-			if (newActivity != null && !newActivity.Equals("") && !newActivity.Equals("Cancel"))
+			string newActivity = await Application.Current.MainPage.DisplayActionSheet(AppResources.SelectAnActivity, 
+				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
+			if (newActivity != null && !newActivity.Equals("") && !newActivity.Equals(AppResources.Cancel))
 			{
-				string newAmount = await Application.Current.MainPage.DisplayPromptAsync("Adding Activity", //Exception für Negatives vllt
-						"Enter the amount of repetitions", "OK", "Cancel", "10", 2, Keyboard.Numeric);
+				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(AppResources.AddingActivity, //Exception für Negatives vllt
+						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 2, Keyboard.Numeric);
 				if (newAmount != null && !newAmount.Equals("") && int.Parse(newAmount) > 0) //TO-DO: Regex für Z-ahlinput
 				{
-					if (newActivity.Equals("Push-ups"))
+					if (newActivity.Equals(AppResources.Push_ups))
 					{
-						ActivityList.Insert(Index, new ActivityWrapper("Push-ups", _pushUpActivity, int.Parse(newAmount)));
+						ActivityList.Insert(Index, new ActivityWrapper(AppResources.Push_ups, _pushUpActivity, int.Parse(newAmount)));
 					}
-					if (newActivity.Equals("Sit-ups"))
+					if (newActivity.Equals(AppResources.Sit_ups))
 					{
-						ActivityList.Insert(Index, new ActivityWrapper("Sit-ups", _sitUpActivity, int.Parse(newAmount)));
+						ActivityList.Insert(Index, new ActivityWrapper(AppResources.Sit_ups, _sitUpActivity, int.Parse(newAmount)));
 					}
-					if (newActivity.Equals("Pause"))
+					if (newActivity.Equals(AppResources.Pause))
 					{
-						ActivityList.Insert(Index, new ActivityWrapper("Pause", null, int.Parse(newAmount)));
+						ActivityList.Insert(Index, new ActivityWrapper(AppResources.Pause, null, int.Parse(newAmount)));
 					}
 				}
 			}
