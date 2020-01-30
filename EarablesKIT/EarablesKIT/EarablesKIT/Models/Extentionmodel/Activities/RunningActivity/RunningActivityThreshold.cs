@@ -1,8 +1,10 @@
 ﻿using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
@@ -17,12 +19,9 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         private const double TIMEOUT_LENGTH = 1.1;
 
         private double _timeout_counter;
-        
-        private AbstractStepActivity _subDetection = 
-            ((AbstractStepActivity)
-            ((ActivityManager) ServiceManager.ServiceProvider.GetService(typeof(IActivityManager)))
-                .ActitvityProvider.GetService(typeof(AbstractStepActivity)));
-        
+
+        private AbstractStepActivity _subDetection;
+
 
         public RunningActivityThreshold()
         {
@@ -31,6 +30,12 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
 
         override protected void Activate()
         {
+            //the subdetection algorithm can only be registered now, because IActivityManager has to already be initialized
+            if (_subDetection == null)
+                _subDetection = (AbstractStepActivity)
+                            ((IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager)))
+                            .ActitvityProvider.GetService(typeof(AbstractStepActivity));
+
             base.Activate();
             _runningState = false;
             _subDetection.ActivityDone += OnStepRecognized;
@@ -48,6 +53,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         /// </summary>
         protected override void Analyse(DataEventArgs data)
         {
+
             if (ActivityDone == null)
             {
                 //unregister from stepActivity
@@ -63,7 +69,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
                     this.changeDetected();
                 }
                 else _timeout_counter -= 1.0 / _frequency;
-            }  
+            }
         }
     }
 }
