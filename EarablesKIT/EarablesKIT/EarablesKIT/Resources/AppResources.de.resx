@@ -351,4 +351,7 @@
   <data name="YouHaveDone" xml:space="preserve">
     <value>Du hast</value>
   </data>
+  <data name="YouHaveTaken" xml:space="preserve">
+    <value>Du hast</value>
+  </data>
 </root>

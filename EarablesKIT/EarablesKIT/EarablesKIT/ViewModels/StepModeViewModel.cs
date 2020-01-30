@@ -6,6 +6,7 @@ using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Models.SettingsService;
+using EarablesKIT.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,21 +17,40 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
+	/// <summary>
+	/// Class that represents the StepMode. Manages the progress of the StepMode, implements the BaseModeViewModel.
+	/// </summary>
 	public class StepModeViewModel : BaseModeViewModel, INotifyPropertyChanged
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
+		/// <summary>
+		/// Timer that is needed for calculating the step frequency, not binded to the view.
+		/// </summary>
 		private Stopwatch _timer;
+
+		/// <summary>
+		/// The stepActivity from the ActivityProvider.
+		/// </summary>
 		private AbstractStepActivity _stepActivity { get; set; }
+
+		/// <summary>
+		/// The runningActivity from the ActivityProvider.
+		/// </summary>
 		private AbstractRunningActivity _runningActivity { get; set; }
+
+		/// <summary>
+		/// Property which holds the instance of the ActivityManager.
+		/// </summary>
 		private IActivityManager _activityManager { get; set; }
+
+		/// <summary>
+		/// Property which hold the instance of the DataBaseConnection.
+		/// </summary>
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
-		private string _lastDataTime, _currentDate;
-		private int _stepCounter, _distanceWalked, _stepsDoneLastTime, _distanceWalkedLastTime;
-		private bool _isRunning;
-		private double _stepFrequency;
-
+		/// <summary>
+		/// Property which holds the current date.
+		/// </summary>
+		private string _currentDate;
 		public string CurrentDate
 		{
 			get { return _currentDate; }
@@ -40,6 +60,11 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
+
+		/// <summary>
+		/// Property which holds the amount of steps that the user has done on the last trainingsday, Bound to the view.
+		/// </summary>
+		private int _stepsDoneLastTime;
 		public int StepsDoneLastTime
 		{
 			get { return _stepsDoneLastTime; }
@@ -49,6 +74,11 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
+
+		/// <summary>
+		/// Property which holds the distance that the user has walked the last time, bound to the view.
+		/// </summary>
+		private int _distanceWalkedLastTime;
 		public int DistanceWalkedLastTime
 		{
 			get { return _distanceWalkedLastTime; }
@@ -58,6 +88,11 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
+
+		/// <summary>
+		/// Property which holds the date of the time last the user has started the mode, bound to the view.
+		/// </summary>
+		private string _lastDataTime;
 		public string LastDataTime
 		{
 			get { return _lastDataTime; }
@@ -67,6 +102,11 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
+
+		/// <summary>
+		/// Property which holds the amount of steps that the user has done during the active mode, bound to the view.
+		/// </summary>
+		private int _stepCounter;
 		public int StepCounter
 		{
 			get { return _stepCounter; }
@@ -76,6 +116,11 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
+
+		/// <summary>
+		/// Property which holds the distance that the user has walked during the active mode.
+		/// </summary>
+		private int _distanceWalked;
 		public int DistanceWalked
 		{
 			get { return _distanceWalked; }
@@ -85,6 +130,11 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 			}
 		}
+
+		/// <summary>
+		/// Holds the current state of the user.
+		/// </summary>
+		private bool _isRunning;
 		public bool IsRunning
 		{
 			get { return _isRunning; }
@@ -95,6 +145,11 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged(nameof(StatusDisplay));
 			}
 		}
+
+		/// <summary>
+		/// Holds the current step frequency. 
+		/// </summary>
+		private double _stepFrequency;
 		public double StepFrequency
 		{
 			get { return _stepFrequency; }
@@ -105,6 +160,9 @@ namespace EarablesKIT.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Display message for the current status of the user, updated when the status changes.
+		/// </summary>
 		public string StatusDisplay
 		{
 			get
@@ -114,7 +172,9 @@ namespace EarablesKIT.ViewModels
 			}
 		}
 
-
+		/// <summary>
+		/// Requests different services from the ServiceProvider and initializes the values which are displayed on the view. 
+		/// </summary>
 		public StepModeViewModel()
 		{
 			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
@@ -132,21 +192,11 @@ namespace EarablesKIT.ViewModels
 			_timer = new Stopwatch();
 		}
 
-		public override void OnActivityDone(object sender, ActivityArgs args)
-		{
-			StepCounter++;
-		}
-
-		public void OnRunningDone(object sender, ActivityArgs args)
-		{
-			IsRunning = ((RunningEventArgs)args).Running;
-		}
-
-		protected void OnPropertyChanged([CallerMemberName] string name = "")
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-		}
-
+		/// <summary>
+		/// Method which handles the start of the mode. Checks for a connection to the Earables, 
+		/// registers the event methods and starts the sampling of the Earables.
+		/// </summary>
+		/// <returns></returns>
 		public override bool StartActivity()
 		{
 			if (CheckConnection())
@@ -156,23 +206,51 @@ namespace EarablesKIT.ViewModels
 				_stepActivity.ActivityDone += OnActivityDone;
 				_runningActivity.ActivityDone += OnRunningDone;
 				CurrentDate = DateTime.Now.ToString();
-                ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+				((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
 				return true;
 			}
 			return false;
 		}
 
-		public void HandlingTimer()
+		/// <summary>
+		/// Method which updates the step frequency every 3 seconds.
+		/// </summary>
+		public void UpdateFrequency()
 		{
 			_timer = new Stopwatch();
 			_timer.Start();
 			Device.StartTimer(TimeSpan.FromSeconds(3.0), () =>
 			{
-				UpdateFrequency();
+				double totalTime = _timer.Elapsed.Seconds;
+				StepFrequency = Math.Round(60 * StepCounter / totalTime, 2);
 				return true;
 			});
 		}
 
+		/// <summary>
+		/// Increases the step counter by 1 whenever an event is thrown.
+		/// </summary>
+		/// <param name="sender">The sender of the event</param>
+		/// <param name="args">Ignored</param>
+		public override void OnActivityDone(object sender, ActivityArgs args)
+		{
+			StepCounter++;
+		}
+
+		/// <summary>
+		/// Method which will be invoked when the running state of the user changes.
+		/// </summary>
+		/// <param name="sender">The sender of the event</param>
+		/// <param name="args">New state of the user</param>
+		public void OnRunningDone(object sender, ActivityArgs args)
+		{
+			IsRunning = ((RunningEventArgs)args).Running;
+		}
+
+		/// <summary>
+		/// Method which handles the Stopping of the mode. Stops the timer, unregisters the event methods, 
+		/// saves data, shows a Pop-up and updates the data on the overview page of the step mode.
+		/// </summary>
 		public override void StopActivity()
 		{
 			_timer.Stop();
@@ -184,6 +262,9 @@ namespace EarablesKIT.ViewModels
 			UpdateLastData();
 		}
 
+		/// <summary>
+		/// Method which saves the amount of steps taken by the user.
+		/// </summary>
 		private void SaveData()
 		{
 			DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -191,30 +272,37 @@ namespace EarablesKIT.ViewModels
 			_dataBaseConnection.SaveDBEntry(_entryNew);
 		}
 
+		/// <summary>
+		/// Method which shows a Pop-up with the amount of steps taken by the user.
+		/// </summary>
+		private void ShowPopUp()
+		{
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + AppResources.Done, AppResources.Cool);
+		}
+
+		/// <summary>
+		/// Method which updates the values that are displayed on the overview page of the stepmode.
+		/// </summary>
 		private void UpdateLastData()
 		{
-			List<DBEntry> Entries = (List<DBEntry>)_dataBaseConnection.GetMostRecentEntries(1);
+			List<DBEntry> Entries = _dataBaseConnection.GetMostRecentEntries(1);
 			if (Entries.Count >= 1)
 			{
 				DBEntry entry = Entries[0];
 				LastDataTime = entry.Date.ToString();
-				StepsDoneLastTime = (int)entry.TrainingsData["Steps"];
+				StepsDoneLastTime = entry.TrainingsData["Steps"];
 				ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
-				int dwlt = StepsDoneLastTime * setser.ActiveUser.Steplength;
+				int dwlt = StepsDoneLastTime * setser.ActiveUser.Steplength / 100;
 				DistanceWalkedLastTime = dwlt;
 			}
 		}
 
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		private void UpdateFrequency()
-		{
-			double totalTime = _timer.Elapsed.Seconds;
-			StepFrequency = 60 * StepCounter / totalTime;
-		}
 
-		private void ShowPopUp()
+		protected void OnPropertyChanged([CallerMemberName] string name = "")
 		{
-			App.Current.MainPage.DisplayAlert("Result", "You have taken " + StepCounter + " Steps!", "Cool");
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
 
