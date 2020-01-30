@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
 {
-    abstract class AbstractSitUpActivity : Activity
+    public abstract class AbstractSitUpActivity : Activity
     {
     }
 }
