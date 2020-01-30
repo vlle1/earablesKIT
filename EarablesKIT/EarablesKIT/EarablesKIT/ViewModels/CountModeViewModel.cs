@@ -235,7 +235,7 @@ namespace EarablesKIT.ViewModels
 		}
 
 		/// <summary>
-		/// Methods which shows the amount of repetitions done by the user.
+		/// Methods which shows the amount of repetitions done by the user via a Pop-up.
 		/// </summary>
 		private void ShowPopUp()
 		{
