@@ -25,7 +25,7 @@ namespace EarablesKIT.Views
 			if (ViewModel.StartActivity())
 			{
 				ChangeView();
-				ViewModel.HandlingTimer();
+				ViewModel.UpdateFrequency();
 			}
 		}
 

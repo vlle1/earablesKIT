@@ -761,5 +761,14 @@ namespace EarablesKIT.Resources {
                 return ResourceManager.GetString("YouHaveDone", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You have taken ähnelt.
+        /// </summary>
+        internal static string YouHaveTaken {
+            get {
+                return ResourceManager.GetString("YouHaveTaken", resourceCulture);
+            }
+        }
     }
 }

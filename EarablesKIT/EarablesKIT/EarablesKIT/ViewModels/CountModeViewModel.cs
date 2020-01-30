@@ -15,22 +15,66 @@ using EarablesKIT.Resources;
 
 namespace EarablesKIT.ViewModels
 {
+	/// <summary>
+	/// Class that represents the CountMode. Manages the progress of the CountMode, implements the BaseModeViewModel.
+	/// </summary>
 	public class CountModeViewModel : BaseModeViewModel, INotifyPropertyChanged
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
+		/// <summary>
+		/// Timer that starts running on activation of the mode.
+		/// </summary>
 		private Stopwatch _timer;
+
+		/// <summary>
+		/// Property which wraps the pushUpActivity.
+		/// </summary>
 		private ActivityWrapper _pushUpActivityWrapper { get; set; }
+
+		/// <summary>
+		/// Property which wraps the sitUpActivity.
+		/// </summary>
 		private ActivityWrapper _sitUpActivityWrapper { get; set; }
+
+		/// <summary>
+		/// Placeholder for other activities.
+		/// </summary>
 		private ActivityWrapper _comingSoon { get; set; }
+
+		/// <summary>
+		/// The pushUpActivity from the ActivityProvider.
+		/// </summary>
 		private AbstractPushUpActivity _pushUpActivity { get; set; }
+
+		/// <summary>
+		/// The sitUpActivity from the ActivityProvider.
+		/// </summary>
 		private AbstractSitUpActivity _sitUpActivity { get; set; }
+
+		/// <summary>
+		/// Property which holds the instance of the ActivityManager.
+		/// </summary>
 		private IActivityManager _activityManager { get; set; }
+
+		/// <summary>
+		/// Property which hold the instance of the DataBaseConnection.
+		/// </summary>
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
+		/// <summary>
+		/// List of all possible activities that the user can do.
+		/// </summary>
+		public ObservableCollection<ActivityWrapper> PossibleActivities { get; set; }
+
+		/// <summary>
+		/// The currently selected activity by the user, bound to the view.
+		/// </summary>
+		public ActivityWrapper SelectedActivity { get; set; }
+
+		/// <summary>
+		/// Properties to show the elapsed time since the start of the mode, bound to the view.
+		/// </summary>
 		private string _minutes, _seconds, _milliseconds;
 
-		public ObservableCollection<ActivityWrapper> PossibleActivities { get; set; }
 		public string Minutes
 		{
 			get { return _minutes; }
@@ -59,9 +103,9 @@ namespace EarablesKIT.ViewModels
 			}
 		}
 
-
-		public ActivityWrapper SelectedActivity { get; set; }
-
+		/// <summary>
+		/// Requests different services from the ServiceProvider and initializes the list of possible activities.
+		/// </summary>
 		public CountModeViewModel()
 		{
 			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
@@ -80,28 +124,11 @@ namespace EarablesKIT.ViewModels
 			SelectedActivity = _pushUpActivityWrapper;
 		}
 
-		private bool RegisterActivity()
-		{
-			if (SelectedActivity != null && SelectedActivity._activity != null)
-			{
-				SelectedActivity._activity.ActivityDone += OnActivityDone;
-				return true;
-			}
-			return false;
-		}
-
-
-		protected void OnPropertyChanged([CallerMemberName] string name = "")
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-		}
-
-
-		public override void OnActivityDone(object sender, ActivityArgs args)
-		{
-			SelectedActivity.Counter++;
-		}
-
+		/// <summary>
+		/// Method which handles the start of the mode. Checks for a connection to the Earables, 
+		/// registers the event method and starts the sampling of the Earables.
+		/// </summary>
+		/// <returns>Bool if everything was successfull</returns>
 		public override bool StartActivity()
 		{
 			if (CheckConnection())
@@ -119,6 +146,34 @@ namespace EarablesKIT.ViewModels
 			return false;
 		}
 
+		/// <summary>
+		/// Methods that registers the OnActivityDone event method with the event handler.
+		/// </summary>
+		/// <returns>Bool if the registration was successfull</returns>
+		private bool RegisterActivity()
+		{
+			if (SelectedActivity != null && SelectedActivity._activity != null)
+			{
+				SelectedActivity._activity.ActivityDone += OnActivityDone;
+				return true;
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Increases the active activity's counter by 1 whenever an event is thrown.
+		/// </summary>
+		/// <param name="sender">Sender of the event</param>
+		/// <param name="args">Ignored</param>
+		public override void OnActivityDone(object sender, ActivityArgs args)
+		{
+			SelectedActivity.Counter++;
+		}
+
+		/// <summary>
+		/// Methods that starts the timer and updated the time properties every 0.1 seconds 
+		/// by calculating the elapsed time since the start of the mode.
+		/// </summary>
 		public void StartTimer()
 		{
 			Minutes = "00"; Seconds = "00"; Milliseconds = "000";
@@ -149,6 +204,10 @@ namespace EarablesKIT.ViewModels
 			});
 		}
 
+		/// <summary>
+		/// Method which handles the Stopping of the mode. Stops the timer, unregisters the event method, 
+		/// saves data and shows a Pop-up.
+		/// </summary>
 		public override void StopActivity()
 		{
 			StopTimer();
@@ -157,11 +216,17 @@ namespace EarablesKIT.ViewModels
 			ShowPopUp();
 		}
 
+		/// <summary>
+		/// Method which resets the timer.
+		/// </summary>
 		private void StopTimer()
 		{
 			_timer.Reset();
 		}
 
+		/// <summary>
+		/// Method which saves the amount of repetitions done by the user via the DataBaseConnection.
+		/// </summary>
 		private void SaveData()
 		{
 			DateTime _dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -169,9 +234,19 @@ namespace EarablesKIT.ViewModels
 			_dataBaseConnection.SaveDBEntry(_entryNew);
 		}
 
+		/// <summary>
+		/// Methods which shows the amount of repetitions done by the user.
+		/// </summary>
 		private void ShowPopUp()
 		{
 			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + SelectedActivity.Counter + " " + SelectedActivity.Name + "!", AppResources.Cool);
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected void OnPropertyChanged([CallerMemberName] string name = "")
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 	}
 }
