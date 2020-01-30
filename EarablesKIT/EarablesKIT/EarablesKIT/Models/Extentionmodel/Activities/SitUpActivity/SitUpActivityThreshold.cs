@@ -1,8 +1,5 @@
 ﻿using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
 using EarablesKIT.Models.Library;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
 {

@@ -4,7 +4,8 @@ using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
-using EarablesKIT.Models.Library;
+using EarablesKIT.Models.Library;
+
 using EarablesKIT.Models.SettingsService;
 using EarablesKIT.Resources;
 using System;
@@ -12,7 +13,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels

@@ -1,19 +1,17 @@
-﻿using System;
+﻿using EarablesKIT.Annotations;
 using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Resources;
 using EarablesKIT.Views;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Services;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using EarablesKIT.Annotations;
-using Plugin.BLE.Abstractions.Exceptions;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -64,14 +62,11 @@ namespace EarablesKIT.ViewModels
             _earablesConnectionService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             _earablesConnectionService.NewDeviceFound += (sender, args) =>
             {
-
-                    if (args.Device.Name != null && args.Device.Name.StartsWith("eSense") && !DevicesList.Contains(args.Device))
-                    {
-                        DevicesList.Add(args.Device);
-                        OnPropertyChanged(nameof(DevicesList));
-                    }
-                
-
+                if (args.Device.Name != null && args.Device.Name.StartsWith("eSense") && !DevicesList.Contains(args.Device))
+                {
+                    DevicesList.Add(args.Device);
+                    OnPropertyChanged(nameof(DevicesList));
+                }
             };
         }
 
@@ -100,7 +95,6 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public static void ShowPopUp()
         {
-
             PopupNavigation.Instance.PushAsync(new PopUpScanningPage(), true);
         }
 
@@ -114,7 +108,6 @@ namespace EarablesKIT.ViewModels
 
         private async void ScanDevices()
         {
-            
             DevicesList.Clear();
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
             if (!_earablesConnectionService.IsBluetoothActive)
@@ -132,7 +125,7 @@ namespace EarablesKIT.ViewModels
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Location });
                 status = results[Permission.Location];
             }
-            
+
             if (status != PermissionStatus.Granted)
             {
                 await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpLocationDenied, AppResources.Accept);
@@ -140,7 +133,6 @@ namespace EarablesKIT.ViewModels
             }
 
             _earablesConnectionService.StartScanning();
-
         }
 
         private void ConnectDevice(IDevice selectedItem)
@@ -148,7 +140,6 @@ namespace EarablesKIT.ViewModels
             try
             {
                 _earablesConnectionService.ConnectToDevice(selectedItem);
-
             }
             catch (DeviceConnectionException e)
             {

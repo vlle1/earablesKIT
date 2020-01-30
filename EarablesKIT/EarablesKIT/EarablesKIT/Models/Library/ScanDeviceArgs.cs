@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Plugin.BLE.Abstractions.Contracts;
+﻿using Plugin.BLE.Abstractions.Contracts;
 
 namespace EarablesKIT.Models.Library
 {

@@ -25,6 +25,9 @@ namespace EarablesKIT.ViewModels
         public int Steplength { get => _user.Steplength; }
 
         private SamplingRate _samplingrate;
+        /// <summary>
+        /// The samplingrate of the earables
+        /// </summary>
         public int SamplingRate => (int)_samplingrate;
 
         /// <summary>

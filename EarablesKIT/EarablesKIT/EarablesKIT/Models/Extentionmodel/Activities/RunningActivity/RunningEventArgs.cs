@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
+﻿namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
 {
     class RunningEventArgs : ActivityArgs
     {

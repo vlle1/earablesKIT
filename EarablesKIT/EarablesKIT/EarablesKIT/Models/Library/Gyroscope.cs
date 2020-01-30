@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EarablesKIT.Models.Library
+﻿namespace EarablesKIT.Models.Library
 {
     /// <summary>
     /// This class contains all information about the rotation of the earables

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EarablesKIT.Models;
-using EarablesKIT.Models.DatabaseService;
-using EarablesKIT.ViewModels;
+﻿using EarablesKIT.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
 {
+    /// <summary>
+    /// Codebehind class for view <see cref="DataOverviewPage"/>
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DataOverviewPage : ContentPage
     {

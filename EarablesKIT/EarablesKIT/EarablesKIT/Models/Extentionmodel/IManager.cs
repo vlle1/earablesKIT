@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Extentionmodel
+﻿namespace EarablesKIT.Models.Extentionmodel
 {
-    interface IManager
+    /// <summary>
+    /// Interface IManager is an empty interface for <see cref="IActivityManager"/> and <see cref="ServiceManager"/>
+    /// </summary>
+    internal interface IManager
     {
     }
 }

@@ -11,6 +11,9 @@ using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
 {
+    /// <summary>
+    /// Class SettingsPage is the codebehind for page <see cref="SettingsPage"/>
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {

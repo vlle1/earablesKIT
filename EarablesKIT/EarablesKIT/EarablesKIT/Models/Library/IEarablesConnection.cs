@@ -1,8 +1,5 @@
 ﻿using Plugin.BLE.Abstractions.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Plugin.BLE.Abstractions.EventArgs;
 
 namespace EarablesKIT.Models.Library
 {
