@@ -356,5 +356,7 @@
   </data>
   <data name="MusicModeCurrentStatusLabelWalking" xml:space="preserve">
     <value>You are walking</value>
+  <data name="YouHaveTaken" xml:space="preserve">
+    <value>You have taken</value>
   </data>
 </root>

@@ -21,7 +21,6 @@ namespace ViewModelTests.Models.SettingsService
         }
 
 
-        //TODO
         [Fact]
         public void ParseUserTest()
         {

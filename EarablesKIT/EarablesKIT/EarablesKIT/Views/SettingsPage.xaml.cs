@@ -66,13 +66,13 @@ namespace EarablesKIT.Views
             //Check if the username only contains word characters
             if (UsernameEntry.Text != null && !Regex.IsMatch(UsernameEntry.Text, @"^\w+$"))
             {
-                UsernameEntry.TextColor = Color.Red;
                 SaveButton.IsEnabled = false;
+                UsernameEntry.BackgroundColor = Color.DarkSalmon;
             }
             else
             {
                 SaveButton.IsEnabled = true;
-                UsernameEntry.TextColor = Color.Black;
+                UsernameEntry.BackgroundColor = Color.White;
             }
         }
 
@@ -84,15 +84,25 @@ namespace EarablesKIT.Views
             //Check if text contains only numbers and is not 0
             if (!Regex.IsMatch(SteplengthEntry.Text, @"^\d+$") || int.Parse(SteplengthEntry.Text) == 0)
             {
-                SteplengthEntry.TextColor = Color.Red;
                 SaveButton.IsEnabled = false;
+                SteplengthEntry.BackgroundColor = Color.DarkSalmon;
             }
             else
             {
                 SaveButton.IsEnabled = true;
                 SteplengthEntry.Text = int.Parse(SteplengthEntry.Text) + "";
-                SteplengthEntry.TextColor = Color.Black;
+                SteplengthEntry.BackgroundColor = Color.White;
             }
+        }
+
+        private void SamplingratePicker_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            SaveButton.IsEnabled = true;
+        }
+
+        private void LanguagePicker_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            SaveButton.IsEnabled = true;
         }
     }
 }

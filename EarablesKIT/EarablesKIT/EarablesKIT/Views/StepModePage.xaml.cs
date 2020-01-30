@@ -1,18 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EarablesKIT.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
 {
+	/// <summary>
+	/// Codebehind class of the StepModePage. 
+	/// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StepModePage : ContentPage
     {
-		StepModeViewModel ViewModel { get; set; }
+		/// <summary>
+		/// ViewModel which will be the Binding Context for this page and its equivalent active page.
+		/// </summary>
+		private StepModeViewModel ViewModel { get; set; }
+
+		/// <summary>
+		/// Sets the Binding Context.
+		/// </summary>
         public StepModePage()
         {
             InitializeComponent();
@@ -20,15 +26,23 @@ namespace EarablesKIT.Views
 			BindingContext = ViewModel; 
         }
 
+		/// <summary>
+		/// Bound to the Clicked event of the Start Button. Delegates to the ViewModel and changes the view to active.
+		/// </summary>
+		/// <param name="sender">The sender of the event</param>
+		/// <param name="args">Ignored</param>
 		public void OnStartButtonClicked(object sender, EventArgs args)
 		{
 			if (ViewModel.StartActivity())
 			{
 				ChangeView();
-				ViewModel.HandlingTimer();
+				ViewModel.UpdateFrequency();
 			}
 		}
 
+		/// <summary>
+		/// Changes the view to active and sets the Binding Context of the new page.
+		/// </summary>
 		public async void ChangeView()
 		{
 			StepModeActivePage NewView = new StepModeActivePage(ViewModel);
