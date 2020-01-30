@@ -9,22 +9,28 @@ using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
 {
+    /// <summary>
+    /// Codebehind for class <see cref="ImportExportPage"/>
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ImportExportPage : ContentPage
     {
         private ImportExportViewModel _viewModel;
 
+        /// <summary>
+        /// Command DeleteDataCommand is called when the DeleteData command is pressed. Calls method DeleteEntries
+        /// </summary>
         public ICommand DeleteDataCommand => new Command(DeleteEntries);
 
-        
-
+        /// <summary>
+        /// Constructor for class ImportExportPage
+        /// </summary>
         public ImportExportPage()
         {
             InitializeComponent();
 
             BindingContext = _viewModel = new ImportExportViewModel();
         }
-
 
         private async void ImportButton_Clicked(object sender, EventArgs e)
         {

@@ -1,19 +1,29 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace EarablesKIT.Models.DatabaseService
 {
     /// <summary>
-    /// 
+    /// DBEntry is the Wrapperclass for <see cref="DBEntryToSave"/>. It contains methods for parsing
+    /// a DBEntry to and from a string. Contains the Identifier for trainingsdata of the Databaseentry.
     /// </summary>
     public class DBEntry
     {
-
+        /// <summary>
+        /// Constant Identifier for the step amount
+        /// </summary>
         public const string StepAmountIdentifier = "Steps";
-        public const string PushUpAmountIdentifier = "PushUps";
-        public const string SitUpAmountIdentifier = "SitUps";
 
+        /// <summary>
+        /// Constant Identifier for the pushup amount
+        /// </summary>
+        public const string PushUpAmountIdentifier = "PushUps";
+
+        /// <summary>
+        /// Constant Identifier for the situp amount
+        /// </summary>
+        public const string SitUpAmountIdentifier = "SitUps";
 
         /// <summary>
         /// Date of the Entry
@@ -27,14 +37,13 @@ namespace EarablesKIT.Models.DatabaseService
         /// </summary>
         public Dictionary<string, int> TrainingsData { get; private set; }
 
-
         private DBEntry()
         {
             TrainingsData = new Dictionary<string, int>();
         }
 
         /// <summary>
-        /// Constructor for DBEntry 
+        /// Constructor for DBEntry
         /// </summary>
         /// <param name="date">The date of the entry</param>
         /// <param name="stepAmount">The amount of steps on this Date</param>
@@ -53,7 +62,7 @@ namespace EarablesKIT.Models.DatabaseService
 
         public override string ToString()
         {
-            string result = Date.ToString("dd.MM.yyyy")+ ",";
+            string result = Date.ToString("dd.MM.yyyy") + ",";
             foreach (var keyValuePair in TrainingsData)
             {
                 result += keyValuePair.Key + "=" + keyValuePair.Value + ",";
@@ -72,12 +81,11 @@ namespace EarablesKIT.Models.DatabaseService
         {
             DBEntryToSave entryToSave = new DBEntryToSave
             {
-                DateTime = this.Date, 
+                DateTime = this.Date,
                 TrainingsDataAsString = JsonConvert.SerializeObject(this.TrainingsData)
             };
             return entryToSave;
         }
-
 
         /// <summary>
         /// Parses the given instance of type DBEntryToSave to an instance to DBEntry.
@@ -86,15 +94,14 @@ namespace EarablesKIT.Models.DatabaseService
         /// <returns>A </returns>
         public static DBEntry ParseDbEntry(DBEntryToSave entry)
         {
-            Dictionary<string, int> trainingsData = JsonConvert.DeserializeObject<Dictionary<string,int>>(entry.TrainingsDataAsString);
+            Dictionary<string, int> trainingsData = JsonConvert.DeserializeObject<Dictionary<string, int>>(entry.TrainingsDataAsString);
             DBEntry result = new DBEntry
             {
-                Date = entry.DateTime, 
+                Date = entry.DateTime,
                 TrainingsData = trainingsData
             };
             return result;
         }
-
 
         /// <summary>
         /// Parses a string to a DBEntry
@@ -122,7 +129,7 @@ namespace EarablesKIT.Models.DatabaseService
 
             if (!int.TryParse(parts[2].Substring(parts[2].IndexOf("=") + 1), out var pushUpAmount))
                 return null;
-            
+
             if (!int.TryParse(parts[3].Substring(parts[3].IndexOf("=") + 1), out var sitUpAmount))
                 return null;
 

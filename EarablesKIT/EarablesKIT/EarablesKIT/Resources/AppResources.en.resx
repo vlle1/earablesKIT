@@ -354,4 +354,7 @@
   <data name="YouHaveTaken" xml:space="preserve">
     <value>You have taken</value>
   </data>
+  <data name="SettingsServiceDefaultUser" xml:space="preserve">
+    <value>User</value>
+  </data>
 </root>

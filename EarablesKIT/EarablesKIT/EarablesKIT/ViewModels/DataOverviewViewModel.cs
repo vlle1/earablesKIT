@@ -1,8 +1,8 @@
-﻿using EarablesKIT.Models.DatabaseService;
+﻿using EarablesKIT.Models;
+using EarablesKIT.Models.DatabaseService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using EarablesKIT.Models;
 using IDataBaseConnection = EarablesKIT.Models.DatabaseService.IDataBaseConnection;
 
 namespace EarablesKIT.ViewModels
@@ -10,9 +10,8 @@ namespace EarablesKIT.ViewModels
     /// <summary>
     /// Class DataOverviewViewModel contains the logic behind the page DataOverview/>
     /// </summary>
-    class DataOverviewViewModel
+    internal class DataOverviewViewModel
     {
-
         /// <summary>
         /// Trainingsdata as observable collection containing the trainingsdata from the database
         /// </summary>
@@ -23,12 +22,11 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public DataOverviewViewModel()
         {
-            var dataBaseConnection = (IDataBaseConnection) ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+            var dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 
             List<DBEntry> entries = dataBaseConnection.GetMostRecentEntries(30);
             entries.Reverse();
             TrainingsDataDbEntries = new ObservableCollection<DBEntry>(entries);
-
         }
 
         /// <summary>

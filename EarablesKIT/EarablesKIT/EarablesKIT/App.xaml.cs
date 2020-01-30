@@ -1,8 +1,8 @@
 ﻿using EarablesKIT.Models;
-using EarablesKIT.Models.SettingsService;
-using EarablesKIT.Views;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Models.SettingsService;
 using EarablesKIT.ViewModels;
+using EarablesKIT.Views;
 using Xamarin.Forms;
 
 namespace EarablesKIT
@@ -25,8 +25,8 @@ namespace EarablesKIT
             EarablesConnection service = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             service.DeviceConnectionStateChanged += ScanningPopUpViewModel.OnDeviceConnectionStateChanged;
 
-            if(!service.Connected)
-            this.showPopUp();
+            if (!service.Connected)
+                this.showPopUp();
         }
 
         private async void showPopUp()

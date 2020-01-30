@@ -8,8 +8,8 @@ using Xamarin.Forms.Xaml;
 namespace EarablesKIT.Models.SettingsService
 {
     /// <summary>
-    /// Class SettingsService implements a Service which handles the settings user, language and samplingrate.
-    /// Saves the settings between the sessions.
+    /// Class SettingsService implements a Service which handles the settings user, language and
+    /// samplingrate. Saves the settings between the sessions.
     /// </summary>
     public class SettingsService : ISettingsService
     {
@@ -46,7 +46,7 @@ namespace EarablesKIT.Models.SettingsService
 
                 try
                 {
-                    service.SampleRate = (int) value;
+                    service.SampleRate = (int)value;
                 }
                 catch (Exception e)
                 {
@@ -54,7 +54,7 @@ namespace EarablesKIT.Models.SettingsService
                     return;
                 }
 
-                UpdateValue(SAMPLINGRATE_PROPERTY, (int) value);
+                UpdateValue(SAMPLINGRATE_PROPERTY, (int)value);
                 _samplingRate = value;
             }
         }
@@ -80,7 +80,6 @@ namespace EarablesKIT.Models.SettingsService
             LoadSettings();
         }
 
-
         private void LoadSettings()
         {
             if (!Application.Current.Properties.ContainsKey(LANGUAGE_PROPERTY))
@@ -104,7 +103,6 @@ namespace EarablesKIT.Models.SettingsService
                 }
                 catch (CultureNotFoundException)
                 {
-
                     ExceptionHandlingViewModel.HandleException(new CultureNotFoundException("Language couldn't be loaded!"));
                     ActiveLanguage = CultureInfo.CurrentUICulture;
                 }

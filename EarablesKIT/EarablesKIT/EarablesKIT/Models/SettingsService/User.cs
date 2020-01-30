@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarablesKIT.Resources;
+using System;
 using System.Text.RegularExpressions;
 
 namespace EarablesKIT.Models.SettingsService
@@ -10,7 +11,7 @@ namespace EarablesKIT.Models.SettingsService
     {
         private const string USER_PATTERN = @"^username=\w+,steplength=\d+$";
 
-        private string _username = "Nutzer";
+        private string _username = AppResources.SettingsServiceDefaultUser;
 
         /// <summary>
         /// Username of the User. Can only contain chars from type \w (word)
@@ -34,6 +35,11 @@ namespace EarablesKIT.Models.SettingsService
             private set => _steplength = value > 0 ? value : 0;
         }
 
+        /// <summary>
+        /// Constructor for class User
+        /// </summary>
+        /// <param name="username">The username of the user</param>
+        /// <param name="steplength">the steplength of the user</param>
         public User(string username, int steplength)
         {
             Username = username;
