@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Resources;
 
 namespace EarablesKIT.ViewModels
 {
@@ -66,9 +67,9 @@ namespace EarablesKIT.ViewModels
 			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
 			_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
 			_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
-			_pushUpActivityWrapper = new ActivityWrapper("Push-ups", _pushUpActivity); 
-			_sitUpActivityWrapper = new ActivityWrapper("Sit-ups", _sitUpActivity); 
-			_comingSoon = new ActivityWrapper("Coming soon", null);
+			_pushUpActivityWrapper = new ActivityWrapper(AppResources.Push_ups, _pushUpActivity);
+			_sitUpActivityWrapper = new ActivityWrapper(AppResources.Sit_ups, _sitUpActivity);
+			_comingSoon = new ActivityWrapper(AppResources.Coming_soon, null);
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 			PossibleActivities = new ObservableCollection<ActivityWrapper>
 			{
@@ -107,7 +108,7 @@ namespace EarablesKIT.ViewModels
 			{
 				if (RegisterActivity())
 				{
-                    ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+					((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
 					_pushUpActivityWrapper.Counter = 0;
 					_sitUpActivityWrapper.Counter = 0;
 					return true;
@@ -170,7 +171,7 @@ namespace EarablesKIT.ViewModels
 
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert("Result", "You have done " + SelectedActivity.Counter + " " + SelectedActivity.Name + "!", "Cool");
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + SelectedActivity.Counter + " " + SelectedActivity.Name + "!", AppResources.Cool);
 		}
 	}
 }

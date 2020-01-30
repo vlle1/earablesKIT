@@ -4,10 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.ListenAndPerformActivePage">
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="20" Margin="0,20,0,0">
-            <Label Text="Listen And Perform"
+            <Label Text="{x:Static resource:AppResources.ListenAndPerformNameLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
@@ -28,7 +29,7 @@
             </Frame>
 
             <StackLayout Margin="0,10,0,0" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
-                <Label Text="Current Activity"
+                <Label Text="{x:Static resource:AppResources.CurrentActivityUnbindedLabel}"
                    Padding="20"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"
@@ -56,7 +57,7 @@
                    BackgroundColor="CornflowerBlue"/>
                 
             </StackLayout>
-            <Button Text="Stop Workout"
+            <Button Text="{x:Static resource:AppResources.StopWorkoutButton}"
                     Clicked="OnStopButtonClicked"
                     VerticalOptions="End" 
                     BackgroundColor="IndianRed" 
