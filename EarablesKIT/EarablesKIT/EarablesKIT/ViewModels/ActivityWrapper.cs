@@ -8,7 +8,8 @@ namespace EarablesKIT.ViewModels
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public Activity _activity { get; set; }
-		public string Name { get; set;}
+		public string Name { get; set; }
+		public int Amount { get; set; }
 
 		private int _counter;
 		public int Counter
@@ -19,6 +20,14 @@ namespace EarablesKIT.ViewModels
 				_counter = value;
 				OnPropertyChanged();
 			}
+		}
+
+		public ActivityWrapper(string name, Activity activity, int amount)
+		{
+			Counter = 0;
+			Name = name;
+			_activity = activity;
+			Amount = amount;
 		}
 
 		public ActivityWrapper(string name, Activity activity)

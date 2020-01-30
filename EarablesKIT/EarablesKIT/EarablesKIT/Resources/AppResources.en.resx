@@ -285,4 +285,70 @@
   <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
     <value>Bluetooth is not active!</value>
   </data>
+  <data name="AddActivityButton" xml:space="preserve">
+    <value>Add Activity</value>
+  </data>
+  <data name="CurrentActivityUnbindedLabel" xml:space="preserve">
+    <value>Current Activity</value>
+  </data>
+  <data name="EditActivityButton" xml:space="preserve">
+    <value>Edit Activity</value>
+  </data>
+  <data name="ListenAndPerformNameLabel" xml:space="preserve">
+    <value>Listen And Perform</value>
+  </data>
+  <data name="RemoveActivityButton" xml:space="preserve">
+    <value>Remove Activity</value>
+  </data>
+  <data name="StartWorkoutButton" xml:space="preserve">
+    <value>Start Workout</value>
+  </data>
+  <data name="StopWorkoutButton" xml:space="preserve">
+    <value>Stop Workout</value>
+  </data>
+  <data name="WorkoutPlanLabel" xml:space="preserve">
+    <value>Workout Plan</value>
+  </data>
+  <data name="AddingActivity" xml:space="preserve">
+    <value>Adding Activity</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="Coming soon" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
+  <data name="Cool" xml:space="preserve">
+    <value>Cool</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EnterRepetitions" xml:space="preserve">
+    <value>Enter the amount of repetitions</value>
+  </data>
+  <data name="NextActivity" xml:space="preserve">
+    <value>Next Activity,</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Push-ups" xml:space="preserve">
+    <value>Push-ups</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Seconds</value>
+  </data>
+  <data name="SelectAnActivity" xml:space="preserve">
+    <value>Select an Activity:</value>
+  </data>
+  <data name="Sit-ups" xml:space="preserve">
+    <value>Sit-ups</value>
+  </data>
+  <data name="YouHaveDone" xml:space="preserve">
+    <value>You have done</value>
+  </data>
 </root>
