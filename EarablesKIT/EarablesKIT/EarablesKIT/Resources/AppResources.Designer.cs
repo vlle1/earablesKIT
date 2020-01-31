@@ -646,7 +646,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Distance Walked Last Time ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Distance Walked Last Time (m) ähnelt.
         /// </summary>
         internal static string StepModeLastDistanceLabel {
             get {
