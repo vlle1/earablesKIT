@@ -763,6 +763,15 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Training complete ähnelt.
+        /// </summary>
+        internal static string TrainingDone {
+            get {
+                return ResourceManager.GetString("TrainingDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Walking!!! ähnelt.
         /// </summary>
         internal static string Walking {

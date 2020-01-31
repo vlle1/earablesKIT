@@ -366,4 +366,7 @@
   <data name="YouAre" xml:space="preserve">
     <value>Du</value>
   </data>
+  <data name="TrainingDone" xml:space="preserve">
+    <value>Training abgeschlossen</value>
+  </data>
 </root>
