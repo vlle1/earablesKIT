@@ -357,4 +357,13 @@
   <data name="SettingsServiceDefaultUser" xml:space="preserve">
     <value>Nutzer</value>
   </data>
+  <data name="Standing" xml:space="preserve">
+    <value>stehst</value>
+  </data>
+  <data name="Walking" xml:space="preserve">
+    <value>läufst!!!</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>Du</value>
+  </data>
 </root>

@@ -167,8 +167,7 @@ namespace EarablesKIT.ViewModels
 		{
 			get
 			{
-				return $"You are " +
-					   $"{(IsRunning ? "Walking!!" : "Standing")} ";
+				return AppResources.YouAre + " " + (IsRunning ? AppResources.Walking : AppResources.Standing);
 			}
 		}
 
@@ -186,7 +185,7 @@ namespace EarablesKIT.ViewModels
 			StepFrequency = 0.0;
 			DistanceWalked = 0;
 			LastDataTime = "01.01.2000"; 
-			CurrentDate = DateTime.Now.ToString(); // //Test
+			CurrentDate = DateTime.Now.ToString(); 
 			UpdateLastData();
 			IsRunning = false;
 			_timer = new Stopwatch();
@@ -277,7 +276,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + AppResources.Done, AppResources.Cool);
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + " " + AppResources.Done, AppResources.Cool);
 		}
 
 		/// <summary>
@@ -289,7 +288,7 @@ namespace EarablesKIT.ViewModels
 			if (Entries.Count >= 1)
 			{
 				DBEntry entry = Entries[0];
-				LastDataTime = entry.Date.ToString();
+				LastDataTime = entry.Date.ToString("dd.MM.yyyy");
 				StepsDoneLastTime = entry.TrainingsData["Steps"];
 				ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
 				int dwlt = StepsDoneLastTime * setser.ActiveUser.Steplength / 100;
