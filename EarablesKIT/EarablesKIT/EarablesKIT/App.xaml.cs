@@ -12,12 +12,14 @@ namespace EarablesKIT
         public App()
         {
             InitializeComponent();
-            MainPage = new MainPage();
 
             ISettingsService SettingsService =
                 (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
             System.Globalization.CultureInfo.CurrentUICulture =
                 (SettingsService).ActiveLanguage;
+
+            MainPage = new MainPage();
+
         }
 
         protected override void OnStart()

@@ -10,6 +10,7 @@ using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -62,9 +63,17 @@ namespace EarablesKIT.ViewModels
             _earablesConnectionService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             _earablesConnectionService.NewDeviceFound += (sender, args) =>
             {
-                if (args.Device.Name != null && args.Device.Name.StartsWith("eSense") && !DevicesList.Contains(args.Device))
+                if (args.Device.Name != null && !DevicesList.Contains(args.Device))
                 {
-                    DevicesList.Add(args.Device);
+
+                    if (args.Device.Name.StartsWith("eSense"))
+                    {
+                        DevicesList.Insert(0, args.Device);
+                    }
+                    else
+                    {
+                        DevicesList.Add(args.Device);
+                    }
                     OnPropertyChanged(nameof(DevicesList));
                 }
             };
