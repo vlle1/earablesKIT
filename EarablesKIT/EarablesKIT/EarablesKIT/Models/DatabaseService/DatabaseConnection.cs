@@ -136,7 +136,7 @@ namespace EarablesKIT.Models.DatabaseService
         }
 
         /// <inheritdoc />
-        public void ExportTrainingsData(string path)
+        public string ExportTrainingsData()
         {
             /*string fileName = "/storage/emulated/0/Android/data/count.txt";
             bool debugBool = string.IsNullOrEmpty(path.FilePath);
@@ -148,24 +148,17 @@ namespace EarablesKIT.Models.DatabaseService
                 ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
                 return;
             }
-
+            */
             List<DBEntry> entries = GetAllEntries();
             string toWrite = "";
             foreach(DBEntry entry in entries)
             {
                 toWrite += entry.ToString() + "\n";
             }
-            if (entries.Count == 0) return;
+            if (entries.Count == 0) return "";
             toWrite = toWrite.Remove(toWrite.Length - 1);
 
-            try
-            {
-                File.WriteAllText(fileName, toWrite);
-            }
-            catch(Exception e)
-            {
-                ExceptionHandlingViewModel.HandleException(new FileLoadException(AppResources.DataBaseErrorFailedToSave));
-            }*/
+            return toWrite;
         }
     }
 }

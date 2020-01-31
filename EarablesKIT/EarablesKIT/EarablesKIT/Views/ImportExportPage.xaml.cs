@@ -47,27 +47,6 @@ namespace EarablesKIT.Views
             _viewModel.ImportCommand.Execute(filedata);
         }
 
-        private async void ExportButton_Clicked(object sender, EventArgs e)
-        {
-            FileData filedata;
-            try
-            {
-                filedata = await CrossFilePicker.Current.PickFile();
-                if (filedata == null || string.IsNullOrEmpty(filedata.FilePath) || !filedata.FilePath.EndsWith(".txt"))
-                {
-                    ExceptionHandlingViewModel.HandleException(new Exception(AppResources.ImportExportFileError));
-                    return;
-                }
-            }
-            catch (Exception)
-            {
-                ExceptionHandlingViewModel.HandleException(new Exception(AppResources.ImportExportFileError));
-                return;
-            }
-
-            _viewModel.ExportCommand.Execute(filedata);
-        }
-
         private void DeleteEntries()
         {
             _viewModel.DeleteCommand.Execute(this);

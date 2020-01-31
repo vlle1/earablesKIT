@@ -49,8 +49,7 @@ namespace EarablesKIT.Models.DatabaseService
         /// Method ExportTrainingsData exports the current trainingsdata saved in the SQLite database
         /// and creates a new file which can get shared.
         /// </summary>
-        /// <param name="path">The path where the file should saved to</param>
-        void ExportTrainingsData(string path);
+        string ExportTrainingsData();
 
         /// <summary>
         /// Method DeleteAllEntries deletes all stored entries in the database. Simply drops the

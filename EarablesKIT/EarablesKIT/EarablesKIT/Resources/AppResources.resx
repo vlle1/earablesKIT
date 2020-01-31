@@ -369,4 +369,7 @@
   <data name="TrainingDone" xml:space="preserve">
     <value>Training complete</value>
   </data>
+  <data name="ImportExportSaveDisplayTitle" xml:space="preserve">
+    <value>Sharing dialog</value>
+  </data>
 </root>
