@@ -28,6 +28,11 @@ namespace EarablesKIT.ViewModels
 		private Stopwatch _timer;
 
 		/// <summary>
+		/// Step Delta for calculating the Step Frequency.
+		/// </summary>
+		private int StepDelta;
+
+		/// <summary>
 		/// The stepActivity from the ActivityProvider.
 		/// </summary>
 		private AbstractStepActivity _stepActivity { get; set; }
@@ -202,6 +207,7 @@ namespace EarablesKIT.ViewModels
 			{
 				StepCounter = 0;
 				StepFrequency = 0;
+				StepDelta = 0;
 				_stepActivity.ActivityDone += OnActivityDone;
 				_runningActivity.ActivityDone += OnRunningDone;
 				CurrentDate = DateTime.Now.ToString();
@@ -220,8 +226,9 @@ namespace EarablesKIT.ViewModels
 			_timer.Start();
 			Device.StartTimer(TimeSpan.FromSeconds(3.0), () =>
 			{
-				double totalTime = _timer.Elapsed.Seconds;
-				StepFrequency = Math.Round(60 * StepCounter / totalTime, 2);
+				double stepsInLastThreeSeconds = StepCounter - StepDelta;
+				StepFrequency = Math.Round(60 * stepsInLastThreeSeconds/3, 2);
+				StepDelta = StepCounter;
 				return true;
 			});
 		}
