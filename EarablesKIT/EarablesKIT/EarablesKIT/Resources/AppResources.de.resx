@@ -250,7 +250,7 @@
     <value>Einstellungen</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
-    <value>Letztes Mal Gelaufene Distanz</value>
+    <value>Letztes Mal Gelaufene Distanz (m)</value>
   </data>
   <data name="StepModeLastStepsLabel" xml:space="preserve">
     <value>Letztes Mal Gelaufene Schritte</value>
@@ -271,7 +271,7 @@
     <value>Letzter Trainingstag</value>
   </data>
   <data name="StepModeUnbindedFrequencyLabel" xml:space="preserve">
-    <value>Aktuelle Schrittfrequenz</value>
+    <value>Schrittfrequenz in Schritten/Minute</value>
   </data>
   <data name="StepModeUnbindedStatusLabel" xml:space="preserve">
     <value>Aktueller Status</value>
@@ -365,5 +365,8 @@
   </data>
   <data name="YouAre" xml:space="preserve">
     <value>Du</value>
+  </data>
+  <data name="TrainingDone" xml:space="preserve">
+    <value>Training abgeschlossen</value>
   </data>
 </root>

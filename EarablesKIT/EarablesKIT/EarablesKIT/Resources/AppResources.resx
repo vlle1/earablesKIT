@@ -226,7 +226,7 @@
     <value>Settings</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
-    <value>Distance Walked Last Time</value>
+    <value>Distance Walked Last Time (m)</value>
   </data>
   <data name="StepModeLastStepsLabel" xml:space="preserve">
     <value>Steps Taken Last Time</value>
@@ -365,5 +365,8 @@
   </data>
   <data name="YouAre" xml:space="preserve">
     <value>You are</value>
+  </data>
+  <data name="TrainingDone" xml:space="preserve">
+    <value>Training complete</value>
   </data>
 </root>

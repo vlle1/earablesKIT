@@ -646,7 +646,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Distance Walked Last Time ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Distance Walked Last Time (m) ähnelt.
         /// </summary>
         internal static string StepModeLastDistanceLabel {
             get {
@@ -759,6 +759,15 @@ namespace EarablesKIT.Resources {
         internal static string StopWorkoutButton {
             get {
                 return ResourceManager.GetString("StopWorkoutButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Training complete ähnelt.
+        /// </summary>
+        internal static string TrainingDone {
+            get {
+                return ResourceManager.GetString("TrainingDone", resourceCulture);
             }
         }
         
