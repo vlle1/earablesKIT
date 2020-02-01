@@ -6,6 +6,7 @@ using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Resources;
 using MediaManager;
+using MediaManager.Library;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,7 +60,7 @@ namespace EarablesKIT.ViewModels
                     StopActivity();
                 }
                 //CrossMediaManager.Current.PlayPause();
-                OnPropertyChanged(nameof(StartStopLabel));
+                //OnPropertyChanged(nameof(StartStopLabel));
             });
         }
 
@@ -75,10 +76,18 @@ namespace EarablesKIT.ViewModels
         }
 
 
-        private async void InitMusic(string urlPath)
+        private async void InitMusic()
         {
-            await CrossMediaManager.Current.Play(urlPath);
-            await CrossMediaManager.Current.Pause();
+            //var ret = await CrossMediaManager.Current.Play(AppResources.ukulele_low);
+            //Debug.Assert(ret != null);
+            try
+            {
+                await CrossMediaManager.Current.PlayFromResource("ukulele.mp3");
+            } catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+            }
+            //await CrossMediaManager.Current.Pause();
         }
 
         private IActivityManager _activityManager;
@@ -88,6 +97,13 @@ namespace EarablesKIT.ViewModels
         {
             _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
             _runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
+
+            //var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "music/intro.mp3");
+            //File.WriteAllBytes(AppResources.ukulele_low);
+
+
+
+            InitMusic();
         }
 
         public override void OnActivityDone(object sender, ActivityArgs args)
@@ -116,7 +132,7 @@ namespace EarablesKIT.ViewModels
              */
             if (CheckConnection())
             {
-                InitMusic("https://sampleswap.org/samples-ghost/PUBLIC%20DOMAIN%20MUSIC/3337[kb]Extracts-from-the-Ballet-Suite-Scherazada.mp3.mp3");
+                InitMusic();
                 _runningActivity.ActivityDone += OnActivityDone;
                 ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
                 return true;

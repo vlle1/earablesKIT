@@ -22,7 +22,7 @@ namespace EarablesKIT.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources {
+    public class AppResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace EarablesKIT.Resources {
         ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EarablesKIT.Resources.AppResources", typeof(AppResources).Assembly);
@@ -51,7 +51,7 @@ namespace EarablesKIT.Resources {
         ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Okay ähnelt.
         /// </summary>
-        internal static string Accept {
+        public static string Accept {
             get {
                 return ResourceManager.GetString("Accept", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Add Activity ähnelt.
         /// </summary>
-        internal static string AddActivityButton {
+        public static string AddActivityButton {
             get {
                 return ResourceManager.GetString("AddActivityButton", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Adding Activity ähnelt.
         /// </summary>
-        internal static string AddingActivity {
+        public static string AddingActivity {
             get {
                 return ResourceManager.GetString("AddingActivity", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die and ähnelt.
         /// </summary>
-        internal static string And {
+        public static string And {
             get {
                 return ResourceManager.GetString("And", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
         /// </summary>
-        internal static string Cancel {
+        public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Coming soon ähnelt.
         /// </summary>
-        internal static string Coming_soon {
+        public static string Coming_soon {
             get {
                 return ResourceManager.GetString("Coming soon", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Cool ähnelt.
         /// </summary>
-        internal static string Cool {
+        public static string Cool {
             get {
                 return ResourceManager.GetString("Cool", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die CountMode ähnelt.
         /// </summary>
-        internal static string CountModeNameLabel {
+        public static string CountModeNameLabel {
             get {
                 return ResourceManager.GetString("CountModeNameLabel", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Current Activity ähnelt.
         /// </summary>
-        internal static string CurrentActivityUnbindedLabel {
+        public static string CurrentActivityUnbindedLabel {
             get {
                 return ResourceManager.GetString("CurrentActivityUnbindedLabel", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Couldn&apos;t parse the given file! ähnelt.
         /// </summary>
-        internal static string DatabaseConnectionFileParseError {
+        public static string DatabaseConnectionFileParseError {
             get {
                 return ResourceManager.GetString("DatabaseConnectionFileParseError", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Couldn&apos;t save the data! ähnelt.
         /// </summary>
-        internal static string DataBaseErrorFailedToSave {
+        public static string DataBaseErrorFailedToSave {
             get {
                 return ResourceManager.GetString("DataBaseErrorFailedToSave", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Path doesn&apos;t exist! ähnelt.
         /// </summary>
-        internal static string DataBaseFileDoesntExistError {
+        public static string DataBaseFileDoesntExistError {
             get {
                 return ResourceManager.GetString("DataBaseFileDoesntExistError", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Trainingsdata_EarblesKIT.txt ähnelt.
         /// </summary>
-        internal static string DataBaseStorageFileName {
+        public static string DataBaseStorageFileName {
             get {
                 return ResourceManager.GetString("DataBaseStorageFileName", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Delete Data ähnelt.
         /// </summary>
-        internal static string DataOverviewPageDeleteButton {
+        public static string DataOverviewPageDeleteButton {
             get {
                 return ResourceManager.GetString("DataOverviewPageDeleteButton", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Welcome to your Dataoverview ähnelt.
         /// </summary>
-        internal static string DataOverviewPageEntryLabel {
+        public static string DataOverviewPageEntryLabel {
             get {
                 return ResourceManager.GetString("DataOverviewPageEntryLabel", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Export ähnelt.
         /// </summary>
-        internal static string DataOverviewPageExportButton {
+        public static string DataOverviewPageExportButton {
             get {
                 return ResourceManager.GetString("DataOverviewPageExportButton", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Import ähnelt.
         /// </summary>
-        internal static string DataOverviewPageImportButton {
+        public static string DataOverviewPageImportButton {
             get {
                 return ResourceManager.GetString("DataOverviewPageImportButton", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Date ähnelt.
         /// </summary>
-        internal static string Date {
+        public static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Something went wrong! ähnelt.
         /// </summary>
-        internal static string DefaultError {
+        public static string DefaultError {
             get {
                 return ResourceManager.GetString("DefaultError", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        internal static string Done {
+        public static string Done {
             get {
                 return ResourceManager.GetString("Done", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Edit Activity ähnelt.
         /// </summary>
-        internal static string EditActivityButton {
+        public static string EditActivityButton {
             get {
                 return ResourceManager.GetString("EditActivityButton", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Enter the amount of repetitions ähnelt.
         /// </summary>
-        internal static string EnterRepetitions {
+        public static string EnterRepetitions {
             get {
                 return ResourceManager.GetString("EnterRepetitions", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Error ähnelt.
         /// </summary>
-        internal static string Error {
+        public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Exception! ähnelt.
         /// </summary>
-        internal static string ErrorAlert {
+        public static string ErrorAlert {
             get {
                 return ResourceManager.GetString("ErrorAlert", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Delete trainingsdata ähnelt.
         /// </summary>
-        internal static string ImportExportDeleteDataButton {
+        public static string ImportExportDeleteDataButton {
             get {
                 return ResourceManager.GetString("ImportExportDeleteDataButton", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Export trainingsdata ähnelt.
         /// </summary>
-        internal static string ImportExportExportButton {
+        public static string ImportExportExportButton {
             get {
                 return ResourceManager.GetString("ImportExportExportButton", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die File couldn&apos;t get picked correctly! ähnelt.
         /// </summary>
-        internal static string ImportExportFileError {
+        public static string ImportExportFileError {
             get {
                 return ResourceManager.GetString("ImportExportFileError", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Import trainingsdata ähnelt.
         /// </summary>
-        internal static string ImportExportImportButton {
+        public static string ImportExportImportButton {
             get {
                 return ResourceManager.GetString("ImportExportImportButton", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Import/Export file needs to end with .txt ähnelt.
         /// </summary>
-        internal static string ImportExportInformationLabel {
+        public static string ImportExportInformationLabel {
             get {
                 return ResourceManager.GetString("ImportExportInformationLabel", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Datamanagement ähnelt.
         /// </summary>
-        internal static string ImportExportLabel {
+        public static string ImportExportLabel {
             get {
                 return ResourceManager.GetString("ImportExportLabel", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Listen And Perform ähnelt.
         /// </summary>
-        internal static string ListenAndPerformNameLabel {
+        public static string ListenAndPerformNameLabel {
             get {
                 return ResourceManager.GetString("ListenAndPerformNameLabel", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die You are standing ähnelt.
         /// </summary>
-        internal static string MusicModeCurrentStatusLabelStanding {
+        public static string MusicModeCurrentStatusLabelStanding {
             get {
                 return ResourceManager.GetString("MusicModeCurrentStatusLabelStanding", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die You are walking ähnelt.
         /// </summary>
-        internal static string MusicModeCurrentStatusLabelWalking {
+        public static string MusicModeCurrentStatusLabelWalking {
             get {
                 return ResourceManager.GetString("MusicModeCurrentStatusLabelWalking", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die MusicMode ähnelt.
         /// </summary>
-        internal static string MusicModeEntryLabel {
+        public static string MusicModeEntryLabel {
             get {
                 return ResourceManager.GetString("MusicModeEntryLabel", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Wonderful MusicModeEntry page! ähnelt.
         /// </summary>
-        internal static string MusicModeEntryLabel1 {
+        public static string MusicModeEntryLabel1 {
             get {
                 return ResourceManager.GetString("MusicModeEntryLabel1", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Next Activity, ähnelt.
         /// </summary>
-        internal static string NextActivity {
+        public static string NextActivity {
             get {
                 return ResourceManager.GetString("NextActivity", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Okay ähnelt.
         /// </summary>
-        internal static string Okay {
+        public static string Okay {
             get {
                 return ResourceManager.GetString("Okay", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Pause ähnelt.
         /// </summary>
-        internal static string Pause {
+        public static string Pause {
             get {
                 return ResourceManager.GetString("Pause", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Possible Activities ähnelt.
         /// </summary>
-        internal static string PossibleActivitiesLabel {
+        public static string PossibleActivitiesLabel {
             get {
                 return ResourceManager.GetString("PossibleActivitiesLabel", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Push-ups ähnelt.
         /// </summary>
-        internal static string Push_ups {
+        public static string Push_ups {
             get {
                 return ResourceManager.GetString("Push-ups", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die PushUps ähnelt.
         /// </summary>
-        internal static string PushUps {
+        public static string PushUps {
             get {
                 return ResourceManager.GetString("PushUps", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Remove Activity ähnelt.
         /// </summary>
-        internal static string RemoveActivityButton {
+        public static string RemoveActivityButton {
             get {
                 return ResourceManager.GetString("RemoveActivityButton", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Result ähnelt.
         /// </summary>
-        internal static string Result {
+        public static string Result {
             get {
                 return ResourceManager.GetString("Result", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Connection failed! ähnelt.
         /// </summary>
-        internal static string ScanningPopUpAlertCouldntConnect {
+        public static string ScanningPopUpAlertCouldntConnect {
             get {
                 return ResourceManager.GetString("ScanningPopUpAlertCouldntConnect", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die No device connected! ähnelt.
         /// </summary>
-        internal static string ScanningPopUpAlertLabel {
+        public static string ScanningPopUpAlertLabel {
             get {
                 return ResourceManager.GetString("ScanningPopUpAlertLabel", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
         /// </summary>
-        internal static string ScanningPopUpCancelButton {
+        public static string ScanningPopUpCancelButton {
             get {
                 return ResourceManager.GetString("ScanningPopUpCancelButton", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Connect ähnelt.
         /// </summary>
-        internal static string ScanningPopUpConnectButton {
+        public static string ScanningPopUpConnectButton {
             get {
                 return ResourceManager.GetString("ScanningPopUpConnectButton", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Location denied! ähnelt.
         /// </summary>
-        internal static string ScanningPopUpLocationDenied {
+        public static string ScanningPopUpLocationDenied {
             get {
                 return ResourceManager.GetString("ScanningPopUpLocationDenied", resourceCulture);
             }
@@ -495,7 +495,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Location permission is needed! ähnelt.
         /// </summary>
-        internal static string ScanningPopUpPermissionLocationNeeded {
+        public static string ScanningPopUpPermissionLocationNeeded {
             get {
                 return ResourceManager.GetString("ScanningPopUpPermissionLocationNeeded", resourceCulture);
             }
@@ -504,7 +504,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Scan Devices ähnelt.
         /// </summary>
-        internal static string ScanningPopUpScanDevicesButton {
+        public static string ScanningPopUpScanDevicesButton {
             get {
                 return ResourceManager.GetString("ScanningPopUpScanDevicesButton", resourceCulture);
             }
@@ -513,7 +513,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Bluetooth is not active! ähnelt.
         /// </summary>
-        internal static string ScanningPopUpTurnBluetoothOn {
+        public static string ScanningPopUpTurnBluetoothOn {
             get {
                 return ResourceManager.GetString("ScanningPopUpTurnBluetoothOn", resourceCulture);
             }
@@ -522,7 +522,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Seconds ähnelt.
         /// </summary>
-        internal static string Seconds {
+        public static string Seconds {
             get {
                 return ResourceManager.GetString("Seconds", resourceCulture);
             }
@@ -531,7 +531,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Select an Activity: ähnelt.
         /// </summary>
-        internal static string SelectAnActivity {
+        public static string SelectAnActivity {
             get {
                 return ResourceManager.GetString("SelectAnActivity", resourceCulture);
             }
@@ -540,7 +540,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Language ähnelt.
         /// </summary>
-        internal static string SettingsPageLanguage {
+        public static string SettingsPageLanguage {
             get {
                 return ResourceManager.GetString("SettingsPageLanguage", resourceCulture);
             }
@@ -549,7 +549,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Samplingrate (Hz) ähnelt.
         /// </summary>
-        internal static string SettingsPageSamplingrate {
+        public static string SettingsPageSamplingrate {
             get {
                 return ResourceManager.GetString("SettingsPageSamplingrate", resourceCulture);
             }
@@ -558,7 +558,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Save ähnelt.
         /// </summary>
-        internal static string SettingsPageSave {
+        public static string SettingsPageSave {
             get {
                 return ResourceManager.GetString("SettingsPageSave", resourceCulture);
             }
@@ -567,7 +567,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Saved! ähnelt.
         /// </summary>
-        internal static string SettingsPageSavingDone {
+        public static string SettingsPageSavingDone {
             get {
                 return ResourceManager.GetString("SettingsPageSavingDone", resourceCulture);
             }
@@ -576,7 +576,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Steplength (cm) ähnelt.
         /// </summary>
-        internal static string SettingsPageSteplength {
+        public static string SettingsPageSteplength {
             get {
                 return ResourceManager.GetString("SettingsPageSteplength", resourceCulture);
             }
@@ -585,7 +585,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Username ähnelt.
         /// </summary>
-        internal static string SettingsPageUsername {
+        public static string SettingsPageUsername {
             get {
                 return ResourceManager.GetString("SettingsPageUsername", resourceCulture);
             }
@@ -594,7 +594,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Saving failed! Please check your inputs ähnelt.
         /// </summary>
-        internal static string SettingsPageWrongInput {
+        public static string SettingsPageWrongInput {
             get {
                 return ResourceManager.GetString("SettingsPageWrongInput", resourceCulture);
             }
@@ -603,7 +603,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Settings ähnelt.
         /// </summary>
-        internal static string SettingsTitle {
+        public static string SettingsTitle {
             get {
                 return ResourceManager.GetString("SettingsTitle", resourceCulture);
             }
@@ -612,7 +612,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Sit-ups ähnelt.
         /// </summary>
-        internal static string Sit_ups {
+        public static string Sit_ups {
             get {
                 return ResourceManager.GetString("Sit-ups", resourceCulture);
             }
@@ -621,7 +621,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die SitUps ähnelt.
         /// </summary>
-        internal static string SitUps {
+        public static string SitUps {
             get {
                 return ResourceManager.GetString("SitUps", resourceCulture);
             }
@@ -630,7 +630,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Start CountMode ähnelt.
         /// </summary>
-        internal static string StartCountModeButton {
+        public static string StartCountModeButton {
             get {
                 return ResourceManager.GetString("StartCountModeButton", resourceCulture);
             }
@@ -639,7 +639,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Start Workout ähnelt.
         /// </summary>
-        internal static string StartWorkoutButton {
+        public static string StartWorkoutButton {
             get {
                 return ResourceManager.GetString("StartWorkoutButton", resourceCulture);
             }
@@ -648,7 +648,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Distance Walked Last Time ähnelt.
         /// </summary>
-        internal static string StepModeLastDistanceLabel {
+        public static string StepModeLastDistanceLabel {
             get {
                 return ResourceManager.GetString("StepModeLastDistanceLabel", resourceCulture);
             }
@@ -657,7 +657,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Steps Taken Last Time ähnelt.
         /// </summary>
-        internal static string StepModeLastStepsLabel {
+        public static string StepModeLastStepsLabel {
             get {
                 return ResourceManager.GetString("StepModeLastStepsLabel", resourceCulture);
             }
@@ -666,7 +666,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die StepMode ähnelt.
         /// </summary>
-        internal static string StepModeNameLabel {
+        public static string StepModeNameLabel {
             get {
                 return ResourceManager.GetString("StepModeNameLabel", resourceCulture);
             }
@@ -675,7 +675,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Start Stepmode ähnelt.
         /// </summary>
-        internal static string StepModeStartButton {
+        public static string StepModeStartButton {
             get {
                 return ResourceManager.GetString("StepModeStartButton", resourceCulture);
             }
@@ -684,7 +684,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Training Started On/At ähnelt.
         /// </summary>
-        internal static string StepModeStartDataTime {
+        public static string StepModeStartDataTime {
             get {
                 return ResourceManager.GetString("StepModeStartDataTime", resourceCulture);
             }
@@ -693,7 +693,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Stop Stepmode ähnelt.
         /// </summary>
-        internal static string StepModeStopButton {
+        public static string StepModeStopButton {
             get {
                 return ResourceManager.GetString("StepModeStopButton", resourceCulture);
             }
@@ -702,7 +702,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Last Trainings Date ähnelt.
         /// </summary>
-        internal static string StepModeTrainingsDateLabel {
+        public static string StepModeTrainingsDateLabel {
             get {
                 return ResourceManager.GetString("StepModeTrainingsDateLabel", resourceCulture);
             }
@@ -711,7 +711,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Frequency in Steps per Minute ähnelt.
         /// </summary>
-        internal static string StepModeUnbindedFrequencyLabel {
+        public static string StepModeUnbindedFrequencyLabel {
             get {
                 return ResourceManager.GetString("StepModeUnbindedFrequencyLabel", resourceCulture);
             }
@@ -720,7 +720,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Current Status ähnelt.
         /// </summary>
-        internal static string StepModeUnbindedStatusLabel {
+        public static string StepModeUnbindedStatusLabel {
             get {
                 return ResourceManager.GetString("StepModeUnbindedStatusLabel", resourceCulture);
             }
@@ -729,7 +729,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Steps Taken During This Session  ähnelt.
         /// </summary>
-        internal static string StepModeUnbindedStepsDoneLabel {
+        public static string StepModeUnbindedStepsDoneLabel {
             get {
                 return ResourceManager.GetString("StepModeUnbindedStepsDoneLabel", resourceCulture);
             }
@@ -738,7 +738,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Steps ähnelt.
         /// </summary>
-        internal static string Steps {
+        public static string Steps {
             get {
                 return ResourceManager.GetString("Steps", resourceCulture);
             }
@@ -747,7 +747,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Stop CountMode ähnelt.
         /// </summary>
-        internal static string StopCountModeButton {
+        public static string StopCountModeButton {
             get {
                 return ResourceManager.GetString("StopCountModeButton", resourceCulture);
             }
@@ -756,16 +756,25 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Stop Workout ähnelt.
         /// </summary>
-        internal static string StopWorkoutButton {
+        public static string StopWorkoutButton {
             get {
                 return ResourceManager.GetString("StopWorkoutButton", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.IO.UnmanagedMemoryStream ähnlich wie System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream ukulele_low {
+            get {
+                return ResourceManager.GetStream("ukulele_low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Workout Plan ähnelt.
         /// </summary>
-        internal static string WorkoutPlanLabel {
+        public static string WorkoutPlanLabel {
             get {
                 return ResourceManager.GetString("WorkoutPlanLabel", resourceCulture);
             }
@@ -774,7 +783,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die You have done ähnelt.
         /// </summary>
-        internal static string YouHaveDone {
+        public static string YouHaveDone {
             get {
                 return ResourceManager.GetString("YouHaveDone", resourceCulture);
             }
@@ -783,7 +792,7 @@ namespace EarablesKIT.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die You have taken ähnelt.
         /// </summary>
-        internal static string YouHaveTaken {
+        public static string YouHaveTaken {
             get {
                 return ResourceManager.GetString("YouHaveTaken", resourceCulture);
             }
