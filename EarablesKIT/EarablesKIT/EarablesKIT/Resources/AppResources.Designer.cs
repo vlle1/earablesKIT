@@ -349,7 +349,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
+        ///   Looks up a localized string similar to You are standing.
         /// </summary>
         internal static string MusicModeCurrentStatusLabelStanding {
             get {
@@ -358,7 +358,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die You are walking ähnelt.
+        ///   Looks up a localized string similar to You are walking.
         /// </summary>
         internal static string MusicModeCurrentStatusLabelWalking {
             get {
@@ -367,7 +367,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die MusicMode ähnelt.
+        ///   Looks up a localized string similar to MusicMode.
         /// </summary>
         internal static string MusicModeEntryLabel {
             get {
