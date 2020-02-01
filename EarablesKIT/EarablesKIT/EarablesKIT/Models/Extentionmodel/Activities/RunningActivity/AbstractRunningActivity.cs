@@ -12,7 +12,7 @@
         /// <summary>
         /// this method is called when a change of the running state was detected. It automatically applies the change to _runningState and notifies the triggers the Event.
         /// </summary>
-        protected void changeDetected()
+        protected void ChangeDetected()
         {
             _runningState = !_runningState;
             ActivityDone.Invoke(this, new RunningEventArgs(_runningState));

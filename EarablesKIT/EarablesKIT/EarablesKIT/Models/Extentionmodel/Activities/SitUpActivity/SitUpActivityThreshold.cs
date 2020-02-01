@@ -3,6 +3,7 @@ using EarablesKIT.Models.Library;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
 {
+    ///<inheritdoc/>
     class SitUpActivityThreshold : AbstractSitUpActivity
     {
         //the number of states of the implemented state machine
@@ -24,16 +25,20 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
         //2 represents being upright
         //3 represents going down,
         private int _state;
+
         public SitUpActivityThreshold()
         {
 
         }
+
+        ///<inheritdoc/>
         override protected void Activate()
         {
             _state = 0;
             base.Activate();
         }
 
+        ///<inheritdoc/>
         override protected void Analyse(DataEventArgs data)
         {
             //to avoid using reflections or other stuff to dynamically get right value from sensor data, copy data to an array structure.
