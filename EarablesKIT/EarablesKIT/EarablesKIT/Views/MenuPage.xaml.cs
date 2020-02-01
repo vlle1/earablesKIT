@@ -18,7 +18,7 @@ namespace EarablesKIT.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem { Id = MenuItemType.StepMode, Title = "Step Mode" },
+                new HomeMenuItem { Id = MenuItemType.StepMode, Title = Application.Current.Resources["SitUps"].ToString()},
                 new HomeMenuItem { Id = MenuItemType.CountMode, Title = "Count Mode" },
                 new HomeMenuItem { Id = MenuItemType.ListenAndPerform, Title = "Listen and Perform" },
                 new HomeMenuItem { Id = MenuItemType.MusicMode, Title = "Music Mode" },
