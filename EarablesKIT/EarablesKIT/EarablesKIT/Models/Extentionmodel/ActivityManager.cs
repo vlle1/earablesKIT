@@ -15,11 +15,13 @@ namespace EarablesKIT.Models.Extentionmodel
         private ServiceProvider _activityProvider;
 
         /// <summary>
-        /// This list contains all active Activities (Activities can register themselves by putting them into this list)
+        /// This list contains all Activities that should recieve new Data, e.g. all activities.
         /// </summary>
         public List<Activity> Activities = new List<Activity>();
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// The activityProvider is the ServiceProvider for the Activities.
+        /// </summary>
         public ServiceProvider ActitvityProvider
         {
             get => _activityProvider;
@@ -36,7 +38,7 @@ namespace EarablesKIT.Models.Extentionmodel
         }
 
         /// <summary>
-        /// Constructor for class Activitymanager. Registers all EventHandler
+        /// Constructor for class Activitymanager. Registers all EventHandlers.
         /// </summary>
         public ActivityManager()
         {

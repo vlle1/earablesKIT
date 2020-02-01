@@ -5,7 +5,7 @@ namespace EarablesKIT.Models.Extentionmodel
 {
     /// <summary>
     /// ActivityManager is a ServiceManager that manages the Activities. It also pushes the sensor
-    /// data from the library to all activities in Activities.
+    /// data from the library to the activities.
     /// </summary>
     internal interface IActivityManager : IManager
     {

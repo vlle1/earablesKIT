@@ -15,8 +15,8 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         protected int _frequency = 50;
         
         /// <summary>
-        /// _isActive is set to false when the algorithm is not keeping the queue up to date. Like this,
-        /// the Queue and other things can be reset when the algorithm is starting to work again.
+        /// _isActive is set to false when the algorithm is not actively processing data.
+        /// It is used to determine when the Activity has to get reset.
         /// </summary>
         private bool _isActive = false;
         /// <summary>
@@ -40,13 +40,15 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
                 if (!_isActive) Activate();
                 _frequency = data.Configs.Samplerate;
                 Analyse(data);
-            }
-
+            }   
         }
-
+        /// <summary>
+        /// Analyse is used to perform the actual algorithm for the new data value.
+        /// </summary>
+        /// <param name="data"></param>
         protected abstract void Analyse(DataEventArgs data);
         /// <summary>
-        /// Whenever the Algorithm is started, it needs to reset all its old values.
+        /// Whenever the algorithm is started, it needs to reset all its old values.
         /// </summary>
         protected virtual void Activate()
         {
