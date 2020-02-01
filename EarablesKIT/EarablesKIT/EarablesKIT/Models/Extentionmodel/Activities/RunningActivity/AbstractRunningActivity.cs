@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
+﻿namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
 {
     /// <summary>
     /// This activity detects changes of the running state of the user.
@@ -16,7 +12,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         /// <summary>
         /// this method is called when a change of the running state was detected. It automatically applies the change to _runningState and notifies the triggers the Event.
         /// </summary>
-        protected void changeDetected()
+        protected void ChangeDetected()
         {
             _runningState = !_runningState;
             ActivityDone.Invoke(this, new RunningEventArgs(_runningState));

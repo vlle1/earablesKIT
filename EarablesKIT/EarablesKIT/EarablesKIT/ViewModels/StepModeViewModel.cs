@@ -4,7 +4,8 @@ using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
-using EarablesKIT.Models.Library;
+using EarablesKIT.Models.Library;
+
 using EarablesKIT.Models.SettingsService;
 using EarablesKIT.Resources;
 using System;
@@ -12,7 +13,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -26,6 +26,11 @@ namespace EarablesKIT.ViewModels
 		/// Timer that is needed for calculating the step frequency, not binded to the view.
 		/// </summary>
 		private Stopwatch _timer;
+
+		/// <summary>
+		/// Step Delta for calculating the Step Frequency.
+		/// </summary>
+		private int StepDelta;
 
 		/// <summary>
 		/// The stepActivity from the ActivityProvider.
@@ -167,8 +172,7 @@ namespace EarablesKIT.ViewModels
 		{
 			get
 			{
-				return $"You are " +
-					   $"{(IsRunning ? "Walking!!" : "Standing")} ";
+				return AppResources.YouAre + " " + (IsRunning ? AppResources.Walking : AppResources.Standing);
 			}
 		}
 
@@ -186,7 +190,7 @@ namespace EarablesKIT.ViewModels
 			StepFrequency = 0.0;
 			DistanceWalked = 0;
 			LastDataTime = "01.01.2000"; 
-			CurrentDate = DateTime.Now.ToString(); // //Test
+			CurrentDate = DateTime.Now.ToString(); 
 			UpdateLastData();
 			IsRunning = false;
 			_timer = new Stopwatch();
@@ -203,6 +207,7 @@ namespace EarablesKIT.ViewModels
 			{
 				StepCounter = 0;
 				StepFrequency = 0;
+				StepDelta = 0;
 				_stepActivity.ActivityDone += OnActivityDone;
 				_runningActivity.ActivityDone += OnRunningDone;
 				CurrentDate = DateTime.Now.ToString();
@@ -221,8 +226,9 @@ namespace EarablesKIT.ViewModels
 			_timer.Start();
 			Device.StartTimer(TimeSpan.FromSeconds(3.0), () =>
 			{
-				double totalTime = _timer.Elapsed.Seconds;
-				StepFrequency = Math.Round(60 * StepCounter / totalTime, 2);
+				double stepsInLastThreeSeconds = StepCounter - StepDelta;
+				StepFrequency = Math.Round(60 * stepsInLastThreeSeconds/3, 2);
+				StepDelta = StepCounter;
 				return true;
 			});
 		}
@@ -277,7 +283,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + AppResources.Done, AppResources.Cool);
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + " " + AppResources.Done, AppResources.Cool);
 		}
 
 		/// <summary>
@@ -289,7 +295,7 @@ namespace EarablesKIT.ViewModels
 			if (Entries.Count >= 1)
 			{
 				DBEntry entry = Entries[0];
-				LastDataTime = entry.Date.ToString();
+				LastDataTime = entry.Date.ToString("dd.MM.yyyy");
 				StepsDoneLastTime = entry.TrainingsData["Steps"];
 				ISettingsService setser = (ISettingsService)ServiceManager.ServiceProvider.GetService(typeof(ISettingsService));
 				int dwlt = StepsDoneLastTime * setser.ActiveUser.Steplength / 100;

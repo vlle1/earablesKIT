@@ -1,10 +1,14 @@
 ﻿using EarablesKIT.Models.Library;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
 {
+    /// <summary>
+    /// StepActivityThreshold estimates where the ground is and determines a Accelerometer Value a step if:
+    /// - the value is higher than a certain threshold
+    /// - the value is occuring a significant time after the last step (after cooldown)
+    /// - the angle between current acceleration and estimated ground is small
+    /// </summary>
     class StepActivityThreshold : AbstractStepActivity
     {
         //the weight of the old average acceleration value when calculating the new one (weight of single new value is always 1)
@@ -20,18 +24,22 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
         //the remaining time in seconds that no step should be detected (e.g. after detected step)
         private double cooldown = 0;
 
-        //average values for the acceleration. Initialisation estimates default (upright) position of sensor
-        private double _avgAccAbsolute = 1;
-        
-        
+        //average values for the acceleration. Initialisation estimates default (upright) position of sensor. Every attribute corresponds to a different axis.
         private double _avgAccX = -1;
         private double _avgAccY = 0;
         private double _avgAccZ = 0;
+
+        //this value is the length of the vector of the estimated average acceleration
+        private double _avgAccAbsolute = 1;
+        
+        
 
         public StepActivityThreshold()
         {
             
         }
+
+        ///<inheritdoc/>
         protected override void Analyse(DataEventArgs data)
         {
             IMUDataEntry _newValue = data.Data;
@@ -65,12 +73,14 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
 
             if (cooldown > 0) cooldown -= 1.0 / _frequency;
         }
+
+        ///<inheritdoc/>
         override protected void Activate()
         {
             base.Activate();
 
             cooldown = 0;
-            //average values for the acceleration. Initialisation estimates default (upright) position of sensor
+            //Initialisation / reset of average acceleration.
             _avgAccAbsolute = 1;
             _avgAccX = -1;
             _avgAccY = 0;

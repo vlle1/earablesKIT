@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Extentionmodel.Activities
+﻿namespace EarablesKIT.Models.Extentionmodel.Activities
 {
+    /// <inheritdoc/>
     interface CountableActivityArgs : ActivityArgs
     {
     }

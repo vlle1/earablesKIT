@@ -1,5 +1,4 @@
 ﻿using EarablesKIT.Models.DatabaseService;
-using Plugin.FilePicker;
 using System;
 using System.Collections.Generic;
 using Xunit;

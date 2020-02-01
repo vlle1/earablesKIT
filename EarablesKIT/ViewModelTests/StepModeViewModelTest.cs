@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EarablesKIT.ViewModels;
-using Xunit;
+﻿using Xunit;
 
 namespace ViewModelTests
 {

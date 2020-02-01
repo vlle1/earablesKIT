@@ -21,7 +21,7 @@
                    HorizontalTextAlignment="Center"
                    TextColor="White"
                    BackgroundColor="CornflowerBlue"/>
-                <Label Text="{Binding LastDataTime}"
+                <Label Text="{Binding LastDataTime, StringFormat='{0:dd.MM.yyyy}'}"
                    Padding="10"
                    FontSize="Title"
                    HorizontalTextAlignment="Center"

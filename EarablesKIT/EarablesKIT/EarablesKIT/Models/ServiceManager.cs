@@ -7,14 +7,16 @@ using Microsoft.Extensions.DependencyInjection;
 namespace EarablesKIT.Models
 {
     /// <summary>
-    /// Class ServiceManager contains the different Servii and provides them to other components like the viewmodel
+    /// Class ServiceManager contains the different Servii and provides them to other components
+    /// like the viewmodel
     /// </summary>
-    class ServiceManager : IManager
+    internal class ServiceManager : IManager
     {
         private static ServiceProvider _serviceProvider;
 
         /// <summary>
-        /// Property ServiceProvider is a static property which handles the singleton instance and initializes it.
+        /// Property ServiceProvider is a static property which handles the singleton instance and
+        /// initializes it.
         /// </summary>
         public static ServiceProvider ServiceProvider => _serviceProvider ?? (_serviceProvider = ServiceRegistration().BuildServiceProvider());
 
@@ -31,5 +33,4 @@ namespace EarablesKIT.Models
             return collection;
         }
     }
-
 }

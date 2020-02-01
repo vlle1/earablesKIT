@@ -239,7 +239,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + SelectedActivity.Counter + " " + SelectedActivity.Name + "!", AppResources.Cool);
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + SelectedActivity.Counter + " " + SelectedActivity.Name + " " + AppResources.Done + "!", AppResources.Cool);
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

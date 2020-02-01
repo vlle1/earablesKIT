@@ -1,25 +1,19 @@
-﻿using EarablesKIT.Models.Extentionmodel;
-using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
+﻿using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
 {
     /// <summary>
     /// This Activity just checks if a step can be detected to tell the user is walking
-    /// The user is considered not running after a timeout
+    /// The user is considered not running after a timeout.
     /// </summary>
     public class RunningActivityThreshold : AbstractRunningActivity
     {
         //after this time has passed while no step was detected the user is considered standing.
         private const double TIMEOUT_LENGTH = 1.1;
-
+        //this counter counts the seconds that no step is performed while in walking state.
         private double _timeout_counter;
-
+        //this is the StepActivity used for detecting steps.
         private AbstractStepActivity _subDetection;
 
 
@@ -27,7 +21,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         {
 
         }
-
+        ///<inheritdoc/>
         override protected void Activate()
         {
             //the subdetection algorithm can only be registered now, because IActivityManager has to already be initialized
@@ -45,12 +39,11 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         {
             _timeout_counter = TIMEOUT_LENGTH;
             //if not running (walking) so far, now 
-            if (!_runningState) changeDetected();
+            if (!_runningState) ChangeDetected();
         }
 
-        /// <summary>
-        /// See class description.
-        /// </summary>
+
+        ///<inheritdoc/>
         protected override void Analyse(DataEventArgs data)
         {
 
@@ -66,7 +59,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
                 if (_timeout_counter <= 0)
                 {
                     //no longer running.
-                    this.changeDetected();
+                    this.ChangeDetected();
                 }
                 else _timeout_counter -= 1.0 / _frequency;
             }

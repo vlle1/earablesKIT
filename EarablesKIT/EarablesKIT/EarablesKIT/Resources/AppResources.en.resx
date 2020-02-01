@@ -226,7 +226,7 @@
     <value>Settings</value>
   </data>
   <data name="StepModeLastDistanceLabel" xml:space="preserve">
-    <value>Distance Walked Last Time</value>
+    <value>Distance Walked Last Time (m)</value>
   </data>
   <data name="StepModeLastStepsLabel" xml:space="preserve">
     <value>Steps Taken Last Time</value>
@@ -358,5 +358,23 @@
     <value>You are walking</value>
   <data name="YouHaveTaken" xml:space="preserve">
     <value>You have taken</value>
+  </data>
+  <data name="SettingsServiceDefaultUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Standing" xml:space="preserve">
+    <value>Standing</value>
+  </data>
+  <data name="Walking" xml:space="preserve">
+    <value>Walking!!!</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>You are</value>
+  </data>
+  <data name="TrainingDone" xml:space="preserve">
+    <value>Training complete</value>
+  </data>
+  <data name="ImportExportSaveDisplayTitle" xml:space="preserve">
+    <value>Sharing dialog</value>
   </data>
 </root>
