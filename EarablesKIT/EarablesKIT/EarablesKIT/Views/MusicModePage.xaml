@@ -15,18 +15,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 
-                <Button Text="{Binding StartStopLabel}"
-                        Command="{Binding ToggleMusicMode}"
-                        HorizontalOptions="CenterAndExpand"
-                        VerticalOptions="Center"
-                        Grid.Row="0"/>
                 <Label Text="{Binding CurrentStatusLabel}"
                        FontSize="Large"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Center"
-                       Grid.Row="1"/>
+                       Grid.Row="0"/>
+                <Image Source="walking.gif" IsAnimationPlaying="{Binding IsRunning, Mode=TwoWay}"
+                       Grid.Row="1"
+                       VerticalOptions="CenterAndExpand"/>
+                <Button Text="{Binding StartStopLabel}"
+                        Command="{Binding ToggleMusicMode}"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="Center"
+                        Grid.Row="2"/>
             </Grid>
             
         </StackLayout>

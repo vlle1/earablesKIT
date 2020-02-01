@@ -363,9 +363,6 @@
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ukulele_low" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ukulele_low.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-   </data>
-  <data name="YouHaveTaken" xml:space="preserve">
-    <value>You have taken</value>
   </data>
   <data name="SettingsServiceDefaultUser" xml:space="preserve">
     <value>User</value>

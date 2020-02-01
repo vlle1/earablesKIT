@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -82,26 +83,44 @@ namespace EarablesKIT.ViewModels
             //Debug.Assert(ret != null);
             try
             {
-                await CrossMediaManager.Current.PlayFromResource("ukulele.mp3");
+                await CrossMediaManager.Current.Play(_path);
+                await CrossMediaManager.Current.Pause();
             } catch (Exception e)
             {
                 Debug.WriteLine(e.StackTrace);
             }
-            //await CrossMediaManager.Current.Pause();
         }
 
         private IActivityManager _activityManager;
         private AbstractRunningActivity _runningActivity { get; set; }
+        private string _path { get; set; }
 
         public MusicModeViewModel()
         {
             _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
             _runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 
-            //var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "music/intro.mp3");
-            //File.WriteAllBytes(AppResources.ukulele_low);
-
-
+            _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
+            Directory.CreateDirectory(Path.GetDirectoryName(_path));
+            //File.Create(_path);
+            using (BinaryWriter writer = new BinaryWriter(File.Open(_path, FileMode.Create)))
+            {
+                using (var input = new BinaryReader(AppResources.ukulele_low))
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var b = input.ReadByte();
+                            writer.Write(b);
+                        }
+                        catch
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
 
             InitMusic();
         }
