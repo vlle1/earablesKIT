@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Extentionmodel.Activities
+﻿namespace EarablesKIT.Models.Extentionmodel.Activities
 {
+    /// <summary>
+    /// The arguments passed when throwing an Event via ActivityDone.
+    /// </summary>
     public interface ActivityArgs
     {
     }

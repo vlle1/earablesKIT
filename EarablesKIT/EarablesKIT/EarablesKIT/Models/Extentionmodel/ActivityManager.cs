@@ -5,26 +5,28 @@ using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel
 {
     /// <inheritdoc/>
-    class ActivityManager : IActivityManager
+    internal class ActivityManager : IActivityManager
     {
         private ServiceProvider _activityProvider;
+
         /// <summary>
-        /// This list contains all active Activities (Activities can register themselves by putting them into this list)
+        /// This list contains all Activities that should recieve new Data, e.g. all activities.
         /// </summary>
         public List<Activity> Activities = new List<Activity>();
 
-        /// <inheritdoc/>
-        public ServiceProvider ActitvityProvider {
-            get => _activityProvider; 
-            set => _activityProvider = value; }
+        /// <summary>
+        /// The activityProvider is the ServiceProvider for the Activities.
+        /// </summary>
+        public ServiceProvider ActitvityProvider
+        {
+            get => _activityProvider;
+            set => _activityProvider = value;
+        }
 
         /// <inheritdoc/>
         public void OnIMUDataReceived(object sender, DataEventArgs args)
@@ -34,13 +36,15 @@ namespace EarablesKIT.Models.Extentionmodel
                 activity.DataUpdate(args);
             }
         }
+
+        /// <summary>
+        /// Constructor for class Activitymanager. Registers all EventHandlers.
+        /// </summary>
         public ActivityManager()
         {
-
-           
             _activityProvider = ServiceRegistration().BuildServiceProvider();
 
-            IEarablesConnection connection = (IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof (IEarablesConnection));
+            IEarablesConnection connection = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             //register at Library
             connection.IMUDataReceived += OnIMUDataReceived;
             Activities.Add(((Activity)_activityProvider.GetService(typeof(AbstractStepActivity))));
@@ -48,6 +52,7 @@ namespace EarablesKIT.Models.Extentionmodel
             Activities.Add(((Activity)_activityProvider.GetService(typeof(AbstractPushUpActivity))));
             Activities.Add(((Activity)_activityProvider.GetService(typeof(AbstractRunningActivity))));
         }
+
         /// <summary>
         /// Method initializing the serviceCollection elements used in constructor.
         /// </summary>

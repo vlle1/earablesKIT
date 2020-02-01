@@ -1,8 +1,5 @@
 ﻿using EarablesKIT.Models.Library;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
 {
@@ -31,6 +28,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
         //the current value of the cooldown (while cooldown is active state cannot change)
         private double _cooldown;
 
+        ///<inheritdoc/>
         protected override void Analyse(DataEventArgs data)
         {
 
@@ -57,6 +55,14 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
             {
                 _cooldown -= (1.0 / _frequency);
             }
+        }
+
+        ///<inheritdoc/>
+        protected override void Activate()
+        {
+            base.Activate();
+            _cooldown = 0;
+            _state = 0;
         }
     }
 }

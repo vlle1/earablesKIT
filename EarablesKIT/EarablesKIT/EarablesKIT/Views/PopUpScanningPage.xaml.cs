@@ -4,8 +4,6 @@ using Plugin.BLE.Abstractions.Contracts;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.ComponentModel;
-using System.Windows.Input;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
@@ -16,7 +14,6 @@ namespace EarablesKIT.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopUpScanningPage : PopupPage
     {
-
         private ScanningPopUpViewModel _viewModel;
 
         /// <summary>
@@ -30,6 +27,11 @@ namespace EarablesKIT.Views
             _viewModel.PropertyChanged += UpdateList;
         }
 
+        /// <summary>
+        /// Method UpdateList updates the devices list in ScanningPopUpPage
+        /// </summary>
+        /// <param name="sender">Sender of the event</param>
+        /// <param name="eventArgs">Arguments of the event</param>
         public void UpdateList(object sender, PropertyChangedEventArgs eventArgs)
         {
             if (_viewModel.DevicesList.Count != 0)
@@ -54,7 +56,7 @@ namespace EarablesKIT.Views
             catch (Exception)
             {
                 AlertLabel.Text = AppResources.Error + ": " + AppResources.ScanningPopUpAlertCouldntConnect;
-                
+
                 ConnectButton.IsEnabled = true;
             }
         }

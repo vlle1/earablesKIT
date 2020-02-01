@@ -1,7 +1,4 @@
 ﻿using EarablesKIT.Models.Extentionmodel.Activities;
-using System;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {

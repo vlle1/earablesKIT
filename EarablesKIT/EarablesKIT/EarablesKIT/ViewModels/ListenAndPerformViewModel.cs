@@ -7,12 +7,10 @@ using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Resources;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Timers;
@@ -231,11 +229,11 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Increases the active activities' counter by 1 whenever an event is thrown. Updates the progress 
 		/// and checks for the next activity in the ActivityList if the user has done the required amount
-		/// of repetitions. Stops the timer when all activities are done.
+		/// of repetitions. Stops the timer when all activities are done and notifies the user via Text-to-Speech.
 		/// </summary>
 		/// <param name="sender">The sender of the event</param>
 		/// <param name="args">Ignored</param>
-		public override void OnActivityDone(object sender, ActivityArgs args)
+		public async override void OnActivityDone(object sender, ActivityArgs args)
 		{
 			ActiveActivity.Counter++;
 			ProgressLive = Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
@@ -250,7 +248,7 @@ namespace EarablesKIT.ViewModels
 				else
 				{
 					_timer.Stop();
-
+					await TextToSpeech.SpeakAsync(AppResources.TrainingDone);
 				}
 			}
 		}
@@ -258,11 +256,11 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Decreases the pause counter of the "pause activity" by 1 every time a time event is thrown. Updates
 		/// the progress and checks for the next activity in the ActivityList if the pause timer equals 0. 
-		/// Stops the timer when all activities are done.
+		/// Stops the timer when all activities are done and notifies the user via Text-to-Speech.
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="e"></param>
-		private void OnTimedEvent(object source, ElapsedEventArgs e)
+		private async void OnTimedEvent(object source, ElapsedEventArgs e)
 		{
 			ActiveActivity.Counter--;
 			ProgressLive = 1 - Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
@@ -277,7 +275,7 @@ namespace EarablesKIT.ViewModels
 				else
 				{
 					_timer.Stop();
-
+					await TextToSpeech.SpeakAsync(AppResources.TrainingDone);
 				}
 			}
 		}
@@ -386,9 +384,9 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + _pushUpResult + " "
-				+ AppResources.Push_ups + " " + AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups + " "
-				+ AppResources.Done + "!", AppResources.Cool);
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + _pushUpResult 
+				+ " " + AppResources.Push_ups + " " + AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups 
+				+ " " + AppResources.Done + "!", AppResources.Cool);
 		}
 
 		/// <summary>

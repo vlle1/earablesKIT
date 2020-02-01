@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using EarablesKIT;
-using Xamarin.Forms;
-using Xunit;
-using EarablesKIT.Models.SettingsService;
+﻿using Xunit;
 
 namespace ViewModelTests.Models.SettingsService
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using Xunit;
+﻿using Xunit;
 using EarablesKIT.Models.SettingsService;
 
 namespace ViewModelTests.Models.SettingsService
