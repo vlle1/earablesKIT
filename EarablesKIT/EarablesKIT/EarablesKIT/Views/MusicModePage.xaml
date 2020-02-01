@@ -23,7 +23,7 @@
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Center"
                        Grid.Row="0"/>
-                <Image Source="walking.gif" IsAnimationPlaying="{Binding IsRunning, Mode=TwoWay}"
+                <Image Source="walking.gif" IsAnimationPlaying="{Binding IsRunning}"
                        Grid.Row="1"
                        VerticalOptions="CenterAndExpand"/>
                 <Button Text="{Binding StartStopLabel}"
@@ -32,7 +32,8 @@
                         VerticalOptions="Center"
                         Grid.Row="2"/>
             </Grid>
-            
+            <Label Text="https://www.deviantart.com/navex-sniper/art/Dancing-Stickman-GIF-472926629"
+                   FontSize="Micro"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

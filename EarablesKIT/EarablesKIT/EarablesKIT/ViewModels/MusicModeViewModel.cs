@@ -42,7 +42,8 @@ namespace EarablesKIT.ViewModels
                 {
                     CrossMediaManager.Current.Pause();
                 }
-                OnPropertyChanged("StartStopLabel");
+                //OnPropertyChanged("StartStopLabel");
+                OnPropertyChanged();
             }
             get => _running;
         }
@@ -61,7 +62,7 @@ namespace EarablesKIT.ViewModels
                     StopActivity();
                 }
                 //CrossMediaManager.Current.PlayPause();
-                //OnPropertyChanged(nameof(StartStopLabel));
+                OnPropertyChanged(nameof(StartStopLabel));
             });
         }
 
@@ -77,10 +78,11 @@ namespace EarablesKIT.ViewModels
         }
 
 
+        /// <summary>
+        /// Loading the music file and pausing the player.
+        /// </summary>
         private async void InitMusic()
         {
-            //var ret = await CrossMediaManager.Current.Play(AppResources.ukulele_low);
-            //Debug.Assert(ret != null);
             try
             {
                 await CrossMediaManager.Current.Play(_path);
@@ -102,7 +104,8 @@ namespace EarablesKIT.ViewModels
 
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
             Directory.CreateDirectory(Path.GetDirectoryName(_path));
-            //File.Create(_path);
+
+            // Copying the resource music file to the MyDocuments Path because the MediaPlayer can't play streams.
             using (BinaryWriter writer = new BinaryWriter(File.Open(_path, FileMode.Create)))
             {
                 using (var input = new BinaryReader(AppResources.ukulele_low))
