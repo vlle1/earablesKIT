@@ -26,8 +26,8 @@ namespace EarablesKIT.Views
         {
 
             //debug:
-            Application.Current.MainPage.DisplayAlert("I did not hit her!", "It's not true! It's bullshit, I did not hit her! I did not!","Oh hi mark!");
-            //todo: call music view model
+            Application.Current.MainPage.DisplayAlert("Info", "Stopping the MusicMode...", "OK");
+            ((MusicModeViewModel)BindingContext).StopActivity();
         }
     }
 }

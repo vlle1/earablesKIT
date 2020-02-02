@@ -157,9 +157,14 @@ namespace EarablesKIT.ViewModels
 
         public override void StopActivity()
         {
+            try
+            {
+                ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StopSampling();
+                runningActivity.ActivityDone -= OnActivityDone;
+            } catch
+            {}
+            _musicModeActive = false;
             IsRunning = false;
-            ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StopSampling();
-            runningActivity.ActivityDone -= OnActivityDone;
         }
 
         protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
