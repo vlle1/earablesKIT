@@ -2,21 +2,13 @@
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
-using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Resources;
 using MediaManager;
-using MediaManager.Library;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -25,6 +17,7 @@ namespace EarablesKIT.ViewModels
     {
         private bool _running = false;
         private bool _musicModeActive = false;
+        private IActivityManager _activityManager;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -81,7 +74,7 @@ namespace EarablesKIT.ViewModels
         /// <summary>
         /// Loading the music file and pausing the player.
         /// </summary>
-        private async void InitMusic()
+        private async void RestartMusic()
         {
             try
             {
@@ -93,14 +86,13 @@ namespace EarablesKIT.ViewModels
             }
         }
 
-        private IActivityManager _activityManager;
-        private AbstractRunningActivity _runningActivity { get; set; }
+        private AbstractRunningActivity runningActivity { get; set; }
         private string _path { get; set; }
 
         public MusicModeViewModel()
         {
             _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-            _runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
+            runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
             Directory.CreateDirectory(Path.GetDirectoryName(_path));
@@ -124,8 +116,6 @@ namespace EarablesKIT.ViewModels
                     }
                 }
             }
-
-            InitMusic();
         }
 
         public override void OnActivityDone(object sender, ActivityArgs args)
@@ -154,8 +144,8 @@ namespace EarablesKIT.ViewModels
              */
             if (CheckConnection())
             {
-                InitMusic();
-                _runningActivity.ActivityDone += OnActivityDone;
+                RestartMusic();
+                runningActivity.ActivityDone += OnActivityDone;
                 ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
                 return true;
             }
@@ -169,7 +159,7 @@ namespace EarablesKIT.ViewModels
         {
             IsRunning = false;
             ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StopSampling();
-            _runningActivity.ActivityDone -= OnActivityDone;
+            runningActivity.ActivityDone -= OnActivityDone;
         }
 
         protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
