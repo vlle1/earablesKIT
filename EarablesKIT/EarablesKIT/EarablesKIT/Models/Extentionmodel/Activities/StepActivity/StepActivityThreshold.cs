@@ -43,10 +43,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
         ///<inheritdoc/>
         protected override void Analyse(DataEventArgs data)
         {
-            if (true)
-            {
-                ActivityDone.Invoke(this, new StepEventArgs());
-            }
+            
             IMUDataEntry _newValue = data.Data;
             //the accelerometer is the only relevant thing
             Accelerometer accV = _newValue.Acc;
