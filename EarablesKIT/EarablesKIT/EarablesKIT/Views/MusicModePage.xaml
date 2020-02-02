@@ -9,8 +9,31 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{x:Static resource:AppResources.MusicModeEntryLabel}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="Title"/>
+            <Grid VerticalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Label Text="{Binding CurrentStatusLabel}"
+                       FontSize="Large"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Center"
+                       Grid.Row="0"/>
+                <Image Source="walking.gif" IsAnimationPlaying="{Binding IsRunning}"
+                       Grid.Row="1"
+                       VerticalOptions="CenterAndExpand"/>
+                <Button Text="{Binding StartStopLabel}"
+                        Command="{Binding ToggleMusicMode}"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="Center"
+                        Grid.Row="2"/>
+            </Grid>
+            <Label Text="https://www.deviantart.com/navex-sniper/art/Dancing-Stickman-GIF-472926629"
+                   FontSize="Micro"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

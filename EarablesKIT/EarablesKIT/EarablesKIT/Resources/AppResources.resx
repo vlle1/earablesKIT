@@ -181,7 +181,7 @@
     <value>Datamanagement</value>
   </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
-    <value>Wonderful MusicModeEntry page!</value>
+    <value>MusicMode</value>
   </data>
   <data name="MusicModeEntryLabel1" xml:space="preserve">
     <value>Wonderful MusicModeEntry page!</value>
@@ -351,8 +351,18 @@
   <data name="YouHaveDone" xml:space="preserve">
     <value>You have done</value>
   </data>
+  <data name="MusicModeCurrentStatusLabelStanding" xml:space="preserve">
+    <value>You are standing</value>
+  </data>
+  <data name="MusicModeCurrentStatusLabelWalking" xml:space="preserve">
+    <value>You are walking</value>
+  </data>
   <data name="YouHaveTaken" xml:space="preserve">
     <value>You have taken</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ukulele_low" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ukulele_low.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="SettingsServiceDefaultUser" xml:space="preserve">
     <value>User</value>
