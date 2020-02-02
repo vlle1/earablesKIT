@@ -11,11 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\walking.gif" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="EarablesBLE" Version="1.0.2" />
+    <PackageReference Include="EarablesBLE" Version="1.0.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Plugin.MediaManager.Forms" Version="0.9.6" />
@@ -45,21 +41,29 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\CountModeActivePage.xaml.cs">
-      <DependentUpon>CountModeActivePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Update="Views\CountModeActivePage.xaml.cs">
+
+      <DependentUpon>CountModeActivePage.xaml</DependentUpon>
+
+    </Compile>
+
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\AppResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Resources\AppResources.resx">
+
+      <Generator>ResXFileCodeGenerator</Generator>
+
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PopUpScanningPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\CountModeActivePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    <EmbeddedResource Update="Views\CountModeActivePage.xaml">
+
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+
     </EmbeddedResource>
     <EmbeddedResource Update="Views\StepModeActivePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
