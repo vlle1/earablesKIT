@@ -45,14 +45,14 @@ namespace EarablesKIT.ViewModels
         {
             get => new Command(() =>
             {
-                _musicModeActive = !_musicModeActive;
                 if (_musicModeActive)
                 {
-                    if (!StartActivity()) _musicModeActive = !_musicModeActive;
+                    StopActivity();
+                    _musicModeActive = false;
                 }
                 else
                 {
-                    StopActivity();
+                    if (StartActivity()) _musicModeActive = true;
                 }
                 //CrossMediaManager.Current.PlayPause();
                 OnPropertyChanged(nameof(StartStopLabel));
@@ -80,7 +80,8 @@ namespace EarablesKIT.ViewModels
             {
                 await CrossMediaManager.Current.Play(_path);
                 await CrossMediaManager.Current.Pause();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e.StackTrace);
             }
@@ -157,14 +158,18 @@ namespace EarablesKIT.ViewModels
 
         public override void StopActivity()
         {
-            try
+            if (_musicModeActive)
             {
-                ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StopSampling();
-                runningActivity.ActivityDone -= OnActivityDone;
-            } catch
-            {}
-            _musicModeActive = false;
-            IsRunning = false;
+                try
+                {
+                    ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StopSampling();
+                    runningActivity.ActivityDone -= OnActivityDone;
+                }
+                catch
+                { }
+                _musicModeActive = false;
+                IsRunning = false;
+            }
         }
 
         protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
