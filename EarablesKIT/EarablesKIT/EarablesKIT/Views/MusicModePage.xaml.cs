@@ -24,8 +24,6 @@ namespace EarablesKIT.Views
         /// </summary>
         public void forceStopOnPageChange()
         {
-
-            //debug:
             Application.Current.MainPage.DisplayAlert("Info", "Stopping the MusicMode...", "OK");
             ((MusicModeViewModel)BindingContext).StopActivity();
         }
