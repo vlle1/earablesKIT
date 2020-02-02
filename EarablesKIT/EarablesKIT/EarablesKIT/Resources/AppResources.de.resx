@@ -181,7 +181,7 @@
     <value>Dateimanagement</value>
   </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
-    <value>Willkommen im Musikmodus!</value>
+    <value>Musik Modus</value>
   </data>
   <data name="ScanningPopUpAlertCouldntConnect" xml:space="preserve">
     <value>Verbindung konnte nicht hergestellt werden!</value>
@@ -350,6 +350,12 @@
   </data>
   <data name="YouHaveDone" xml:space="preserve">
     <value>Du hast</value>
+  </data>
+  <data name="MusicModeCurrentStatusLabelStanding" xml:space="preserve">
+    <value>Du stehst gerade</value>
+  </data>
+  <data name="MusicModeCurrentStatusLabelWalking" xml:space="preserve">
+    <value>Du gehst gerade</value>
   </data>
   <data name="YouHaveTaken" xml:space="preserve">
     <value>Du hast</value>
