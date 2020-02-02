@@ -11,8 +11,9 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
     /// </summary>
     class StepActivityThreshold : AbstractStepActivity
     {
-        //the weight of the old average acceleration value when calculating the new one (weight of single new value is always 1)
-        private const int REF_WEIGHT = 100;
+        //the weight of the old average acceleration value when calculating the new one (weight of single new value is always 1),
+        //relative to the sampling rate (real weight will be sampling rate * REF_WEIGHT_REL)
+        private const int REF_WEIGHT_REL = 2;
         //the threshold to the current acceleration relative to average acceleration to trigger step recognition
         private const double TRIGGER_THRESHOLD = 1.15;
         //the cosinus of the angle that the current acceleration direction is maximally allowed 
@@ -47,10 +48,12 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
             Accelerometer accV = _newValue.Acc;
             double accVAbs = Math.Sqrt(Math.Pow(accV.G_X, 2) + Math.Pow(accV.G_Y, 2) + Math.Pow(accV.G_Z, 2));
             //first update average values
-            _avgAccAbsolute = (accVAbs + REF_WEIGHT * _avgAccAbsolute) / (REF_WEIGHT + 1);
-            _avgAccX = (accV.G_X + REF_WEIGHT * _avgAccX) / (REF_WEIGHT + 1);
-            _avgAccY = (accV.G_Y + REF_WEIGHT * _avgAccY) / (REF_WEIGHT + 1);
-            _avgAccZ = (accV.G_Z + REF_WEIGHT * _avgAccZ) / (REF_WEIGHT + 1);
+            //therefore calculate the weight of the old value
+            int ref_weight = REF_WEIGHT_REL * _frequency;
+            _avgAccAbsolute = (accVAbs + ref_weight * _avgAccAbsolute) / (ref_weight + 1);
+            _avgAccX = (accV.G_X + ref_weight * _avgAccX) / (ref_weight + 1);
+            _avgAccY = (accV.G_Y + ref_weight * _avgAccY) / (ref_weight + 1);
+            _avgAccZ = (accV.G_Z + ref_weight * _avgAccZ) / (ref_weight + 1);
 
             if (accVAbs > TRIGGER_THRESHOLD * _avgAccAbsolute)
             {
