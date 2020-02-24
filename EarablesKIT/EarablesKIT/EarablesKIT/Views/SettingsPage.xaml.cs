@@ -30,6 +30,7 @@ namespace EarablesKIT.Views
             BindingContext = _viewModel = new SettingsViewModel();
             InformationLabel.IsVisible = false;
             SaveButton.IsEnabled = false;
+            Appearing += _viewModel.OnAppearing;
         }
 
 

@@ -1,14 +1,17 @@
 ﻿using EarablesKIT.Models;
 using EarablesKIT.Models.SettingsService;
 using System;
+using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
+using EarablesKIT.Annotations;
 
 namespace EarablesKIT.ViewModels
 {
     /// <summary>
     /// Class SettingsViewModel contains the logic behind the Settingspage. Builds the connection to the <see cref="SettingsService"/>
     /// </summary>
-    internal class SettingsViewModel
+    internal class SettingsViewModel : INotifyPropertyChanged
     {
 
         private User _user;
@@ -100,6 +103,27 @@ namespace EarablesKIT.ViewModels
                 needToSave = true;
             }
             return needToSave;
+        }
+
+        public void OnAppearing(object sender, EventArgs e)
+        {
+            _user = _settingsService.ActiveUser;
+            _samplingrate = _settingsService.SamplingRate;
+            Language = _settingsService.ActiveLanguage;
+            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(_samplingrate));
+            OnPropertyChanged(nameof(Language));
+            OnPropertyChanged(nameof(Steplength));
+
+
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
