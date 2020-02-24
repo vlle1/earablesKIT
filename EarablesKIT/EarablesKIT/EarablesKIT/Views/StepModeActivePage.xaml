@@ -7,13 +7,9 @@
              xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.StepModeActivePage">
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
             <Label Text="{x:Static resource:AppResources.StepModeNameLabel}"
-                   Padding="20"
-                   FontSize="Title"
-                   HorizontalTextAlignment="Center"
-                   TextColor="White"
-                   BackgroundColor="CornflowerBlue"/>
+                   Style="{StaticResource LblTitleStyle}"/>
             <StackLayout Spacing="0">
                 <Label Text="{x:Static resource:AppResources.StepModeStartDataTime}"
                    Padding="20"

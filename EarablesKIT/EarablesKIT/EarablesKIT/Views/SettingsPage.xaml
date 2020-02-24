@@ -7,22 +7,16 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.SettingsPage">
     <ContentPage.Content>
-        <StackLayout Spacing="24"
-                     Padding ="24"
-                     Margin="0,0,0,0"
-                     BackgroundColor="White">
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
 
             <StackLayout>
-                <Label Text="{x:Static Resource:AppResources.SettingsTitle}"
-                       FontSize="Title"
-                       TextColor="White"
-                       HorizontalTextAlignment="Center"
-                       Padding="20"
-                       BackgroundColor="LightSkyBlue" />
+                <Label Text="{x:Static Resource:AppResources.SettingsTitle}" 
+                       Style="{StaticResource LblTitleStyle}"/>
                 <Frame x:Name="InformationFrame"
                        CornerRadius="10"
                        Padding="0"
-                       HasShadow="False">
+                       HasShadow="False"
+                       BackgroundColor="{StaticResource MainBackgroundColor}">
                     <Label Text="{x:Static Resource:AppResources.SettingsTitle}"
                                x:Name="InformationLabel"
                                FontSize="Small"
@@ -56,6 +50,7 @@
                            Keyboard="Chat"
                            WidthRequest="70"
                            MaxLength="20"
+                           BackgroundColor="{StaticResource MainBackgroundColor}"
                            TextChanged="UsernameEntry_OnTextChanged" />
                     <Label Text="{x:Static Resource:AppResources.SettingsPageSteplength}"
                            Grid.Row="1"
@@ -69,6 +64,7 @@
                             WidthRequest="70"
                             MaxLength="4"
                             TextChanged="SteplengthEntry_OnTextChanged"
+                            BackgroundColor="{StaticResource MainBackgroundColor}"
                             Text="{Binding Steplength}" />
                     <Label Text="{x:Static Resource:AppResources.SettingsPageSamplingrate}"
                            Grid.Row="2"

@@ -9,10 +9,45 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Color x:Key="MainLayoutColor">#00ADB5</Color>
+            <Color x:Key="MainNavigationLayoutColor">#393E46</Color>
+            <Color x:Key="StartButtonColor">#f7a043</Color>
+            <Color x:Key="MainBackgroundColor">#EEEEEE</Color>
             <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="BarTextColor" Value="White" />
+                <Setter Property="BarBackgroundColor" Value="{StaticResource MainNavigationLayoutColor}" />
+                <Setter Property="BarTextColor" Value="Black" />
+            </Style>
+
+            <Style x:Key="StackLayoutMainStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="24"/>
+                <Setter Property="Padding" Value="24"/>
+                <Setter Property="Margin" Value="0,0,0,0"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource MainBackgroundColor}"/>
+            </Style>
+
+            <Style x:Key="LblTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource MainLayoutColor}"></Setter>
+            </Style>
+
+            <Style x:Key="ButtonStartModus" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource StartButtonColor}"></Setter>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="BorderWidth" Value="1"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="LblExplanationStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Gray"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

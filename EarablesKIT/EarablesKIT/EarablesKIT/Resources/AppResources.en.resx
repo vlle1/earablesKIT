@@ -190,7 +190,7 @@
     <value>Okay</value>
   </data>
   <data name="PossibleActivitiesLabel" xml:space="preserve">
-    <value>Possible Activities</value>
+    <value>Select an activity to be counted!</value>
   </data>
   <data name="PushUps" xml:space="preserve">
     <value>PushUps</value>
@@ -286,19 +286,19 @@
     <value>Bluetooth is not active!</value>
   </data>
   <data name="AddActivityButton" xml:space="preserve">
-    <value>Add Activity</value>
+    <value>Add</value>
   </data>
   <data name="CurrentActivityUnbindedLabel" xml:space="preserve">
     <value>Current Activity</value>
   </data>
   <data name="EditActivityButton" xml:space="preserve">
-    <value>Edit Activity</value>
+    <value>Edit</value>
   </data>
   <data name="ListenAndPerformNameLabel" xml:space="preserve">
     <value>Listen And Perform</value>
   </data>
   <data name="RemoveActivityButton" xml:space="preserve">
-    <value>Remove Activity</value>
+    <value>Remove</value>
   </data>
   <data name="StartWorkoutButton" xml:space="preserve">
     <value>Start Workout</value>
@@ -322,7 +322,7 @@
     <value>Cool</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value />
+    <value>Done</value>
   </data>
   <data name="EnterRepetitions" xml:space="preserve">
     <value>Enter the amount of repetitions</value>
@@ -377,5 +377,11 @@
   </data>
   <data name="ImportExportSaveDisplayTitle" xml:space="preserve">
     <value>Sharing dialog</value>
+  </data>
+  <data name="CustomizeWorkout" xml:space="preserve">
+    <value>Customize your workout!</value>
+  </data>
+  <data name="DataOverviewTitle" xml:space="preserve">
+    <value>Dataoverview</value>
   </data>
 </root>

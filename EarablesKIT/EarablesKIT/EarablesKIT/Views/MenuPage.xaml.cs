@@ -27,7 +27,7 @@ namespace EarablesKIT.Views
                 new HomeMenuItem { Id = MenuItemType.CountMode, Title = AppResources.CountModeNameLabel },
                 new HomeMenuItem { Id = MenuItemType.ListenAndPerform, Title =  AppResources.ListenAndPerformNameLabel },
                 new HomeMenuItem { Id = MenuItemType.MusicMode, Title = AppResources.MusicModeEntryLabel },
-                new HomeMenuItem { Id = MenuItemType.DataOverview, Title = AppResources.DataOverviewPageEntryLabel },
+                new HomeMenuItem { Id = MenuItemType.DataOverview, Title = AppResources.DataOverviewTitle },
                 new HomeMenuItem { Id = MenuItemType.Settings, Title = AppResources.SettingsTitle},
                 new HomeMenuItem { Id = MenuItemType.ImportExport, Title = AppResources.ImportExportLabel },
             };

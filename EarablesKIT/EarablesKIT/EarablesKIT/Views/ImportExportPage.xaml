@@ -7,17 +7,10 @@
              xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.ImportExportPage">
     <ContentPage.Content>
-        <StackLayout Spacing="24"
-                     Padding ="24"
-                     Margin="0,0,0,0"
-                     BackgroundColor="White">
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
             <Label x:Name="Title"
                    Text="{x:Static resource:AppResources.ImportExportLabel}"
-                   FontSize="Title"
-                   TextColor="White"
-                   HorizontalTextAlignment="Center"
-                   Padding="20"
-                   BackgroundColor="LightSkyBlue" />
+                   Style="{StaticResource LblTitleStyle}"/>
             <Label x:Name="InformationLabel" 
                    Text="{x:Static resource:AppResources.ImportExportInformationLabel}" 
                    HorizontalTextAlignment="Center" />

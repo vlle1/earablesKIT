@@ -214,7 +214,7 @@
     <value>Okay</value>
   </data>
   <data name="PossibleActivitiesLabel" xml:space="preserve">
-    <value>Mögliche Aktivitäten</value>
+    <value>Wähle eine Aktivität aus, die gezählt werden soll!</value>
   </data>
   <data name="PushUps" xml:space="preserve">
     <value>Liegestütze</value>
@@ -377,5 +377,11 @@
   </data>
   <data name="ImportExportSaveDisplayTitle" xml:space="preserve">
     <value>Teilen</value>
+  </data>
+  <data name="CustomizeWorkout" xml:space="preserve">
+    <value>Individualisiere dein Training!</value>
+  </data>
+  <data name="DataOverviewTitle" xml:space="preserve">
+    <value>Datenübersicht</value>
   </data>
 </root>

@@ -7,13 +7,9 @@
              xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.CountModeActivePage">
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="20" Margin="0,30,0,0">
-            <Label Text="{x:Static resource:AppResources.CountModeNameLabel}"
-                   Padding="20"
-                   FontSize="Title"
-                   HorizontalTextAlignment="Center"
-                   TextColor="White"
-                   BackgroundColor="CornflowerBlue"/>
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
+            <Label Text="{x:Static resource:AppResources.CountModeNameLabel}" 
+                   Style="{StaticResource LblTitleStyle}"/>
             <Label HorizontalTextAlignment="Center" FontSize="24"/>
             <Frame HasShadow="False" BorderColor="Gray" Padding="10,10,10,10" VerticalOptions="Center">
                 <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Grid.Column="1" FontSize="30">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -58,8 +59,7 @@ namespace EarablesKIT.Views
             InformationLabel.IsVisible = true;
             Device.StartTimer(new TimeSpan(0,0,2), () =>
             {
-
-                InformationFrame.BackgroundColor = Color.White;
+                InformationFrame.BackgroundColor = (Color) App.Current.Resources["MainBackgroundColor"];
                 return InformationLabel.IsVisible = false;
             });
         }
@@ -76,7 +76,7 @@ namespace EarablesKIT.Views
             else
             {
                 SaveButton.IsEnabled = true;
-                UsernameEntry.BackgroundColor = Color.White;
+                UsernameEntry.BackgroundColor = (Color) App.Current.Resources["MainBackgroundColor"];
             }
         }
 
@@ -95,7 +95,7 @@ namespace EarablesKIT.Views
             {
                 SaveButton.IsEnabled = true;
                 SteplengthEntry.Text = int.Parse(SteplengthEntry.Text) + "";
-                SteplengthEntry.BackgroundColor = Color.White;
+                SteplengthEntry.BackgroundColor = (Color) App.Current.Resources["MainBackgroundColor"];
             }
         }
 

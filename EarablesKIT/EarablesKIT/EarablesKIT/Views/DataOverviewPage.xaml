@@ -7,16 +7,9 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.DataOverviewPage">
     <ContentPage.Content>
-        <StackLayout Spacing="24"
-                     Padding ="24"
-                     Margin="0,0,0,0"
-                     BackgroundColor="White">
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
             <Label Text="{x:Static resource:AppResources.DataOverviewPageEntryLabel}"
-                   FontSize="Title"
-                   TextColor="White"
-                   HorizontalTextAlignment="Center"
-                   Padding="20"
-                   BackgroundColor="LightSkyBlue" />
+                   Style="{StaticResource LblTitleStyle}"/>
             <ListView ItemsSource="{Binding TrainingsDataDbEntries}" 
                       SeparatorColor="LightSkyBlue" 
                       SelectionMode="None">
@@ -37,25 +30,33 @@
                         <Label Text="{x:Static resource:AppResources.Date, }" 
                                Grid.Column="0"
                                Grid.Row="0" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
                                FontSize="Medium"/>
                         <Label Text="{x:Static resource:AppResources.Steps}" 
                                Grid.Column="1" 
                                Grid.Row="0" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
                                FontSize="Medium"/>
                         <Label Text="{x:Static resource:AppResources.PushUps}"
                                Grid.Column="2" 
                                Grid.Row="0" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
                                FontSize="Medium"/>
                         <Label Text="{x:Static resource:AppResources.SitUps}" 
                                Grid.Column="3" 
                                Grid.Row="0" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
                                FontSize="Medium"/>
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate >
                     <DataTemplate >
                         <ViewCell>
-                            <Grid HorizontalOptions="Center">
+                            <Grid HorizontalOptions="Center" VerticalOptions="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -68,19 +69,23 @@
                                 <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
                                        Grid.Column="0"
                                        Grid.Row="0"
-                                       HorizontalOptions="Center"/>
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
                                 <Label Text="{Binding TrainingsData[Steps]}" 
                                        Grid.Column="1" 
                                        Grid.Row="0"
-                                       HorizontalOptions="Center"/>
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
                                 <Label Text="{Binding TrainingsData[PushUps]}"
                                        Grid.Column="2"
                                        Grid.Row="0"
-                                       HorizontalOptions="Center"/>
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
                                 <Label Text="{Binding TrainingsData[SitUps]}"
                                        Grid.Column="3"
                                        Grid.Row="0" 
-                                       HorizontalOptions="Center"/>
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
