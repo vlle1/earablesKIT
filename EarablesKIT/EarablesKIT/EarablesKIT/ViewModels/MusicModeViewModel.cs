@@ -37,6 +37,7 @@ namespace EarablesKIT.ViewModels
                 }
                 //OnPropertyChanged("StartStopLabel");
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(CurrentStatusLabel));
             }
             get => _running;
         }
@@ -56,6 +57,7 @@ namespace EarablesKIT.ViewModels
                 }
                 //CrossMediaManager.Current.PlayPause();
                 OnPropertyChanged(nameof(StartStopLabel));
+                OnPropertyChanged(nameof(CurrentStatusLabel));
             });
         }
 
@@ -67,7 +69,15 @@ namespace EarablesKIT.ViewModels
 
         public string CurrentStatusLabel
         {
-            get => IsRunning ? AppResources.MusicModeCurrentStatusLabelWalking : AppResources.MusicModeCurrentStatusLabelStanding;
+
+            get
+            {
+                return _musicModeActive
+                        ? (IsRunning
+                            ? AppResources.MusicModeCurrentStatusLabelWalking
+                            : AppResources.MusicModeCurrentStatusLabelStanding)
+                        : AppResources.MusicModeExplanation;
+            }
         }
 
 

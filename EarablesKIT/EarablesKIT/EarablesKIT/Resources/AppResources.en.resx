@@ -384,4 +384,7 @@
   <data name="DataOverviewTitle" xml:space="preserve">
     <value>Dataoverview</value>
   </data>
+  <data name="MusicModeExplanation" xml:space="preserve">
+    <value>Start the music mode to play music whenever you are running!</value>
+  </data>
 </root>

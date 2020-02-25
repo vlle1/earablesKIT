@@ -403,6 +403,15 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start the music mode to play music whenever you are running!.
+        /// </summary>
+        internal static string MusicModeExplanation {
+            get {
+                return ResourceManager.GetString("MusicModeExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next Activity,.
         /// </summary>
         internal static string NextActivity {
