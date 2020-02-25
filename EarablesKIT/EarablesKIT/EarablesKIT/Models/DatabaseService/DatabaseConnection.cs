@@ -107,6 +107,7 @@ namespace EarablesKIT.Models.DatabaseService
             if (file == null || string.IsNullOrEmpty(file.FileName))
             {
                 ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+                return;
             }
 
             string content = System.Text.Encoding.Default.GetString(file.DataArray);

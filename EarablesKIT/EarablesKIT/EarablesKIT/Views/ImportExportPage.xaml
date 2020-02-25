@@ -13,7 +13,7 @@
                    Style="{StaticResource LblTitleStyle}"/>
             <Label x:Name="InformationLabel" 
                    Text="{x:Static resource:AppResources.ImportExportInformationLabel}" 
-                   HorizontalTextAlignment="Center" />
+                   Style="{StaticResource LblExplanationStyle}" />
             <Button x:Name="ExportButton" Text="{x:Static resource:AppResources.ImportExportExportButton}" Command="{Binding ExportCommand}"/>
             <Button x:Name="ImportButton" Text="{x:Static resource:AppResources.ImportExportImportButton}" Clicked="ImportButton_Clicked"/>
             <Button x:Name="DeleteDataButton" Text="{x:Static resource:AppResources.ImportExportDeleteDataButton}" Command="{Binding DeleteCommand}"/>
