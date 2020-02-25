@@ -13,6 +13,7 @@
             <Color x:Key="MainNavigationLayoutColor">#393E46</Color>
             <Color x:Key="StartButtonColor">#f7a043</Color>
             <Color x:Key="MainBackgroundColor">#EEEEEE</Color>
+            <Color x:Key="SeparatorColor">#f7a043</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource MainNavigationLayoutColor}" />
                 <Setter Property="BarTextColor" Value="Black" />
@@ -48,6 +49,14 @@
                 <Setter Property="FontSize" Value="Medium"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="LblDefaultStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Gray"/>
+            </Style>
+            <Style x:Key="BoxViewSeparatorStyle" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="Color" Value="{StaticResource SeparatorColor}"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
