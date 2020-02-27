@@ -11,7 +11,7 @@
             <Label Text="{x:Static resource:AppResources.DataOverviewPageEntryLabel}"
                    Style="{StaticResource LblTitleStyle}"/>
             <ListView ItemsSource="{Binding TrainingsDataDbEntries}" 
-                      SeparatorColor="LightSkyBlue" 
+                      SeparatorColor="{StaticResource SeparatorColor}" 
                       SelectionMode="None">
                 <ListView.Header>
                     <Grid  HorizontalOptions="Center" 

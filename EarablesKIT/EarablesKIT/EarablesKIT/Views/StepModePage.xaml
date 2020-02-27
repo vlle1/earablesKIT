@@ -13,17 +13,16 @@
             <StackLayout Spacing="0">
                 <Label Text="{x:Static resource:AppResources.StepModeTrainingsDateLabel}"
                        Style="{StaticResource LblDefaultStyle}"
-                       Margin="10,10,0,0"
+                       Margin="10,0,0,0"
                        FontSize="Large"/>
                 <Label Text="{Binding LastDataTime, StringFormat='{0:dd.MM.yyyy}'}"
                        Style="{StaticResource LblDefaultStyle}"
-                       Padding ="10"
+                       Margin ="10,0,0,0"
                        FontSize="Large"/>
             </StackLayout>
-            <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
-                     Margin="10,0,0,0"/>
-            <Grid Margin="10,0,0,0" RowSpacing="15" ColumnSpacing="0">
+            <Grid Margin="10,0,10,0" RowSpacing="10" ColumnSpacing="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="1"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="1"/>
                     <RowDefinition Height="*"/>
@@ -32,34 +31,46 @@
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.5*" />
                 </Grid.ColumnDefinitions>
+
+                <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
+                         Grid.Row="0"
+                         Grid.Column="0"/>
+                <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
+                         Grid.Row="0"
+                         Grid.Column="1"/>
+                
                 <Label Text="{x:Static resource:AppResources.StepModeLastStepsLabel}"
                        VerticalTextAlignment="Center"
+                       Style="{StaticResource LblDefaultStyle}"
                        FontSize="Large" 
-                       Grid.Row="0" 
+                       Grid.Row="1" 
                        Grid.Column="0"/>
                 <Label Text="{Binding StepsDoneLastTime}"
+                       Style="{StaticResource LblDefaultStyle}"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center"
                        FontSize="30"  
-                       Grid.Row="0" 
+                       Grid.Row="1" 
                        Grid.Column="1" />
                 <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
-                         Grid.Row="1"
+                         Grid.Row="2"
                          Grid.Column="0"/>
                 <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
-                         Grid.Row="1"
+                         Grid.Row="2"
                          Grid.Column="1"/>
                 <Label Text="{x:Static resource:AppResources.StepModeLastDistanceLabel}"
+                       Style="{StaticResource LblDefaultStyle}"
                        VerticalTextAlignment="Center"
                        HorizontalOptions="StartAndExpand"
                        FontSize="Large" 
-                       Grid.Row="2" 
+                       Grid.Row="3" 
                        Grid.Column="0"/>
                 <Label Text="{Binding DistanceWalkedLastTime}" 
+                       Style="{StaticResource LblDefaultStyle}"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center"
                        FontSize="30" 
-                       Grid.Row="2" 
+                       Grid.Row="3" 
                        Grid.Column="1"/>
             </Grid>
             <Button Text="{x:Static resource:AppResources.StepModeStartButton}" 

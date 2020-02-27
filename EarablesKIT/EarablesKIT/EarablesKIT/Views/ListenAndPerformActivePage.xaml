@@ -43,7 +43,6 @@
                     Progress="{Binding ProgressLive}"
                     IsVisible="True"
                     HeightRequest="30"
-                    
                     />
                 <Label Text="{Binding ActiveActivity.Name}"
                    Padding="10"

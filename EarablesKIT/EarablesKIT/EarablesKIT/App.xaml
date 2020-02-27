@@ -15,6 +15,8 @@
             <Color x:Key="MainBackgroundColor">#EEEEEE</Color>
             <Color x:Key="SeparatorColor">#f7a043</Color>
             <Color x:Key="DefaultTextColor">Gray</Color>
+            <Color x:Key="BorderColor">Gray</Color>
+            
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource MainNavigationLayoutColor}" />
                 <Setter Property="BarTextColor" Value="Black" />
@@ -38,8 +40,8 @@
             <Style x:Key="ButtonStartModus" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource StartButtonColor}"></Setter>
                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
-                <Setter Property="BorderColor" Value="Black"/>
-                <Setter Property="BorderWidth" Value="1"/>
+                <Setter Property="BorderColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="BorderWidth" Value="2"/>
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
@@ -53,13 +55,21 @@
             </Style>
 
             <Style x:Key="LblDefaultStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="Gray"/>
+                <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}"/>
             </Style>
             <Style x:Key="BoxViewSeparatorStyle" TargetType="BoxView">
                 <Setter Property="HeightRequest" Value="1"/>
                 <Setter Property="Color" Value="{StaticResource SeparatorColor}"/>
             </Style>
+            <Style x:Key="ButtonDefaultStyle" TargetType="Button">
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="BorderColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
-    
+     
 </Application>
