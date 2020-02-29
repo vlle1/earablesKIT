@@ -94,6 +94,7 @@ namespace EarablesKIT.ViewModels
 			}
 		}
 
+
 		/// <summary>
 		/// Property which holds the date of the time last the user has started the mode, bound to the view.
 		/// </summary>
@@ -148,7 +149,7 @@ namespace EarablesKIT.ViewModels
 				_isRunning = value;
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(StatusDisplay));
-			}
+            }
 		}
 
 		/// <summary>

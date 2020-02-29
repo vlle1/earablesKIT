@@ -32,7 +32,7 @@
   </style>
   <color name="ListViewSelected">#fcbd79</color>
   <color name="ListViewHighlighted">#E39696</color>
-  <color name="DefaultColor">#FF87CEFA</color>
+  <color name="DefaultColor">#393E46</color>
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#FF4084</item>
   </style>

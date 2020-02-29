@@ -12,10 +12,12 @@
             <Color x:Key="MainLayoutColor">#00ADB5</Color>
             <Color x:Key="MainNavigationLayoutColor">#393E46</Color>
             <Color x:Key="StartButtonColor">#f7a043</Color>
+            <Color x:Key="StopButtonColor">#f7a043</Color>
             <Color x:Key="MainBackgroundColor">#EEEEEE</Color>
             <Color x:Key="SeparatorColor">#f7a043</Color>
             <Color x:Key="DefaultTextColor">Gray</Color>
             <Color x:Key="BorderColor">Gray</Color>
+            <Color x:Key="EmphasisColor">#81D6DA</Color>
             
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource MainNavigationLayoutColor}" />
@@ -45,6 +47,14 @@
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
+            <Style x:Key="ButtonStopModus" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource StopButtonColor}"></Setter>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="BorderColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
 
             <Style x:Key="LblExplanationStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}"/>
@@ -57,6 +67,7 @@
             <Style x:Key="LblDefaultStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}"/>
             </Style>
+
             <Style x:Key="BoxViewSeparatorStyle" TargetType="BoxView">
                 <Setter Property="HeightRequest" Value="1"/>
                 <Setter Property="Color" Value="{StaticResource SeparatorColor}"/>
@@ -68,6 +79,19 @@
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
                 <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+
+            <Style x:Key="FrameCounterActiveMode" TargetType="Frame">
+                <Setter Property="HasShadow" Value="False"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource EmphasisColor}"/>
+                <Setter Property="Padding" Value="80,40,80,40"/>
+                <Setter Property="BorderColor" Value="{StaticResource BorderColor}"/>
+            </Style>
+            <Style x:Key="LblCounterActiveMode" TargetType="Label">
+                <Setter Property="FontSize" Value="50"/>
+                <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -12,68 +12,69 @@
                    Style="{StaticResource LblTitleStyle}"/>
             <StackLayout Spacing="0">
                 <Label Text="{x:Static resource:AppResources.StepModeStartDataTime}"
-                   Padding="20"
-                   FontSize="Title"
-                   HorizontalTextAlignment="Center"
-                   TextColor="White"
-                   BackgroundColor="CornflowerBlue"/>
+                   Padding="0"
+                   Style="{StaticResource LblExplanationStyle}"/>
                 <Label Text="{Binding CurrentDate}"
-                   Padding="10"
-                   FontSize="Title"
-                   HorizontalTextAlignment="Center"
-                   TextColor="White"
-                   BackgroundColor="CornflowerBlue"/>
+                       Style="{StaticResource LblExplanationStyle}"
+                       Padding="0"/>
             </StackLayout>
-            <Grid Padding="20" RowSpacing="30">
+            <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
+                     Margin="10,0,10,0"/>
+
+            <Label Text="{Binding StepCounter} "
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="80"/>
+            <Label Text="Schritte"
+                   Style="{StaticResource LblDefaultStyle}"
+                   Margin="0,-25,0,0"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Medium"
+                   />
+            <StackLayout HeightRequest="1" 
+                         BackgroundColor="{StaticResource SeparatorColor}"
+                         Orientation="Horizontal"
+                         Margin="10,20,10,0"
+            />
+            <Grid Padding="10" ColumnSpacing="10" RowSpacing="0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Text="{x:Static resource:AppResources.StepModeUnbindedStatusLabel}"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Center"
-                       FontSize="Large"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       BackgroundColor="Beige"/>
-                <Label Text="{Binding StatusDisplay}"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Center"
-                       FontSize="Large"
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       BackgroundColor="DeepSkyBlue"/>
-                <Label Text="{Binding StepCounter} "
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Center"
-                       FontSize="Large" 
-                       Grid.Row="1" 
-                       Grid.Column="0" 
-                       BackgroundColor="CornflowerBlue"/>
-                <Label Text="{x:Static resource:AppResources.StepModeUnbindedStepsDoneLabel}" 
-                       FontSize="Large" 
-                       Grid.Row="1" 
-                       Grid.Column="1"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Label Text="{Binding StepFrequency}" 
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center"
-                       FontSize="Large" 
-                       Grid.Row="2" 
-                       Grid.Column="0"
-                       BackgroundColor="CornflowerBlue"/>
+                       FontSize="40"
+                       Grid.Row="0"
+                       Grid.Column="0"/>
                 <Label Text="{x:Static resource:AppResources.StepModeUnbindedFrequencyLabel}" 
-                       FontSize="Large" 
-                       Grid.Row="2" 
+                       FontSize="Medium" 
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Grid.Row="1" 
+                       Grid.Column="0"/>
+                <Label Text="{Binding StatusDisplay}"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="25"
+                       Grid.Row="0"
                        Grid.Column="1"/>
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedStatusLabel}"
+                       FontSize="Medium" 
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Grid.Row="1"
+                       Grid.Column="1"/>
+
             </Grid>
             <Button Text="{x:Static resource:AppResources.StepModeStopButton}" 
                     Clicked="OnStopButtonClicked"
-                    VerticalOptions="CenterAndExpand" 
-                    BackgroundColor="IndianRed" 
-                    BorderColor="Black" 
-                    BorderWidth="1" 
-                    CornerRadius="10" 
-                    HorizontalOptions="Center"/>
+                    Style="{StaticResource ButtonStopModus}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
