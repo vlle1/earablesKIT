@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace EarablesKIT.Droid
 {
@@ -26,8 +17,9 @@ namespace EarablesKIT.Droid
 
         private void LoadActivity()
         {
-            System.Threading.Thread.Sleep(2000); // Simulate a long pause    
+            System.Threading.Thread.Sleep(500); // Simulate a long pause    
             RunOnUiThread(() => StartActivity(typeof(MainActivity)));
         }
+
     }
 }
