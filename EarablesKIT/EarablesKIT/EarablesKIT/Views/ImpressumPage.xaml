@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="EarablesKIT.Views.ImpressumPage">
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
+            <Label Text="Imprint" 
+                   Style="{StaticResource LblTitleStyle}"/>
+            <StackLayout Margin="10,0,10,0" Spacing="15">
+                <StackLayout>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           Text="Overview"/>
+                    <Label Text="eSense Fitness is an App developed as a university project. It represents a use case for headphones with IMU sensors.
+The app is based on the eSense Headphones."></Label>
+                </StackLayout>
+                <StackLayout>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                       FontAttributes="Bold"
+                       FontSize="Medium"
+                       Text="Developer/Research group"/>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                       Text="Tec O'Brain Group &#x0a;Teco&#x0a;Vincenz-Prießnitz-Str. 1&#x0a;D-76131 Karlsruhe">
+                    </Label>
+                </StackLayout>
+                <StackLayout>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                       FontAttributes="Bold"
+                       FontSize="Medium"
+                       Text="University"/>
+                    <Label 
+                       Text="Karlsruher Institute of Technology &#x0a;Kaiserstraße 12 &#x0a;76131 Karlsruhe &#x0a;Germany">
+                    </Label>
+                </StackLayout>
+                <StackLayout>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           Text="eSense"/>
+                    <Label Style="{StaticResource LblDefaultStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Website " />
+                                <Span Text="esense.io"
+                                      TextColor="Blue"
+                                      TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ClickCommand}"
+                                                              CommandParameter="https://esense.io/" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+                <StackLayout>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           Text="Copyright (c)"/>
+                    <Label 
+                        Text="2019, Teco. All rights reserved.">
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

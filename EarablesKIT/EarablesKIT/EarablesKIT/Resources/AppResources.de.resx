@@ -387,4 +387,7 @@
   <data name="MusicModeExplanation" xml:space="preserve">
     <value>Starte den Musikmodus, um deine Musik dem Laufen anzupassen! Immer wenn du läufst wird Musik abgespielt!</value>
   </data>
+  <data name="ImprintTitle" xml:space="preserve">
+    <value>Impressum</value>
+  </data>
 </root>

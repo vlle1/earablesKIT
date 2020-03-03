@@ -358,6 +358,15 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Imprint.
+        /// </summary>
+        internal static string ImprintTitle {
+            get {
+                return ResourceManager.GetString("ImprintTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Listen And Perform.
         /// </summary>
         internal static string ListenAndPerformNameLabel {

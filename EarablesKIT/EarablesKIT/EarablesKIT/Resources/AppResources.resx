@@ -391,4 +391,7 @@
   <data name="MusicModeExplanation" xml:space="preserve">
     <value>Start the music mode to play music whenever you are running!</value>
   </data>
+  <data name="ImprintTitle" xml:space="preserve">
+    <value>Imprint</value>
+  </data>
 </root>
