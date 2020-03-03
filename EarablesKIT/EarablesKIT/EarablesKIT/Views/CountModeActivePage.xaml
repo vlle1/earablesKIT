@@ -10,9 +10,11 @@
         <StackLayout Style="{StaticResource StackLayoutMainStyle}">
             <Label Text="{x:Static resource:AppResources.CountModeNameLabel}" 
                    Style="{StaticResource LblTitleStyle}"/>
-            <Label HorizontalTextAlignment="Center" FontSize="24"/>
-            <Frame HasShadow="False" BorderColor="Gray" Padding="10,10,10,10" VerticalOptions="Center">
-                <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Grid.Column="1" FontSize="30">
+            <Frame HasShadow="False" BorderColor="{StaticResource BorderColor}" 
+                   Margin="0,20,0,0"
+                   Padding="10,0,0,0" 
+                   VerticalOptions="Center">
+                <Label Style="{StaticResource LblExplanationStyle}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="{Binding Minutes}"/>
@@ -24,29 +26,17 @@
                     </Label.FormattedText>
                 </Label>
             </Frame>
-            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                <Frame HasShadow="False" BorderColor="Gray" Padding="80,40,80,40" BackgroundColor="LightBlue">
-                    <Label Text="{Binding SelectedActivity.Counter}"
-                               FontSize="50"
-                               HorizontalTextAlignment="Center"
-                               VerticalOptions="FillAndExpand"
-                               HorizontalOptions="FillAndExpand"/>
-                </Frame>
+            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="24">
                 <Label Text="{Binding SelectedActivity.Name}"
-                   Padding="10"
-                   FontSize="Title"
-                   HorizontalTextAlignment="Center"
-                   TextColor="White"
-                   BackgroundColor="CornflowerBlue"/>
+                       Style="{StaticResource LblExplanationStyle}"/>
+                <Frame Style="{StaticResource FrameCounterActiveMode}">
+                    <Label Text="{Binding SelectedActivity.Counter}"
+                           Style="{StaticResource LblCounterActiveMode}"/>
+                </Frame>
             </StackLayout>
             <Button Text="{x:Static resource:AppResources.StopCountModeButton}"
                     Clicked="OnStopButtonClicked"
-                    VerticalOptions="End" 
-                    BackgroundColor="IndianRed" 
-                    BorderColor="Black" 
-                    BorderWidth="1" 
-                    CornerRadius="10" 
-                    HorizontalOptions="Center"/>
+                    Style="{StaticResource ButtonStopModus}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

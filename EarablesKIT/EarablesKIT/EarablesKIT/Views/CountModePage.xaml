@@ -14,9 +14,12 @@
                 <Label Text="{x:Static resource:AppResources.PossibleActivitiesLabel}"
                        Style="{StaticResource LblExplanationStyle}"/>
                 <StackLayout Padding="20">
-                    <Frame HasShadow="False" BorderColor="Gray" Padding="10,10,10,10">
+                    <Frame HasShadow="False" 
+                           BorderColor="{StaticResource BorderColor}" 
+                           Padding="10,10,10,10">
                         <ListView x:Name="ActivityView" 
-                          ItemsSource="{Binding PossibleActivities}" 
+                          ItemsSource="{Binding PossibleActivities}"
+                          SeparatorColor="{StaticResource SeparatorColor}"
                           SelectedItem="{Binding SelectedActivity}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>

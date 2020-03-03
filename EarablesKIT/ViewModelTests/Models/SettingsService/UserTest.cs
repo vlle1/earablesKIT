@@ -40,5 +40,19 @@ namespace ViewModelTests.Models.SettingsService
             Assert.Equal(expectedUsername, toTest.Username);
             Assert.Equal(expectedSteplength, toTest.Steplength);
         }
+
+        [Theory]
+        [InlineData("usernameBob,steplength=70")]
+        [InlineData("username=Bob,Steplength=72220")]
+        [InlineData("username=Bob,Steplength=70")]
+        [InlineData("username=Bob,stePlength=70")]
+        [InlineData("username=Bob;Steplength=70")]
+        [InlineData("username=Bo+§b,steplength=72220")]
+        [InlineData("username=Bob,steplength=12,steplength=70")]
+        public void ParseUserTest_FalseInputs(string failingString)
+        {
+            User actualUser = User.ParseUser(failingString);
+            Assert.Null(actualUser);
+        }
     }
 }

@@ -153,7 +153,7 @@ namespace EarablesKIT.ViewModels
             catch (DeviceConnectionException e)
             {
                 DevicesList.Clear();
-                throw e;
+                ExceptionHandlingViewModel.HandleException(e);
             }
         }
 

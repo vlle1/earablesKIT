@@ -48,6 +48,9 @@ namespace ViewModelTests.Models.DatabaseService
         [InlineData("27.04.2000,steps=100,PushUps=12,SitUps=10")]
         [InlineData("20,steps=100,PushUps=12,SitUps=10")]
         [InlineData("27.04.2000,Steps=100,PushUps=12,SitUps=10,Burpees=120")]
+        [InlineData("27.04.2000,Steps=10a0,PushUps=50,SitUps=10")]
+        [InlineData("27.04.2000,Steps=100,PushUps=5s0,SitUps=10")]
+        [InlineData("27.04.2000,Steps=100,PushUps=50,SitUps=1x0")]
 
         public void ParseDBEntryTestNullChecks(string toParse)
         {

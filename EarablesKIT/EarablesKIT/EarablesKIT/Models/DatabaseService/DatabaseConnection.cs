@@ -107,6 +107,7 @@ namespace EarablesKIT.Models.DatabaseService
             if (file == null || string.IsNullOrEmpty(file.FileName))
             {
                 ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+                return;
             }
 
             string content = System.Text.Encoding.Default.GetString(file.DataArray);
@@ -138,17 +139,6 @@ namespace EarablesKIT.Models.DatabaseService
         /// <inheritdoc />
         public string ExportTrainingsData()
         {
-            /*string fileName = "/storage/emulated/0/Android/data/count.txt";
-            bool debugBool = string.IsNullOrEmpty(path.FilePath);
-            Debug.WriteLine(fileName);
-            Debug.WriteLine(path.FilePath);
-            //debugBool = !File.Exists(fileToWrite);
-            if (debugBool)
-            {
-                ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
-                return;
-            }
-            */
             List<DBEntry> entries = GetAllEntries();
             string toWrite = "";
             foreach(DBEntry entry in entries)
