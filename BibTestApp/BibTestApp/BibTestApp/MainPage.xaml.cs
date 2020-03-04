@@ -22,40 +22,36 @@ namespace BibTestApp
     {
         EarablesConnection earables;
         ObservableCollection<IDevice> deviceList = new ObservableCollection<IDevice>();
-        ObservableCollection<LPF_Accelerometer> accList = new ObservableCollection<LPF_Accelerometer>();
         public event PropertyChangedEventHandler PropertyChanged;
-
+        private const string HZ5 = "5Hz";
+        private const string HZ10 = "10Hz";
+        private const string HZ20 = "20Hz";
+        private const string HZ41 = "41Hz";
+        private const string HZ92 = "92Hz";
+        private const string HZ184 = "184Hz";
+        private const string HZ460 = "460Hz";
+        private const string OFF = "OFF";
+        private const string  ABBORT = "Abbruch";
+        private const string CHOSE = "Wähle einen LPF aus";
+        private const string HZ250 = "250Hz";
+        private const string HZ3600 = "3600Hz";
         private IMUDataEntry entry;
         public IMUDataEntry Entry { get => entry; set { entry = value; OnPropertyChanged("Entry"); }   }
         public MainPage()
         {
             InitializeComponent();
             lv.ItemsSource = deviceList;
-            
-
-            accList.Add(LPF_Accelerometer.Hz10);
-            accList.Add(LPF_Accelerometer.Hz184);
-            accList.Add(LPF_Accelerometer.Hz20);
-            accList.Add(LPF_Accelerometer.Hz41);
-            accList.Add(LPF_Accelerometer.Hz460);
-            accList.Add(LPF_Accelerometer.Hz5);
-            accList.Add(LPF_Accelerometer.Hz92);
-            accList.Add(LPF_Accelerometer.OFF);
-
-
+           
             earables = new EarablesConnection();
             earables.NewDeviceFound += neuesDevice;
             earables.ButtonPressed += buttonPressedEarables;
             earables.DeviceConnectionStateChanged += neuerVerbindungsstatus;
             earables.IMUDataReceived += neueIMUDatenearables;
-
-
         }
 
         private void neueIMUDatenearables(object sender, DataEventArgs e)
         {
             Entry = e.Data;
-
         }
 
         private void neuerVerbindungsstatus(object sender, EarablesKIT.Models.Library.DeviceEventArgs e)
@@ -109,10 +105,6 @@ namespace BibTestApp
             
         }
 
-
-
-
-
         private void neuesDevice(object sender, NewDeviceFoundArgs e)
         {
             deviceList.Add(e.Device);
@@ -127,9 +119,46 @@ namespace BibTestApp
 
         private async void btnsSetGyroLPF_Clicked(object sender, EventArgs e)
         {
-            EarablesKIT.Models.Library.LPF_Gyroscope gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz10;
-            earables.GyroLPF = gyro;
-            await DisplayAlert("Gyro", "Gyroscope wird auf " + gyro + " gesetzt", "OK");
+            string lpf = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
+            ABBORT, null, HZ5, HZ10, HZ20, HZ41, HZ92, HZ184, HZ250, HZ3600, OFF);
+            if (lpf != null && !lpf.Equals("") && !lpf.Equals(ABBORT))
+            {
+                EarablesKIT.Models.Library.LPF_Gyroscope gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz5;
+                switch (lpf)
+                {
+                    case HZ5:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz5;
+                        break;
+                    case HZ10:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz10;
+                        break;
+                    case HZ20:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz20;
+                        break;
+                    case HZ41:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz41;
+                        break;
+                    case HZ92:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz92;
+                        break;
+                    case HZ184:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz184;
+                        break;
+                    case HZ250:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz250;
+                        break;
+                    case HZ3600:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.Hz3600;
+                        break;
+                    case OFF:
+                        gyro = EarablesKIT.Models.Library.LPF_Gyroscope.OFF;
+                        break;
+                }
+                
+                earables.GyroLPF = gyro;
+                await DisplayAlert("Gyro", "Gyroscope wird auf " + gyro + " gesetzt", "OK");
+            }
+
         }
 
         private async void btnGetGyroLPF_Clicked(object sender, EventArgs e)
@@ -140,7 +169,39 @@ namespace BibTestApp
 
         private async void btnSetAccLPF_Clicked(object sender, EventArgs e)
         {
+            string lpf = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
+            ABBORT, null, HZ5, HZ10, HZ20, HZ41, HZ92, HZ184, HZ460, OFF);
+
             EarablesKIT.Models.Library.LPF_Accelerometer acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz10;
+
+            switch (lpf)
+            {
+                case HZ5:
+                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz5;
+                    break;
+                case HZ10:
+                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz10;
+                    break;
+                case HZ20:
+                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz20;
+                    break;
+                case HZ41:
+                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz41;
+                    break;
+                case HZ92:
+                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz92;
+                    break;
+                case HZ184:
+                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz184;
+                    break;
+                case HZ460:
+                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz460;
+                    break;
+                case OFF:
+                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.OFF;
+                    break;
+            }
+
             earables.AccLPF = acc;
             await DisplayAlert("Acc", "Accelerometer wird auf " + acc + " gesetzt", "OK");
         }
