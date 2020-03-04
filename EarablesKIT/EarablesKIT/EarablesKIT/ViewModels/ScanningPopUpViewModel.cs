@@ -24,7 +24,7 @@ namespace EarablesKIT.ViewModels
     /// <item>an activity gets started without an active connection</item>
     /// </list>
     /// </summary>
-    internal class ScanningPopUpViewModel : INotifyPropertyChanged
+    public class ScanningPopUpViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Property IsConnected represents if a device is currently connected
@@ -78,6 +78,7 @@ namespace EarablesKIT.ViewModels
                 }
             };
         }
+
 
         /// <summary>
         /// Method OnDeviceConnectionStateChanged is registered as an eventmethod in <see

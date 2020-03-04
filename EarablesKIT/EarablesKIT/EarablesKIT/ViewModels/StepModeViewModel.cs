@@ -35,12 +35,17 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// The stepActivity from the ActivityProvider.
 		/// </summary>
-		private AbstractStepActivity _stepActivity { get; set; }
+		public AbstractStepActivity _stepActivity { get; set; }
 
 		/// <summary>
 		/// The runningActivity from the ActivityProvider.
 		/// </summary>
-		private AbstractRunningActivity _runningActivity { get; set; }
+		public AbstractRunningActivity _runningActivity { get; set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public IEarablesConnection _samplingStarter { get; set; }
 
 		/// <summary>
 		/// Property which holds the instance of the ActivityManager.
@@ -50,7 +55,7 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Property which hold the instance of the DataBaseConnection.
 		/// </summary>
-		private IDataBaseConnection _dataBaseConnection { get; set; }
+		public IDataBaseConnection _dataBaseConnection { get; set; }
 
 		/// <summary>
 		/// Property which holds the current date.
@@ -149,7 +154,7 @@ namespace EarablesKIT.ViewModels
 				_isRunning = value;
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(StatusDisplay));
-            }
+			}
 		}
 
 		/// <summary>
@@ -186,13 +191,31 @@ namespace EarablesKIT.ViewModels
 			_stepActivity = (AbstractStepActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
 			_runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			_samplingStarter = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
 			DistanceWalkedLastTime = 0;
 			StepsDoneLastTime = 0;
 			StepFrequency = 0.0;
 			DistanceWalked = 0;
-			LastDataTime = "01.01.2000"; 
-			CurrentDate = DateTime.Now.ToString(); 
+			LastDataTime = "01.01.2000";
+			CurrentDate = DateTime.Now.ToString();
 			UpdateLastData();
+			IsRunning = false;
+			_timer = new Stopwatch();
+		}
+		/// <summary>
+		/// Mock Constructor for test purposes.
+		/// </summary>
+		/// <param name="mock"></param>
+		public StepModeViewModel(string Mock)
+		{
+			DistanceWalkedLastTime = 0;
+			StepsDoneLastTime = 0;
+			StepFrequency = 0.0;
+			DistanceWalked = 0;
+			StepCounter = 0;
+			StepDelta = 0;
+			LastDataTime = "01.01.2000";
+			CurrentDate = DateTime.Now.ToString();
 			IsRunning = false;
 			_timer = new Stopwatch();
 		}
@@ -212,7 +235,25 @@ namespace EarablesKIT.ViewModels
 				_stepActivity.ActivityDone += OnActivityDone;
 				_runningActivity.ActivityDone += OnRunningDone;
 				CurrentDate = DateTime.Now.ToString();
-				((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+				_samplingStarter.StartSampling();
+				return true;
+			}
+			return false;
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public bool StartActivity(string Mock)
+		{
+			if (CheckConnection())
+			{
+				StepCounter = 0;
+				StepFrequency = 0;
+				StepDelta = 0;
+				_stepActivity.ActivityDone += OnActivityDone;
+				_runningActivity.ActivityDone += OnRunningDone;
+				CurrentDate = DateTime.Now.ToString();
 				return true;
 			}
 			return false;
@@ -228,7 +269,7 @@ namespace EarablesKIT.ViewModels
 			Device.StartTimer(TimeSpan.FromSeconds(3.0), () =>
 			{
 				double stepsInLastThreeSeconds = StepCounter - StepDelta;
-				StepFrequency = Math.Round(60 * stepsInLastThreeSeconds/3, 2);
+				StepFrequency = Math.Round(60 * stepsInLastThreeSeconds / 3, 2);
 				StepDelta = StepCounter;
 				return true;
 			});
@@ -267,6 +308,17 @@ namespace EarablesKIT.ViewModels
 			SaveData();
 			ShowPopUp();
 			UpdateLastData();
+		}
+
+		public void StopActivity(string Mock)
+		{
+			_timer.Stop();
+			_stepActivity.ActivityDone -= OnActivityDone;
+			_runningActivity.ActivityDone -= OnRunningDone;
+			IsRunning = false;
+			SaveData();
+			//ShowPopUp();
+			//UpdateLastData();
 		}
 
 		/// <summary>

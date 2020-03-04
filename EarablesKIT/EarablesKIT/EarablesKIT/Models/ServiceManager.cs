@@ -10,7 +10,7 @@ namespace EarablesKIT.Models
     /// Class ServiceManager contains the different Servii and provides them to other components
     /// like the viewmodel
     /// </summary>
-    internal class ServiceManager : IManager
+    public class ServiceManager : IManager
     {
         private static ServiceProvider _serviceProvider;
 
