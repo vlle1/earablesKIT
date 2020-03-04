@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
@@ -399,9 +400,9 @@ namespace EarablesKIT.ViewModels
 				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
 			if (newActivity != null && !newActivity.Equals("") && !newActivity.Equals(AppResources.Cancel))
 			{
-				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(AppResources.AddingActivity, //Exception für Negatives vllt
-						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 2, Keyboard.Numeric);
-				if (newAmount != null && !newAmount.Equals("") && int.Parse(newAmount) > 0) //TO-DO: Regex für Z-ahlinput
+				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(AppResources.AddingActivity, 
+						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 3, Keyboard.Numeric);
+				if (newAmount != null && Regex.IsMatch(newAmount, @"^[1-9]{1}\d{0,2}$")) 
 				{
 					if (newActivity.Equals(AppResources.Push_ups))
 					{
