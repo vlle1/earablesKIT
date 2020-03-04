@@ -93,6 +93,12 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>
+
+            <Style x:Key="LblImprintHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
      

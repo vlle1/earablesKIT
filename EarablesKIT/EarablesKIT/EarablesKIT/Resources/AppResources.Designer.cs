@@ -358,11 +358,117 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 2019, Teco. All rights reserved..
+        /// </summary>
+        internal static string ImprintCopyrightContent {
+            get {
+                return ResourceManager.GetString("ImprintCopyrightContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright (c).
+        /// </summary>
+        internal static string ImprintCopyrightHeader {
+            get {
+                return ResourceManager.GetString("ImprintCopyrightHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tec O&apos;Brain Group 
+        ///Teco 
+        ///Vincenz-Prießnitz-Str. 1
+        ///D-76131 Karlsruhe.
+        /// </summary>
+        internal static string ImprintDeveloperContent {
+            get {
+                return ResourceManager.GetString("ImprintDeveloperContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developer/Research group.
+        /// </summary>
+        internal static string ImprintDeveloperHeader {
+            get {
+                return ResourceManager.GetString("ImprintDeveloperHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to esense.io.
+        /// </summary>
+        internal static string ImprintESenseContentLink {
+            get {
+                return ResourceManager.GetString("ImprintESenseContentLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website .
+        /// </summary>
+        internal static string ImprintESenseContentWebsite {
+            get {
+                return ResourceManager.GetString("ImprintESenseContentWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eSense.
+        /// </summary>
+        internal static string ImprintESenseHeader {
+            get {
+                return ResourceManager.GetString("ImprintESenseHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eSense Fitness is an App developed as a university project. It represents a use case for headphones with IMU sensors.
+        ///The app is based on the eSense Headphones..
+        /// </summary>
+        internal static string ImprintOverviewContent {
+            get {
+                return ResourceManager.GetString("ImprintOverviewContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string ImprintOverviewHeader {
+            get {
+                return ResourceManager.GetString("ImprintOverviewHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Imprint.
         /// </summary>
         internal static string ImprintTitle {
             get {
                 return ResourceManager.GetString("ImprintTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karlsruher Institute of Technology 
+        ///Kaiserstraße 12 
+        ///D-76131 Karlsruhe 
+        ///Germany.
+        /// </summary>
+        internal static string ImprintUniversityContent {
+            get {
+                return ResourceManager.GetString("ImprintUniversityContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to University.
+        /// </summary>
+        internal static string ImprintUniversityHeader {
+            get {
+                return ResourceManager.GetString("ImprintUniversityHeader", resourceCulture);
             }
         }
         
@@ -844,7 +950,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Walking!!!.
+        ///   Looks up a localized string similar to Walking!.
         /// </summary>
         internal static string Walking {
             get {

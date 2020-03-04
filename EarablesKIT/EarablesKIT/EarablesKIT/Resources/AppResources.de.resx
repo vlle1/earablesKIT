@@ -367,7 +367,7 @@
     <value>stehst</value>
   </data>
   <data name="Walking" xml:space="preserve">
-    <value>läufst!!!</value>
+    <value>läufst!</value>
   </data>
   <data name="YouAre" xml:space="preserve">
     <value>Du</value>
@@ -389,5 +389,44 @@
   </data>
   <data name="ImprintTitle" xml:space="preserve">
     <value>Impressum</value>
+  </data>
+  <data name="ImprintCopyrightContent" xml:space="preserve">
+    <value>2019, Teco. All rights reserved.</value>
+  </data>
+  <data name="ImprintCopyrightHeader" xml:space="preserve">
+    <value>Copyright (c)</value>
+  </data>
+  <data name="ImprintDeveloperContent" xml:space="preserve">
+    <value>Tec O'Brain Group
+Teco
+Vincenz-Prießnitz-Str. 1
+D-76131 Karlsruhe</value>
+  </data>
+  <data name="ImprintDeveloperHeader" xml:space="preserve">
+    <value>Entwickler/Forschungsgruppe</value>
+  </data>
+  <data name="ImprintESenseContentLink" xml:space="preserve">
+    <value>esense.io</value>
+  </data>
+  <data name="ImprintESenseContentWebsite" xml:space="preserve">
+    <value>Website </value>
+  </data>
+  <data name="ImprintESenseHeader" xml:space="preserve">
+    <value>eSense</value>
+  </data>
+  <data name="ImprintOverviewContent" xml:space="preserve">
+    <value>eSense Fitness ist ein Universitätsprojekt. Die App zeigt einen Anwendungsfall für Kopfhörer mit integrierten IMU Sensoren. 
+Die App basiert auf den eSense Kopfhörern.</value>
+  </data>
+  <data name="ImprintOverviewHeader" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="ImprintUniversityContent" xml:space="preserve">
+    <value>Karlsruher Institut für Technologie
+Kaiserstraße 12
+D-76131 Karlsruhe</value>
+  </data>
+  <data name="ImprintUniversityHeader" xml:space="preserve">
+    <value>Universität</value>
   </data>
 </root>
