@@ -16,7 +16,7 @@ namespace EarablesKIT.Models.Library
     /// <summary>
     /// This class is responsible for the connection with teh earables
     /// </summary>
-     class EarablesConnection : IEarablesConnection
+    public class EarablesConnection : IEarablesConnection
     {
         //
         private IBluetoothLE ble = CrossBluetoothLE.Current;
@@ -25,7 +25,7 @@ namespace EarablesKIT.Models.Library
         private IDevice device;
         // Saves the configurations
         private ConfigContainer config = new ConfigContainer();
-        // caching the bytearray which contains the offset
+        // Caching the bytearray which contains the offset
         private byte[] byteOffset;
         // Holds all characteristics
         private Characteristics characters = new Characteristics();
@@ -38,12 +38,14 @@ namespace EarablesKIT.Models.Library
         public LPF_Gyroscope GyroLPF { get => GetGyroscopeLPF(); set => SetGyroscopeLPF(value); }
         // The current batteryvoltage
         private float batteryVoltage;
+
+        public event EventHandler<DataEventArgs> IMUDataReceived;
+        public event EventHandler<ButtonEventArgs> ButtonPressed;
+        public event EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
+        public event EventHandler<NewDeviceFoundArgs> NewDeviceFound;
+
         public float BatteryVoltage { get => batteryVoltage; }
 
-        public EventHandler<DataEventArgs> IMUDataReceived;
-        public EventHandler<ButtonEventArgs> ButtonPressed;
-        public EventHandler<DeviceEventArgs> DeviceConnectionStateChanged;
-        public EventHandler<NewDeviceFoundArgs> NewDeviceFound;
 
         /// <summary>
         ///  Connect to a device
@@ -73,7 +75,7 @@ namespace EarablesKIT.Models.Library
                 await adapter.StopScanningForDevicesAsync();
                 // Connect to the device
                 await adapter.ConnectToDeviceAsync(device, connectParams);
-                
+
 
                 // Load all required characteristics
                 IService Service;
@@ -100,7 +102,7 @@ namespace EarablesKIT.Models.Library
                     throw new ConnectionFailedException("Failed to connect. Please try again");
                 }
 
-                // Register the listeners to the characteristics
+                // Register the listeners to the characteristicevents
                 characters.SensordataChar.ValueUpdated += OnValueUpdatedIMU;
                 characters.PushbuttonChar.ValueUpdated += OnPushButtonPressed;
                 characters.BatteryChar.ValueUpdated += GetBatteryVoltageFromDevice;
@@ -186,8 +188,8 @@ namespace EarablesKIT.Models.Library
         private void OnPushButtonPressed(object sender, CharacteristicUpdatedEventArgs args)
         {
             byte[] bytes = args.Characteristic.Value;
-            // Checks if checksum is correct
-            checkChecksum(bytes);
+            //Check Checksum
+            CheckChecksum(bytes);
             // Get the LSB from Data0
             int bit = bytes[3] & 0x01;
             // Check if the PushButton was pressed and not released
@@ -204,20 +206,13 @@ namespace EarablesKIT.Models.Library
         /// <param name="args">The arguments from the exception</param>
         private void OnValueUpdatedIMU(object sender, CharacteristicUpdatedEventArgs args)
         {
-            try
-            {
-                byte[] bytesIMUValue = args.Characteristic.Value;
-                // Checks if checksum is correct
-                //checkChecksumIMUData(bytesIMUValue);
-                IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
-                IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
-            }
-            catch (System.ArgumentOutOfRangeException exc)
-            {
-                // somethimes this exception gets thrown. In that case ignore the new value
-            }
-
+            byte[] bytesIMUValue = args.Characteristic.Value;
+            //Check Checksum
+            CheckIMUChecksum(bytesIMUValue);
+            IMUDataEntry imuDataEntry = ExtractIMUDataString(bytesIMUValue, config.AccScaleFactor, config.GyroScaleFactor, byteOffset);
+            IMUDataReceived?.Invoke(this, new DataEventArgs(imuDataEntry, config));
         }
+
 
         /// <summary>
         /// Starts the sampling
@@ -229,24 +224,16 @@ namespace EarablesKIT.Models.Library
             {
                 // Read the current value from the characteristic
                 byte[] bytesScaleFactor = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-                // Checks if the checksum is correct
-                checkChecksum(bytesScaleFactor);
+                //Check Checksum
+                CheckChecksum(bytesScaleFactor);
                 // Extract the actual gyroscope scalefactor from the bytearray
                 config.GyroScaleFactor = IMUDataExtractor.ExctractIMUScaleFactorGyroscope(bytesScaleFactor);
                 // Extract the actual accelerometer scalefactor from the bytearray
                 config.AccScaleFactor = IMUDataExtractor.ExtractIMUScaleFactorAccelerometer(bytesScaleFactor);
                 // Read the bytearray for the offset
                 byteOffset = await characters.OffsetChar.ReadAsync();
-                // Check if the checksum is correct
-                int checksum = 0;
-                for (int i = 2; i <= 14; i++)
-                {
-                    checksum = checksum + byteOffset[i];
-                }
-                if (byteOffset[1] != checksum )
-                {
-                    throw new InvalidChecksumException("The Chechsum does not match with the values");
-                }
+                //Check Checksum
+                CheckChecksum(byteOffset);
                 // Starts the updating for the characteristic
                 await characters.SensordataChar.StartUpdatesAsync();
                 // Starts the sampling
@@ -292,15 +279,15 @@ namespace EarablesKIT.Models.Library
         /// Sets the aaccelerometerLPF
         /// </summary>
         /// <param name="accelerometerLPF">The value on which the accelerometerLPF should be set</param>
-        private async void SetAccelerometerLPF(LPF_Accelerometer accelerometerLPF)
+        private void SetAccelerometerLPF(LPF_Accelerometer accelerometerLPF)
         {
             CheckConnection();
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
                 // Read the characteristic to calculate the checksum and Data3
                 byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-                // Check if checksum is correct
-                checkChecksum(bytesRead);
+                //Check Checksum
+                CheckChecksum(bytesRead);
                 // clear the 4 LSBs from data3
                 int data3 = bytesRead[6] & 0xF0;
                 // set the 4 LSBs from data3 on the required value
@@ -320,6 +307,7 @@ namespace EarablesKIT.Models.Library
         /// <returns>Returns the LPF for the accelerometer</returns>
         private LPF_Accelerometer GetAccelerometerLPF()
         {
+            CheckConnection();
             return config.AccelerometerLPF;
         }
 
@@ -327,21 +315,23 @@ namespace EarablesKIT.Models.Library
         /// Get the accelerometerLPF from the device
         /// Not needed but helpfull for testing
         /// </summary>
-        private async void GetAccelerometerLPFFromDevice()
+        public async System.Threading.Tasks.Task<LPF_Accelerometer> GetAccelerometerLPFFromDeviceAsync()
         {
             CheckConnection();
             byte[] bytes = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            // Check if checksum is correct
-            checkChecksum(bytes);
+            //Check Checksum
+            CheckChecksum(bytes);
             // read only the 4 LSBs 
             int accEnumValue = (int)(bytes[6] & 0x0F);
+            LPF_Accelerometer lpf = (LPF_Accelerometer) accEnumValue;
+            return lpf;
         }
 
         /// <summary>
         /// Sets the gyroscope LPF
         /// </summary>
         /// <param name="gyroscopeLPF">The value on which the gyroscopeLPF should be set</param>
-        private async void SetGyroscopeLPF(LPF_Gyroscope gyroscopeLPF)
+        private void SetGyroscopeLPF(LPF_Gyroscope gyroscopeLPF)
         {
             CheckConnection();
             Device.BeginInvokeOnMainThread(new Action(async () =>
@@ -351,8 +341,8 @@ namespace EarablesKIT.Models.Library
                 int data1 = 0;
                 // Read the characteristic to calculate the checksum, Data0 and Data1
                 byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-                // Check if checksum is correct
-                checkChecksum(bytesRead);
+                //Check Checksum
+                CheckChecksum(bytesRead);
                 // clear the 2 LSBs from Data1
                 data1 = bytesRead[4] & 0xFC;
                 // If the LPF for the Gyroscope is anithing except OFF both Bytes need to be modified
@@ -384,6 +374,7 @@ namespace EarablesKIT.Models.Library
         /// <returns>Returns the LPF for the gyroscope</returns>
         private LPF_Gyroscope GetGyroscopeLPF()
         {
+            CheckConnection();
             return config.GyroscopeLPF;
         }
 
@@ -391,23 +382,26 @@ namespace EarablesKIT.Models.Library
         /// Get the gyroscopeLPF from the device
         /// Not needed but helpfull for testing
         /// </summary>
-        private async void GetGyroscopeLPFFromDevice()
+        public async System.Threading.Tasks.Task<LPF_Gyroscope> GetGyroscopeLPFFromDevice()
         {
             CheckConnection();
             byte[] bytes = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-            // Check if checksum is correct
-            checkChecksum(bytes);
+            //Check Checksum
+            CheckChecksum(bytes);
             // read only the 2 LSBs and checks if the Gyro LPF is bypassed
             int b = (int)(bytes[4] & 0x03);
             // If the gyro LPF is bypassed it is representet as OFF in the LPF_Gyroscope Enum
+            int gyroEnumValue;
             if (b == 0)
             {
-                int gyroEnumValue = (int)(bytes[3] & 0x07);
+                gyroEnumValue = (int)(bytes[3] & 0x07);
             }
             else
             {
-                int gyroEnumValue = 8;
+                gyroEnumValue = 8;
             }
+            LPF_Gyroscope lpf = (LPF_Gyroscope) gyroEnumValue;
+            return lpf;
         }
 
         /// <summary>
@@ -418,8 +412,8 @@ namespace EarablesKIT.Models.Library
         {
             CheckConnection();
             byte[] bytes = await characters.BatteryChar.ReadAsync();
-            // Check if checksum is correct
-            checkChecksum(bytes);
+            //Check Checksum
+            CheckChecksum(bytes);
             batteryVoltage = (bytes[3] * 256 + bytes[4]) / 1000f;
         }
 
@@ -432,27 +426,25 @@ namespace EarablesKIT.Models.Library
         {
             CheckConnection();
             byte[] bytes = args.Characteristic.Value;
-            // Check if checksum is correct
-            checkChecksum(bytes);
+            //Check Checksum
+            CheckChecksum(bytes);
             batteryVoltage = (bytes[3] * 256 + bytes[4]) / 1000f;
         }
-
-
 
         /// <summary>
         /// Set the accelerometer range
         /// Not needed but helpfull for testing
         /// </summary>
-        private async void setAccelerometerRange()
+        private void SetAccelerometerRange(int range)
         {
             CheckConnection();
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
                 // Range kann sein 0x00 = 2g, 0x08 = 4g, 0x10 = 8g, 0x18 = 16g
-                int range = 0x00;
+                //int range = 0x00;
                 byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-                // Checks if checksum is correct
-                checkChecksum(bytesRead);
+                //Check Checksum
+                CheckChecksum(bytesRead);
                 //clear Bit 4 and 3 from Data2
                 int data2 = bytesRead[5] & 0xE7;
                 // Set Data2 to the right value
@@ -469,16 +461,16 @@ namespace EarablesKIT.Models.Library
         /// Set the gyroscope range
         /// Not needed but helpfull for testing
         /// </summary>
-        private async void setGyroscopeRange()
+        private void SetGyroscopeRange(int range)
         {
             CheckConnection();
             Device.BeginInvokeOnMainThread(new Action(async () =>
             {
                 // Range kann sein 0x00 = 250deg/s, 0x08 = 500deg/s, 0x10 = 1000deg/s, 0x18 = 2000deg/s
-                int range = 0x18;
+                //int range = 0x18;
                 byte[] bytesRead = await characters.AccelerometerGyroscopeLPFChar.ReadAsync();
-                // Checks if checksum is correct
-                checkChecksum(bytesRead);
+                //Check Checksum
+                CheckChecksum(bytesRead);
                 //clear Bit 4 and 3 from Data1
                 int data1 = bytesRead[4] & 0xE7;
                 // Set Data1 to the right value
@@ -502,33 +494,39 @@ namespace EarablesKIT.Models.Library
             }
         }
 
-        /// <summary>
-        /// Checks if the checksum is correct
+                /// <summary>
+        /// Checks if the checksum from the received bytearray is correct
         /// </summary>
-        /// <param name="bytes"></param>
-        private void checkChecksum(byte[] bytes)
+        /// <param name="bytes">The bytearray that holds the information about the checksum</param>
+        private void CheckChecksum(byte[] bytes)
         {
             int checksum = 0;
-            for (int i = 2; i < bytes.Length; i++)
+            for (int i = 2; i < bytes.Length; i++ )
             {
-                checksum = checksum + (short)bytes[i];
+                checksum += bytes[i];
             }
-            if (bytes[1] != checksum)
+            checksum = checksum & 0b_1111_1111;
+            if(checksum != bytes[1])
             {
-                throw new InvalidChecksumException("The Chechsum does not match with the values");
+                throw new ChecksumException("There was a problem with the checksum");
             }
         }
 
-        private void checkChecksumIMUData(byte[] bytes)
+        /// <summary>
+        /// Checks if the checksum from the received bytearray is correct
+        /// </summary>
+        /// <param name="bytes">The bytearray that holds the information about the checksum</param>
+        private void CheckIMUChecksum(byte[] bytes)
         {
             int checksum = 0;
             for (int i = 3; i < bytes.Length; i++)
             {
-                checksum = checksum + (short)bytes[i];
+                checksum += bytes[i];
             }
-            if (bytes[2] != checksum)
+            checksum = checksum & 0b_1111_1111;
+            if (checksum != bytes[2])
             {
-                throw new InvalidChecksumException("The Chechsum does not match with the values");
+                throw new ChecksumException("There was a problem with the checksum from the IMUData");
             }
         }
     }

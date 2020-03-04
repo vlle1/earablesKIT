@@ -9,9 +9,9 @@ namespace EarablesKIT.Models.Library
     /// </summary>
     public class AllreadyConnectedException : Exception
     {
-            public AllreadyConnectedException(string message) : base(message)
-            {
+        public AllreadyConnectedException(string message) : base(message)
+        {
 
-            }
+        }
     }
 }

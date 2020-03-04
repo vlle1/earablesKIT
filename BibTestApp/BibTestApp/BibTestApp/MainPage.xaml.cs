@@ -115,7 +115,7 @@ namespace BibTestApp
 
         private void neuesDevice(object sender, NewDeviceFoundArgs e)
         {
-            deviceList.Add(e.device);
+            deviceList.Add(e.Device);
         }
 
 
@@ -134,7 +134,8 @@ namespace BibTestApp
 
         private async void btnGetGyroLPF_Clicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Gyro", "Gyroscope LPF ist bei " + earables.GyroLPF, "OK");
+            LPF_Gyroscope lpf = await earables.GetGyroscopeLPFFromDevice();
+            await DisplayAlert("Gyro", "Gyroscope LPF ist bei " + lpf , "OK");
         }
 
         private async void btnSetAccLPF_Clicked(object sender, EventArgs e)
@@ -146,7 +147,8 @@ namespace BibTestApp
 
         private async void btnGetAccLPF_Clicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Acc", "Accelerometer LPF ist bei " + earables.AccLPF, "OK");
+            LPF_Accelerometer lpf = await earables.GetAccelerometerLPFFromDeviceAsync();
+            await DisplayAlert("Acc", "Accelerometer LPF ist bei " + lpf, "OK");
 
         }
 

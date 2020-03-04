@@ -6,7 +6,7 @@ using System.Text;
 namespace EarablesKIT.Models.Library
 {
     /// <summary>
-    /// This class provides all characteristics
+    /// This class provides all characteristics used by the BLE device
     /// </summary>
     class Characteristics
     {
