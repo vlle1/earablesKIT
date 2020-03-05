@@ -316,6 +316,7 @@ namespace EarablesKIT.ViewModels
 				}
 
 				Milliseconds = _timer.Elapsed.Milliseconds.ToString();
+				while (Milliseconds.Length < 3) Milliseconds = "0" + Milliseconds;
 				return true;
 			});
 		}
