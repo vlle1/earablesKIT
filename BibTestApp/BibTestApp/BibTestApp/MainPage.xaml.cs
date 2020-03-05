@@ -175,33 +175,36 @@ namespace BibTestApp
             ABBORT, null, HZ5, HZ10, HZ20, HZ41, HZ92, HZ184, HZ460, OFF);
 
             EarablesKIT.Models.Library.LPF_Accelerometer acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz10;
-
-            switch (lpf)
+            if (lpf != null && !lpf.Equals("") && !lpf.Equals(ABBORT))
             {
-                case HZ5:
-                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz5;
-                    break;
-                case HZ10:
-                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz10;
-                    break;
-                case HZ20:
-                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz20;
-                    break;
-                case HZ41:
-                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz41;
-                    break;
-                case HZ92:
-                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz92;
-                    break;
-                case HZ184:
-                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz184;
-                    break;
-                case HZ460:
-                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz460;
-                    break;
-                case OFF:
-                    acc = EarablesKIT.Models.Library.LPF_Accelerometer.OFF;
-                    break;
+                switch (lpf)
+                {
+                    case HZ5:
+                        acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz5;
+                        break;
+                    case HZ10:
+                        acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz10;
+                        break;
+                    case HZ20:
+                        acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz20;
+                        break;
+                    case HZ41:
+                        acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz41;
+                        break;
+                    case HZ92:
+                        acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz92;
+                        break;
+                    case HZ184:
+                        acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz184;
+                        break;
+                    case HZ460:
+                        acc = EarablesKIT.Models.Library.LPF_Accelerometer.Hz460;
+                        break;
+                    case OFF:
+                        acc = EarablesKIT.Models.Library.LPF_Accelerometer.OFF;
+                        break;
+                }
+
             }
 
             earables.AccLPF = acc;
