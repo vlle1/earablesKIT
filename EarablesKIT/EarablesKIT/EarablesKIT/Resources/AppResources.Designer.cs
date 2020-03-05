@@ -88,6 +88,15 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string alternativeGrammarDone {
+            get {
+                return ResourceManager.GetString("alternativeGrammarDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to and.
         /// </summary>
         internal static string And {
@@ -124,7 +133,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CountMode.
+        ///   Looks up a localized string similar to Count Mode.
         /// </summary>
         internal static string CountModeNameLabel {
             get {
@@ -196,7 +205,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to your Dataoverview.
+        ///   Looks up a localized string similar to Your Personal Data Overview.
         /// </summary>
         internal static string DataOverviewPageEntryLabel {
             get {
@@ -223,7 +232,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dataoverview.
+        ///   Looks up a localized string similar to Data Overview.
         /// </summary>
         internal static string DataOverviewTitle {
             get {
@@ -295,7 +304,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete trainingsdata.
+        ///   Looks up a localized string similar to Delete training data.
         /// </summary>
         internal static string ImportExportDeleteDataButton {
             get {
@@ -304,7 +313,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export trainingsdata.
+        ///   Looks up a localized string similar to Export training data.
         /// </summary>
         internal static string ImportExportExportButton {
             get {
@@ -322,7 +331,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import trainingsdata.
+        ///   Looks up a localized string similar to Import training data.
         /// </summary>
         internal static string ImportExportImportButton {
             get {
@@ -340,7 +349,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datamanagement.
+        ///   Looks up a localized string similar to Data Management.
         /// </summary>
         internal static string ImportExportLabel {
             get {
@@ -349,7 +358,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sharing dialog.
+        ///   Looks up a localized string similar to Share.
         /// </summary>
         internal static string ImportExportSaveDisplayTitle {
             get {
@@ -358,7 +367,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2019, Teco. All rights reserved..
+        ///   Looks up a localized string similar to 2019-2020, Teco. All rights reserved..
         /// </summary>
         internal static string ImprintCopyrightContent {
             get {
@@ -424,8 +433,9 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eSense Fitness is an App developed as a university project. It represents a use case for headphones with IMU sensors.
-        ///The app is based on the eSense Headphones..
+        ///   Looks up a localized string similar to eSense Fitness is a university project. 
+        ///The app shows a use case for headphones with integrated IMU sensors. 
+        ///The app is based on the eSense headphones..
         /// </summary>
         internal static string ImprintOverviewContent {
             get {
@@ -452,7 +462,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karlsruher Institute of Technology 
+        ///   Looks up a localized string similar to Karlsruhe Institute of Technology 
         ///Kaiserstraße 12 
         ///D-76131 Karlsruhe 
         ///Germany.
@@ -500,7 +510,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MusicMode.
+        ///   Looks up a localized string similar to Music Mode.
         /// </summary>
         internal static string MusicModeEntryLabel {
             get {
@@ -509,7 +519,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
+        ///   Looks up a localized string similar to Music Mode.
         /// </summary>
         internal static string MusicModeEntryLabel1 {
             get {
@@ -518,7 +528,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start the music mode to play music whenever you are running!.
+        ///   Looks up a localized string similar to Launch the music mode to enjoy a whole new listening experience! Music plays exactly when you walk!.
         /// </summary>
         internal static string MusicModeExplanation {
             get {
@@ -743,7 +753,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving failed! Please check your inputs.
+        ///   Looks up a localized string similar to Saving failed! Please check your entries..
         /// </summary>
         internal static string SettingsPageWrongInput {
             get {
@@ -797,7 +807,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start CountMode.
+        ///   Looks up a localized string similar to Start Counting Mode.
         /// </summary>
         internal static string StartCountModeButton {
             get {
@@ -833,7 +843,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StepMode.
+        ///   Looks up a localized string similar to Step Mode.
         /// </summary>
         internal static string StepModeNameLabel {
             get {
@@ -842,7 +852,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start Stepmode.
+        ///   Looks up a localized string similar to Start Step Mode.
         /// </summary>
         internal static string StepModeStartButton {
             get {
@@ -860,7 +870,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop Stepmode.
+        ///   Looks up a localized string similar to Stop Step Mode.
         /// </summary>
         internal static string StepModeStopButton {
             get {
@@ -869,7 +879,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last Trainings Date.
+        ///   Looks up a localized string similar to Last Date of Training.
         /// </summary>
         internal static string StepModeTrainingsDateLabel {
             get {
@@ -914,7 +924,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop CountMode.
+        ///   Looks up a localized string similar to Stop Counting Mode.
         /// </summary>
         internal static string StopCountModeButton {
             get {

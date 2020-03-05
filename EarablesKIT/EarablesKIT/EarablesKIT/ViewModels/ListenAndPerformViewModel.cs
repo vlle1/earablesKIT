@@ -386,7 +386,7 @@ namespace EarablesKIT.ViewModels
 		{
 			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + _pushUpResult 
 				+ " " + AppResources.Push_ups + " " + AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups 
-				+ " " + AppResources.Done + "!", AppResources.Cool);
+				+ AppResources.alternativeGrammarDone + "!", AppResources.Cool);
 		}
 
 		/// <summary>
@@ -399,7 +399,7 @@ namespace EarablesKIT.ViewModels
 				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
 			if (newActivity != null && !newActivity.Equals("") && !newActivity.Equals(AppResources.Cancel))
 			{
-				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(AppResources.AddingActivity, //Exception für Negatives vllt
+				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(newActivity, //Exception für Negatives vllt
 						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 2, Keyboard.Numeric);
 				if (newAmount != null && !newAmount.Equals("") && int.Parse(newAmount) > 0) //TO-DO: Regex für Z-ahlinput
 				{

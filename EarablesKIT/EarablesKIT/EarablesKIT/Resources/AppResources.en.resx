@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CountModeNameLabel" xml:space="preserve">
-    <value>CountMode</value>
+    <value>Count Mode</value>
   </data>
   <data name="Accept" xml:space="preserve">
     <value>Okay</value>
@@ -142,7 +142,7 @@
     <value>Trainingsdata_EarblesKIT.txt</value>
   </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
-    <value>Welcome to your Dataoverview</value>
+    <value>Your Personal Data Overview</value>
   </data>
   <data name="DataOverviewPageExportButton" xml:space="preserve">
     <value>Export</value>
@@ -163,16 +163,16 @@
     <value>Error</value>
   </data>
   <data name="ImportExportDeleteDataButton" xml:space="preserve">
-    <value>Delete trainingsdata</value>
+    <value>Delete training data</value>
   </data>
   <data name="ImportExportExportButton" xml:space="preserve">
-    <value>Export trainingsdata</value>
+    <value>Export training data</value>
   </data>
   <data name="ImportExportFileError" xml:space="preserve">
     <value>File couldn't get picked correctly!</value>
   </data>
   <data name="ImportExportImportButton" xml:space="preserve">
-    <value>Import trainingsdata</value>
+    <value>Import training data</value>
   </data>
   <data name="ImportExportInformationLabel" xml:space="preserve">
     <value>Import/Export file needs to end with .txt</value>
@@ -181,10 +181,10 @@
     <value>Datamanagement</value>
   </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
-    <value>MusicMode</value>
+    <value>Music Mode</value>
   </data>
   <data name="MusicModeEntryLabel1" xml:space="preserve">
-    <value>Wonderful MusicModeEntry page!</value>
+    <value>Music Mode</value>
   </data>
   <data name="Okay" xml:space="preserve">
     <value>Okay</value>
@@ -199,7 +199,7 @@
     <value>SitUps</value>
   </data>
   <data name="StartCountModeButton" xml:space="preserve">
-    <value>Start CountMode</value>
+    <value>Start Counting Mode</value>
   </data>
   <data name="SettingsPageLanguage" xml:space="preserve">
     <value>Language</value>
@@ -220,7 +220,7 @@
     <value>Username</value>
   </data>
   <data name="SettingsPageWrongInput" xml:space="preserve">
-    <value>Saving failed! Please check your inputs</value>
+    <value>Saving failed! Please check your entries.</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Settings</value>
@@ -232,19 +232,19 @@
     <value>Steps Taken Last Time</value>
   </data>
   <data name="StepModeNameLabel" xml:space="preserve">
-    <value>StepMode</value>
+    <value>Step Mode</value>
   </data>
   <data name="StepModeStartButton" xml:space="preserve">
-    <value>Start Stepmode</value>
+    <value>Start Step Mode</value>
   </data>
   <data name="StepModeStartDataTime" xml:space="preserve">
     <value>Training Started On/At</value>
   </data>
   <data name="StepModeStopButton" xml:space="preserve">
-    <value>Stop Stepmode</value>
+    <value>Stop Step Mode</value>
   </data>
   <data name="StepModeTrainingsDateLabel" xml:space="preserve">
-    <value>Last Trainings Date</value>
+    <value>Last Date of Training</value>
   </data>
   <data name="StepModeUnbindedFrequencyLabel" xml:space="preserve">
     <value>Frequency in Steps per Minute</value>
@@ -259,7 +259,7 @@
     <value>Steps</value>
   </data>
   <data name="StopCountModeButton" xml:space="preserve">
-    <value>Stop CountMode</value>
+    <value>Stop Counting Mode</value>
   </data>
   <data name="ScanningPopUpAlertCouldntConnect" xml:space="preserve">
     <value>Connection failed!</value>
@@ -376,22 +376,22 @@
     <value>Training complete</value>
   </data>
   <data name="ImportExportSaveDisplayTitle" xml:space="preserve">
-    <value>Sharing dialog</value>
+    <value>Share</value>
   </data>
   <data name="CustomizeWorkout" xml:space="preserve">
     <value>Customize your workout!</value>
   </data>
   <data name="DataOverviewTitle" xml:space="preserve">
-    <value>Dataoverview</value>
+    <value>Data Overview</value>
   </data>
   <data name="MusicModeExplanation" xml:space="preserve">
-    <value>Start the music mode to play music whenever you are running!</value>
+    <value>Launch the music mode to enjoy a whole new listening experience! Music plays exactly when you walk!</value>
   </data>
   <data name="ImprintTitle" xml:space="preserve">
     <value>Imprint</value>
   </data>
   <data name="ImprintCopyrightContent" xml:space="preserve">
-    <value>2019, Teco. All rights reserved.</value>
+    <value>2019-2020, Teco. All rights reserved.</value>
   </data>
   <data name="ImprintCopyrightHeader" xml:space="preserve">
     <value>Copyright (c)</value>
@@ -415,19 +415,24 @@ D-76131 Karlsruhe</value>
     <value>eSense</value>
   </data>
   <data name="ImprintOverviewContent" xml:space="preserve">
-    <value>eSense Fitness is an App developed as a university project. It represents a use case for headphones with IMU sensors.
-The app is based on the eSense Headphones.</value>
+    <value>eSense Fitness is a university project. 
+The app shows a use case for headphones with integrated IMU sensors. 
+The app is based on the eSense headphones.</value>
   </data>
   <data name="ImprintOverviewHeader" xml:space="preserve">
     <value>About</value>
   </data>
   <data name="ImprintUniversityContent" xml:space="preserve">
-    <value>Karlsruher Institute of Technology
+    <value>Karlsruhe Institute of Technology
 Kaiserstraße 12
 D-76131 Karlsruhe
 Germany</value>
   </data>
   <data name="ImprintUniversityHeader" xml:space="preserve">
     <value>University</value>
+  </data>
+  <data name="alternativeGrammarDone" xml:space="preserve">
+    <value />
+    <comment>because of grammatical structure of german language...</comment>
   </data>
 </root>
