@@ -57,6 +57,9 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
 
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\ImpressumPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\PopUpScanningPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

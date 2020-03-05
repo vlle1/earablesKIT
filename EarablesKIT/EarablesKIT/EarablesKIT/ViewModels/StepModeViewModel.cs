@@ -284,7 +284,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + " " + AppResources.Done, AppResources.Cool);
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + AppResources.alternativeGrammarDone + ".", AppResources.Cool);
 		}
 
 		/// <summary>
