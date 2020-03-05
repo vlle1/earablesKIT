@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
@@ -37,6 +38,11 @@ namespace EarablesKIT.ViewModels
 		/// Command for Editing an activity from the list, bound to the edit button.
 		/// </summary>
 		public ICommand EditActivityCommand { get; set; }
+
+		/// <summary>
+		/// Dit brauch ich.
+		/// </summary>
+		private bool _inserted = false;
 
 		/// <summary>
 		/// Timer that starts running on activation of the mode.
@@ -393,15 +399,15 @@ namespace EarablesKIT.ViewModels
 		/// Method that adds an activity to the ActivityList via Pop-ups, called by the equivalent command.
 		/// </summary>
 		/// <param name="Index">Index where the activity will be inserted</param>
-		private async void AddActivity(int Index)
+		private async Task AddActivity(int Index)
 		{
 			string newActivity = await Application.Current.MainPage.DisplayActionSheet(AppResources.SelectAnActivity,
 				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
 			if (newActivity != null && !newActivity.Equals("") && !newActivity.Equals(AppResources.Cancel))
 			{
-				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(newActivity, //Exception für Negatives vllt
-						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 2, Keyboard.Numeric);
-				if (newAmount != null && !newAmount.Equals("") && int.Parse(newAmount) > 0) //TO-DO: Regex für Z-ahlinput
+				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(newActivity, 
+						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 3, Keyboard.Numeric);
+				if (newAmount != null && Regex.IsMatch(newAmount, @"^[1-9]{1}\d{0,2}$"))
 				{
 					if (newActivity.Equals(AppResources.Push_ups))
 					{
@@ -415,6 +421,7 @@ namespace EarablesKIT.ViewModels
 					{
 						ActivityList.Insert(Index, new ActivityWrapper(AppResources.Pause, null, int.Parse(newAmount)));
 					}
+					_inserted = true;
 				}
 			}
 		}
@@ -433,13 +440,17 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Method that edit the selected activity from the ActivityList, called by the equivalent command.
 		/// </summary>
-		private void EditActivity()
+		private async void EditActivity()
 		{
 			if (SelectedActivity != null && ActivityList.Contains(SelectedActivity))
 			{
 				int Index = ActivityList.IndexOf(SelectedActivity);
-				ActivityList.Remove(SelectedActivity);
-				AddActivity(Index);
+				_inserted = false;
+				await AddActivity(Index);
+				if (_inserted)
+				{
+					ActivityList.Remove(SelectedActivity);
+				}
 			}
 		}
 
