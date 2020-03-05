@@ -32,7 +32,9 @@ namespace BibTestApp
         private const string HZ460 = "460Hz";
         private const string OFF = "OFF";
         private const string  ABBORT = "Abbruch";
+        private const string OKAY = "Okay";
         private const string CHOSE = "Wähle einen LPF aus";
+        private const string CHOSE_SAMPLERATE = "Gib eine samplerate ein (Hinweis: Samplerate muss zwischen 1 und 100 liegen)";
         private const string HZ250 = "250Hz";
         private const string HZ3600 = "3600Hz";
         private IMUDataEntry entry;
@@ -245,8 +247,14 @@ namespace BibTestApp
 
         private async void btnSetSampleRate_Cklicked(object sender, EventArgs e)
         {
-            earables.SampleRate = 70;
-            await DisplayAlert("SampleRate", "SampleRate wurde auf " + earables.SampleRate + "gesetzt", "OK");
+            
+            string newSampleRate = await Application.Current.MainPage.DisplayPromptAsync("Samplerate",
+                        CHOSE_SAMPLERATE, initialValue: "50", maxLength: 2, keyboard: Keyboard.Numeric);
+            if (newSampleRate != null && !newSampleRate.Equals("") && int.Parse(newSampleRate) > 0 && int.Parse(newSampleRate) < 101)
+            {
+                earables.SampleRate = int.Parse(newSampleRate);
+                await DisplayAlert("SampleRate", "SampleRate wurde auf " + earables.SampleRate + "gesetzt", "OK");
+            }
         }
 
         private async void btnGetConnection_Cklicked(object sender, EventArgs e)
