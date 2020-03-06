@@ -38,10 +38,11 @@ namespace BibTestApp
         private const string HZ250 = "250Hz";
         private const string HZ3600 = "3600Hz";
         private IMUDataEntry entry;
-        public IMUDataEntry Entry { get => entry; set { entry = value; OnPropertyChanged(entry); } }
+        public IMUDataEntry Entry { get => entry; set { entry = value; OnPropertyChanged(nameof(Entry)); } }
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = this;
             lv.ItemsSource = deviceList;
 
             earables = new EarablesConnection();
@@ -74,7 +75,7 @@ namespace BibTestApp
 
         private void buttonPressedEarables(object sender, ButtonEventArgs e)
         {
-            //DisplayAlert("PushButton", "Der PushButton wurde gedrückt", "OK");
+            DisplayAlert("PushButton", "Der PushButton wurde gedrückt", "OK");
             Console.WriteLine("Button gedrückt");
         }
 
@@ -273,10 +274,10 @@ namespace BibTestApp
         }
 
         //[NotifyPropertyChangedInvocator]
-        public void OnPropertyChanged(IMUDataEntry entry)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(entry));
-        }
+             public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+             {
+                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+             }
 
     }
 }

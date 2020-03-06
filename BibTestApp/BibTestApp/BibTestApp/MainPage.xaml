@@ -6,9 +6,6 @@
              xmlns:local="clr-namespace:BibTestApp"
              mc:Ignorable="d"
              x:Class="BibTestApp.MainPage">
-    <ContentPage.BindingContext>
-        <local:MainPage/>
-    </ContentPage.BindingContext>
 
     <StackLayout>
         <!-- Place new controls here -->
@@ -24,6 +21,32 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acceloratin in X Direction in G: "/>
+            <Label Text="{Binding Entry.Acc.G_X}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acceloratin in Y Direction in G: "/>
+            <Label Text="{Binding Entry.Acc.G_Y}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acceloratin in Z Direction in G: "/>
+            <Label Text="{Binding Entry.Acc.G_Z}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Rotation arround X Axis in Deg/s : "/>
+            <Label Text="{Binding Entry.Gyro.DegsPerSec_X}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Rotation arround Y Axis in Deg/s : "/>
+            <Label Text="{Binding Entry.Gyro.DegsPerSec_Y}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Rotation arround Z Axis in Deg/s : "/>
+            <Label Text="{Binding Entry.Gyro.DegsPerSec_Z}"/>
+        </StackLayout>
+
 
         <StackLayout Orientation="Horizontal">
 
@@ -60,9 +83,11 @@
                 Clicked="btnSetAccLPF_Clicked"/>
 
         </StackLayout>
-        
-        
-        <StackLayout Orientation="Horizontal">
+
+
+
+
+            <StackLayout Orientation="Horizontal">
 
             <Button x:Name="Btn9" Text="Get Acc LPF"
                 HorizontalOptions="Center" VerticalOptions="Center"
@@ -70,14 +95,6 @@
             <Button x:Name="Btn10" Text="Start Sampling"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnStartSampling_Clicked"/>
-            <Label Text="{Binding Entry.Acc.G_X}"/>
-            <Label Text="{Binding Entry.Acc.G_Y}"/>
-            <Label Text="{Binding Entry.Acc.G_Z}"/>
-
-            <Label Text="{Binding Entry.Gyro.DegsPerSec_X}"/>
-            <Label Text="{Binding Entry.Gyro.DegsPerSec_Y}"/>
-            <Label Text="{Binding Entry.Gyro.DegsPerSec_Z}"/>
-
         </StackLayout>
 
 
@@ -103,13 +120,6 @@
             <Button x:Name="Btn15" Text="Get BatteryVoltage"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnGetBatteryVoltage_Cklicked"/>
-            <Label Text="{Binding Entry.Acc.G_X}"/>
-            <Label Text="{Binding Entry.Acc.G_Y}"/>
-            <Label Text="{Binding Entry.Acc.G_Z}"/>
-
-            <Label Text="{Binding Entry.Gyro.DegsPerSec_X}"/>
-            <Label Text="{Binding Entry.Gyro.DegsPerSec_Y}"/>
-            <Label Text="{Binding Entry.Gyro.DegsPerSec_Z}"/>
         </StackLayout>
 
     </StackLayout>
