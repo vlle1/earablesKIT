@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 namespace BibTestApp
 {
     [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage , INotifyPropertyChanged
+    public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         EarablesConnection earables;
         ObservableCollection<IDevice> deviceList = new ObservableCollection<IDevice>();
@@ -31,25 +31,27 @@ namespace BibTestApp
         private const string HZ184 = "184Hz";
         private const string HZ460 = "460Hz";
         private const string OFF = "OFF";
-        private const string  ABBORT = "Abbruch";
+        private const string ABBORT = "Abbruch";
         private const string OKAY = "Okay";
         private const string CHOSE = "Wähle einen LPF aus";
         private const string CHOSE_SAMPLERATE = "Gib eine samplerate ein (Hinweis: Samplerate muss zwischen 1 und 100 liegen)";
         private const string HZ250 = "250Hz";
         private const string HZ3600 = "3600Hz";
         private IMUDataEntry entry;
-        public IMUDataEntry Entry { get => entry; set { entry = value; OnPropertyChanged("Entry"); }   }
+        public IMUDataEntry Entry { get => entry; set { entry = value; OnPropertyChanged(entry); } }
         public MainPage()
         {
             InitializeComponent();
             lv.ItemsSource = deviceList;
-           
+
             earables = new EarablesConnection();
             earables.NewDeviceFound += neuesDevice;
             earables.ButtonPressed += buttonPressedEarables;
             earables.DeviceConnectionStateChanged += neuerVerbindungsstatus;
             earables.IMUDataReceived += neueIMUDatenearables;
         }
+
+
 
         private void neueIMUDatenearables(object sender, DataEventArgs e)
         {
@@ -82,7 +84,7 @@ namespace BibTestApp
             if (earables.IsBluetoothActive) {
                 active = "ON";
             }
-            else{
+            else {
                 active = "OFF";
             }
             this.DisplayAlert("Bluetoothstatus", active, "OK");
@@ -91,7 +93,7 @@ namespace BibTestApp
 
         private async void btnStartScanning_Cklicked(object sender, EventArgs e)
         {
-            earables.StartScanning();   
+            earables.StartScanning();
         }
 
 
@@ -104,7 +106,7 @@ namespace BibTestApp
             }
             device = lv.SelectedItem as IDevice;
             earables.ConnectToDevice(device);
-            
+
         }
 
         private void neuesDevice(object sender, NewDeviceFoundArgs e)
@@ -156,7 +158,7 @@ namespace BibTestApp
                         gyro = EarablesKIT.Models.Library.LPF_Gyroscope.OFF;
                         break;
                 }
-                
+
                 earables.GyroLPF = gyro;
                 await DisplayAlert("Gyro", "Gyroscope wird auf " + gyro + " gesetzt", "OK");
             }
@@ -166,7 +168,7 @@ namespace BibTestApp
         private async void btnGetGyroLPF_Clicked(object sender, EventArgs e)
         {
             LPF_Gyroscope lpf = await earables.GetGyroscopeLPFFromDevice();
-            await DisplayAlert("Gyro", "Gyroscope LPF ist bei " + lpf , "OK");
+            await DisplayAlert("Gyro", "Gyroscope LPF ist bei " + lpf, "OK");
         }
 
         private async void btnSetAccLPF_Clicked(object sender, EventArgs e)
@@ -235,7 +237,7 @@ namespace BibTestApp
         private async void setName_klicked(object sender, EventArgs e)
         {
             byte[] bytes2 = { 0x45, 0x52, 0x57, 0x49, 0x4E, 0x41 };
-           // await CharacteristicNameWrite.WriteAsync(bytes2);
+            // await CharacteristicNameWrite.WriteAsync(bytes2);
         }
 
         private async void btnGetBatteryVoltage_Cklicked(object sender, EventArgs e)
@@ -250,13 +252,18 @@ namespace BibTestApp
 
         private async void btnSetSampleRate_Cklicked(object sender, EventArgs e)
         {
-            
+
             string newSampleRate = await Application.Current.MainPage.DisplayPromptAsync("Samplerate",
-                        CHOSE_SAMPLERATE, initialValue: "50", maxLength: 2, keyboard: Keyboard.Numeric);
+                        CHOSE_SAMPLERATE, initialValue: "50", maxLength: 3, keyboard: Keyboard.Numeric);
             if (newSampleRate != null && !newSampleRate.Equals("") && int.Parse(newSampleRate) > 0 && int.Parse(newSampleRate) < 101)
             {
                 earables.SampleRate = int.Parse(newSampleRate);
-                await DisplayAlert("SampleRate", "SampleRate wurde auf " + earables.SampleRate + "gesetzt", "OK");
+                await DisplayAlert("SampleRate", "SampleRate wurde auf " + earables.SampleRate + " gesetzt", "OK");
+            }
+            if (!(int.Parse(newSampleRate) > 0) || !(int.Parse(newSampleRate) < 101))
+            {
+                await DisplayAlert("SampleRate", earables.SampleRate +
+                    " ist ein ungültiger Wert. Die Samplerate muss zwischen 1 und 100 liegen", "OK");
             }
         }
 
@@ -264,13 +271,22 @@ namespace BibTestApp
         {
             await DisplayAlert("Verbindung", "verbindung ist " + earables.Connected, "OK");
         }
-        
-       // [NotifyPropertyChangedInvocator]
-       // protected virtual void OnPropertyChanged(IMUDataEntry entry)
-       // {
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(entry));
-       // }
-        
+
+        //[NotifyPropertyChangedInvocator]
+        public void OnPropertyChanged(IMUDataEntry entry)
+        {
+            PropertyChanged?.Invoke(this, new EntryEventArgs(entry));
+        }
+
     }
+
+    public class EntryEventArgs{
+
+        IMUDataEntry entry;
+        public EntryEventArgs(IMUDataEntry entry)
+        {
+            this.entry = entry;
+        }
+        }
 }
 
