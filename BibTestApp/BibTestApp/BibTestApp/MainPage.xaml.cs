@@ -275,18 +275,9 @@ namespace BibTestApp
         //[NotifyPropertyChangedInvocator]
         public void OnPropertyChanged(IMUDataEntry entry)
         {
-            PropertyChanged?.Invoke(this, new EntryEventArgs(entry));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(entry));
         }
 
     }
-
-    public class EntryEventArgs{
-
-        IMUDataEntry entry;
-        public EntryEventArgs(IMUDataEntry entry)
-        {
-            this.entry = entry;
-        }
-        }
 }
 
