@@ -56,67 +56,68 @@
             <Button x:Name="Btn4" Text="Get Bluetooth status"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnGetBluetooth_Cklicked"/>
-
         </StackLayout>
-        
-        
-        <StackLayout Orientation="Horizontal">
 
+        <StackLayout Orientation="Horizontal" VerticalOptions="Start">
             <Button x:Name="Btn5" Text="Disconect"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnDisconect_Clicked"/>
+        </StackLayout>
+
+
+        <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn6" Text="Set Gyro LPF"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnsSetGyroLPF_Clicked"/>
-
-        </StackLayout>
-        
-    
-        
-        <StackLayout Orientation="Horizontal">
-
             <Button x:Name="Btn7" Text="Get Gyro LPF"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnGetGyroLPF_Clicked"/>
+        </StackLayout>
+
+
+
+        <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn8" Text="Set Acc LPF"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnSetAccLPF_Clicked"/>
-
-        </StackLayout>
-
-
-
-
-            <StackLayout Orientation="Horizontal">
-
             <Button x:Name="Btn9" Text="Get Acc LPF"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnGetAccLPF_Clicked"/>
+        </StackLayout>
+
+
+
+
+        <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn10" Text="Start Sampling"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnStartSampling_Clicked"/>
-        </StackLayout>
-
-
-        <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn11" Text="Stop Sampling"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnStopSampling_Clicked"/>
-            <Button x:Name="Btn12" Text="Set Samplingrate"
-                HorizontalOptions="Center" VerticalOptions="Center"
-                Clicked="btnSetSampleRate_Cklicked"/>
-
         </StackLayout>
+
 
         <StackLayout Orientation="Horizontal">
 
+            <Button x:Name="Btn12" Text="Set Samplingrate"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnSetSampleRate_Cklicked"/>
             <Button x:Name="Btn13" Text="Get Samplingrate"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnGetSampleRate_Cklicked"/>
         </StackLayout>
-        
-        <StackLayout Orientation="Horizontal">
 
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="Btn16" Text="Set Gyro Range"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnSetGyroRange_Clicked"/>
+            <Button x:Name="Btn17" Text="Get Gyro Scalefactor"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetGyroScalefactor_Clicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn15" Text="Get BatteryVoltage"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnGetBatteryVoltage_Cklicked"/>

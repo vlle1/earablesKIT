@@ -24,7 +24,10 @@ namespace EarablesKIT.Models.Library
         // The connectet device
         private IDevice device;
         // Saves the configurations
-        private ConfigContainer config = new ConfigContainer();
+        public ConfigContainer config = new ConfigContainer();
+        // Standart scalefactors
+        int STANDART_ACC_SCALEFACTOR = 8192;
+        double STANDART_GYRO_SCALEFACTOR = 65.5;
         // Caching the bytearray which contains the offset
         private byte[] byteOffset;
         // Holds all characteristics
@@ -90,6 +93,8 @@ namespace EarablesKIT.Models.Library
                 // Set scalefactors on norm
                 byte[] bytes = { 0x59, 0x20, 0x04, 0x06, 0x08, 0x08, 0x06 };
                 await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytes);
+                config.GyroScaleFactor = STANDART_GYRO_SCALEFACTOR;
+                config.AccScaleFactor = STANDART_ACC_SCALEFACTOR;
 
                 // Starts the updating from the characteristics
                 try
@@ -435,7 +440,7 @@ namespace EarablesKIT.Models.Library
         /// Set the accelerometer range
         /// Not needed but helpfull for testing
         /// </summary>
-        private void SetAccelerometerRange(int range)
+        public void SetAccelerometerRange(int range)
         {
             CheckConnection();
             Device.BeginInvokeOnMainThread(new Action(async () =>
@@ -461,7 +466,7 @@ namespace EarablesKIT.Models.Library
         /// Set the gyroscope range
         /// Not needed but helpfull for testing
         /// </summary>
-        private void SetGyroscopeRange(int range)
+        public void SetGyroscopeRange(int range)
         {
             CheckConnection();
             Device.BeginInvokeOnMainThread(new Action(async () =>
@@ -480,6 +485,21 @@ namespace EarablesKIT.Models.Library
                 // Write the new Gyroscoperange on the Earables
                 byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], Convert.ToByte(data1), bytesRead[5], bytesRead[6] };
                 await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
+                switch (range)
+                {
+                    case 0x00:
+                        config.GyroScaleFactor = 131;
+                        break;
+                    case 0x08:
+                        config.GyroScaleFactor = 65.5;
+                        break;
+                    case 0x10:
+                        config.GyroScaleFactor = 32.8;
+                        break;
+                    case 0x18:
+                        config.GyroScaleFactor = 16.4;
+                        break;
+                }
             }));
         }
 

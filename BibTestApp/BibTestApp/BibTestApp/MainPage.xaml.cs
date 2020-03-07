@@ -274,10 +274,50 @@ namespace BibTestApp
         }
 
         //[NotifyPropertyChangedInvocator]
-             public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-             {
-                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-             }
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private async void btnSetGyroRange_Clicked(object sender, EventArgs e)
+        {
+            string range = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
+            ABBORT, null, "250 deg/s", "500 deg/s", "1000 deg/s", "2000 deg/s");
+
+            int rangeInt = 0;
+            String s = "";
+            if (range != null && !range.Equals("") && !range.Equals(ABBORT))
+            {
+                switch (range)
+                {
+                    case "250 deg/s":
+                        rangeInt = 0x00;
+                        s = "250 deg/s";
+                        break;
+                    case "500 deg/s":
+                        rangeInt = 0x08;
+                        s = "500 deg/s";
+                        break;
+                    case "1000 deg/s":
+                        rangeInt = 0x10;
+                        s = "1000 deg/s";
+                        break;
+                    case "2000 deg/s":
+                        rangeInt = 0x18;
+                        s = "2000 deg/s";
+                        break;
+                }
+
+            }
+
+            earables.SetGyroscopeRange(rangeInt);
+            await DisplayAlert("Gyro Range", "Gyroscope Range wird auf " + s + " gesetzt", "OK");
+        }
+
+        private async void btnGetGyroScalefactor_Clicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("Gyroscope", "Gyroscope Scale Factor ist " + earables.config.GyroScaleFactor, "OK");
+        }
 
     }
 }
