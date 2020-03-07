@@ -117,20 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CountModeNameLabel" xml:space="preserve">
+    <value>Zählmodus</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Okay</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbruch</value>
   </data>
+  <data name="DataOverviewPageDeleteButton" xml:space="preserve">
+    <value>Daten löschen</value>
+  </data>
+  <data name="DatabaseConnectionFileParseError" xml:space="preserve">
+    <value>Konnte den angegeben Pfad nicht lesen</value>
+  </data>
+  <data name="DataBaseErrorFailedToSave" xml:space="preserve">
+    <value>Speichern fehlgeschlagen!</value>
+  </data>
+  <data name="DataBaseFileDoesntExistError" xml:space="preserve">
+    <value>Angegebener Pfad existiert nicht!</value>
+  </data>
+  <data name="DataBaseStorageFileName" xml:space="preserve">
+    <value>Trainingsdaten_EarblesKIT.txt</value>
+  </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
     <value>Willkommen auf der Datenübersichtsseite!</value>
+  </data>
+  <data name="DataOverviewPageExportButton" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="DataOverviewPageImportButton" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DefaultError" xml:space="preserve">
+    <value>Es ist ein Fehler aufgetreten!</value>
+  </data>
+  <data name="ErrorAlert" xml:space="preserve">
+    <value>Fehler!</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Fehler!</value>
   </data>
+  <data name="ImportExportDeleteDataButton" xml:space="preserve">
+    <value>Traningsdaten löschen</value>
+  </data>
+  <data name="ImportExportExportButton" xml:space="preserve">
+    <value>Trainingsdaten exportieren</value>
+  </data>
+  <data name="ImportExportFileError" xml:space="preserve">
+    <value>Die Datei konnte nicht richtig ausgewählt werden!</value>
+  </data>
+  <data name="ImportExportImportButton" xml:space="preserve">
+    <value>Trainingsdaten importieren</value>
+  </data>
+  <data name="ImportExportInformationLabel" xml:space="preserve">
+    <value>Ausgewählte Dateien müssen die Endung .txt besitzen.</value>
+  </data>
+  <data name="ImportExportLabel" xml:space="preserve">
+    <value>Dateimanagement</value>
+  </data>
   <data name="MusicModeEntryLabel" xml:space="preserve">
-    <value>Willkommen im Musikmodus!</value>
+    <value>Musik Modus</value>
   </data>
   <data name="ScanningPopUpAlertCouldntConnect" xml:space="preserve">
     <value>Verbindung konnte nicht hergestellt werden!</value>
@@ -144,7 +195,196 @@
   <data name="ScanningPopUpConnectButton" xml:space="preserve">
     <value>Verbinden</value>
   </data>
+  <data name="ScanningPopUpLocationDenied" xml:space="preserve">
+    <value>Standorterlaubnis verweigert!</value>
+  </data>
+  <data name="ScanningPopUpPermissionLocationNeeded" xml:space="preserve">
+    <value>Standorterlaubnis wird benötigt!</value>
+  </data>
   <data name="ScanningPopUpScanDevicesButton" xml:space="preserve">
     <value>Suche Geräte</value>
+  </data>
+  <data name="ScanningPopUpTurnBluetoothOn" xml:space="preserve">
+    <value>Bluetooth ist nicht aktiv!</value>
+  </data>
+  <data name="MusicModeEntryLabel1" xml:space="preserve">
+    <value>Willkommen im Musikmodus!</value>
+  </data>
+  <data name="Okay" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="PossibleActivitiesLabel" xml:space="preserve">
+    <value>Wähle eine Aktivität aus, die gezählt werden soll!</value>
+  </data>
+  <data name="PushUps" xml:space="preserve">
+    <value>Liegestütze</value>
+  </data>
+  <data name="SitUps" xml:space="preserve">
+    <value>SitUps</value>
+  </data>
+  <data name="StartCountModeButton" xml:space="preserve">
+    <value>Zählmodus Starten</value>
+  </data>
+  <data name="SettingsPageLanguage" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="SettingsPageSamplingrate" xml:space="preserve">
+    <value>Samplingrate (Hz)</value>
+  </data>
+  <data name="SettingsPageSave" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="SettingsPageSavingDone" xml:space="preserve">
+    <value>Gespeichert!</value>
+  </data>
+  <data name="SettingsPageSteplength" xml:space="preserve">
+    <value>Schrittgröße (cm)</value>
+  </data>
+  <data name="SettingsPageUsername" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="SettingsPageWrongInput" xml:space="preserve">
+    <value>Das Speichern ist fehlgeschlagen! Überprüfe deine Eingaben</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="StepModeLastDistanceLabel" xml:space="preserve">
+    <value>Letztes Mal Gelaufene Distanz (m)</value>
+  </data>
+  <data name="StepModeLastStepsLabel" xml:space="preserve">
+    <value>Letztes Mal Gelaufene Schritte</value>
+  </data>
+  <data name="StepModeNameLabel" xml:space="preserve">
+    <value>Laufmodus</value>
+  </data>
+  <data name="StepModeStartButton" xml:space="preserve">
+    <value>Laufmodus Starten</value>
+  </data>
+  <data name="StepModeStartDataTime" xml:space="preserve">
+    <value>Training Gestartet Am/Um</value>
+  </data>
+  <data name="StepModeStopButton" xml:space="preserve">
+    <value>Laufmodus Stoppen</value>
+  </data>
+  <data name="StepModeTrainingsDateLabel" xml:space="preserve">
+    <value>Letzter Trainingstag</value>
+  </data>
+  <data name="StepModeUnbindedFrequencyLabel" xml:space="preserve">
+    <value>Schrittfrequenz in Schritten/Minute</value>
+  </data>
+  <data name="StepModeUnbindedStatusLabel" xml:space="preserve">
+    <value>Aktueller Status</value>
+  </data>
+  <data name="StepModeUnbindedStepsDoneLabel" xml:space="preserve">
+    <value>Aktuell Gelaufene Schritte</value>
+  </data>
+  <data name="Steps" xml:space="preserve">
+    <value>Schritte</value>
+  </data>
+  <data name="StopCountModeButton" xml:space="preserve">
+    <value>Zählmodus Stoppen</value>
+  </data>
+  <data name="AddActivityButton" xml:space="preserve">
+    <value>Hinzu fügen</value>
+  </data>
+  <data name="CurrentActivityUnbindedLabel" xml:space="preserve">
+    <value>Aktuelle Übung</value>
+  </data>
+  <data name="EditActivityButton" xml:space="preserve">
+    <value>Bear beiten</value>
+  </data>
+  <data name="ListenAndPerformNameLabel" xml:space="preserve">
+    <value>Lauschen Und Agieren</value>
+  </data>
+  <data name="RemoveActivityButton" xml:space="preserve">
+    <value>Ent fernen</value>
+  </data>
+  <data name="StartWorkoutButton" xml:space="preserve">
+    <value>Training Starten</value>
+  </data>
+  <data name="StopWorkoutButton" xml:space="preserve">
+    <value>Training Stoppen</value>
+  </data>
+  <data name="WorkoutPlanLabel" xml:space="preserve">
+    <value>Trainingsplan</value>
+  </data>
+  <data name="AddingActivity" xml:space="preserve">
+    <value>Aktivität Hinzufügend</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>und</value>
+  </data>
+  <data name="Coming soon" xml:space="preserve">
+    <value>In Kürze</value>
+  </data>
+  <data name="Cool" xml:space="preserve">
+    <value>Cool</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>gemacht</value>
+  </data>
+  <data name="EnterRepetitions" xml:space="preserve">
+    <value>Gebe die Anzahl Wiederholungen an</value>
+  </data>
+  <data name="NextActivity" xml:space="preserve">
+    <value>Nächste Aktivität,</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Push-ups" xml:space="preserve">
+    <value>Liegestütze</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Sekunden</value>
+  </data>
+  <data name="SelectAnActivity" xml:space="preserve">
+    <value>Wähle eine Aktivität:</value>
+  </data>
+  <data name="Sit-ups" xml:space="preserve">
+    <value>Sit-ups</value>
+  </data>
+  <data name="YouHaveDone" xml:space="preserve">
+    <value>Du hast</value>
+  </data>
+  <data name="MusicModeCurrentStatusLabelStanding" xml:space="preserve">
+    <value>Du stehst gerade</value>
+  </data>
+  <data name="MusicModeCurrentStatusLabelWalking" xml:space="preserve">
+    <value>Du gehst gerade</value>
+  </data>
+  <data name="YouHaveTaken" xml:space="preserve">
+    <value>Du hast</value>
+  </data>
+  <data name="SettingsServiceDefaultUser" xml:space="preserve">
+    <value>Nutzer</value>
+  </data>
+  <data name="Standing" xml:space="preserve">
+    <value>stehst</value>
+  </data>
+  <data name="Walking" xml:space="preserve">
+    <value>läufst!!!</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>Du</value>
+  </data>
+  <data name="TrainingDone" xml:space="preserve">
+    <value>Training abgeschlossen</value>
+  </data>
+  <data name="ImportExportSaveDisplayTitle" xml:space="preserve">
+    <value>Teilen</value>
+  </data>
+  <data name="CustomizeWorkout" xml:space="preserve">
+    <value>Individualisiere dein Training!</value>
+  </data>
+  <data name="DataOverviewTitle" xml:space="preserve">
+    <value>Datenübersicht</value>
+  </data>
+  <data name="MusicModeExplanation" xml:space="preserve">
+    <value>Starte den Musikmodus, um deine Musik dem Laufen anzupassen! Immer wenn du läufst wird Musik abgespielt!</value>
   </data>
 </root>

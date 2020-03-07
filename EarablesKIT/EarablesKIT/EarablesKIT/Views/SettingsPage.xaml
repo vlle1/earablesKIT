@@ -3,13 +3,102 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.SettingsPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
+
+            <StackLayout>
+                <Label Text="{x:Static Resource:AppResources.SettingsTitle}" 
+                       Style="{StaticResource LblTitleStyle}"/>
+                <Frame x:Name="InformationFrame"
+                       CornerRadius="10"
+                       Padding="0"
+                       HasShadow="False"
+                       BackgroundColor="{StaticResource MainBackgroundColor}">
+                    <Label Text="{x:Static Resource:AppResources.SettingsTitle}"
+                               x:Name="InformationLabel"
+                               FontSize="Small"
+                               TextColor="White"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               HeightRequest="50"
+                               Padding="5"
+                               BackgroundColor="Transparent" />
+                </Frame>
+                <Grid ColumnSpacing="24" RowSpacing="24" Margin="0,30,0,0" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageUsername}"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           FontSize="Medium" />
+                    <Entry x:Name="UsernameEntry"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Text="{Binding Username}"
+                           Keyboard="Chat"
+                           WidthRequest="70"
+                           MaxLength="20"
+                           BackgroundColor="{StaticResource MainBackgroundColor}"
+                           TextChanged="UsernameEntry_OnTextChanged" />
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageSteplength}"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           FontSize="Medium" />
+                    <Entry  x:Name="SteplengthEntry"
+                            Keyboard="Numeric"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            FontSize="Medium"
+                            WidthRequest="70"
+                            MaxLength="4"
+                            TextChanged="SteplengthEntry_OnTextChanged"
+                            BackgroundColor="{StaticResource MainBackgroundColor}"
+                            Text="{Binding Steplength}" />
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageSamplingrate}"
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           FontSize="Medium" />
+                    <Picker x:Name="SamplingratePicker"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            WidthRequest="70"
+                            SelectedIndexChanged="SamplingratePicker_OnSelectedIndexChanged"
+                            SelectedItem="{Binding SamplingRate}">
+                    </Picker>
+                    <Label Text="{x:Static Resource:AppResources.SettingsPageLanguage}"
+                           Grid.Row="3"
+                           Grid.Column="0"
+                           FontSize="Medium" />
+                    <Picker x:Name="LanguagePicker"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            WidthRequest="70"
+                            SelectedIndexChanged="LanguagePicker_OnSelectedIndexChanged"
+                            SelectedItem="{Binding Language}"
+                            ItemDisplayBinding="{Binding NativeName}">
+                    </Picker>
+                </Grid>
+            </StackLayout>
+            <Button x:Name="SaveButton"
+                    Text="{x:Static Resource:AppResources.SettingsPageSave}"
+                    Clicked="ButtonSavedClicked"
+                    VerticalOptions="CenterAndExpand"
+                    BorderColor="DarkGray"
+                    BorderWidth="1"
+                    CornerRadius="20"
+                    HorizontalOptions="Center"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

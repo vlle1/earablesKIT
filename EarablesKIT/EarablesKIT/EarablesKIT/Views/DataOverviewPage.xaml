@@ -7,10 +7,90 @@
              mc:Ignorable="d"
              x:Class="EarablesKIT.Views.DataOverviewPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
             <Label Text="{x:Static resource:AppResources.DataOverviewPageEntryLabel}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                   Style="{StaticResource LblTitleStyle}"/>
+            <ListView ItemsSource="{Binding TrainingsDataDbEntries}" 
+                      SeparatorColor="{StaticResource SeparatorColor}" 
+                      SelectionMode="None">
+                <ListView.Header>
+                    <Grid  HorizontalOptions="Center" 
+                           VerticalOptions="CenterAndExpand"  
+                           BackgroundColor="LightGray">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="{x:Static resource:AppResources.Date, }" 
+                               Grid.Column="0"
+                               Grid.Row="0" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               FontSize="Medium"/>
+                        <Label Text="{x:Static resource:AppResources.Steps}" 
+                               Grid.Column="1" 
+                               Grid.Row="0" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               FontSize="Medium"/>
+                        <Label Text="{x:Static resource:AppResources.PushUps}"
+                               Grid.Column="2" 
+                               Grid.Row="0" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               FontSize="Medium"/>
+                        <Label Text="{x:Static resource:AppResources.SitUps}" 
+                               Grid.Column="3" 
+                               Grid.Row="0" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               FontSize="Medium"/>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate >
+                    <DataTemplate >
+                        <ViewCell>
+                            <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
+                                       Grid.Column="0"
+                                       Grid.Row="0"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding TrainingsData[Steps]}" 
+                                       Grid.Column="1" 
+                                       Grid.Row="0"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding TrainingsData[PushUps]}"
+                                       Grid.Column="2"
+                                       Grid.Row="0"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding TrainingsData[SitUps]}"
+                                       Grid.Column="3"
+                                       Grid.Row="0" 
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

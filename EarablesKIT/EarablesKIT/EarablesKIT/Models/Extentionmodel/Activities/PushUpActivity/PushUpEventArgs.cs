@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
+﻿namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
 {
-    class PushUpEventArgs : CountableActivityArgs
+    /// <inheritdoc/>
+    public class PushUpEventArgs : CountableActivityArgs
     {
     }
 }

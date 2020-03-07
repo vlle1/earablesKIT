@@ -4,12 +4,78 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
              x:Class="EarablesKIT.Views.StepModePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Der StepMode! AMAZING!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
+            <Label Text="{x:Static resource:AppResources.StepModeNameLabel}"
+                   Style="{StaticResource LblTitleStyle}"/>
+            <StackLayout Spacing="0">
+                <Label Text="{x:Static resource:AppResources.StepModeTrainingsDateLabel}"
+                       Style="{StaticResource LblDefaultStyle}"
+                       Margin="10,0,0,0"
+                       FontSize="Large"/>
+                <Label Text="{Binding LastDataTime, StringFormat='{0:dd.MM.yyyy}'}"
+                       Style="{StaticResource LblDefaultStyle}"
+                       Margin ="10,0,0,0"
+                       FontSize="Large"/>
+            </StackLayout>
+            <Grid Margin="10,0,10,0" RowSpacing="10" ColumnSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+
+                <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
+                         Grid.Row="0"
+                         Grid.Column="0"/>
+                <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
+                         Grid.Row="0"
+                         Grid.Column="1"/>
+                
+                <Label Text="{x:Static resource:AppResources.StepModeLastStepsLabel}"
+                       VerticalTextAlignment="Center"
+                       Style="{StaticResource LblDefaultStyle}"
+                       FontSize="Large" 
+                       Grid.Row="1" 
+                       Grid.Column="0"/>
+                <Label Text="{Binding StepsDoneLastTime}"
+                       Style="{StaticResource LblDefaultStyle}"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="30"  
+                       Grid.Row="1" 
+                       Grid.Column="1" />
+                <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
+                         Grid.Row="2"
+                         Grid.Column="0"/>
+                <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
+                         Grid.Row="2"
+                         Grid.Column="1"/>
+                <Label Text="{x:Static resource:AppResources.StepModeLastDistanceLabel}"
+                       Style="{StaticResource LblDefaultStyle}"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="StartAndExpand"
+                       FontSize="Large" 
+                       Grid.Row="3" 
+                       Grid.Column="0"/>
+                <Label Text="{Binding DistanceWalkedLastTime}" 
+                       Style="{StaticResource LblDefaultStyle}"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="30" 
+                       Grid.Row="3" 
+                       Grid.Column="1"/>
+            </Grid>
+            <Button Text="{x:Static resource:AppResources.StepModeStartButton}" 
+                    Clicked="OnStartButtonClicked"
+                    Style="{StaticResource ButtonStartModus}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

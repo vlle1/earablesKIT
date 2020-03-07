@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
 using EarablesKIT.Models;
 
 namespace EarablesKIT.Views
@@ -26,6 +23,14 @@ namespace EarablesKIT.Views
 
         public async Task NavigateFromMenu(int id)
         {
+            int i = 1;
+            //The music mode is the only mode that has to be manually stopped after switching to a different page:
+            //All other modes switch to different pages that don't allow the user to navigate to a different mode without stopping the mode.
+            if (((NavigationPage)Detail).RootPage.GetType() ==  typeof (MusicModePage))
+            {   
+                //signalize the view that it should no longer run.
+                ((MusicModePage)((NavigationPage)Detail).RootPage).forceStopOnPageChange();
+            }
             if (!MenuPages.ContainsKey(id))
             {
                 switch (id)

@@ -2,15 +2,14 @@
 using EarablesKIT.ViewModels;
 using System;
 using System.Globalization;
-using EarablesKIT.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Models.SettingsService
 {
     /// <summary>
-    /// Class SettingsService implements a Service which handles the settings user, language and samplingrate.
-    /// Saves the settings between the sessions.
+    /// Class SettingsService implements a Service which handles the settings user, language and
+    /// samplingrate. Saves the settings between the sessions.
     /// </summary>
     public class SettingsService : ISettingsService
     {
@@ -44,17 +43,18 @@ namespace EarablesKIT.Models.SettingsService
             set
             {
                 var service = ServiceManager.ServiceProvider.GetService<IEarablesConnection>();
+
                 try
                 {
-                    //service.SamplingRate = ((int) value);
+                    service.SampleRate = (int)value;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     ExceptionHandlingViewModel.HandleException(e);
                     return;
                 }
 
-                UpdateValue(SAMPLINGRATE_PROPERTY, (int) value);
+                UpdateValue(SAMPLINGRATE_PROPERTY, (int)value);
                 _samplingRate = value;
             }
         }
@@ -80,7 +80,6 @@ namespace EarablesKIT.Models.SettingsService
             LoadSettings();
         }
 
-
         private void LoadSettings()
         {
             if (!Application.Current.Properties.ContainsKey(LANGUAGE_PROPERTY))
@@ -104,7 +103,6 @@ namespace EarablesKIT.Models.SettingsService
                 }
                 catch (CultureNotFoundException)
                 {
-                    //TODO Fehlerverhalten klären
                     ExceptionHandlingViewModel.HandleException(new CultureNotFoundException("Language couldn't be loaded!"));
                     ActiveLanguage = CultureInfo.CurrentUICulture;
                 }

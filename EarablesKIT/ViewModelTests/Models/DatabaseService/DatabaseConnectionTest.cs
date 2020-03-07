@@ -1,6 +1,8 @@
 ﻿using EarablesKIT.Models.DatabaseService;
 using System;
 using System.Collections.Generic;
+using Moq;
+using Plugin.FilePicker.Abstractions;
 using Xunit;
 
 namespace ViewModelTests.Models.DatabaseService
@@ -112,7 +114,6 @@ namespace ViewModelTests.Models.DatabaseService
             Assert.Empty(mostRecentEntries);
         }
 
-        //TODO Vielleicht überarbeiten, da nicht komplett unabhängig von anderen Methoden
         [Fact]
         public void TestAddEntry()
         {
@@ -132,10 +133,7 @@ namespace ViewModelTests.Models.DatabaseService
                 }
             }
             Assert.True(containing);
-            if (actual == null)
-            {
-                Assert.True(false);
-            }
+            
 
             containing = false;
             _toTest.SaveDBEntry(toSave);
@@ -143,18 +141,74 @@ namespace ViewModelTests.Models.DatabaseService
             DBEntry actualDBEntry2 = null;
             foreach (DBEntry dbEntry in allEntries)
             {
-                if (!dbEntry.Date.Equals(toSave.Date)) continue;
 
                 containing = !containing;
                 actualDBEntry2 = dbEntry;
             }
             Assert.True(containing);
-            if (actualDBEntry2 == null) Assert.True(false);
 
             Assert.True(actual.Date.Equals(actualDBEntry2.Date));
             Assert.Equal(actual.TrainingsData[DBEntry.StepAmountIdentifier] + 100, actualDBEntry2.TrainingsData[DBEntry.StepAmountIdentifier]);
             Assert.Equal(actual.TrainingsData[DBEntry.PushUpAmountIdentifier] + 50, actualDBEntry2.TrainingsData[DBEntry.PushUpAmountIdentifier]);
             Assert.Equal(actual.TrainingsData[DBEntry.SitUpAmountIdentifier] + 20, actualDBEntry2.TrainingsData[DBEntry.SitUpAmountIdentifier]);
         }
+
+        [Fact]
+        public void TestExport()
+        {
+            DatabaseConnection dbToTest = new DatabaseConnection();
+            dbToTest.DeleteAllEntries();
+            dbToTest.SaveDBEntry(new DBEntry(DateTime.Parse("26.04.2000"), 100, 20, 10));
+            dbToTest.SaveDBEntry(new DBEntry(DateTime.Parse("25.04.2000"), 10, 50, 15));
+            dbToTest.SaveDBEntry(new DBEntry(DateTime.Parse("22.04.2000"), 170, 10, 230));
+            dbToTest.SaveDBEntry(new DBEntry(DateTime.Parse("27.04.2000"), 130, 20, 10));
+
+
+            string expected = "26.04.2000,Steps=100,PushUps=20,SitUps=10\n" +
+                              "25.04.2000,Steps=10,PushUps=50,SitUps=15\n"+
+                              "22.04.2000,Steps=170,PushUps=10,SitUps=230\n" +
+                              "27.04.2000,Steps=130,PushUps=20,SitUps=10";
+
+            string actual = dbToTest.ExportTrainingsData();
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void TestExportNoEntries()
+        {
+            DatabaseConnection dbToTest = new DatabaseConnection();
+            dbToTest.DeleteAllEntries();
+            string expected = "";
+            string actual = dbToTest.ExportTrainingsData();
+            Assert.Equal(expected, actual);
+        }
+
+        //[Fact]
+        //public void TestImport()
+        //{
+        //    FileData fileData = new FileData();
+        //    var mockFileData = new Mock<FileData>();
+        //    string entriesToImport = "26.04.2000,Steps=100,PushUps=20,SitUps=10\n" +
+        //                             "25.04.2000,Steps=10,PushUps=50,SitUps=15\n" +
+        //                             "22.04.2000,Steps=170,PushUps=10,SitUps=230\n" +
+        //                             "27.04.2000,Steps=130,PushUps=20,SitUps=10";
+        //    byte[] entriesToImportAsBytes = (new System.Text.ASCIIEncoding()).GetBytes(entriesToImport);
+        //    mockFileData.SetupProperty(x => x.DataArray, entriesToImportAsBytes);
+        //    mockFileData.SetupProperty(x => x.FileName, "NotNullOrEmpty");
+
+        //    DatabaseConnection dbToTest = new DatabaseConnection();
+        //    dbToTest.DeleteAllEntries();
+
+        //    dbToTest.ImportTrainingsData(mockFileData.Object);
+
+        //    List<DBEntry> allEntries = dbToTest.GetAllEntries();
+            
+        //    Assert.Equal(4, allEntries.Count);
+        //    Assert.Equal(new DateTime(2000,04,22), allEntries[0].Date);
+        //    Assert.Equal(170, allEntries[0].TrainingsData["Steps"]);
+        //    Assert.Equal(10, allEntries[0].TrainingsData["PushUps"]);
+        //    Assert.Equal(230, allEntries[0].TrainingsData["SitUps"]);
+        //}
+
     }
 }

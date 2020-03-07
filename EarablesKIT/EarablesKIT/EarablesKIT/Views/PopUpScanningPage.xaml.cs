@@ -1,4 +1,6 @@
-﻿using EarablesKIT.ViewModels;
+﻿using EarablesKIT.Resources;
+using EarablesKIT.ViewModels;
+using Plugin.BLE.Abstractions.Contracts;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.ComponentModel;
@@ -12,7 +14,6 @@ namespace EarablesKIT.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopUpScanningPage : PopupPage
     {
-
         private ScanningPopUpViewModel _viewModel;
 
         /// <summary>
@@ -26,6 +27,11 @@ namespace EarablesKIT.Views
             _viewModel.PropertyChanged += UpdateList;
         }
 
+        /// <summary>
+        /// Method UpdateList updates the devices list in ScanningPopUpPage
+        /// </summary>
+        /// <param name="sender">Sender of the event</param>
+        /// <param name="eventArgs">Arguments of the event</param>
         public void UpdateList(object sender, PropertyChangedEventArgs eventArgs)
         {
             if (_viewModel.DevicesList.Count != 0)
@@ -36,6 +42,22 @@ namespace EarablesKIT.Views
             else
             {
                 ConnectButton.IsEnabled = false;
+            }
+        }
+
+        private void ConnectButton_Clicked(object sender, EventArgs e)
+        {
+            IDevice selectedDevice = (IDevice)DevicesListView.SelectedItem;
+            ConnectButton.IsEnabled = false;
+            try
+            {
+                _viewModel.ConnectDeviceCommand.Execute(selectedDevice);
+            }
+            catch (Exception)
+            {
+                AlertLabel.Text = AppResources.Error + ": " + AppResources.ScanningPopUpAlertCouldntConnect;
+
+                ConnectButton.IsEnabled = true;
             }
         }
     }

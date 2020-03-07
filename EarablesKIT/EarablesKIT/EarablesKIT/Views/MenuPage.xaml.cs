@@ -1,9 +1,8 @@
 ﻿using EarablesKIT.Models;
-using System;
+using EarablesKIT.Resources;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
 {
@@ -14,19 +13,23 @@ namespace EarablesKIT.Views
     {
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         List<HomeMenuItem> menuItems;
+        /// <summary>
+        /// The MenuPage contains all Pages that the user can navigate to directly.
+        /// The implementation follows the standard implementation of the Master-Detail App of Xamarin Forms.
+        /// </summary>
         public MenuPage()
         {
             InitializeComponent();
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem { Id = MenuItemType.StepMode, Title = "Step Mode" },
-                new HomeMenuItem { Id = MenuItemType.CountMode, Title = "Count Mode" },
-                new HomeMenuItem { Id = MenuItemType.ListenAndPerform, Title = "Listen and Perform" },
-                new HomeMenuItem { Id = MenuItemType.MusicMode, Title = "Music Mode" },
-                new HomeMenuItem { Id = MenuItemType.DataOverview, Title = "30-Day-Overview" },
-                new HomeMenuItem { Id = MenuItemType.Settings, Title = "Settings" },
-                new HomeMenuItem { Id = MenuItemType.ImportExport, Title = "Manage your Data" },
+                new HomeMenuItem { Id = MenuItemType.StepMode, Title = AppResources.StepModeNameLabel},
+                new HomeMenuItem { Id = MenuItemType.CountMode, Title = AppResources.CountModeNameLabel },
+                new HomeMenuItem { Id = MenuItemType.ListenAndPerform, Title =  AppResources.ListenAndPerformNameLabel },
+                new HomeMenuItem { Id = MenuItemType.MusicMode, Title = AppResources.MusicModeEntryLabel },
+                new HomeMenuItem { Id = MenuItemType.DataOverview, Title = AppResources.DataOverviewTitle },
+                new HomeMenuItem { Id = MenuItemType.Settings, Title = AppResources.SettingsTitle},
+                new HomeMenuItem { Id = MenuItemType.ImportExport, Title = AppResources.ImportExportLabel },
                 new HomeMenuItem { Id = MenuItemType.DebugMode, Title = "Debug" },
             };
             ListViewMenu.ItemsSource = menuItems;

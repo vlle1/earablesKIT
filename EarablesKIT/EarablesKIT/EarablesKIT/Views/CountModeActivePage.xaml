@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
+             x:Class="EarablesKIT.Views.CountModeActivePage">
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
+            <Label Text="{x:Static resource:AppResources.CountModeNameLabel}" 
+                   Style="{StaticResource LblTitleStyle}"/>
+            <Frame HasShadow="False" BorderColor="{StaticResource BorderColor}" 
+                   Margin="0,20,0,0"
+                   Padding="10,0,0,0" 
+                   VerticalOptions="Center">
+                <Label Style="{StaticResource LblExplanationStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Minutes}"/>
+                            <Span Text=":"/>
+                            <Span Text="{Binding Seconds}"/>
+                            <Span Text=":"/>
+                            <Span Text="{Binding Milliseconds}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Frame>
+            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="24">
+                <Label Text="{Binding SelectedActivity.Name}"
+                       Style="{StaticResource LblExplanationStyle}"/>
+                <Frame Style="{StaticResource FrameCounterActiveMode}">
+                    <Label Text="{Binding SelectedActivity.Counter}"
+                           Style="{StaticResource LblCounterActiveMode}"/>
+                </Frame>
+            </StackLayout>
+            <Button Text="{x:Static resource:AppResources.StopCountModeButton}"
+                    Clicked="OnStopButtonClicked"
+                    Style="{StaticResource ButtonStopModus}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

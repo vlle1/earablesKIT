@@ -1,19 +1,18 @@
-﻿using System;
+﻿using EarablesKIT.Annotations;
 using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Resources;
 using EarablesKIT.Views;
 using Plugin.BLE.Abstractions.Contracts;
-using Rg.Plugins.Popup.Services;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using EarablesKIT.Annotations;
 using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
+using Rg.Plugins.Popup.Services;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -64,14 +63,19 @@ namespace EarablesKIT.ViewModels
             _earablesConnectionService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             _earablesConnectionService.NewDeviceFound += (sender, args) =>
             {
+                if (args.Device.Name != null && !DevicesList.Contains(args.Device))
+                {
 
-                    if (args.Device.Name != null)
+                    if (args.Device.Name.StartsWith("eSense"))
+                    {
+                        DevicesList.Insert(0, args.Device);
+                    }
+                    else
                     {
                         DevicesList.Add(args.Device);
-                        OnPropertyChanged(nameof(DevicesList));
                     }
-                
-
+                    OnPropertyChanged(nameof(DevicesList));
+                }
             };
         }
 
@@ -100,7 +104,6 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public static void ShowPopUp()
         {
-
             PopupNavigation.Instance.PushAsync(new PopUpScanningPage(), true);
         }
 
@@ -114,29 +117,31 @@ namespace EarablesKIT.ViewModels
 
         private async void ScanDevices()
         {
-            
             DevicesList.Clear();
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+            if (!_earablesConnectionService.IsBluetoothActive)
+            {
+                await Application.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
+                return;
+            }
             if (status != PermissionStatus.Granted)
             {
                 if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Unknown))
                 {
-                    await Application.Current.MainPage.DisplayAlert("Need location", "Gunna need that location", "OK");
+                    await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpPermissionLocationNeeded, AppResources.Accept);
                 }
 
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Location });
                 status = results[Permission.Location];
             }
-            
+
             if (status != PermissionStatus.Granted)
             {
-                await Application.Current.MainPage.DisplayAlert("Location Permission", "Denied!", "OK");
+                await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpLocationDenied, AppResources.Accept);
                 return;
             }
 
             _earablesConnectionService.StartScanning();
-
-
         }
 
         private void ConnectDevice(IDevice selectedItem)
@@ -147,8 +152,8 @@ namespace EarablesKIT.ViewModels
             }
             catch (DeviceConnectionException e)
             {
-                Application.Current.MainPage.DisplayAlert(AppResources.Error,
-                    AppResources.ScanningPopUpAlertCouldntConnect, AppResources.Accept);
+                DevicesList.Clear();
+                ExceptionHandlingViewModel.HandleException(e);
             }
         }
 

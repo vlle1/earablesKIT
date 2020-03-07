@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarablesKIT.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,16 @@ namespace EarablesKIT.Views
         public MusicModePage()
         {
             InitializeComponent();
+            this.BindingContext = new MusicModeViewModel();
+        }
+        /// <summary>
+        /// This method is used to stop the Logic of the Music Mode if the User navigates to a different page.
+        /// The Page should be set to its deafault state (not activated, music not running)
+        /// </summary>
+        public void forceStopOnPageChange()
+        {
+            Application.Current.MainPage.DisplayAlert("Info", "Stopping the MusicMode...", "OK");
+            ((MusicModeViewModel)BindingContext).StopActivity();
         }
     }
 }

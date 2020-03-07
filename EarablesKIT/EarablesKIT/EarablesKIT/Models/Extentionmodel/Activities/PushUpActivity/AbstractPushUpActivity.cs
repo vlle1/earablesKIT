@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
+﻿namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
 {
+    /// <summary>
+    /// Detects pushUps. Throws ActivityDone event after every detected push-up.
+    /// </summary>
     abstract class AbstractPushUpActivity : Activity
     {
     }

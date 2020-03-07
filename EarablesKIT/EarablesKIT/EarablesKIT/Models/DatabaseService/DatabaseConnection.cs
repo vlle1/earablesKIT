@@ -1,4 +1,7 @@
-﻿using SQLite;
+﻿using EarablesKIT.Resources;
+using EarablesKIT.ViewModels;
+using Plugin.FilePicker.Abstractions;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,18 +9,17 @@ using System.IO;
 namespace EarablesKIT.Models.DatabaseService
 {
     /// <summary>
-    /// Class DatabaseConnection is the Connectionservice which handels the connection to the database.
-    /// (Stores, updates, removes entries of primitive type <see cref="DBEntryToSave"/> and its Wrapper class <see cref="DBEntry"/>
+    /// Class DatabaseConnection is the Connectionservice which handels the connection to the
+    /// database. (Stores, updates, removes entries of primitive type <see cref="DBEntryToSave"/>
+    /// and its Wrapper class <see cref="DBEntry"/>
     /// </summary>
-    public  class DatabaseConnection : IDataBaseConnection
+    public class DatabaseConnection : IDataBaseConnection
     {
-
         private readonly SQLiteConnection _database;
 
         private readonly string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "EarablesKIT_TrainingsData.db3");
 
-        
         /// <summary>
         /// Constructor of the DatabaseConnection. Initializes the Database and creates the needed table
         /// </summary>
@@ -27,15 +29,12 @@ namespace EarablesKIT.Models.DatabaseService
             _database.CreateTable<DBEntryToSave>();
         }
 
-
-
         /// <inheritdoc />
         public void DeleteAllEntries()
         {
             _database.DropTable<DBEntryToSave>();
             _database.CreateTable<DBEntryToSave>();
         }
-
 
         /// <inheritdoc />
         public List<DBEntry> GetAllEntries()
@@ -48,7 +47,6 @@ namespace EarablesKIT.Models.DatabaseService
             }
             return dBEntries;
         }
-
 
         /// <inheritdoc />
         public List<DBEntry> GetMostRecentEntries(int amount)
@@ -64,7 +62,7 @@ namespace EarablesKIT.Models.DatabaseService
                 return dbEntries;
             }
 
-            return dbEntries.GetRange(dbEntries.Count-amount, amount);
+            return dbEntries.GetRange(dbEntries.Count - amount, amount);
         }
 
         /// <inheritdoc />
@@ -82,7 +80,6 @@ namespace EarablesKIT.Models.DatabaseService
                     break;
                 }
             }
-            // DBEntry result = resultQuery.First();
             if (result == null)
             {
                 primaryResult = _database.Insert(entryArg.ConvertToDBEntryToSave());
@@ -104,10 +101,54 @@ namespace EarablesKIT.Models.DatabaseService
             return primaryResult;
         }
 
-
-        public void ExportTrainingsData(string path)
+        /// <inheritdoc />
+        public void ImportTrainingsData(FileData file)
         {
-            throw new NotImplementedException();
+            if (file == null || string.IsNullOrEmpty(file.FileName))
+            {
+                ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+                return;
+            }
+
+            string content = System.Text.Encoding.Default.GetString(file.DataArray);
+            string[] lines = content.Split(
+                new[] { "\r\n", "\r", "\n" },
+                StringSplitOptions.None
+            );
+
+            List<DBEntry> parsedEntries = new List<DBEntry>();
+            foreach (string entry in lines)
+            {
+                DBEntry dbEntry = DBEntry.ParseDbEntry(entry);
+                if (dbEntry == null)
+                {
+                    ExceptionHandlingViewModel.HandleException(new ArgumentException(AppResources.DatabaseConnectionFileParseError));
+                    return;
+                }
+                else
+                {
+                    parsedEntries.Add(dbEntry);
+                }
+            }
+            foreach (DBEntry entry in parsedEntries)
+            {
+                this.SaveDBEntry(entry);
+            }
+        }
+
+        /// <inheritdoc />
+        public string ExportTrainingsData()
+        {
+            List<DBEntry> entries = GetAllEntries();
+            string toWrite = "";
+            foreach(DBEntry entry in entries)
+            {
+                toWrite += entry.ToString() + "\n";
+            }
+            if (entries.Count == 0) return "";
+            toWrite = toWrite.Remove(toWrite.Length - 1);
+
+            return toWrite;
         }
     }
 }

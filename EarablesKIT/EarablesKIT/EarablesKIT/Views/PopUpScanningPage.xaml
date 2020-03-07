@@ -42,9 +42,17 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-
+        <Frame BackgroundColor="White" CornerRadius="10" HasShadow="False">
+            <Label x:Name="AlertLabel" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   BackgroundColor="Transparent" 
+                   TextColor="White"/>
+        </Frame>
         <StackLayout>
-            <Button x:Name="ConnectButton" Text="{x:Static resource:AppResources.ScanningPopUpConnectButton}"  Command="{Binding ConnectDeviceCommand}" CommandParameter="{Binding Source={x:Reference DevicesListView}, Path=SelectedItem}" />
+            <!--CommandParameter="{Binding Source={x:Reference DevicesListView}, Path=SelectedItem}
+            -->
+            <Button x:Name="ConnectButton" Text="{x:Static resource:AppResources.ScanningPopUpConnectButton}"  Clicked="ConnectButton_Clicked" />
             <Button  Text="{x:Static resource:AppResources.ScanningPopUpCancelButton}" Command="{Binding CancelCommand}" />
         </StackLayout>
     </StackLayout>

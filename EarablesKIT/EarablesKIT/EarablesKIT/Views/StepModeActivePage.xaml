@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
+             x:Class="EarablesKIT.Views.StepModeActivePage">
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
+            <Label Text="{x:Static resource:AppResources.StepModeNameLabel}"
+                   Style="{StaticResource LblTitleStyle}"/>
+            <StackLayout Spacing="0">
+                <Label Text="{x:Static resource:AppResources.StepModeStartDataTime}"
+                   Padding="0"
+                   Style="{StaticResource LblExplanationStyle}"/>
+                <Label Text="{Binding CurrentDate}"
+                       Style="{StaticResource LblExplanationStyle}"
+                       Padding="0"/>
+            </StackLayout>
+            <BoxView Style="{StaticResource BoxViewSeparatorStyle}"
+                     Margin="10,0,10,0"/>
+
+            <Label Text="{Binding StepCounter} "
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="80"/>
+            <Label Text="Schritte"
+                   Style="{StaticResource LblDefaultStyle}"
+                   Margin="0,-25,0,0"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Medium"
+                   />
+            <StackLayout HeightRequest="1" 
+                         BackgroundColor="{StaticResource SeparatorColor}"
+                         Orientation="Horizontal"
+                         Margin="10,20,10,0"
+            />
+            <Grid Padding="10" ColumnSpacing="10" RowSpacing="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Text="{Binding StepFrequency}" 
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="40"
+                       Grid.Row="0"
+                       Grid.Column="0"/>
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedFrequencyLabel}" 
+                       FontSize="Medium" 
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Grid.Row="1" 
+                       Grid.Column="0"/>
+                <Label Text="{Binding StatusDisplay}"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="25"
+                       Grid.Row="0"
+                       Grid.Column="1"/>
+                <Label Text="{x:Static resource:AppResources.StepModeUnbindedStatusLabel}"
+                       FontSize="Medium" 
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Grid.Row="1"
+                       Grid.Column="1"/>
+
+            </Grid>
+            <Button Text="{x:Static resource:AppResources.StepModeStopButton}" 
+                    Clicked="OnStopButtonClicked"
+                    Style="{StaticResource ButtonStopModus}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
