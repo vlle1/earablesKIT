@@ -163,7 +163,6 @@ namespace BibTestApp
                 earables.GyroLPF = gyro;
                 await DisplayAlert("Gyro", "Gyroscope wird auf " + gyro + " gesetzt", "OK");
             }
-
         }
 
         private async void btnGetGyroLPF_Clicked(object sender, EventArgs e)
@@ -207,11 +206,9 @@ namespace BibTestApp
                         acc = EarablesKIT.Models.Library.LPF_Accelerometer.OFF;
                         break;
                 }
-
+                earables.AccLPF = acc;
+                await DisplayAlert("Acc", "Accelerometer wird auf " + acc + " gesetzt", "OK");
             }
-
-            earables.AccLPF = acc;
-            await DisplayAlert("Acc", "Accelerometer wird auf " + acc + " gesetzt", "OK");
         }
 
         private async void btnGetAccLPF_Clicked(object sender, EventArgs e)
@@ -284,39 +281,86 @@ namespace BibTestApp
             string range = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
             ABBORT, null, "250 deg/s", "500 deg/s", "1000 deg/s", "2000 deg/s");
 
-            int rangeInt = 0;
-            String s = "";
             if (range != null && !range.Equals("") && !range.Equals(ABBORT))
             {
-                switch (range)
+
+                int rangeInt = 0;
+                String s = "";
+                if (range != null && !range.Equals("") && !range.Equals(ABBORT))
                 {
-                    case "250 deg/s":
-                        rangeInt = 0x00;
-                        s = "250 deg/s";
-                        break;
-                    case "500 deg/s":
-                        rangeInt = 0x08;
-                        s = "500 deg/s";
-                        break;
-                    case "1000 deg/s":
-                        rangeInt = 0x10;
-                        s = "1000 deg/s";
-                        break;
-                    case "2000 deg/s":
-                        rangeInt = 0x18;
-                        s = "2000 deg/s";
-                        break;
+                    switch (range)
+                    {
+                        case "250 deg/s":
+                            rangeInt = 0x00;
+                            s = "250 deg/s";
+                            break;
+                        case "500 deg/s":
+                            rangeInt = 0x08;
+                            s = "500 deg/s";
+                            break;
+                        case "1000 deg/s":
+                            rangeInt = 0x10;
+                            s = "1000 deg/s";
+                            break;
+                        case "2000 deg/s":
+                            rangeInt = 0x18;
+                            s = "2000 deg/s";
+                            break;
+                    }
+
                 }
 
+                earables.SetGyroscopeRange(rangeInt);
+                await DisplayAlert("Gyro Range", "Gyroscope Range wird auf " + s + " gesetzt", "OK");
             }
-
-            earables.SetGyroscopeRange(rangeInt);
-            await DisplayAlert("Gyro Range", "Gyroscope Range wird auf " + s + " gesetzt", "OK");
         }
 
         private async void btnGetGyroScalefactor_Clicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Gyroscope", "Gyroscope Scale Factor ist " + earables.config.GyroScaleFactor, "OK");
+            await DisplayAlert("Gyroscope", "Gyroscope Scale Factor beträgt " + earables.config.GyroScaleFactor, "OK");
+        }
+
+        private async void btnSetAccRange_Clicked(object sender, EventArgs e)
+        {
+                string range = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
+                ABBORT, null, "2g", "4g", "8g", "16g");
+
+            if (range != null && !range.Equals("") && !range.Equals(ABBORT))
+            {
+                int rangeInt = 0;
+                String s = "";
+                if (range != null && !range.Equals("") && !range.Equals(ABBORT))
+                {
+                    switch (range)
+                    {
+                        case "2g":
+                            rangeInt = 0x00;
+                            s = "2g";
+                            break;
+                        case "4g":
+                            rangeInt = 0x08;
+                            s = "4g";
+                            break;
+                        case "8g":
+                            rangeInt = 0x10;
+                            s = "8g";
+                            break;
+                        case "16g":
+                            rangeInt = 0x18;
+                            s = "16g";
+                            break;
+                    }
+
+                }
+
+                earables.SetAccelerometerRange(rangeInt);
+                await DisplayAlert("Acc Range", "Accelerometer Range wird auf " + s + " gesetzt", "OK");
+            }
+        }
+
+        private async void btnGetAccScalefactor_Clicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("Accelerometer", "Accelerometer Scale Factor beträgt " + earables.config.AccScaleFactor, "OK");
         }
 
     }

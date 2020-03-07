@@ -459,6 +459,21 @@ namespace EarablesKIT.Models.Library
                 // Write the new Accelerometerrange on the Earables
                 byte[] bytesWrite = { 0x59, Convert.ToByte(checksum), bytesRead[2], bytesRead[3], bytesRead[4], Convert.ToByte(data2), bytesRead[6] };
                 await characters.AccelerometerGyroscopeLPFChar.WriteAsync(bytesWrite);
+                switch (range)
+                {
+                    case 0x00:
+                        config.AccScaleFactor = 16384;
+                        break;
+                    case 0x08:
+                        config.AccScaleFactor = 8192;
+                        break;
+                    case 0x10:
+                        config.AccScaleFactor = 4096;
+                        break;
+                    case 0x18:
+                        config.AccScaleFactor = 2048;
+                        break;
+                }
             }));
         }
 

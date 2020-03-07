@@ -47,23 +47,18 @@
             <Label Text="{Binding Entry.Gyro.DegsPerSec_Z}"/>
         </StackLayout>
 
-
         <StackLayout Orientation="Horizontal">
 
-            <Button x:Name="Btn2" Text="Geräte suchen"
+            <Button x:Name="Btn2" Text="Search"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnStartScanning_Cklicked"/>
-            <Button x:Name="Btn4" Text="Get Bluetooth status"
+            <Button x:Name="Btn4" Text="Get BL status"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnGetBluetooth_Cklicked"/>
-        </StackLayout>
-
-        <StackLayout Orientation="Horizontal" VerticalOptions="Start">
             <Button x:Name="Btn5" Text="Disconect"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnDisconect_Clicked"/>
         </StackLayout>
-
 
         <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn6" Text="Set Gyro LPF"
@@ -74,8 +69,6 @@
                 Clicked="btnGetGyroLPF_Clicked"/>
         </StackLayout>
 
-
-
         <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn8" Text="Set Acc LPF"
                 HorizontalOptions="Center" VerticalOptions="Center"
@@ -85,9 +78,6 @@
                 Clicked="btnGetAccLPF_Clicked"/>
         </StackLayout>
 
-
-
-
         <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn10" Text="Start Sampling"
                 HorizontalOptions="Center" VerticalOptions="Center"
@@ -96,7 +86,6 @@
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnStopSampling_Clicked"/>
         </StackLayout>
-
 
         <StackLayout Orientation="Horizontal">
 
@@ -118,12 +107,20 @@
         </StackLayout>
 
         <StackLayout Orientation="Horizontal">
+            <Button x:Name="Btn18" Text="Set Acc Range"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnSetAccRange_Clicked"/>
+            <Button x:Name="Btn19" Text="Get Acc Scalefactor"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetAccScalefactor_Clicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
             <Button x:Name="Btn15" Text="Get BatteryVoltage"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Clicked="btnGetBatteryVoltage_Cklicked"/>
         </StackLayout>
 
     </StackLayout>
-
-
+    
 </ContentPage>
