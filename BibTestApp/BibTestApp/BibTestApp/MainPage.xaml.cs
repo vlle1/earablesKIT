@@ -37,6 +37,7 @@ namespace BibTestApp
         private const string CHOSE_SAMPLERATE = "Gib eine samplerate ein (Hinweis: Samplerate muss zwischen 1 und 100 liegen)";
         private const string HZ250 = "250Hz";
         private const string HZ3600 = "3600Hz";
+        string verbindungsstatus = "Getrennt";
         private IMUDataEntry entry;
         public IMUDataEntry Entry { get => entry; set { entry = value; OnPropertyChanged(nameof(Entry)); } }
         public MainPage()
@@ -61,7 +62,7 @@ namespace BibTestApp
 
         private void neuerVerbindungsstatus(object sender, EarablesKIT.Models.Library.DeviceEventArgs e)
         {
-            string verbindungsstatus;
+            
             if (e.Connected)
             {
                 verbindungsstatus = "Verbunden";
@@ -70,6 +71,11 @@ namespace BibTestApp
             {
                 verbindungsstatus = "Getrennt";
             }
+            DisplayAlert("Verbindungsstatus", verbindungsstatus, "OK");
+        }
+
+        private void btnGetConnStatus_Clicked(object sender, EventArgs e)
+        {
             DisplayAlert("Verbindungsstatus", verbindungsstatus, "OK");
         }
 
