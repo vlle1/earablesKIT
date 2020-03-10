@@ -56,6 +56,9 @@ namespace EarablesKIT.Views
                     case (int)MenuItemType.StepMode:
                         MenuPages.Add(id, new NavigationPage(new StepModePage()));
                         break;
+                    case (int)MenuItemType.Imprint:
+                        MenuPages.Add(id, new NavigationPage(new ImpressumPage()));
+                        break;
                 }
             }
 

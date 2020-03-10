@@ -200,6 +200,7 @@ namespace EarablesKIT.ViewModels
 				}
 
 				Milliseconds = _timer.Elapsed.Milliseconds.ToString();
+				while (Milliseconds.Length < 3) Milliseconds = "0" + Milliseconds;
 				return true;
 			});
 		}
@@ -239,7 +240,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + SelectedActivity.Counter + " " + SelectedActivity.Name + " " + AppResources.Done + "!", AppResources.Cool);
+			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + SelectedActivity.Counter + " " + SelectedActivity.Name + AppResources.alternativeGrammarDone + "!", AppResources.Cool);
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

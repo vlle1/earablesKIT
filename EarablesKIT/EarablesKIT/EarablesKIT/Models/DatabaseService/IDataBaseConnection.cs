@@ -7,7 +7,7 @@ namespace EarablesKIT.Models.DatabaseService
     /// Interface IDataBaseConnection defines an interface which handles the database and can
     /// save/delete/update entries in it
     /// </summary>
-    internal interface IDataBaseConnection
+    public interface IDataBaseConnection
     {
         /// <summary>
         /// Method SaveDBEntry saves the given DBEntry in the Database. Converts it into an

@@ -10,7 +10,8 @@
         ListenAndPerform,
         MusicMode,
         Settings,
-        StepMode
+        StepMode,
+        Imprint
     }
     public class HomeMenuItem
     {

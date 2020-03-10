@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:BibTestApp"
+             mc:Ignorable="d"
+             x:Class="BibTestApp.MainPage">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <ListView x:Name="lv" ItemSelected="lv_ItemSelected" BackgroundColor="#13ABDF" SeparatorColor="Aqua">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <!--Label Text="{Binding NativeDevice.id}"/-->
+                            <Label Text="{Binding NativeDevice.Name}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acceloratin in X Direction in G: "/>
+            <Label Text="{Binding Entry.Acc.G_X}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acceloratin in Y Direction in G: "/>
+            <Label Text="{Binding Entry.Acc.G_Y}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acceloratin in Z Direction in G: "/>
+            <Label Text="{Binding Entry.Acc.G_Z}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Rotation arround X Axis in Deg/s : "/>
+            <Label Text="{Binding Entry.Gyro.DegsPerSec_X}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Rotation arround Y Axis in Deg/s : "/>
+            <Label Text="{Binding Entry.Gyro.DegsPerSec_Y}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Rotation arround Z Axis in Deg/s : "/>
+            <Label Text="{Binding Entry.Gyro.DegsPerSec_Z}"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+
+            <Button x:Name="Btn2" Text="Search"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnStartScanning_Cklicked"/>
+            <Button x:Name="Btn4" Text="Get BL status"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetBluetooth_Cklicked"/>
+            <Button x:Name="Btn5" Text="Disconect"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnDisconect_Clicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="Btn6" Text="Set Gyro LPF"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnsSetGyroLPF_Clicked"/>
+            <Button x:Name="Btn7" Text="Get Gyro LPF"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetGyroLPF_Clicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="Btn8" Text="Set Acc LPF"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnSetAccLPF_Clicked"/>
+            <Button x:Name="Btn9" Text="Get Acc LPF"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetAccLPF_Clicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="Btn10" Text="Start Sampling"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnStartSampling_Clicked"/>
+            <Button x:Name="Btn11" Text="Stop Sampling"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnStopSampling_Clicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+
+            <Button x:Name="Btn12" Text="Set Samplingrate"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnSetSampleRate_Cklicked"/>
+            <Button x:Name="Btn13" Text="Get Samplingrate"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetSampleRate_Cklicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="Btn16" Text="Set Gyro Range"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnSetGyroRange_Clicked"/>
+            <Button x:Name="Btn17" Text="Get Gyro Scalefactor"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetGyroScalefactor_Clicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="Btn18" Text="Set Acc Range"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnSetAccRange_Clicked"/>
+            <Button x:Name="Btn19" Text="Get Acc Scalefactor"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetAccScalefactor_Clicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="Btn15" Text="Get BatteryVoltage"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetBatteryVoltage_Cklicked"/>
+            <Button x:Name="Btn20" Text="Get Connection Status"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Clicked="btnGetConnStatus_Clicked"/>
+        </StackLayout>
+
+    </StackLayout>
+    
+</ContentPage>
