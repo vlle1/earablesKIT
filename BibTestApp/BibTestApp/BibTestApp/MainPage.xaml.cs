@@ -81,7 +81,7 @@ namespace BibTestApp
 
         private void buttonPressedEarables(object sender, ButtonEventArgs e)
         {
-            DisplayAlert("PushButton", "Der PushButton wurde gedrückt", "OK");
+            //DisplayAlert("PushButton", "Der PushButton wurde gedrückt", "OK");
             Console.WriteLine("Button gedrückt");
         }
 
