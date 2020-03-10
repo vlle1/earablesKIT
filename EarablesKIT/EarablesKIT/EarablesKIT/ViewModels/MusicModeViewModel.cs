@@ -107,24 +107,31 @@ namespace EarablesKIT.ViewModels
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
             Directory.CreateDirectory(Path.GetDirectoryName(_path));
 
-            // Copying the resource music file to the MyDocuments Path because the MediaPlayer can't play streams.
-            using (BinaryWriter writer = new BinaryWriter(File.Open(_path, FileMode.Create)))
+            try
             {
-                using (var input = new BinaryReader(AppResources.ukulele_low))
+                // Copying the resource music file to the MyDocuments Path because the MediaPlayer can't play streams.
+                using (BinaryWriter writer = new BinaryWriter(File.Open(_path, FileMode.Create)))
                 {
-                    while (true)
+                    using (var input = new BinaryReader(AppResources.ukulele_low))
                     {
-                        try
+                        while (true)
                         {
-                            var b = input.ReadByte();
-                            writer.Write(b);
-                        }
-                        catch
-                        {
-                            break;
+                            try
+                            {
+                                var b = input.ReadByte();
+                                writer.Write(b);
+                            }
+                            catch
+                            {
+                                break;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                ExceptionHandlingViewModel.HandleException(e);
             }
         }
 
