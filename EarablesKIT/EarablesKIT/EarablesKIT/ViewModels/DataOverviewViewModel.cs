@@ -10,7 +10,7 @@ namespace EarablesKIT.ViewModels
     /// <summary>
     /// Class DataOverviewViewModel contains the logic behind the page DataOverview/>
     /// </summary>
-    internal class DataOverviewViewModel
+    public class DataOverviewViewModel
     {
         /// <summary>
         /// Trainingsdata as observable collection containing the trainingsdata from the database
