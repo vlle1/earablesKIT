@@ -5,7 +5,7 @@ using System.Text;
 namespace EarablesKIT.Models.Library
 {
     /// <summary>
-    /// This class contains the Guid parse strings for the characteristics
+    /// This class contains the Guid parse strings for the characteristics and other constants
     /// </summary>
     class Constants
     {
@@ -16,5 +16,7 @@ namespace EarablesKIT.Models.Library
         public static string ACC_GYRO_LPF_CHAR { get => "0000ff0e-0000-1000-8000-00805f9b34fb"; }
         public static string OFFSET_CHAR { get => "0000ff0d-0000-1000-8000-00805f9b34fb"; }
         public static string ACCES_SERVICE { get => "0000ff06-0000-1000-8000-00805f9b34fb"; }
+        public static int STANDART_ACC_SCALEFACTOR { get => 8192; }
+        public static double STANDART_GYRO_SCALEFACTOR { get => 65.5; }
     }
 }
