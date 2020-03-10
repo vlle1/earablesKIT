@@ -84,7 +84,7 @@ namespace EarablesKIT.ViewModels
             {
                 try
                 {
-                    _settingsService.SamplingRate = _samplingrate;
+                    _settingsService.SamplingRate = chosenSamplingRate;
                     _samplingrate = chosenSamplingRate;
                     needToSave = true;
                 }
