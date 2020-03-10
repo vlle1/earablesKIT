@@ -88,6 +88,15 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string alternativeGrammarDone {
+            get {
+                return ResourceManager.GetString("alternativeGrammarDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to and.
         /// </summary>
         internal static string And {
@@ -124,7 +133,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CountMode.
+        ///   Looks up a localized string similar to Count Mode.
         /// </summary>
         internal static string CountModeNameLabel {
             get {
@@ -196,7 +205,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to your Dataoverview.
+        ///   Looks up a localized string similar to Your Personal Data Overview.
         /// </summary>
         internal static string DataOverviewPageEntryLabel {
             get {
@@ -223,7 +232,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dataoverview.
+        ///   Looks up a localized string similar to Data Overview.
         /// </summary>
         internal static string DataOverviewTitle {
             get {
@@ -295,7 +304,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete trainingsdata.
+        ///   Looks up a localized string similar to Delete training data.
         /// </summary>
         internal static string ImportExportDeleteDataButton {
             get {
@@ -304,7 +313,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export trainingsdata.
+        ///   Looks up a localized string similar to Export training data.
         /// </summary>
         internal static string ImportExportExportButton {
             get {
@@ -322,7 +331,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import trainingsdata.
+        ///   Looks up a localized string similar to Import training data.
         /// </summary>
         internal static string ImportExportImportButton {
             get {
@@ -340,7 +349,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datamanagement.
+        ///   Looks up a localized string similar to Data Management.
         /// </summary>
         internal static string ImportExportLabel {
             get {
@@ -349,11 +358,127 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sharing dialog.
+        ///   Looks up a localized string similar to Share.
         /// </summary>
         internal static string ImportExportSaveDisplayTitle {
             get {
                 return ResourceManager.GetString("ImportExportSaveDisplayTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2019-2020, Teco. All rights reserved..
+        /// </summary>
+        internal static string ImprintCopyrightContent {
+            get {
+                return ResourceManager.GetString("ImprintCopyrightContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright (c).
+        /// </summary>
+        internal static string ImprintCopyrightHeader {
+            get {
+                return ResourceManager.GetString("ImprintCopyrightHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tec O&apos;Brain Group 
+        ///Teco 
+        ///Vincenz-Prießnitz-Str. 1
+        ///D-76131 Karlsruhe.
+        /// </summary>
+        internal static string ImprintDeveloperContent {
+            get {
+                return ResourceManager.GetString("ImprintDeveloperContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developer/Research group.
+        /// </summary>
+        internal static string ImprintDeveloperHeader {
+            get {
+                return ResourceManager.GetString("ImprintDeveloperHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to esense.io.
+        /// </summary>
+        internal static string ImprintESenseContentLink {
+            get {
+                return ResourceManager.GetString("ImprintESenseContentLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website .
+        /// </summary>
+        internal static string ImprintESenseContentWebsite {
+            get {
+                return ResourceManager.GetString("ImprintESenseContentWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eSense.
+        /// </summary>
+        internal static string ImprintESenseHeader {
+            get {
+                return ResourceManager.GetString("ImprintESenseHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eSense Fitness is a university project. 
+        ///The app shows a use case for headphones with integrated IMU sensors. 
+        ///The app is based on the eSense headphones..
+        /// </summary>
+        internal static string ImprintOverviewContent {
+            get {
+                return ResourceManager.GetString("ImprintOverviewContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string ImprintOverviewHeader {
+            get {
+                return ResourceManager.GetString("ImprintOverviewHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imprint.
+        /// </summary>
+        internal static string ImprintTitle {
+            get {
+                return ResourceManager.GetString("ImprintTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karlsruhe Institute of Technology 
+        ///Kaiserstraße 12 
+        ///D-76131 Karlsruhe 
+        ///Germany.
+        /// </summary>
+        internal static string ImprintUniversityContent {
+            get {
+                return ResourceManager.GetString("ImprintUniversityContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to University.
+        /// </summary>
+        internal static string ImprintUniversityHeader {
+            get {
+                return ResourceManager.GetString("ImprintUniversityHeader", resourceCulture);
             }
         }
         
@@ -385,7 +510,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MusicMode.
+        ///   Looks up a localized string similar to Music Mode.
         /// </summary>
         internal static string MusicModeEntryLabel {
             get {
@@ -394,7 +519,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wonderful MusicModeEntry page!.
+        ///   Looks up a localized string similar to Music Mode.
         /// </summary>
         internal static string MusicModeEntryLabel1 {
             get {
@@ -403,7 +528,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start the music mode to play music whenever you are running!.
+        ///   Looks up a localized string similar to Launch the music mode to enjoy a whole new listening experience! Music plays exactly when you walk!.
         /// </summary>
         internal static string MusicModeExplanation {
             get {
@@ -628,7 +753,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving failed! Please check your inputs.
+        ///   Looks up a localized string similar to Saving failed! Please check your entries..
         /// </summary>
         internal static string SettingsPageWrongInput {
             get {
@@ -682,7 +807,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start CountMode.
+        ///   Looks up a localized string similar to Start Counting Mode.
         /// </summary>
         internal static string StartCountModeButton {
             get {
@@ -718,7 +843,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StepMode.
+        ///   Looks up a localized string similar to Step Mode.
         /// </summary>
         internal static string StepModeNameLabel {
             get {
@@ -727,7 +852,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start Stepmode.
+        ///   Looks up a localized string similar to Start Step Mode.
         /// </summary>
         internal static string StepModeStartButton {
             get {
@@ -745,7 +870,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop Stepmode.
+        ///   Looks up a localized string similar to Stop Step Mode.
         /// </summary>
         internal static string StepModeStopButton {
             get {
@@ -754,7 +879,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last Trainings Date.
+        ///   Looks up a localized string similar to Last Date of Training.
         /// </summary>
         internal static string StepModeTrainingsDateLabel {
             get {
@@ -799,7 +924,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop CountMode.
+        ///   Looks up a localized string similar to Stop Counting Mode.
         /// </summary>
         internal static string StopCountModeButton {
             get {
@@ -835,7 +960,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Walking!!!.
+        ///   Looks up a localized string similar to Walking!.
         /// </summary>
         internal static string Walking {
             get {

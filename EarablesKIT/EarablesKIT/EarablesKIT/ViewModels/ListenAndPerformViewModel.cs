@@ -316,6 +316,7 @@ namespace EarablesKIT.ViewModels
 				}
 
 				Milliseconds = _timer.Elapsed.Milliseconds.ToString();
+				while (Milliseconds.Length < 3) Milliseconds = "0" + Milliseconds;
 				return true;
 			});
 		}
@@ -392,7 +393,7 @@ namespace EarablesKIT.ViewModels
 		{
 			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + _pushUpResult 
 				+ " " + AppResources.Push_ups + " " + AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups 
-				+ " " + AppResources.Done + "!", AppResources.Cool);
+				+ AppResources.alternativeGrammarDone + "!", AppResources.Cool);
 		}
 
 		/// <summary>
@@ -405,7 +406,7 @@ namespace EarablesKIT.ViewModels
 				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
 			if (newActivity != null && !newActivity.Equals("") && !newActivity.Equals(AppResources.Cancel))
 			{
-				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(AppResources.AddingActivity, 
+				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(newActivity, 
 						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 3, Keyboard.Numeric);
 				if (newAmount != null && Regex.IsMatch(newAmount, @"^[1-9]{1}\d{0,2}$"))
 				{
