@@ -11,7 +11,7 @@ namespace EarablesKIT.ViewModels
     /// <summary>
     /// Class SettingsViewModel contains the logic behind the Settingspage. Builds the connection to the <see cref="SettingsService"/>
     /// </summary>
-    internal class SettingsViewModel : INotifyPropertyChanged
+    public class SettingsViewModel : INotifyPropertyChanged
     {
 
         private User _user;

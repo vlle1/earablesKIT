@@ -5,7 +5,7 @@ namespace EarablesKIT.Models.SettingsService
     /// <summary>
     /// Interface ISettingsService defines an interface which handles the App settings. The current settings are: Language, samplingrate, user
     /// </summary>
-    internal interface ISettingsService
+    public interface ISettingsService
     {
         /// <summary>
         /// The language property, which is currently active

@@ -7,7 +7,7 @@ namespace EarablesKIT.ViewModels
     /// <summary>
     /// Class ExceptionHandlingViewModel notifies the user via a PopUp about an exception.
     /// </summary>
-    internal class ExceptionHandlingViewModel
+    public class ExceptionHandlingViewModel
     {
         /// <summary>
         /// Method HandleException displays a PopUp with the given error message.
