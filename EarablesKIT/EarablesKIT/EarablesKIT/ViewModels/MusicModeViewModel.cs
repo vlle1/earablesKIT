@@ -42,9 +42,8 @@ namespace EarablesKIT.ViewModels
             get => _running;
         }
 
-        public Command ToggleMusicMode
-        {
-            get => new Command(() =>
+        public Command ToggleMusicMode =>
+            new Command(() =>
             {
                 _musicModeActive = !_musicModeActive;
                 if (_musicModeActive)
@@ -59,7 +58,6 @@ namespace EarablesKIT.ViewModels
                 OnPropertyChanged(nameof(StartStopLabel));
                 OnPropertyChanged(nameof(CurrentStatusLabel));
             });
-        }
 
 
         public string StartStopLabel
@@ -90,14 +88,15 @@ namespace EarablesKIT.ViewModels
             {
                 await _mediaManager.Play(_path);
                 await _mediaManager.Pause();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
-                Debug.WriteLine(e.StackTrace);
+                ExceptionHandlingViewModel.HandleException(e);
             }
         }
 
         private AbstractRunningActivity runningActivity { get; set; }
-        private string _path { get; set; }
+        private string _path { get; }
 
         public MusicModeViewModel()
         {
@@ -147,27 +146,25 @@ namespace EarablesKIT.ViewModels
 
         public override bool StartActivity()
         {
-            if (CheckConnection())
-            {
-                RestartMusic();
-                runningActivity.ActivityDone += OnActivityDone;
-                ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (!CheckConnection()) return false;
+            RestartMusic();
+            runningActivity.ActivityDone += OnActivityDone;
+            ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+            return true;
         }
 
         public override void StopActivity()
         {
             try
             {
-                ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StopSampling();
+                ((IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection)))
+                    .StopSampling();
                 runningActivity.ActivityDone -= OnActivityDone;
-            } catch
-            {}
+            }
+            catch (Exception e)
+            {
+                ExceptionHandlingViewModel.HandleException(e);
+            }
             _musicModeActive = false;
             IsRunning = false;
         }
