@@ -25,9 +25,6 @@ namespace EarablesKIT.Models.Library
         private IDevice device;
         // Saves the configurations
         public ConfigContainer config = new ConfigContainer();
-        // Standart scalefactors
-        int STANDART_ACC_SCALEFACTOR = 8192;
-        double STANDART_GYRO_SCALEFACTOR = 65.5;
         // Caching the bytearray which contains the offset
         private byte[] byteOffset;
         // Holds all characteristics

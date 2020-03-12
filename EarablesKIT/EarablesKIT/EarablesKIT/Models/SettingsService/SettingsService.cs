@@ -55,6 +55,8 @@ namespace EarablesKIT.Models.SettingsService
                 }
 
                 UpdateValue(SAMPLINGRATE_PROPERTY, (int)value);
+                IEarablesConnection earablesConnection = (IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+                earablesConnection.SampleRate = (int)value;
                 _samplingRate = value;
             }
         }
@@ -155,6 +157,10 @@ namespace EarablesKIT.Models.SettingsService
                     ExceptionHandlingViewModel.HandleException(new ArgumentException("Samplingrate failed to load!"));
                     SamplingRate = STANDARD_SAMPLINGRATE;
                 }
+                UpdateValue(SAMPLINGRATE_PROPERTY, SamplingRate);
+                IEarablesConnection earablesConnection = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+                earablesConnection.SampleRate = (int)_samplingRate;
+
             }
         }
 
