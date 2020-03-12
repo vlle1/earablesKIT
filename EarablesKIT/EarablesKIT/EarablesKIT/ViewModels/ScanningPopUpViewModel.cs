@@ -24,7 +24,7 @@ namespace EarablesKIT.ViewModels
     /// <item>an activity gets started without an active connection</item>
     /// </list>
     /// </summary>
-    internal class ScanningPopUpViewModel : INotifyPropertyChanged
+    public class ScanningPopUpViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Property IsConnected represents if a device is currently connected
@@ -52,7 +52,7 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public ObservableCollection<IDevice> DevicesList { get; set; }
 
-        private EarablesConnection _earablesConnectionService;
+        private IEarablesConnection _earablesConnectionService;
 
         /// <summary>
         /// Constructor ScanningPopUpViewModel initializes the attributes and properties
@@ -60,7 +60,7 @@ namespace EarablesKIT.ViewModels
         public ScanningPopUpViewModel()
         {
             DevicesList = new ObservableCollection<IDevice>();
-            _earablesConnectionService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+            _earablesConnectionService = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             _earablesConnectionService.NewDeviceFound += (sender, args) =>
             {
                 if (args.Device.Name != null && !DevicesList.Contains(args.Device))

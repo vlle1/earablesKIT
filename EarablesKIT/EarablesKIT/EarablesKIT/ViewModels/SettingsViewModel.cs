@@ -73,6 +73,7 @@ namespace EarablesKIT.ViewModels
                 }
                 catch (Exception e)
                 {
+                    
                     ExceptionHandlingViewModel.HandleException(e);
                     needToSave = false;
                 }
