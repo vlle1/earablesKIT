@@ -9,7 +9,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
     /// - the value is occuring a significant time after the last step (after cooldown)
     /// - the angle between current acceleration and estimated ground is small
     /// </summary>
-    class StepActivityThreshold : AbstractStepActivity
+    public class StepActivityThreshold : AbstractStepActivity
     {
         //the weight of the old average acceleration value when calculating the new one (weight of single new value is always 1),
         //relative to the sampling rate (real weight will be sampling rate * REF_WEIGHT_REL)
