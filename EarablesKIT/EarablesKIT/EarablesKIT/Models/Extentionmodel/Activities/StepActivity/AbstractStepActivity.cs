@@ -3,7 +3,7 @@
     /// <summary>
     /// Detects Steps.Throws an Event for every detected Step.
     /// </summary>
-    abstract class AbstractStepActivity : Activity
+    public abstract class AbstractStepActivity : Activity
     {
     }
 }

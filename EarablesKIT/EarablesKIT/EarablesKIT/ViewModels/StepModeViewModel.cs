@@ -32,10 +32,6 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private Queue<double> _stepMemory = new Queue<double>();
 		private const int MAX_REGRESSION_LENGTH = 4;
-		/// <summary>
-		/// Step Delta for calculating the Step Frequency.
-		/// </summary>
-		private int StepDelta;
 
 		/// <summary>
 		/// The stepActivity from the ActivityProvider.
@@ -161,7 +157,7 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Holds the current step frequency. 
 		/// </summary>
-		public String StepFrequency
+		public string StepFrequency
 		{
 			get 
 			{
@@ -246,7 +242,6 @@ namespace EarablesKIT.ViewModels
 			if (CheckConnection())
 			{
 				StepCounter = 0;
-				StepDelta = 0;
 				_stepActivity.ActivityDone += OnActivityDone;
 				_runningActivity.ActivityDone += OnRunningDone;
 				CurrentDate = DateTime.Now.ToString();
@@ -337,7 +332,6 @@ namespace EarablesKIT.ViewModels
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
-
 
 		protected void OnPropertyChanged([CallerMemberName] string name = "")
 		{
