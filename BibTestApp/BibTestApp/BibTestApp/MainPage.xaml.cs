@@ -23,6 +23,7 @@ namespace BibTestApp
         EarablesConnection earables;
         ObservableCollection<IDevice> deviceList = new ObservableCollection<IDevice>();
         public event PropertyChangedEventHandler PropertyChanged;
+        // Constaten für die Nutzereingabe definiert
         private const string HZ5 = "5Hz";
         private const string HZ10 = "10Hz";
         private const string HZ20 = "20Hz";
@@ -38,6 +39,7 @@ namespace BibTestApp
         private const string HZ250 = "250Hz";
         private const string HZ3600 = "3600Hz";
         string verbindungsstatus = "Getrennt";
+        // Databinding
         private IMUDataEntry entry;
         public IMUDataEntry Entry { get => entry; set { entry = value; OnPropertyChanged(nameof(Entry)); } }
         public MainPage()
@@ -47,6 +49,7 @@ namespace BibTestApp
             lv.ItemsSource = deviceList;
 
             earables = new EarablesConnection();
+            // Registrieren an den Events
             earables.NewDeviceFound += neuesDevice;
             earables.ButtonPressed += buttonPressedEarables;
             earables.DeviceConnectionStateChanged += neuerVerbindungsstatus;
@@ -54,12 +57,13 @@ namespace BibTestApp
         }
 
 
-
+        // Wird ausgeführt wenn neue IMU Daten ankommen
         private void neueIMUDatenearables(object sender, DataEventArgs e)
         {
             Entry = e.Data;
         }
 
+        // Wird ausgeführt wenn ein neuer verbindungsstatus anleigt
         private void neuerVerbindungsstatus(object sender, EarablesKIT.Models.Library.DeviceEventArgs e)
         {
             
@@ -74,17 +78,19 @@ namespace BibTestApp
             DisplayAlert("Verbindungsstatus", verbindungsstatus, "OK");
         }
 
+        // Zeigt verbindungsstauts an
         private void btnGetConnStatus_Clicked(object sender, EventArgs e)
         {
             DisplayAlert("Verbindungsstatus", verbindungsstatus, "OK");
         }
 
+        // Wird ausgeführt wenn der Knopf an den Erarbles gedrückt wird
         private void buttonPressedEarables(object sender, ButtonEventArgs e)
         {
-            //DisplayAlert("PushButton", "Der PushButton wurde gedrückt", "OK");
             Console.WriteLine("Button gedrückt");
         }
 
+        // Zeigt den aktuellen Bluetooth status an. Also An oder Aus
         private void btnGetBluetooth_Cklicked(object sender, EventArgs e)
         {
             string active;
@@ -97,13 +103,13 @@ namespace BibTestApp
             this.DisplayAlert("Bluetoothstatus", active, "OK");
         }
 
-
+        // Startet das scannen
         private async void btnStartScanning_Cklicked(object sender, EventArgs e)
         {
             earables.StartScanning();
         }
 
-
+        // verbindet sich mit einem device 
         private void lv_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             IDevice device;
@@ -116,18 +122,19 @@ namespace BibTestApp
 
         }
 
+        // Wird ausgeführt sobald ein nues Device gefunden wurde
         private void neuesDevice(object sender, NewDeviceFoundArgs e)
         {
             deviceList.Add(e.Device);
         }
 
-
+        // Trenn sich mit dem verbundenen Earables
         private async void btnDisconect_Clicked(object sender, EventArgs e)
         {
             earables.DisconnectFromDevice();
         }
 
-
+        // setzt den LPF für das Gyroscope
         private async void btnsSetGyroLPF_Clicked(object sender, EventArgs e)
         {
             string lpf = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
@@ -171,12 +178,14 @@ namespace BibTestApp
             }
         }
 
+        // Zeigt den LPF für das Gyroscope an
         private async void btnGetGyroLPF_Clicked(object sender, EventArgs e)
         {
             LPF_Gyroscope lpf = await earables.GetGyroscopeLPFFromDevice();
             await DisplayAlert("Gyro", "Gyroscope LPF ist bei " + lpf, "OK");
         }
 
+        // Setzt den LPF für den Accelerometer
         private async void btnSetAccLPF_Clicked(object sender, EventArgs e)
         {
             string lpf = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
@@ -217,6 +226,7 @@ namespace BibTestApp
             }
         }
 
+        // Zeigt den LPF für den Accelerometer an
         private async void btnGetAccLPF_Clicked(object sender, EventArgs e)
         {
             LPF_Accelerometer lpf = await earables.GetAccelerometerLPFFromDeviceAsync();
@@ -224,36 +234,33 @@ namespace BibTestApp
 
         }
 
-
-        private async void btnStartSampling_Clicked(object sender, EventArgs e)
-        {
-            earables.StartSampling();
-            DisplayAlert("Sampling", "Sampling gestartet", "OK");
-        }
-
+        // Stoppt das Sampling
         private async void btnStopSampling_Clicked(object sender, EventArgs e)
         {
             earables.StopSampling();
-            DisplayAlert("Sampling", "Sampling gestopt", "OK");
+            await DisplayAlert("Sampling", "Sampling gestoppt", "OK");
         }
 
-
-        private async void setName_klicked(object sender, EventArgs e)
+        // Startet das Sampling
+        private async void btnStartSampling_Clicked(object sender, EventArgs e)
         {
-            byte[] bytes2 = { 0x45, 0x52, 0x57, 0x49, 0x4E, 0x41 };
-            // await CharacteristicNameWrite.WriteAsync(bytes2);
+            earables.StartSampling();
+            await DisplayAlert("Sampling", "Sampling gestartet", "OK");
         }
 
+        // Zeigt den Batteryvoltage an
         private async void btnGetBatteryVoltage_Cklicked(object sender, EventArgs e)
         {
             await DisplayAlert("Battery", "BatteryVoltage ist bei " + earables.BatteryVoltage, "OK");
         }
 
+        // Zeigt die aktuelle Samplerate an
         private async void btnGetSampleRate_Cklicked(object sender, EventArgs e)
         {
             await DisplayAlert("SampleRate", "SampleRate ist " + earables.SampleRate, "OK");
         }
 
+        // Setzt die Samplerate
         private async void btnSetSampleRate_Cklicked(object sender, EventArgs e)
         {
 
@@ -271,17 +278,19 @@ namespace BibTestApp
             }
         }
 
+        // Zeigt den aktuelen Verbindungsstatus an
         private async void btnGetConnection_Cklicked(object sender, EventArgs e)
         {
             await DisplayAlert("Verbindung", "verbindung ist " + earables.Connected, "OK");
         }
 
-        //[NotifyPropertyChangedInvocator]
+        // Wird für Databinding gebraucht
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        // Setzt die Gyro Range
         private async void btnSetGyroRange_Clicked(object sender, EventArgs e)
         {
             string range = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
@@ -321,11 +330,13 @@ namespace BibTestApp
             }
         }
 
+        // Zeigt den Gyro Scalefactor an
         private async void btnGetGyroScalefactor_Clicked(object sender, EventArgs e)
         {
             await DisplayAlert("Gyroscope", "Gyroscope Scale Factor beträgt " + earables.config.GyroScaleFactor, "OK");
         }
 
+        // Setzt die Accelerometer Range 
         private async void btnSetAccRange_Clicked(object sender, EventArgs e)
         {
                 string range = await Application.Current.MainPage.DisplayActionSheet(CHOSE,
@@ -364,6 +375,7 @@ namespace BibTestApp
             }
         }
 
+        // Zeigt den Scalefactor für den Accelerometer an
         private async void btnGetAccScalefactor_Clicked(object sender, EventArgs e)
         {
             await DisplayAlert("Accelerometer", "Accelerometer Scale Factor beträgt " + earables.config.AccScaleFactor, "OK");
