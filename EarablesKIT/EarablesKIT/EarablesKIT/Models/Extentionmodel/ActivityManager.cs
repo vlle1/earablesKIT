@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace EarablesKIT.Models.Extentionmodel
 {
     /// <inheritdoc/>
-    internal class ActivityManager : IActivityManager
+    public class ActivityManager : IActivityManager
     {
         private IServiceProvider _activityProvider;
 
