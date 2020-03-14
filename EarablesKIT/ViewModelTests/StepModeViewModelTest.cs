@@ -185,7 +185,7 @@ namespace ViewModelTests
 		}
 
 		[Fact]
-		public void CounterCheck()
+		public void CounterStatusCheck()
 		{
 			//Für den ServiceProviderMock
 			//Muss enthalten sein, damit der Mock nicht überschrieben wird
@@ -231,11 +231,16 @@ namespace ViewModelTests
 
 			//Test
 			StepModeViewModel viewModel = new StepModeViewModel();
+			viewModel.testPopUpBlocker = true;
 			viewModel.StartActivity();
 			viewModel.OnActivityDone(this, null);
 			viewModel.OnActivityDone(this, null);
 			viewModel.OnActivityDone(this, null);
+			viewModel.OnRunningDone(this, new RunningEventArgs(true));
 			Assert.Equal(3, viewModel.StepCounter);
+			Assert.True(viewModel.IsRunning);
+			viewModel.OnRunningDone(this, new RunningEventArgs(false));
+			Assert.False(viewModel.IsRunning);
 
 			viewModel.StopActivity();
 			Assert.Equal(3, viewModel.StepCounter);

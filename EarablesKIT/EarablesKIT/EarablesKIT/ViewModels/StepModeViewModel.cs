@@ -32,6 +32,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private Queue<double> _stepMemory = new Queue<double>();
 		private const int MAX_REGRESSION_LENGTH = 4;
+		public bool testPopUpBlocker = false;
 
 		/// <summary>
 		/// The stepActivity from the ActivityProvider.
@@ -151,7 +152,7 @@ namespace EarablesKIT.ViewModels
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(StatusDisplay));
 				OnPropertyChanged(nameof(StepFrequency));
-            }
+			}
 		}
 
 		/// <summary>
@@ -159,7 +160,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		public string StepFrequency
 		{
-			get 
+			get
 			{
 				if (!_isRunning) return "--:--";
 				double[] timestamps = _stepMemory.ToArray();
@@ -186,7 +187,7 @@ namespace EarablesKIT.ViewModels
 				double lowerSum = 0;
 				for (int i = 0; i < n; i++)
 				{
-					
+
 					double x_diff = timestamps[i] - arithMX;
 					double y_diff = i - arithMY;
 					upperSum += x_diff * y_diff;
@@ -196,10 +197,10 @@ namespace EarablesKIT.ViewModels
 				//but avoid dividing by zero durch null teilen
 				if (Math.Abs(lowerSum) < 0.000001f) return "N.A.";
 				double result = upperSum / lowerSum;
-				
+
 				return Math.Round(result, 2).ToString();
 			}
-			
+
 		}
 
 		/// <summary>
@@ -225,8 +226,8 @@ namespace EarablesKIT.ViewModels
 			DistanceWalkedLastTime = 0;
 			StepsDoneLastTime = 0;
 			DistanceWalked = 0;
-			LastDataTime = "01.01.2000"; 
-			CurrentDate = DateTime.Now.ToString(); 
+			LastDataTime = "01.01.2000";
+			CurrentDate = DateTime.Now.ToString();
 			UpdateLastData();
 			IsRunning = false;
 			_timer = new Stopwatch();
@@ -292,7 +293,10 @@ namespace EarablesKIT.ViewModels
 			_runningActivity.ActivityDone -= OnRunningDone;
 			IsRunning = false;
 			SaveData();
-			ShowPopUp();
+			if (!testPopUpBlocker)
+			{
+				ShowPopUp();
+			}
 			UpdateLastData();
 		}
 
