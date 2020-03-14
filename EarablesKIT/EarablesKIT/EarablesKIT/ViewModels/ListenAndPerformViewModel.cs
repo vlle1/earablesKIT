@@ -343,7 +343,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		public void IncreaseResultCounter()
 		{
-			if (ActiveActivity.Name.Equals(AppResources.Push_ups))
+			if (ActiveActivity.Name.Equals(AppResources.Push_ups) || ActiveActivity.Name.Equals("Push-ups"))
 			{
 				_pushUpResult += ActiveActivity.Counter;
 			}
