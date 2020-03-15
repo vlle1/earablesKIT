@@ -1,4 +1,5 @@
 ﻿using System;
+using EarablesKIT.Models.AudioService;
 using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Library;
@@ -32,6 +33,7 @@ namespace EarablesKIT.Models
             collection.AddSingleton<ISettingsService, SettingsService.SettingsService>();
             collection.AddSingleton<IActivityManager, ActivityManager>();
 			collection.AddSingleton<IPopUpService, PopUpService.PopUpService>();
+			collection.AddSingleton<IAudioService, AudioService.AudioService>();
 
             return collection;
         }

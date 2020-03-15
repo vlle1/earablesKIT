@@ -1,4 +1,5 @@
 ﻿using EarablesKIT.Models;
+using EarablesKIT.Models.AudioService;
 using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
@@ -97,6 +98,8 @@ namespace EarablesKIT.ViewModels
 
 		private IPopUpService _popUpService { get; set; }
 
+		private IAudioService _audioService { get; set; }
+
 		/// <summary>
 		/// The currently selected activity by the user, bound to the view.
 		/// </summary>
@@ -177,6 +180,7 @@ namespace EarablesKIT.ViewModels
 			_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 			_popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
+			_audioService = (IAudioService)ServiceManager.ServiceProvider.GetService(typeof(IAudioService));
 
 			ActivityList = new ObservableCollection<ActivityWrapper>
 			{
@@ -259,7 +263,7 @@ namespace EarablesKIT.ViewModels
 				else
 				{
 					_timer.Stop();
-					await TextToSpeech.SpeakAsync(AppResources.TrainingDone);
+					await _audioService.Speak(AppResources.TrainingDone);
 				}
 			}
 		}
@@ -286,7 +290,7 @@ namespace EarablesKIT.ViewModels
 				else
 				{
 					_timer.Stop();
-					await TextToSpeech.SpeakAsync(AppResources.TrainingDone);
+					await _audioService.Speak(AppResources.TrainingDone);
 				}
 			}
 		}
@@ -335,11 +339,11 @@ namespace EarablesKIT.ViewModels
 		{
 			if (!ActiveActivity.Name.Equals(AppResources.Pause))
 			{
-				await TextToSpeech.SpeakAsync(AppResources.NextActivity + Amount + "" + ActiveActivity.Name);
+				await _audioService.Speak(AppResources.NextActivity + Amount + "" + ActiveActivity.Name);
 			}
 			else
 			{
-				await TextToSpeech.SpeakAsync(Amount + AppResources.Seconds + ActiveActivity.Name);
+				await _audioService.Speak(Amount + AppResources.Seconds + ActiveActivity.Name);
 			}
 		}
 

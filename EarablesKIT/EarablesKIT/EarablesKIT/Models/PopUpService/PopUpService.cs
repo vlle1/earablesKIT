@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.Models.PopUpService
 {
-	class PopUpService : IPopUpService
+	public class PopUpService : IPopUpService
 	{
 		public Task DisplayAlert(string title, string message, string cancel)
 		{
