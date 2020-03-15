@@ -5,6 +5,7 @@ using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Models.PopUpService;
 using EarablesKIT.Resources;
 using System;
 using System.Collections.Generic;
@@ -94,6 +95,8 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
+		private IPopUpService _popUpService { get; set; }
+
 		/// <summary>
 		/// The currently selected activity by the user, bound to the view.
 		/// </summary>
@@ -173,6 +176,7 @@ namespace EarablesKIT.ViewModels
 			_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
 			_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			_popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
 
 			ActivityList = new ObservableCollection<ActivityWrapper>
 			{
@@ -189,14 +193,15 @@ namespace EarablesKIT.ViewModels
 		/// <returns>Bool if the start was successfull</returns>
 		public override bool StartActivity()
 		{
-			if (CheckConnection() && ActivityList.Count > 0)
+			if (//CheckConnection() && 
+				ActivityList.Count > 0)
 			{
 				_pushUpResult = 0;
 				_sitUpResult = 0;
 				PauseTimer = new Timer();
 				ActivityIterator = ActivityList.GetEnumerator();
 				ActivityIterator.MoveNext();
-				((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+				//((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
 				CheckNextActivity();
 				return true;
 			}
@@ -391,8 +396,8 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + _pushUpResult 
-				+ " " + AppResources.Push_ups + " " + AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups 
+			_popUpService.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + _pushUpResult
+				+ " " + AppResources.Push_ups + " " + AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups
 				+ AppResources.alternativeGrammarDone + "!", AppResources.Cool);
 		}
 
@@ -402,11 +407,11 @@ namespace EarablesKIT.ViewModels
 		/// <param name="Index">Index where the activity will be inserted</param>
 		private async Task AddActivity(int Index)
 		{
-			string newActivity = await Application.Current.MainPage.DisplayActionSheet(AppResources.SelectAnActivity,
+			string newActivity = await _popUpService.ActionSheet(AppResources.SelectAnActivity,
 				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
 			if (newActivity != null && !newActivity.Equals("") && !newActivity.Equals(AppResources.Cancel))
 			{
-				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(newActivity, 
+				string newAmount = await _popUpService.DisplayPrompt(newActivity,
 						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 3, Keyboard.Numeric);
 				if (newAmount != null && Regex.IsMatch(newAmount, @"^[1-9]{1}\d{0,2}$"))
 				{
