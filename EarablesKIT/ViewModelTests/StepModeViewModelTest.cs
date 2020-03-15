@@ -231,7 +231,6 @@ namespace ViewModelTests
 
 			//Test
 			StepModeViewModel viewModel = new StepModeViewModel();
-			viewModel.testPopUpBlocker = true;
 			viewModel.StartActivity();
 			viewModel.OnActivityDone(this, null);
 			viewModel.OnActivityDone(this, null);
