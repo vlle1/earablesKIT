@@ -2,6 +2,7 @@
 using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Models.PopUpService;
 using EarablesKIT.Models.SettingsService;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +31,7 @@ namespace EarablesKIT.Models
 
             collection.AddSingleton<ISettingsService, SettingsService.SettingsService>();
             collection.AddSingleton<IActivityManager, ActivityManager>();
+			collection.AddSingleton<IPopUpService, PopUpService.PopUpService>();
 
             return collection;
         }
