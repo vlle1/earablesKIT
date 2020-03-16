@@ -181,6 +181,7 @@ namespace EarablesKIT.ViewModels
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 			_popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
 			_audioService = (IAudioService)ServiceManager.ServiceProvider.GetService(typeof(IAudioService));
+			_timer = new Stopwatch();
 
 			ActivityList = new ObservableCollection<ActivityWrapper>
 			{
@@ -197,15 +198,14 @@ namespace EarablesKIT.ViewModels
 		/// <returns>Bool if the start was successfull</returns>
 		public override bool StartActivity()
 		{
-			if (//CheckConnection() && 
-				ActivityList.Count > 0)
+			if (CheckConnection() && ActivityList.Count > 0)
 			{
 				_pushUpResult = 0;
 				_sitUpResult = 0;
 				PauseTimer = new Timer();
 				ActivityIterator = ActivityList.GetEnumerator();
 				ActivityIterator.MoveNext();
-				//((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+				((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
 				CheckNextActivity();
 				return true;
 			}
@@ -409,7 +409,7 @@ namespace EarablesKIT.ViewModels
 		/// Method that adds an activity to the ActivityList via Pop-ups, called by the equivalent command.
 		/// </summary>
 		/// <param name="Index">Index where the activity will be inserted</param>
-		private async Task AddActivity(int Index)
+		public async Task AddActivity(int Index)
 		{
 			string newActivity = await _popUpService.ActionSheet(AppResources.SelectAnActivity,
 				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
@@ -439,7 +439,7 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Method that removes the selected activity from the ActivityList, called by the equivalent command.
 		/// </summary>
-		private void RemoveActivity()
+		public void RemoveActivity()
 		{
 			if (ActivityList.Count > 0 && ActivityList.Contains(SelectedActivity))
 			{
@@ -450,7 +450,7 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Method that edit the selected activity from the ActivityList, called by the equivalent command.
 		/// </summary>
-		private async void EditActivity()
+		public async void EditActivity()
 		{
 			if (SelectedActivity != null && ActivityList.Contains(SelectedActivity))
 			{
