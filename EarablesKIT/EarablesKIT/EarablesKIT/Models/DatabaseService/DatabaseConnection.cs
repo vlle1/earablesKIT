@@ -20,6 +20,8 @@ namespace EarablesKIT.Models.DatabaseService
         private readonly string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "EarablesKIT_TrainingsData.db3");
 
+        private IExceptionHandler _exceptionHandler;
+
         /// <summary>
         /// Constructor of the DatabaseConnection. Initializes the Database and creates the needed table
         /// </summary>
@@ -27,6 +29,8 @@ namespace EarablesKIT.Models.DatabaseService
         {
             _database = new SQLiteConnection(_path);
             _database.CreateTable<DBEntryToSave>();
+            _exceptionHandler =
+                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
         }
 
         /// <inheritdoc />
@@ -106,7 +110,7 @@ namespace EarablesKIT.Models.DatabaseService
         {
             if (file == null || string.IsNullOrEmpty(file.FileName))
             {
-                ExceptionHandlingViewModel.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
+                _exceptionHandler.HandleException(new FileNotFoundException(AppResources.DataBaseFileDoesntExistError));
                 return;
             }
 
@@ -122,7 +126,7 @@ namespace EarablesKIT.Models.DatabaseService
                 DBEntry dbEntry = DBEntry.ParseDbEntry(entry);
                 if (dbEntry == null)
                 {
-                    ExceptionHandlingViewModel.HandleException(new ArgumentException(AppResources.DatabaseConnectionFileParseError));
+                    _exceptionHandler.HandleException(new ArgumentException(AppResources.DatabaseConnectionFileParseError));
                     return;
                 }
                 else

@@ -53,6 +53,7 @@ namespace EarablesKIT.ViewModels
         public ObservableCollection<IDevice> DevicesList { get; set; }
 
         private IEarablesConnection _earablesConnectionService;
+        private IExceptionHandler _exceptionHandler;
 
         /// <summary>
         /// Constructor ScanningPopUpViewModel initializes the attributes and properties
@@ -77,6 +78,8 @@ namespace EarablesKIT.ViewModels
                     OnPropertyChanged(nameof(DevicesList));
                 }
             };
+            _exceptionHandler =
+                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
         }
 
         /// <summary>
@@ -153,7 +156,7 @@ namespace EarablesKIT.ViewModels
             catch (DeviceConnectionException e)
             {
                 DevicesList.Clear();
-                ExceptionHandlingViewModel.HandleException(e);
+                _exceptionHandler.HandleException(e);
             }
         }
 

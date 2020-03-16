@@ -28,6 +28,8 @@ namespace EarablesKIT.ViewModels
         public int Steplength { get => _user.Steplength; }
 
         private SamplingRate _samplingrate;
+        private IExceptionHandler _exceptionHandler;
+
         /// <summary>
         /// The samplingrate of the earables
         /// </summary>
@@ -47,6 +49,8 @@ namespace EarablesKIT.ViewModels
             _user = _settingsService.ActiveUser;
             _samplingrate = _settingsService.SamplingRate;
             Language = _settingsService.ActiveLanguage;
+            _exceptionHandler =
+                (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
         }
 
         /// <summary>
@@ -74,7 +78,7 @@ namespace EarablesKIT.ViewModels
                 catch (Exception e)
                 {
                     
-                    ExceptionHandlingViewModel.HandleException(e);
+                    _exceptionHandler.HandleException(e);
                     needToSave = false;
                 }
             }
@@ -91,7 +95,7 @@ namespace EarablesKIT.ViewModels
                 }
                 catch (Exception e)
                 {
-                    ExceptionHandlingViewModel.HandleException(e);
+                    _exceptionHandler.HandleException(e);
                     needToSave = false;
                 }
             }

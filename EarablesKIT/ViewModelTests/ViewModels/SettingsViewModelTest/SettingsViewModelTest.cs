@@ -39,6 +39,7 @@ namespace ViewModelTests.ViewModels.SettingsViewModelTest
             mockSettingsService.SetupProperty(x => x.ActiveLanguage, initCultureInfo);
 
             mockSingleton.Setup(x => x.GetService(typeof(ISettingsService))).Returns(mockSettingsService.Object);
+            mockSingleton.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(null);
             instance.SetValue(null, mockSingleton.Object);
 
             //Ausführung
@@ -206,9 +207,97 @@ namespace ViewModelTests.ViewModels.SettingsViewModelTest
 
         }
 
-        private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        [Theory]
+        [InlineData("")]
+        [InlineData("&§%&(§/&§")]
+        [InlineData(")!?\\=§")]
+        public void TestSaveWrongUserName(String toTest)
         {
-            throw new NotImplementedException();
+            //Für den ServiceProviderMock
+            //Muss enthalten sein, damit der Mock nicht überschrieben wird
+            IServiceProvider unused = ServiceManager.ServiceProvider;
+
+            //Feld Infos holen
+            System.Reflection.FieldInfo instance = typeof(ServiceManager).GetField("_serviceProvider", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+
+            //Mocksaufsetzen 
+            //ServiceProvider
+            Mock<IServiceProvider> mockSingleton = new Mock<IServiceProvider>();
+            //Service der gemockt werden soll
+            Mock<ISettingsService> mockSettingsService = new Mock<ISettingsService>();
+            Mock<IExceptionHandler> exceptionhandlerMock = new Mock<IExceptionHandler>();
+
+            exceptionhandlerMock.Setup(x => x.HandleException(It.IsAny<Exception>()));
+
+            User initUser = new User("Alice", 70);
+            CultureInfo initCultureInfo = CultureInfo.GetCultureInfo("en-US");
+
+            mockSettingsService.SetupProperty(x => x.SamplingRate, SamplingRate.Hz_50);
+            mockSettingsService.SetupProperty(x => x.ActiveUser, initUser);
+            mockSettingsService.SetupProperty(x => x.ActiveLanguage, initCultureInfo);
+
+
+            mockSingleton.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(exceptionhandlerMock.Object);
+            mockSingleton.Setup(x => x.GetService(typeof(ISettingsService))).Returns(mockSettingsService.Object);
+            instance.SetValue(null, mockSingleton.Object);
+
+            //Ausführung
+            SettingsViewModel settingsViewModel = new SettingsViewModel();
+            bool actual = settingsViewModel.SaveClicked(toTest, initUser.Steplength, SamplingRate.Hz_50, initCultureInfo);
+
+            //Asserts
+            exceptionhandlerMock.Verify(x => x.HandleException(It.IsAny<Exception>()), Times.Once);
+            Assert.False(actual);
+            Assert.Equal((int)SamplingRate.Hz_50, settingsViewModel.SamplingRate);
+            Assert.Equal(initUser.Username, settingsViewModel.Username);
+            Assert.Equal(initUser.Steplength, settingsViewModel.Steplength);
+        }
+
+
+        [Fact]
+        public void TestSaveWrongSamplingRate()
+        {
+            //Für den ServiceProviderMock
+            //Muss enthalten sein, damit der Mock nicht überschrieben wird
+            IServiceProvider unused = ServiceManager.ServiceProvider;
+
+            //Feld Infos holen
+            System.Reflection.FieldInfo instance = typeof(ServiceManager).GetField("_serviceProvider", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+
+            //Mocksaufsetzen 
+            //ServiceProvider
+            Mock<IServiceProvider> mockSingleton = new Mock<IServiceProvider>();
+            //Service der gemockt werden soll
+            Mock<ISettingsService> mockSettingsService = new Mock<ISettingsService>();
+            Mock<IExceptionHandler> exceptionhandlerMock = new Mock<IExceptionHandler>();
+
+            exceptionhandlerMock.Setup(x => x.HandleException(It.IsAny<Exception>()));
+
+            User initUser = new User("Alice", 70);
+            CultureInfo initCultureInfo = CultureInfo.GetCultureInfo("en-US");
+
+            mockSettingsService.SetupSet(x => x.SamplingRate = SamplingRate.Hz_80).Throws(new ArgumentException());
+            
+            mockSettingsService.SetupProperty(x => x.ActiveUser, initUser);
+            mockSettingsService.SetupProperty(x => x.ActiveLanguage, initCultureInfo);
+
+
+            mockSingleton.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(exceptionhandlerMock.Object);
+            mockSingleton.Setup(x => x.GetService(typeof(ISettingsService))).Returns(mockSettingsService.Object);
+            instance.SetValue(null, mockSingleton.Object);
+
+            //Ausführung
+            SettingsViewModel settingsViewModel = new SettingsViewModel();
+            bool actual = settingsViewModel.SaveClicked(initUser.Username, initUser.Steplength, SamplingRate.Hz_80, initCultureInfo);
+
+            //Asserts
+            exceptionhandlerMock.Verify(x => x.HandleException(It.IsAny<Exception>()), Times.Once);
+            Assert.False(actual);
+            Assert.Equal(initUser.Username, settingsViewModel.Username);
+            Assert.Equal(initUser.Steplength, settingsViewModel.Steplength);
+            
+            
+            Assert.Equal(0, settingsViewModel.SamplingRate);
         }
     }
 }

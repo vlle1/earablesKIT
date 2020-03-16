@@ -1,6 +1,10 @@
 ﻿using EarablesKIT.Models.DatabaseService;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using EarablesKIT.Models;
+using EarablesKIT.Models.SettingsService;
+using EarablesKIT.ViewModels;
 using Moq;
 using Plugin.FilePicker.Abstractions;
 using Xunit;
@@ -186,6 +190,33 @@ namespace ViewModelTests.Models.DatabaseService
         //[Fact]
         //public void TestImport()
         //{
+
+        //    // Für den ServiceProviderMock
+        //    //Muss enthalten sein, damit der Mock nicht überschrieben wird
+        //    IServiceProvider unused = ServiceManager.ServiceProvider;
+
+        //    //Feld Infos holen
+        //    System.Reflection.FieldInfo instance = typeof(ServiceManager).GetField("_serviceProvider", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+
+        //    //Mocksaufsetzen 
+        //    //ServiceProvider
+        //    Mock<IServiceProvider> mockSingleton = new Mock<IServiceProvider>();
+
+        //    //Service der gemockt werden soll
+        //    Mock<IExceptionHandler> mockExceptionHander = new Mock<IExceptionHandler>();
+
+        //    User initUser = new User("Alice", 70);
+        //    CultureInfo initCultureInfo = CultureInfo.GetCultureInfo("en-US");
+
+        //    mockExceptionHander.Setup(x => x.HandleException(It.IsAny<Exception>()));
+
+
+
+        //    mockSingleton.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(mockExceptionHander.Object);
+        //    instance.SetValue(null, mockSingleton.Object);
+            
+
+
         //    FileData fileData = new FileData();
         //    var mockFileData = new Mock<FileData>();
         //    string entriesToImport = "26.04.2000,Steps=100,PushUps=20,SitUps=10\n" +
@@ -196,15 +227,17 @@ namespace ViewModelTests.Models.DatabaseService
         //    mockFileData.SetupProperty(x => x.DataArray, entriesToImportAsBytes);
         //    mockFileData.SetupProperty(x => x.FileName, "NotNullOrEmpty");
 
+            
+
         //    DatabaseConnection dbToTest = new DatabaseConnection();
         //    dbToTest.DeleteAllEntries();
 
         //    dbToTest.ImportTrainingsData(mockFileData.Object);
 
         //    List<DBEntry> allEntries = dbToTest.GetAllEntries();
-            
+
         //    Assert.Equal(4, allEntries.Count);
-        //    Assert.Equal(new DateTime(2000,04,22), allEntries[0].Date);
+        //    Assert.Equal(new DateTime(2000, 04, 22), allEntries[0].Date);
         //    Assert.Equal(170, allEntries[0].TrainingsData["Steps"]);
         //    Assert.Equal(10, allEntries[0].TrainingsData["PushUps"]);
         //    Assert.Equal(230, allEntries[0].TrainingsData["SitUps"]);

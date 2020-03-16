@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
@@ -12,6 +13,7 @@ using Xunit;
 
 namespace ViewModelTests.ViewModels.ScanningPopUp
 {
+    [ExcludeFromCodeCoverage]
     public class ScanningPopUpViewModelTest
     {
         [Fact]
@@ -37,7 +39,10 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
             mockSecondIDevice.Setup(x => x.Name).Returns("eSense-120");
 
             mockEarablesConnection.SetupAdd(x => x.NewDeviceFound += ((sender, args) => { }));
-
+            if (instance == null)
+            {
+                Assert.True(false);
+            }
             instance.SetValue(null, mockSingleton.Object);
             
 

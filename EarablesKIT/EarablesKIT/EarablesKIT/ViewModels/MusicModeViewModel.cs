@@ -18,6 +18,7 @@ namespace EarablesKIT.ViewModels
         private bool _running = false;
         private bool _musicModeActive = false;
         private IActivityManager _activityManager;
+        private IExceptionHandler _exceptionHandler;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -104,6 +105,9 @@ namespace EarablesKIT.ViewModels
             _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
             runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 
+            _exceptionHandler =
+                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
+
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
             Directory.CreateDirectory(Path.GetDirectoryName(_path));
 
@@ -131,7 +135,7 @@ namespace EarablesKIT.ViewModels
             }
             catch (Exception e)
             {
-                ExceptionHandlingViewModel.HandleException(e);
+                _exceptionHandler.HandleException(e);
             }
         }
 
