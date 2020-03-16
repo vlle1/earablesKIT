@@ -172,7 +172,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		public ListenAndPerformViewModel()
 		{
-			AddActivityCommand = new Command(() => AddActivity(ActivityList.Count));
+			AddActivityCommand = new Command(async () => await AddActivity(ActivityList.Count));
 			RemoveActivityCommand = new Command(() => RemoveActivity());
 			EditActivityCommand = new Command(() => EditActivity());
 			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));

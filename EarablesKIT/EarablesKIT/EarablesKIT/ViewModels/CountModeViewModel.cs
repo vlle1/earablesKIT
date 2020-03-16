@@ -119,6 +119,7 @@ namespace EarablesKIT.ViewModels
 			_comingSoon = new ActivityWrapper(AppResources.Coming_soon, null);
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 			_popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
+			_timer = new Stopwatch();
 			PossibleActivities = new ObservableCollection<ActivityWrapper>
 			{
 				_pushUpActivityWrapper,
@@ -135,19 +136,19 @@ namespace EarablesKIT.ViewModels
 		/// <returns>Bool if everything was successfull</returns>
 		public override bool StartActivity()
 		{
-			//if (CheckConnection())
-			//{
+			if (CheckConnection())
+			{
 				if (RegisterActivity())
 				{
-					//((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+					((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
 					_pushUpActivityWrapper.Counter = 0;
 					_sitUpActivityWrapper.Counter = 0;
 					return true;
 				}
 				return false;
 
-			//}
-			//return false;
+			}
+			return false;
 		}
 
 		/// <summary>

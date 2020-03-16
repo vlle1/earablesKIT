@@ -242,17 +242,17 @@ namespace EarablesKIT.ViewModels
 		/// <returns></returns>
 		public override bool StartActivity()
 		{
-			//if (CheckConnection())
-			//{
+			if (CheckConnection())
+			{
 				StepCounter = 0;
 				_stepActivity.ActivityDone += OnActivityDone;
 				_runningActivity.ActivityDone += OnRunningDone;
 				CurrentDate = DateTime.Now.ToString();
-				//((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+				((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
 				_timer.Start();
 				return true;
-			//}
-			//return false;
+			}
+			return false;
 		}
 
 		/// <summary>
