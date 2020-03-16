@@ -10,7 +10,6 @@ using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -66,7 +65,6 @@ namespace EarablesKIT.ViewModels
             {
                 if (args.Device.Name != null && !DevicesList.Contains(args.Device))
                 {
-
                     if (args.Device.Name.StartsWith("eSense"))
                     {
                         DevicesList.Insert(0, args.Device);
@@ -79,7 +77,7 @@ namespace EarablesKIT.ViewModels
                 }
             };
             _exceptionHandler =
-                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
+                (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
         }
 
         /// <summary>
