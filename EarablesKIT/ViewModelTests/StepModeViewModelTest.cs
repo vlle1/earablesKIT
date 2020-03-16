@@ -8,6 +8,7 @@ using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Models.PopUpService;
 using EarablesKIT.Models.SettingsService;
 using EarablesKIT.ViewModels;
 using Moq;
@@ -35,6 +36,7 @@ namespace ViewModelTests
 			Mock<IServiceProvider> activityProviderMock = new Mock<IServiceProvider>();
 			Mock<AbstractStepActivity> stepActivityMock = new Mock<AbstractStepActivity>();
 			Mock<AbstractRunningActivity> runningActivityMock = new Mock<AbstractRunningActivity>();
+			Mock<IPopUpService> popUpMock = new Mock<IPopUpService>();
 
 			//ActivityManager
 			activityManagerMock.Setup(x => x.ActitvityProvider).Returns(activityProviderMock.Object);
@@ -53,6 +55,7 @@ namespace ViewModelTests
 			//ServiceManager
 			mockSingleton.Setup(x => x.GetService(typeof(IDataBaseConnection))).Returns(mockDataBase.Object);
 			mockSingleton.Setup(x => x.GetService(typeof(IActivityManager))).Returns(activityManagerMock.Object);
+			mockSingleton.Setup(x => x.GetService(typeof(IPopUpService))).Returns(popUpMock.Object);
 
 			//ServiceProvider anlegen
 			instance.SetValue(null, mockSingleton.Object);
@@ -85,6 +88,7 @@ namespace ViewModelTests
 			Mock<AbstractStepActivity> stepActivityMock = new Mock<AbstractStepActivity>();
 			Mock<AbstractRunningActivity> runningActivityMock = new Mock<AbstractRunningActivity>();
 			Mock<ISettingsService> settingsMock = new Mock<ISettingsService>();
+			Mock<IPopUpService> popUpMock = new Mock<IPopUpService>();
 
 			//ActivityManager
 			activityManagerMock.Setup(x => x.ActitvityProvider).Returns(activityProviderMock.Object);
@@ -111,6 +115,7 @@ namespace ViewModelTests
 			mockSingleton.Setup(x => x.GetService(typeof(IDataBaseConnection))).Returns(mockDataBase.Object);
 			mockSingleton.Setup(x => x.GetService(typeof(IActivityManager))).Returns(activityManagerMock.Object);
 			mockSingleton.Setup(x => x.GetService(typeof(ISettingsService))).Returns(settingsMock.Object);
+			mockSingleton.Setup(x => x.GetService(typeof(IPopUpService))).Returns(popUpMock.Object);
 
 			//ServiceProvider anlegen
 			instance.SetValue(null, mockSingleton.Object);
@@ -143,6 +148,7 @@ namespace ViewModelTests
 			Mock<AbstractStepActivity> stepActivityMock = new Mock<AbstractStepActivity>();
 			Mock<AbstractRunningActivity> runningActivityMock = new Mock<AbstractRunningActivity>();
 			Mock<IEarablesConnection> connectionMock = new Mock<IEarablesConnection>();
+			Mock<IPopUpService> popUpMock = new Mock<IPopUpService>();
 
 			//ActivityManager
 			activityManagerMock.Setup(x => x.ActitvityProvider).Returns(activityProviderMock.Object);
@@ -162,6 +168,7 @@ namespace ViewModelTests
 			mockSingleton.Setup(x => x.GetService(typeof(IDataBaseConnection))).Returns(mockDataBase.Object);
 			mockSingleton.Setup(x => x.GetService(typeof(IActivityManager))).Returns(activityManagerMock.Object);
 			mockSingleton.Setup(x => x.GetService(typeof(IEarablesConnection))).Returns(connectionMock.Object);
+			mockSingleton.Setup(x => x.GetService(typeof(IPopUpService))).Returns(popUpMock.Object);
 
 			//Connection
 			ScanningPopUpViewModel.IsConnected = true;
@@ -202,6 +209,7 @@ namespace ViewModelTests
 			Mock<AbstractStepActivity> stepActivityMock = new Mock<AbstractStepActivity>();
 			Mock<AbstractRunningActivity> runningActivityMock = new Mock<AbstractRunningActivity>();
 			Mock<IEarablesConnection> connectionMock = new Mock<IEarablesConnection>();
+			Mock<IPopUpService> popUpMock = new Mock<IPopUpService>();
 
 			//ActivityManager
 			activityManagerMock.Setup(x => x.ActitvityProvider).Returns(activityProviderMock.Object);
@@ -221,6 +229,7 @@ namespace ViewModelTests
 			mockSingleton.Setup(x => x.GetService(typeof(IDataBaseConnection))).Returns(mockDataBase.Object);
 			mockSingleton.Setup(x => x.GetService(typeof(IActivityManager))).Returns(activityManagerMock.Object);
 			mockSingleton.Setup(x => x.GetService(typeof(IEarablesConnection))).Returns(connectionMock.Object);
+			mockSingleton.Setup(x => x.GetService(typeof(IPopUpService))).Returns(popUpMock.Object);
 
 			//Connection
 			ScanningPopUpViewModel.IsConnected = true;
@@ -231,7 +240,6 @@ namespace ViewModelTests
 
 			//Test
 			StepModeViewModel viewModel = new StepModeViewModel();
-			viewModel.testPopUpBlocker = true;
 			viewModel.StartActivity();
 			viewModel.OnActivityDone(this, null);
 			viewModel.OnActivityDone(this, null);
@@ -246,6 +254,7 @@ namespace ViewModelTests
 			Assert.Equal(3, viewModel.StepCounter);
 			viewModel.StartActivity();
 			Assert.Equal(0, viewModel.StepCounter);
+			Assert.False(viewModel.IsRunning);
 		}
 	}
 }
