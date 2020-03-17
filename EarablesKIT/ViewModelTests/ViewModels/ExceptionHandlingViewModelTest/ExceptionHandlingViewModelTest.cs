@@ -18,6 +18,8 @@ namespace ViewModelTests.ViewModels.ExceptionHandlingViewModelTest
         {
             IServiceProvider unused = ServiceManager.ServiceProvider;
 
+
+            //Setup
             FieldInfo serviceProviderFieldInfo =
                 typeof(ServiceManager).GetField("_serviceProvider", BindingFlags.Static | BindingFlags.NonPublic);
 
@@ -33,9 +35,12 @@ namespace ViewModelTests.ViewModels.ExceptionHandlingViewModelTest
 
             serviceProviderFieldInfo.SetValue(null, providerMock.Object);
 
+
+            //Act
             ExceptionHandlingViewModel viewModel = new ExceptionHandlingViewModel();
             viewModel.HandleException(exception);
 
+            //Verify
             providerMock.VerifyAll();
             popupServiceMock.VerifyAll();
         }
@@ -44,6 +49,7 @@ namespace ViewModelTests.ViewModels.ExceptionHandlingViewModelTest
         {
             IServiceProvider unused = ServiceManager.ServiceProvider;
 
+            //Setup
             FieldInfo serviceProviderFieldInfo =
                 typeof(ServiceManager).GetField("_serviceProvider", BindingFlags.Static | BindingFlags.NonPublic);
 
@@ -59,9 +65,11 @@ namespace ViewModelTests.ViewModels.ExceptionHandlingViewModelTest
 
             serviceProviderFieldInfo.SetValue(null, providerMock.Object);
 
+            //Act
             ExceptionHandlingViewModel viewModel = new ExceptionHandlingViewModel();
             viewModel.HandleException(exception);
 
+            //Verify
             providerMock.VerifyAll();
             popupServiceMock.VerifyAll();
         }
