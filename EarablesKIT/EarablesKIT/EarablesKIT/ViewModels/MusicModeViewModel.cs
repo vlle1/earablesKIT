@@ -13,11 +13,12 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
-    class MusicModeViewModel : BaseModeViewModel, INotifyPropertyChanged
+    public class MusicModeViewModel : BaseModeViewModel, INotifyPropertyChanged
     {
         private bool _running = false;
         private bool _musicModeActive = false;
-        private IActivityManager _activityManager;
+        private static IMediaManager _mediaManager;
+        private static IActivityManager _activityManager;
         private IExceptionHandler _exceptionHandler;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,13 +31,12 @@ namespace EarablesKIT.ViewModels
                 _running = value;
                 if (_running)
                 {
-                    CrossMediaManager.Current.Play();
+                    _mediaManager.Play();
                 }
                 else
                 {
-                    CrossMediaManager.Current.Pause();
+                    _mediaManager.Pause();
                 }
-                //OnPropertyChanged("StartStopLabel");
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CurrentStatusLabel));
             }
@@ -89,8 +89,8 @@ namespace EarablesKIT.ViewModels
         {
             try
             {
-                await CrossMediaManager.Current.Play(_path);
-                await CrossMediaManager.Current.Pause();
+                await _mediaManager.Play(_path);
+                await _mediaManager.Pause();
             } catch (Exception e)
             {
                 Debug.WriteLine(e.StackTrace);
@@ -104,6 +104,11 @@ namespace EarablesKIT.ViewModels
         {
             _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
             runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
+
+            if (_mediaManager is null)
+            {
+                _mediaManager = CrossMediaManager.Current;
+            }
 
             _exceptionHandler =
                 (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
@@ -146,23 +151,6 @@ namespace EarablesKIT.ViewModels
 
         public override bool StartActivity()
         {
-            /* Debug events 
-                         if (true)
-            {
-                Device.StartTimer(TimeSpan.FromSeconds(30), () =>
-                {
-                    // Do something
-                    OnActivityDone(this, new RunningEventArgs(!IsRunning));
-                    return true; // True = Repeat again, False = Stop the timer
-                });
-                //((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-             */
             if (CheckConnection())
             {
                 RestartMusic();
