@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Security;
-using System.Text;
 using System.Threading.Tasks;
 using EarablesKIT.Models;
-using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Models.PopUpService;
 using EarablesKIT.ViewModels;
-using EarablesKIT.Views;
 using Moq;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
@@ -19,7 +14,6 @@ using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
-using Xamarin.Forms;
 using Xunit;
 
 
@@ -228,23 +222,26 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
         }
 
         [Fact]
-        public void testScanningCommandWithoutPermissions()
+        public void testScanningCommandBluetoothNotActive()
         {
             IServiceProvider unused = ServiceManager.ServiceProvider;
 
-            FieldInfo instanceToMock = typeof(ServiceManager).GetField("_serviceProvider", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+            FieldInfo instanceToMock = typeof(ServiceManager).GetField("_serviceProvider",
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
 
 
             //Servii
             Mock<IServiceProvider> providerMock = new Mock<IServiceProvider>();
             Mock<IEarablesConnection> earablesConnectionMock = new Mock<IEarablesConnection>();
             Mock<IExceptionHandler> exceptionHandlerMock = new Mock<IExceptionHandler>();
+            Mock<IPopUpService> popUpServiceMock = new Mock<IPopUpService>();
 
             //earablesConnectionMock.Setup(x => x.StartScanning());
             earablesConnectionMock.Setup(x => x.IsBluetoothActive).Returns(false);
 
             providerMock.Setup(x => x.GetService(typeof(IEarablesConnection))).Returns(earablesConnectionMock.Object);
             providerMock.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(exceptionHandlerMock.Object);
+            providerMock.Setup(x => x.GetService(typeof(IPopUpService))).Returns(popUpServiceMock.Object);
             instanceToMock.SetValue(null, providerMock.Object);
 
 
@@ -260,15 +257,71 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
             currentCrossPermissionMock.SetValue(null, new Lazy<IPermissions>(() => mockImplementation.Object));
             
 
-            //Application
-            PropertyInfo propertyInfo = typeof(Application).GetProperty("Current", BindingFlags.Static);
-            Mock<Application> currentMock = new Mock<Application>();
-            Mock<Page> mainPageMock = new Mock<Page>();
+            //Displayalert
+            popUpServiceMock.Setup(x => x.DisplayAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(Task.FromResult(new object()));
+
+            //Testing
+            ScanningPopUpViewModel viewModelToTest = new ScanningPopUpViewModel();
+            viewModelToTest.ScanDevicesCommand.Execute(null);
+
+            //Verify
+            providerMock.VerifyAll();
+            earablesConnectionMock.VerifyAll();
+            mockImplementation.VerifyAll();
+            valueMock.VerifyAll();
+            popUpServiceMock.VerifyAll();
+        }
+
+        [Fact]
+        public void testScanningCommandPermissionNotGranted()
+        {
+            //SetupProvider
+            IServiceProvider unused = ServiceManager.ServiceProvider;
+            FieldInfo instanceToMock = typeof(ServiceManager).GetField("_serviceProvider", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+
+            //Servii
+            Mock<IServiceProvider> providerMock = new Mock<IServiceProvider>();
+            Mock<IEarablesConnection> earablesConnectionMock = new Mock<IEarablesConnection>();
+            Mock<IExceptionHandler> exceptionHandlerMock = new Mock<IExceptionHandler>();
+            Mock<IPopUpService> popupServiceMock = new Mock<IPopUpService>();
 
 
-            currentMock.Setup(x => x.MainPage).Returns(mainPageMock.Object);
-            mainPageMock.Setup(x => x.DisplayAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
-            propertyInfo.SetValue(null, currentMock.Object);
+            //EarablesConnectionMock
+            earablesConnectionMock.Setup(x => x.IsBluetoothActive).Returns(true);
+
+            //PopupService
+            popupServiceMock
+                .Setup(service => service.DisplayAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(Task.CompletedTask);
+
+            //ServiceProvider
+            providerMock.Setup(x => x.GetService(typeof(IEarablesConnection))).Returns(earablesConnectionMock.Object);
+            providerMock.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(exceptionHandlerMock.Object);
+            providerMock.Setup(x => x.GetService(typeof(IPopUpService))).Returns(popupServiceMock.Object);
+
+            instanceToMock.SetValue(null, providerMock.Object);
+
+
+            //CrossPermission
+            FieldInfo currentCrossPermissionMock =
+                typeof(CrossPermissions).GetField("implementation", BindingFlags.NonPublic | BindingFlags.Static);
+
+            Mock<IPermissions> mockImplementation = new Mock<IPermissions>();
+            Mock<IPermissions> valueMock = new Mock<IPermissions>();
+
+            mockImplementation.Setup(x => x.CheckPermissionStatusAsync(Permission.Location)).Returns(Task.FromResult(PermissionStatus.Denied));
+            mockImplementation
+                .Setup(permissions => permissions.ShouldShowRequestPermissionRationaleAsync(Permission.Unknown))
+                .Returns(Task.FromResult(true));
+
+            Permission[] expected = new[] {Permission.Location};
+            Dictionary<Permission, PermissionStatus> statusToGive = new Dictionary<Permission, PermissionStatus>();
+            statusToGive.Add(Permission.Location, PermissionStatus.Denied);
+            mockImplementation.Setup(x => x.RequestPermissionsAsync(expected)).Returns(Task.FromResult(statusToGive));
+
+
+            currentCrossPermissionMock.SetValue(null, new Lazy<IPermissions>(() => mockImplementation.Object));
 
 
             //Testing
@@ -279,7 +332,9 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
             earablesConnectionMock.VerifyAll();
             mockImplementation.VerifyAll();
             valueMock.VerifyAll();
+            popupServiceMock.Verify(service => service.DisplayAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
         }
+
 
         [Fact]
         public void testCancelCommand()

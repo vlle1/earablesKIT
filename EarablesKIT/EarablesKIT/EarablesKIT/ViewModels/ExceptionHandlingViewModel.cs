@@ -1,5 +1,7 @@
 ﻿using EarablesKIT.Resources;
 using System;
+using EarablesKIT.Models;
+using EarablesKIT.Models.PopUpService;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -15,13 +17,15 @@ namespace EarablesKIT.ViewModels
         /// <param name="Error">The thrown exception which gets displayed</param>
         public void HandleException(Exception Error)
         {
+            
             if (Error?.Message != null && Error.Message.Length != 0)
             {
-                Application.Current.MainPage.DisplayAlert(AppResources.ErrorAlert, Error.Message.Trim(), AppResources.Okay);
+                ((IPopUpService) ServiceManager.ServiceProvider.GetService(typeof(IPopUpService))).DisplayAlert(
+                    AppResources.ErrorAlert, Error.Message.Trim(), AppResources.Okay);
             }
             else
             {
-                Application.Current.MainPage.DisplayAlert(AppResources.ErrorAlert, AppResources.DefaultError, AppResources.Okay);
+                HandleException();
             }
         }
 
@@ -30,7 +34,8 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public void HandleException()
         {
-            Application.Current.MainPage.DisplayAlert(AppResources.ErrorAlert, AppResources.DefaultError, AppResources.Okay);
+            ((IPopUpService) ServiceManager.ServiceProvider.GetService(typeof(IPopUpService))).DisplayAlert(
+                AppResources.ErrorAlert, AppResources.DefaultError, AppResources.Okay);
         }
     }
 

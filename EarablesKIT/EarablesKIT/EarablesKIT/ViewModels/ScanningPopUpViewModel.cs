@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using EarablesKIT.Models.PopUpService;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -53,6 +54,7 @@ namespace EarablesKIT.ViewModels
 
         private IEarablesConnection _earablesConnectionService;
         private IExceptionHandler _exceptionHandler;
+        private IPopUpService _popUpService;
 
         /// <summary>
         /// Constructor ScanningPopUpViewModel initializes the attributes and properties
@@ -76,6 +78,8 @@ namespace EarablesKIT.ViewModels
                     OnPropertyChanged(nameof(DevicesList));
                 }
             };
+
+            _popUpService = (IPopUpService) ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
             _exceptionHandler =
                 (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
         }
@@ -122,14 +126,14 @@ namespace EarablesKIT.ViewModels
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
             if (!_earablesConnectionService.IsBluetoothActive)
             {
-                await Application.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
+                await _popUpService.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
                 return;
             }
             if (status != PermissionStatus.Granted)
             {
                 if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Unknown))
                 {
-                    await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpPermissionLocationNeeded, AppResources.Accept);
+                    await _popUpService.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpPermissionLocationNeeded, AppResources.Accept);
                 }
 
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Location });
@@ -138,7 +142,7 @@ namespace EarablesKIT.ViewModels
 
             if (status != PermissionStatus.Granted)
             {
-                await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpLocationDenied, AppResources.Accept);
+                await _popUpService.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpLocationDenied, AppResources.Accept);
                 return;
             }
 
