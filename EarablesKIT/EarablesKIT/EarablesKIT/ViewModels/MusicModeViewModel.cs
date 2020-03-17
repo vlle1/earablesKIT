@@ -19,6 +19,7 @@ namespace EarablesKIT.ViewModels
         private bool _musicModeActive = false;
         private static IMediaManager _mediaManager;
         private static IActivityManager _activityManager;
+        private IExceptionHandler _exceptionHandler;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -109,6 +110,9 @@ namespace EarablesKIT.ViewModels
                 _mediaManager = CrossMediaManager.Current;
             }
 
+            _exceptionHandler =
+                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
+
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
             Directory.CreateDirectory(Path.GetDirectoryName(_path));
 
@@ -136,7 +140,7 @@ namespace EarablesKIT.ViewModels
             }
             catch (Exception e)
             {
-                ExceptionHandlingViewModel.HandleException(e);
+                _exceptionHandler.HandleException(e);
             }
         }
 

@@ -10,9 +10,9 @@ using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using EarablesKIT.Models.PopUpService;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -52,7 +52,9 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public ObservableCollection<IDevice> DevicesList { get; set; }
 
-        private EarablesConnection _earablesConnectionService;
+        private IEarablesConnection _earablesConnectionService;
+        private IExceptionHandler _exceptionHandler;
+        private IPopUpService _popUpService;
 
         /// <summary>
         /// Constructor ScanningPopUpViewModel initializes the attributes and properties
@@ -60,12 +62,11 @@ namespace EarablesKIT.ViewModels
         public ScanningPopUpViewModel()
         {
             DevicesList = new ObservableCollection<IDevice>();
-            _earablesConnectionService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+            _earablesConnectionService = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
             _earablesConnectionService.NewDeviceFound += (sender, args) =>
             {
                 if (args.Device.Name != null && !DevicesList.Contains(args.Device))
                 {
-
                     if (args.Device.Name.StartsWith("eSense"))
                     {
                         DevicesList.Insert(0, args.Device);
@@ -77,6 +78,10 @@ namespace EarablesKIT.ViewModels
                     OnPropertyChanged(nameof(DevicesList));
                 }
             };
+
+            _popUpService = (IPopUpService) ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
+            _exceptionHandler =
+                (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
         }
 
         /// <summary>
@@ -121,14 +126,14 @@ namespace EarablesKIT.ViewModels
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
             if (!_earablesConnectionService.IsBluetoothActive)
             {
-                await Application.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
+                await _popUpService.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
                 return;
             }
             if (status != PermissionStatus.Granted)
             {
                 if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Unknown))
                 {
-                    await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpPermissionLocationNeeded, AppResources.Accept);
+                    await _popUpService.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpPermissionLocationNeeded, AppResources.Accept);
                 }
 
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Location });
@@ -137,7 +142,7 @@ namespace EarablesKIT.ViewModels
 
             if (status != PermissionStatus.Granted)
             {
-                await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpLocationDenied, AppResources.Accept);
+                await _popUpService.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpLocationDenied, AppResources.Accept);
                 return;
             }
 
@@ -153,7 +158,7 @@ namespace EarablesKIT.ViewModels
             catch (DeviceConnectionException e)
             {
                 DevicesList.Clear();
-                ExceptionHandlingViewModel.HandleException(e);
+                _exceptionHandler.HandleException(e);
             }
         }
 
