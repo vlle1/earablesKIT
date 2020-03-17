@@ -88,7 +88,7 @@ namespace ViewModelTests.Models.DatabaseService
 
             _toTest.DeleteAllEntries();
             List<DBEntry> allEntries = _toTest.GetAllEntries();
-            
+
             Assert.Empty(allEntries);
 
             _toTest.SaveDBEntry(toSave1);
@@ -107,8 +107,50 @@ namespace ViewModelTests.Models.DatabaseService
             foreach (DBEntry dbEntry in mostRecentEntries)
             {
                 contains = dbEntry.Date == toSave2.Date || dbEntry.Date ==
-                    toSave3.Date || dbEntry.Date == toSave4.Date || dbEntry.Date == toSave5.Date;
+                           toSave3.Date || dbEntry.Date == toSave4.Date || dbEntry.Date == toSave5.Date;
                 contains = contains && !(dbEntry.Date == toSave1.Date);
+                Assert.True(contains);
+                contains = false;
+            }
+
+
+            mostRecentEntries = _toTest.GetMostRecentEntries(-2);
+            Assert.Empty(mostRecentEntries);
+        }
+        [Fact]
+        public void TestGetMostRecentEntriesSmallerThanSize()
+        {
+            SetUp();
+
+            DBEntry toSave1 = new DBEntry(DateTime.Parse("27.04.2000"), 100, 50, 20);
+            DBEntry toSave2 = new DBEntry(DateTime.Parse("13.09.2000"), 500, 50, 0);
+            DBEntry toSave3 = new DBEntry(DateTime.Parse("29.11.2000"), 120, 40, 10);
+            DBEntry toSave4 = new DBEntry(DateTime.Parse("02.05.2000"), 1230, 30, 211);
+            DBEntry toSave5 = new DBEntry(DateTime.Parse("27.03.2000"), 10, 20, 50);
+
+            _toTest.DeleteAllEntries();
+            List<DBEntry> allEntries = _toTest.GetAllEntries();
+
+            Assert.Empty(allEntries);
+
+            _toTest.SaveDBEntry(toSave1);
+            _toTest.SaveDBEntry(toSave2);
+            _toTest.SaveDBEntry(toSave3);
+            _toTest.SaveDBEntry(toSave4);
+            _toTest.SaveDBEntry(toSave5);
+
+            allEntries = _toTest.GetAllEntries();
+            Assert.True(allEntries.Count == 5);
+
+            List<DBEntry> mostRecentEntries = _toTest.GetMostRecentEntries(10);
+            Assert.True(mostRecentEntries.Count == 5);
+
+            bool contains = false;
+            foreach (DBEntry dbEntry in mostRecentEntries)
+            {
+                contains = dbEntry.Date == toSave2.Date || dbEntry.Date ==
+                           toSave3.Date || dbEntry.Date == toSave4.Date || dbEntry.Date == toSave5.Date;
+                contains = contains || (dbEntry.Date == toSave1.Date);
                 Assert.True(contains);
                 contains = false;
             }
