@@ -275,7 +275,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="e"></param>
-		private async void OnTimedEvent(object source, ElapsedEventArgs e)
+		public async void OnTimedEvent(object source, ElapsedEventArgs e)
 		{
 			ActiveActivity.Counter--;
 			ProgressLive = 1 - Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
@@ -409,7 +409,7 @@ namespace EarablesKIT.ViewModels
 		/// Method that adds an activity to the ActivityList via Pop-ups, called by the equivalent command.
 		/// </summary>
 		/// <param name="Index">Index where the activity will be inserted</param>
-		public async Task AddActivity(int Index)
+		private async Task AddActivity(int Index)
 		{
 			string newActivity = await _popUpService.ActionSheet(AppResources.SelectAnActivity,
 				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
@@ -439,7 +439,7 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Method that removes the selected activity from the ActivityList, called by the equivalent command.
 		/// </summary>
-		public void RemoveActivity()
+		private void RemoveActivity()
 		{
 			if (ActivityList.Count > 0 && ActivityList.Contains(SelectedActivity))
 			{
@@ -450,7 +450,7 @@ namespace EarablesKIT.ViewModels
 		/// <summary>
 		/// Method that edit the selected activity from the ActivityList, called by the equivalent command.
 		/// </summary>
-		public async void EditActivity()
+		private async void EditActivity()
 		{
 			if (SelectedActivity != null && ActivityList.Contains(SelectedActivity))
 			{

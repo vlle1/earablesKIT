@@ -126,7 +126,6 @@ namespace ViewModelTests
 			Assert.Equal(70, viewModel.DistanceWalkedLastTime);
 			Assert.Equal(100, viewModel.StepsDoneLastTime);
 			Assert.Equal("11.03.2020", viewModel.LastDataTime);
-			Assert.Equal(DateTime.Now.ToString(), viewModel.CurrentDate);
 			Assert.False(viewModel.IsRunning);
 		}
 
@@ -171,7 +170,6 @@ namespace ViewModelTests
 			mockSingleton.Setup(x => x.GetService(typeof(IPopUpService))).Returns(popUpMock.Object);
 
 			//Connection
-			ScanningPopUpViewModel.IsConnected = true;
 			connectionMock.As<IEarablesConnection>().Setup(x => x.StartSampling());
 
 
@@ -183,6 +181,7 @@ namespace ViewModelTests
 
 			//Test
 			StepModeViewModel viewModel = new StepModeViewModel();
+			ScanningPopUpViewModel.IsConnected = true;
 			viewModel.StartActivity();
 			Assert.Equal(0, viewModel.StepCounter);
 			Assert.Equal(DateTime.Now.ToString(), viewModel.CurrentDate);
@@ -241,12 +240,15 @@ namespace ViewModelTests
 			//Test
 			StepModeViewModel viewModel = new StepModeViewModel();
 			viewModel.StartActivity();
+			Assert.Equal("--:--", viewModel.StepFrequency);
 			viewModel.OnActivityDone(this, null);
 			viewModel.OnActivityDone(this, null);
 			viewModel.OnActivityDone(this, null);
 			viewModel.OnRunningDone(this, new RunningEventArgs(true));
 			Assert.Equal(3, viewModel.StepCounter);
 			Assert.True(viewModel.IsRunning);
+			Assert.NotNull(viewModel.StepFrequency);
+			Assert.Equal("Du läufst!", viewModel.StatusDisplay);
 			viewModel.OnRunningDone(this, new RunningEventArgs(false));
 			Assert.False(viewModel.IsRunning);
 
