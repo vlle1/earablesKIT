@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -75,8 +76,9 @@ namespace ViewModelTests
             Assert.Equal(file, importetFile);
         }
 
+
         [Fact]
-        public void Export()
+        public void testDeleteCommand()
         {
             IServiceProvider unused = ServiceManager.ServiceProvider;
 
@@ -89,34 +91,50 @@ namespace ViewModelTests
 
             //Service der gemockt werden soll
             Mock<IDataBaseConnection> mockDatabaseConnection = new Mock<IDataBaseConnection>();
+            mockDatabaseConnection.Setup(connection => connection.DeleteAllEntries());
 
-
-            //Verhalten für die Mocks festlegen (Bei Aufruf was zurückgegeben werden soll)
-
-            // Nachverfolgen, ob Sampling aktiviert wurde
-            var exportedData = "testcontent";
-
-            mockDatabaseConnection.Setup(x => x.ExportTrainingsData()).Returns(exportedData);
-
-            //ServiceProvider anlegen
-            Assert.NotNull(rootServiceProvider);
+            mockSingleton.Setup(provider => provider.GetService(typeof(IDataBaseConnection)))
+                .Returns(mockDatabaseConnection.Object);
             rootServiceProvider.SetValue(null, mockSingleton.Object);
 
-            mockSingleton.Setup(x => x.GetService(typeof(IDataBaseConnection))).Returns(mockDatabaseConnection.Object);
-
-            // Mock crosspermission
+            //Setup Current
             var CrossPermissionMock = new Mock<IPermissions>();
+
             var currentPermissions = typeof(ImportExportViewModel).GetField("_crossPermissions", BindingFlags.Static | BindingFlags.NonPublic);
             Assert.NotNull(currentPermissions);
             currentPermissions.SetValue(null, CrossPermissionMock.Object);
 
+            //Act
+            ImportExportViewModel viewModel = new ImportExportViewModel();
+            viewModel.DeleteCommand.Execute(null);
 
-            var vm = new ImportExportViewModel();
+            //Verify
+            mockDatabaseConnection.VerifyAll();
+            mockSingleton.VerifyAll();
+        }
 
+
+        [Fact]
+        public void testConstructor()
+        {
             
-            vm.ExportCommand.Execute(null);
+            //CrossPermission
+            FieldInfo currentCrossPermissionMock =
+                typeof(CrossPermissions).GetField("implementation", BindingFlags.NonPublic | BindingFlags.Static);
 
-            //Assert.Equal(file, importetFile);
+            Mock<IPermissions> mockImplementation = new Mock<IPermissions>();
+            Assert.NotNull(currentCrossPermissionMock);
+            currentCrossPermissionMock.SetValue(null, new Lazy<IPermissions>(() => mockImplementation.Object));
+
+            //Act
+            ImportExportViewModel model = new ImportExportViewModel();
+
+            //Verify
+            FieldInfo _crossPermissionsField =
+                typeof(ImportExportViewModel).GetField("_crossPermissions", BindingFlags.NonPublic | BindingFlags.Static);
+            Assert.NotNull(_crossPermissionsField);
+            IPermissions value = (IPermissions)_crossPermissionsField.GetValue(null);
+            Assert.NotNull(value);
         }
 
     }
