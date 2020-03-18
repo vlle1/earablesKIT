@@ -5,7 +5,7 @@ using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
-
+using EarablesKIT.Models.PopUpService;
 using EarablesKIT.Models.SettingsService;
 using EarablesKIT.Resources;
 using System;
@@ -32,7 +32,6 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private Queue<double> _stepMemory = new Queue<double>();
 		private const int MAX_REGRESSION_LENGTH = 4;
-		public bool testPopUpBlocker = false;
 
 		/// <summary>
 		/// The stepActivity from the ActivityProvider.
@@ -53,6 +52,8 @@ namespace EarablesKIT.ViewModels
 		/// Property which hold the instance of the DataBaseConnection.
 		/// </summary>
 		private IDataBaseConnection _dataBaseConnection { get; set; }
+
+		private IPopUpService _popUpService { get; set; }
 
 		/// <summary>
 		/// Property which holds the current date.
@@ -223,6 +224,7 @@ namespace EarablesKIT.ViewModels
 			_stepActivity = (AbstractStepActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
 			_runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			_popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
 			DistanceWalkedLastTime = 0;
 			StepsDoneLastTime = 0;
 			DistanceWalked = 0;
@@ -293,10 +295,7 @@ namespace EarablesKIT.ViewModels
 			_runningActivity.ActivityDone -= OnRunningDone;
 			IsRunning = false;
 			SaveData();
-			if (!testPopUpBlocker)
-			{
-				ShowPopUp();
-			}
+			ShowPopUp();
 			UpdateLastData();
 		}
 
@@ -315,7 +314,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + AppResources.alternativeGrammarDone + ".", AppResources.Cool);
+			_popUpService.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + AppResources.alternativeGrammarDone + ".", AppResources.Cool);
 		}
 
 		/// <summary>

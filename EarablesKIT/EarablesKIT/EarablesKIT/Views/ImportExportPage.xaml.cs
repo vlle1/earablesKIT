@@ -4,6 +4,7 @@ using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using System;
 using System.Windows.Input;
+using EarablesKIT.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,6 +17,7 @@ namespace EarablesKIT.Views
     public partial class ImportExportPage : ContentPage
     {
         private ImportExportViewModel _viewModel;
+        private IExceptionHandler _exceptionHandler;
 
         /// <summary>
         /// Command DeleteDataCommand is called when the DeleteData command is pressed. Calls method DeleteEntries
@@ -28,7 +30,8 @@ namespace EarablesKIT.Views
         public ImportExportPage()
         {
             InitializeComponent();
-
+            _exceptionHandler =
+                (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
             BindingContext = _viewModel = new ImportExportViewModel();
         }
 
@@ -41,7 +44,7 @@ namespace EarablesKIT.Views
             }
             catch (Exception)
             {
-                ExceptionHandlingViewModel.HandleException(new Exception(AppResources.ImportExportFileError));
+                _exceptionHandler.HandleException(new Exception(AppResources.ImportExportFileError));
                 return;
             }
             _viewModel.ImportCommand.Execute(filedata);
