@@ -1,18 +1,17 @@
-﻿using EarablesKIT.Models;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Reflection;
+using EarablesKIT.Models;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Library;
 using EarablesKIT.ViewModels;
 using MediaManager;
 using Moq;
-using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Reflection;
 using Xunit;
 
-namespace ViewModelTests
+namespace ViewModelTests.ViewModels
 {
     [ExcludeFromCodeCoverage]
     public class MusicModeViewModelTest

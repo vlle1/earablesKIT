@@ -7,7 +7,6 @@ using EarablesKIT.Resources;
 using MediaManager;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using Xamarin.Forms;
 
@@ -15,10 +14,9 @@ namespace EarablesKIT.ViewModels
 {
     public class MusicModeViewModel : BaseModeViewModel, INotifyPropertyChanged
     {
-        private bool _running = false;
-        private bool _musicModeActive = false;
+        private bool _running;
+        private bool _musicModeActive;
         private static IMediaManager _mediaManager;
-        private static IActivityManager _activityManager;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -95,13 +93,13 @@ namespace EarablesKIT.ViewModels
             }
         }
 
-        private AbstractRunningActivity runningActivity { get; set; }
-        private string _path { get; }
+        private AbstractRunningActivity RunningActivity { get; }
+        private string _path;
 
         public MusicModeViewModel()
         {
-            _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-            runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
+            var activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+            RunningActivity = (AbstractRunningActivity)activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 
             if (_mediaManager is null)
             {
@@ -109,7 +107,7 @@ namespace EarablesKIT.ViewModels
             }
 
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
-            Directory.CreateDirectory(Path.GetDirectoryName(_path));
+            Directory.CreateDirectory(path: Path.GetDirectoryName(_path) ?? throw new InvalidOperationException());
 
             try
             {
@@ -148,7 +146,7 @@ namespace EarablesKIT.ViewModels
         {
             if (!CheckConnection()) return false;
             RestartMusic();
-            runningActivity.ActivityDone += OnActivityDone;
+            RunningActivity.ActivityDone += OnActivityDone;
             ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
             return true;
         }
@@ -159,7 +157,8 @@ namespace EarablesKIT.ViewModels
             {
                 ((IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection)))
                     .StopSampling();
-                runningActivity.ActivityDone -= OnActivityDone;
+
+                if (RunningActivity != null) RunningActivity.ActivityDone -= OnActivityDone;
             }
             catch (Exception e)
             {

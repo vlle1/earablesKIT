@@ -10,7 +10,6 @@ using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -104,7 +103,7 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public static void ShowPopUp()
         {
-            PopupNavigation.Instance.PushAsync(new PopUpScanningPage(), true);
+            PopupNavigation.Instance.PushAsync(new PopUpScanningPage());
         }
 
         /// <summary>
@@ -112,7 +111,7 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public static void HidePopUp()
         {
-            PopupNavigation.Instance.PopAsync(true);
+            PopupNavigation.Instance.PopAsync();
         }
 
         private async void ScanDevices()
@@ -126,7 +125,7 @@ namespace EarablesKIT.ViewModels
             }
             if (status != PermissionStatus.Granted)
             {
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Unknown))
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Unknown))
                 {
                     await Application.Current.MainPage.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpPermissionLocationNeeded, AppResources.Accept);
                 }

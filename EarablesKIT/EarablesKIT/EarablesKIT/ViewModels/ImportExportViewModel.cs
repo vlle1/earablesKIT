@@ -14,8 +14,10 @@ namespace EarablesKIT.ViewModels
     /// <summary>
     /// Class ImportExportViewModel contains the logic for <see cref="ImportExportPage"/>ImportExportPage
     /// </summary>
-    internal class ImportExportViewModel
+    public class ImportExportViewModel
     {
+        private static IPermissions _crossPermissions = null;
+
         /// <summary>
         /// Command ExportCommand gets called when the Export button is clicked. Calls method ExportData
         /// </summary>
@@ -31,9 +33,17 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public Command DeleteCommand => new Command(DeleteData);
 
+        public ImportExportViewModel()
+        {
+            if (_crossPermissions is null)
+            {
+                _crossPermissions = CrossPermissions.Current;
+            }
+        }
+
         private async void ExportData()
         {
-            IDataBaseConnection dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+            var dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
 
             string exportTrainingsData = dataBaseConnection.ExportTrainingsData();
 
@@ -50,7 +60,7 @@ namespace EarablesKIT.ViewModels
 
         private async void ImportData(FileData filedata)
         {
-            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+            var status = await _crossPermissions.CheckPermissionStatusAsync(Permission.Storage);
             if (status != PermissionStatus.Granted)
             {
                 if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
@@ -68,7 +78,7 @@ namespace EarablesKIT.ViewModels
                 return;
             }
 
-            IDataBaseConnection dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+            var dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
             dataBaseConnection.ImportTrainingsData(filedata);
         }
 
