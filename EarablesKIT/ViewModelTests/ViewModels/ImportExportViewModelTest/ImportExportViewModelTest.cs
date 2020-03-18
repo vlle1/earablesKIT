@@ -59,13 +59,13 @@ namespace ViewModelTests
             // Override CrossPermissions.Current.CheckPermissionStatusAsync
             var permissionGranted = PermissionStatus.Granted;
 
-            var CrossPermissionMock = new Mock<IPermissions>();
-            CrossPermissionMock.Setup(x => x.CheckPermissionStatusAsync(It.IsAny<Permission>())).Returns(
+            var crossPermissionMock = new Mock<IPermissions>();
+            crossPermissionMock.Setup(x => x.CheckPermissionStatusAsync(It.IsAny<Permission>())).Returns(
                 async () => permissionGranted);
 
             var currentPermissions = typeof(ImportExportViewModel).GetField("_crossPermissions", BindingFlags.Static | BindingFlags.NonPublic);
             Assert.NotNull(currentPermissions);
-            currentPermissions.SetValue(null, CrossPermissionMock.Object);
+            currentPermissions.SetValue(null, crossPermissionMock.Object);
 
             var vm = new ImportExportViewModel();
 

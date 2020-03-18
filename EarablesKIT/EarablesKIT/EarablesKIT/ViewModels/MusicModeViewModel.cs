@@ -171,6 +171,15 @@ namespace EarablesKIT.ViewModels
             }
             _musicModeActive = false;
             IsRunning = false;
+            try
+            {
+                OnPropertyChanged(nameof(StartStopLabel));
+                OnPropertyChanged(nameof(CurrentStatusLabel));
+            }
+            catch (Exception e)
+            {
+                _exceptionHandler.HandleException(e);
+            }
         }
 
         protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
