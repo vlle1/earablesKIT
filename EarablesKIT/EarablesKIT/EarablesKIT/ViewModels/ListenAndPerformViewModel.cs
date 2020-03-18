@@ -248,14 +248,14 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		/// <param name="sender">The sender of the event</param>
 		/// <param name="args">Ignored</param>
-		public async override void OnActivityDone(object sender, ActivityArgs args)
+		public override async void OnActivityDone(object sender, ActivityArgs args)
 		{
 			ActiveActivity.Counter++;
+			IncreaseResultCounter();
 			ProgressLive = Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
 			if (ActiveActivity.Counter >= Repetitions)
 			{
 				ActiveActivity._activity.ActivityDone -= OnActivityDone;
-				IncreaseResultCounter();
 				if (ActivityIterator.MoveNext())
 				{
 					CheckNextActivity();
@@ -354,11 +354,11 @@ namespace EarablesKIT.ViewModels
 		{
 			if (ActiveActivity.Name.Equals(AppResources.Push_ups) || ActiveActivity.Name.Equals("Push-ups"))
 			{
-				_pushUpResult += ActiveActivity.Counter;
+				_pushUpResult++;
 			}
 			if (ActiveActivity.Name.Equals(AppResources.Sit_ups))
 			{
-				_sitUpResult += ActiveActivity.Counter;
+				_sitUpResult++;
 			}
 		}
 
