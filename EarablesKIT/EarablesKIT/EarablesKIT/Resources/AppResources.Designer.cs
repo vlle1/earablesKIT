@@ -663,7 +663,7 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: It may take a moment to connect to your Earables... (sometimes it helps to turn them off and on again)..
+        ///   Looks up a localized string similar to Note: It may take a moment to connect to your Earables.
         /// </summary>
         internal static string ScanningPopUpPleaseWait {
             get {

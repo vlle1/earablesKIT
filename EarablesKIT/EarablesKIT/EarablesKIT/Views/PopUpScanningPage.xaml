@@ -28,10 +28,13 @@
                  HorizontalOptions="Center"
                  VerticalOptions="Center">
         <StackLayout>
-            <Label Text="{x:Static resource:AppResources.ScanningPopUpAlertLabel}" FontSize="Large" TextColor="Black" />
+            <Label Text="{x:Static resource:AppResources.ScanningPopUpAlertLabel}" 
+                   TextColor="Black"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Large"  />
             <Button Text="{x:Static resource:AppResources.ScanningPopUpScanDevicesButton}" Command="{Binding ScanDevicesCommand}" />
         </StackLayout>
-        
+
         <StackLayout>
             <ListView x:Name="DevicesListView"
                       ItemsSource="{Binding DevicesList}">
@@ -42,21 +45,27 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        
-        <Frame BackgroundColor="White" CornerRadius="10" HasShadow="False">
-            <Label x:Name="AlertLabel" 
-                   HorizontalOptions="Center" 
-                   VerticalOptions="Center" 
-                   BackgroundColor="Transparent" 
-                   TextColor="White"/>
-        </Frame>
-        <StackLayout>
-            <!--CommandParameter="{Binding Source={x:Reference DevicesListView}, Path=SelectedItem}
-            -->
-            <Label x:Name="PleaseWaitLabel" Text="{x:Static resource:AppResources.ScanningPopUpPleaseWait}" TextColor="Black" IsVisible="False" HorizontalTextAlignment="Center" />
 
-            <Button x:Name="ConnectButton" Text="{x:Static resource:AppResources.ScanningPopUpConnectButton}"  Clicked="ConnectButton_Clicked" />
-            <Button  Text="{x:Static resource:AppResources.ScanningPopUpCancelButton}" Command="{Binding CancelCommand}" />
+        <Frame BackgroundColor="White" CornerRadius="10" HasShadow="False">
+            <Label x:Name="AlertLabel"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   BackgroundColor="Transparent"
+                   TextColor="White" />
+        </Frame>
+
+        <Label x:Name="PleaseWaitLabel"
+               Text="{x:Static resource:AppResources.ScanningPopUpPleaseWait}"
+               Style="{StaticResource LblDefaultStyle}"
+               HorizontalTextAlignment="Center"
+               IsVisible="False" />
+
+        <StackLayout>
+            <Button x:Name="ConnectButton"
+                    Text="{x:Static resource:AppResources.ScanningPopUpConnectButton}"
+                    Clicked="ConnectButton_Clicked" />
+            <Button Text="{x:Static resource:AppResources.ScanningPopUpCancelButton}"
+                    Command="{Binding CancelCommand}" />
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>
