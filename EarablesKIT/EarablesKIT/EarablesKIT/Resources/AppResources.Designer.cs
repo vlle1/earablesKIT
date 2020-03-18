@@ -663,6 +663,15 @@ namespace EarablesKIT.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note: It may take a moment to connect to your Earables... (sometimes it helps to turn them off and on again)..
+        /// </summary>
+        internal static string ScanningPopUpPleaseWait {
+            get {
+                return ResourceManager.GetString("ScanningPopUpPleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan Devices.
         /// </summary>
         internal static string ScanningPopUpScanDevicesButton {
