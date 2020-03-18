@@ -17,12 +17,12 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
-    /// <summary>
-    /// Class ScanningPopUpViewModel handles the pop-up which gets shown, when
-    /// <list type="bullet">
-    /// <item>the connected disconnects</item>
-    /// <item>an activity gets started without an active connection</item>
-    /// </list>
+    /// <summary>
+    /// Class ScanningPopUpViewModel handles the pop-up which gets shown, when
+    /// <list type="bullet">
+    /// <item>the connected disconnects</item>
+    /// <item>an activity gets started without an active connection</item>
+    /// </list>
     /// </summary>
     public class ScanningPopUpViewModel : INotifyPropertyChanged
     {
@@ -98,8 +98,8 @@ namespace EarablesKIT.ViewModels
             {
                 ShowPopUp();
             }
-            else
-            {
+            else
+            {
                 HidePopUp();
             }
         }
@@ -109,7 +109,7 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public static void ShowPopUp()
         {
-            PopupNavigation.Instance.PushAsync(new PopUpScanningPage(), true);
+            PopupNavigation.Instance.PushAsync(new PopUpScanningPage());
         }
 
         /// <summary>
@@ -117,29 +117,29 @@ namespace EarablesKIT.ViewModels
         /// </summary>
         public static void HidePopUp()
         {
-            PopupNavigation.Instance.PopAsync(true);
+            PopupNavigation.Instance.PopAsync();
         }
 
         private async void ScanDevices()
         {
             DevicesList.Clear();
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-            if (!_earablesConnectionService.IsBluetoothActive)
-            {
-                await _popUpService.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
+            if (!_earablesConnectionService.IsBluetoothActive)
+            {
+                await _popUpService.DisplayAlert(AppResources.Error, AppResources.ScanningPopUpTurnBluetoothOn, AppResources.Accept);
                 return;
             }
             if (status != PermissionStatus.Granted)
             {
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Unknown))
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Unknown))
                 {
                     await _popUpService.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpPermissionLocationNeeded, AppResources.Accept);
                 }
 
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Location });
                 status = results[Permission.Location];
-            }
-
+            }
+
             if (status != PermissionStatus.Granted)
             {
                 await _popUpService.DisplayAlert(AppResources.ScanningPopUpAlertLabel, AppResources.ScanningPopUpLocationDenied, AppResources.Accept);
@@ -147,13 +147,13 @@ namespace EarablesKIT.ViewModels
             }
 
             _earablesConnectionService.StartScanning();
-        }
-
-        private void ConnectDevice(IDevice selectedItem)
-        {
-            try
-            {
-                _earablesConnectionService.ConnectToDevice(selectedItem);
+        }
+
+        private void ConnectDevice(IDevice selectedItem)
+        {
+            try
+            {
+                _earablesConnectionService.ConnectToDevice(selectedItem);
             }
             catch (DeviceConnectionException e)
             {

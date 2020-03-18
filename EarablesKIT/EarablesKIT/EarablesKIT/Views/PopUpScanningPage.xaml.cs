@@ -49,6 +49,7 @@ namespace EarablesKIT.Views
         {
             IDevice selectedDevice = (IDevice)DevicesListView.SelectedItem;
             ConnectButton.IsEnabled = false;
+            PleaseWaitLabel.IsVisible = true;
             try
             {
                 _viewModel.ConnectDeviceCommand.Execute(selectedDevice);
@@ -58,6 +59,7 @@ namespace EarablesKIT.Views
                 AlertLabel.Text = AppResources.Error + ": " + AppResources.ScanningPopUpAlertCouldntConnect;
 
                 ConnectButton.IsEnabled = true;
+                PleaseWaitLabel.IsVisible = false;
             }
         }
     }
