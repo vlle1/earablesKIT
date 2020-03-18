@@ -18,6 +18,7 @@ namespace EarablesKIT.ViewModels
         private bool _musicModeActive;
         private static IMediaManager _mediaManager;
         private static IActivityManager _activityManager;
+        private static IExceptionHandler _exceptionHandler;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -90,7 +91,7 @@ namespace EarablesKIT.ViewModels
             }
             catch (Exception e)
             {
-                ExceptionHandlingViewModel.HandleException(e);
+                _exceptionHandler.HandleException(e);
             }
         }
 
@@ -99,8 +100,8 @@ namespace EarablesKIT.ViewModels
 
         public MusicModeViewModel()
         {
-            var activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-            RunningActivity = (AbstractRunningActivity)activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
+            _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
+            RunningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 
             if (_mediaManager is null)
             {
@@ -166,7 +167,7 @@ namespace EarablesKIT.ViewModels
             }
             catch (Exception e)
             {
-                ExceptionHandlingViewModel.HandleException(e);
+                _exceptionHandler.HandleException(e);
             }
             _musicModeActive = false;
             IsRunning = false;
