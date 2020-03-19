@@ -10,11 +10,11 @@ using Xunit;
 
 namespace ViewModelTests.Models.ExtensionModel
 {
-    public class ActivityTest
+    public class StepActivityTest
     {
         private const double ALLOWED_RELATIVE_ERROR = 0.1;
         [Fact]
-        public void TestWithFalseData()
+        public void TestWithEmptyData()
         {
             StepActivityThreshold toTest = new StepActivityThreshold();
             int lineNr = 0;
@@ -145,5 +145,7 @@ namespace ViewModelTests.Models.ExtensionModel
             //ok, if in 10 percent range
             Assert.InRange(count, 50 * (1 - ALLOWED_RELATIVE_ERROR), 50 * (1 + ALLOWED_RELATIVE_ERROR));
         }
+
+
     }
 }

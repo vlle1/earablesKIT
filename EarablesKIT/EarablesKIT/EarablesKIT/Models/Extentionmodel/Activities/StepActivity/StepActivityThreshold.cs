@@ -4,7 +4,7 @@ using System;
 namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
 {
     /// <summary>
-    /// StepActivityThreshold estimates where the ground is and determines a Accelerometer Value a step if:
+    /// RunningActivityThreshold estimates where the ground is and determines a Accelerometer Value a step if:
     /// - the value is higher than a certain threshold
     /// - the value is occuring a significant time after the last step (after cooldown)
     /// - the angle between current acceleration and estimated ground is small

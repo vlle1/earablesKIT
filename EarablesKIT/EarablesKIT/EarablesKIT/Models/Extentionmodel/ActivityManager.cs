@@ -6,6 +6,7 @@ using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using StepActivityThreshold = EarablesKIT.Models.Extentionmodel.Activities.StepActivity.StepActivityThreshold;
 
 namespace EarablesKIT.Models.Extentionmodel
 {
@@ -61,7 +62,7 @@ namespace EarablesKIT.Models.Extentionmodel
         {
             IServiceCollection serviceCollection = new ServiceCollection();
             serviceCollection.AddSingleton<AbstractStepActivity, StepActivityThreshold>();
-            serviceCollection.AddSingleton<AbstractRunningActivity, RunningActivityThreshold>();
+            serviceCollection.AddSingleton<AbstractRunningActivity, Activities.RunningActivity.RunningActivityThreshold>();
             serviceCollection.AddSingleton<AbstractPushUpActivity, PushUpActivityThreshold>();
             serviceCollection.AddSingleton<AbstractSitUpActivity, SitUpActivityThreshold>();
             return serviceCollection;
