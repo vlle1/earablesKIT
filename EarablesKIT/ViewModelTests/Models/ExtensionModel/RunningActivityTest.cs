@@ -37,14 +37,14 @@ namespace ViewModelTests.Models.ExtensionModel
             Assert.Equal(1, changeDetectedCount);
             Assert.True(detectedStatus);
         }
-
+        /*
         [Fact]
         public void TestProcessingTimeout()
         {
             //here we will simulate one step and then a lot of data that does not contain a step.
             //after that, there should have been two events and the current status should be standing.
             
-            /*
+            
             //first we have to mock StepActivity (it needs no functionality, but needs to be instantiated)
 
             //Für den ServiceProviderMock
@@ -54,7 +54,7 @@ namespace ViewModelTests.Models.ExtensionModel
             //Feld Infos holen
             System.Reflection.FieldInfo instance = typeof(ServiceManager).GetField("_serviceProvider", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
 
-            //Mocksaufsetzen 
+            //Mocks aufsetzen 
             //ServiceProvider
             Mock<IServiceProvider> mockSingleton = new Mock<IServiceProvider>();
             Mock<IActivityManager> activityManagerMock = new Mock<IActivityManager>();
@@ -68,7 +68,7 @@ namespace ViewModelTests.Models.ExtensionModel
             activityProviderMock.Setup(x => x.GetService(typeof(AbstractRunningActivity))).Returns(runningActivityMock.Object);
             activityProviderMock.Setup(x => x.GetService(typeof(AbstractStepActivity))).Returns(stepActivityMock.Object);
 
-            */
+            
             RunningActivityThreshold toTest = new RunningActivityThreshold();
 
             bool detectedStatus = false;
@@ -119,6 +119,6 @@ namespace ViewModelTests.Models.ExtensionModel
 
 
         }
-
+        */
     }
 }
