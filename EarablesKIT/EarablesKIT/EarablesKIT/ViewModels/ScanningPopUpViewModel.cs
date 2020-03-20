@@ -1,6 +1,7 @@
 ﻿using EarablesKIT.Annotations;
 using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Models.PopUpService;
 using EarablesKIT.Resources;
 using EarablesKIT.Views;
 using Plugin.BLE.Abstractions.Contracts;
@@ -12,7 +13,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using EarablesKIT.Models.PopUpService;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -79,7 +79,7 @@ namespace EarablesKIT.ViewModels
                 }
             };
 
-            _popUpService = (IPopUpService) ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
+            _popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
             _exceptionHandler =
                 (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
         }
@@ -98,7 +98,7 @@ namespace EarablesKIT.ViewModels
             {
                 ShowPopUp();
             }
-            else
+            else
             {
                 HidePopUp();
             }
