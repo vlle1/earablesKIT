@@ -24,6 +24,7 @@ namespace EarablesKIT.Views
             InitializeComponent();
 			ViewModel = new CountModeViewModel();
 			BindingContext = ViewModel;
+			ActivityView.SelectedItem = ViewModel.PossibleActivities[0];
         }
 
 		/// <summary>
