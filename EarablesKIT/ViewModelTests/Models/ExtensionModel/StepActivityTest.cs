@@ -14,7 +14,7 @@ namespace ViewModelTests.Models.ExtensionModel
     {
         private const double ALLOWED_RELATIVE_ERROR = 0.1;
         [Fact]
-        public void TestWithEmptyData()
+        public void Test30Steps()
         {
             StepActivityThreshold toTest = new StepActivityThreshold();
             int lineNr = 0;
@@ -27,51 +27,7 @@ namespace ViewModelTests.Models.ExtensionModel
             //for read all the input from csv file
 
             string line;
-            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/randomTestMockData.csv");
-
-            //ignore first line
-            file.ReadLine();
-            while ((line = file.ReadLine()) != null)
-            {
-                Debug.WriteLine(line);
-                //parse data
-                float gyroX, gyroY, gyroZ, accX, accY, accZ; int freq = 0;
-                string[] values = line.Split(',');
-                freq = int.Parse(values[0]);
-                accX = float.Parse(values[1]);
-                accY = float.Parse(values[2]);
-                accZ = float.Parse(values[3]);
-                gyroX = float.Parse(values[4]);
-                gyroY = float.Parse(values[5]);
-                gyroZ = float.Parse(values[6]);
-
-                //parse data
-                ConfigContainer c = new ConfigContainer();
-                c.Samplerate = freq;
-                DataEventArgs data = new DataEventArgs(new IMUDataEntry(new Accelerometer(accX, accY, accZ, 0, 0, 0), new Gyroscope(gyroX, gyroY, gyroZ)), c);
-                lineNr++;
-                toTest.DataUpdate(data);
-            }
-            
-            
-            Assert.Equal(0, count);
-        }
-
-        [Fact]
-        public void Valle30Steps()
-        {
-            StepActivityThreshold toTest = new StepActivityThreshold();
-            int lineNr = 0;
-            int count = 0;
-            toTest.ActivityDone +=
-                (object sender, ActivityArgs a) =>
-                {
-                    count++;
-                };
-            //for read all the input from csv file
-
-            string line;
-            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/valle30steps.csv");
+            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/testData30steps.csv");
 
             //ignore first line
             file.ReadLine();
@@ -103,7 +59,7 @@ namespace ViewModelTests.Models.ExtensionModel
         }
 
         [Fact]
-        public void David50Steps()
+        public void Test50Steps()
         {
             StepActivityThreshold toTest = new StepActivityThreshold();
             int lineNr = 0;
@@ -116,7 +72,7 @@ namespace ViewModelTests.Models.ExtensionModel
             //for read all the input from csv file
 
             string line;
-            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/david50steps.csv");
+            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/testData50steps.csv");
 
             //ignore first line
             file.ReadLine();
@@ -146,6 +102,85 @@ namespace ViewModelTests.Models.ExtensionModel
             Assert.InRange(count, 50 * (1 - ALLOWED_RELATIVE_ERROR), 50 * (1 + ALLOWED_RELATIVE_ERROR));
         }
 
+        //test what happens when nothing is registered at an activity (it shouldn't analyze and throw events!!)
+        [Fact]
+        public void Test50StepsWithoutListener()
+        {
+            StepActivityThreshold toTest = new StepActivityThreshold();
+            int lineNr = 0;
+            int count = 0;
 
+            //read all the input from csv file 
+
+            string line;
+            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/testData50steps.csv");
+
+            //ignore first line
+            file.ReadLine();
+            while ((line = file.ReadLine()) != null)
+            {
+                Debug.WriteLine(line);
+                //parse data
+                float gyroX, gyroY, gyroZ, accX, accY, accZ; int freq = 0;
+                string[] values = line.Split(',');
+                freq = int.Parse(values[0]);
+                accX = float.Parse(values[1], CultureInfo.InvariantCulture.NumberFormat);
+                accY = float.Parse(values[2], CultureInfo.InvariantCulture.NumberFormat);
+                accZ = float.Parse(values[3], CultureInfo.InvariantCulture.NumberFormat);
+                gyroX = float.Parse(values[4], CultureInfo.InvariantCulture.NumberFormat);
+                gyroY = float.Parse(values[5], CultureInfo.InvariantCulture.NumberFormat);
+                gyroZ = float.Parse(values[6], CultureInfo.InvariantCulture.NumberFormat);
+
+                //parse data
+                ConfigContainer c = new ConfigContainer();
+                c.Samplerate = freq;
+                DataEventArgs data = new DataEventArgs(new IMUDataEntry(new Accelerometer(accX, accY, accZ, 0, 0, 0), new Gyroscope(gyroX, gyroY, gyroZ)), c);
+                lineNr++;
+                toTest.DataUpdate(data);
+                //verifying that no more code is executed can be done via debugging.
+            }
+
+            Assert.Equal(count, 0);
+        }
+
+        [Fact]
+        public void Test0Steps()
+        {
+            StepActivityThreshold toTest = new StepActivityThreshold();
+            int lineNr = 0;
+            int count = 0;
+
+            //read all the input from csv file 
+
+            string line;
+            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/testData0steps.csv");
+
+            //ignore first line
+            file.ReadLine();
+            while ((line = file.ReadLine()) != null)
+            {
+                Debug.WriteLine(line);
+                //parse data
+                float gyroX, gyroY, gyroZ, accX, accY, accZ; int freq = 0;
+                string[] values = line.Split(',');
+                freq = int.Parse(values[0]);
+                accX = float.Parse(values[1], CultureInfo.InvariantCulture.NumberFormat);
+                accY = float.Parse(values[2], CultureInfo.InvariantCulture.NumberFormat);
+                accZ = float.Parse(values[3], CultureInfo.InvariantCulture.NumberFormat);
+                gyroX = float.Parse(values[4], CultureInfo.InvariantCulture.NumberFormat);
+                gyroY = float.Parse(values[5], CultureInfo.InvariantCulture.NumberFormat);
+                gyroZ = float.Parse(values[6], CultureInfo.InvariantCulture.NumberFormat);
+
+                //parse data
+                ConfigContainer c = new ConfigContainer();
+                c.Samplerate = freq;
+                DataEventArgs data = new DataEventArgs(new IMUDataEntry(new Accelerometer(accX, accY, accZ, 0, 0, 0), new Gyroscope(gyroX, gyroY, gyroZ)), c);
+                lineNr++;
+                toTest.DataUpdate(data);
+                //verifying that no more code is executed can be done via debugging.
+            }
+
+            Assert.Equal(count, 0);
+        }
     }
 }

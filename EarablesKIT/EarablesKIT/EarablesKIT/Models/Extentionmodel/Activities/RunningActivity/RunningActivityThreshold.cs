@@ -35,7 +35,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
             _subDetection.ActivityDone += OnStepRecognized;
         }
         //is called when a step is recognized and refreshes the timeout
-        private void OnStepRecognized(object sender, ActivityArgs e)
+        public void OnStepRecognized(object sender, ActivityArgs e)
         {
             _timeout_counter = TIMEOUT_LENGTH;
             //if not running (walking) so far, now 

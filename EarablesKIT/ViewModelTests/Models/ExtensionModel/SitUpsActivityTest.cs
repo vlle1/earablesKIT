@@ -16,7 +16,7 @@ namespace ViewModelTests.Models.ExtensionModel
 
         private const double ALLOWED_RELATIVE_ERROR = 0.1; //TODO new test data (only five situps!)
         [Fact]
-        public void TestWithEmptyData()
+        public void Test10Situps()
         {
             SitUpActivityThreshold toTest = new SitUpActivityThreshold();
             int lineNr = 0;
@@ -29,7 +29,7 @@ namespace ViewModelTests.Models.ExtensionModel
             //for read all the input from csv file
 
             string line;
-            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/SitupsTestData30.csv");
+            System.IO.StreamReader file = new System.IO.StreamReader("../../../../ViewModelTests/Models/ExtensionModel/testData10Situps.csv");
 
             //ignore first line
             file.ReadLine();
@@ -40,23 +40,22 @@ namespace ViewModelTests.Models.ExtensionModel
                 float gyroX, gyroY, gyroZ, accX, accY, accZ; int freq = 0;
                 string[] values = line.Split(',');
                 freq = int.Parse(values[0]);
-                accX = float.Parse(values[1]);
-                accY = float.Parse(values[2]);
-                accZ = float.Parse(values[3]);
-                gyroX = float.Parse(values[4]);
-                gyroY = float.Parse(values[5]);
-                gyroZ = float.Parse(values[6]);
+                accX = float.Parse(values[1], CultureInfo.InvariantCulture.NumberFormat);
+                accY = float.Parse(values[2], CultureInfo.InvariantCulture.NumberFormat);
+                accZ = float.Parse(values[3], CultureInfo.InvariantCulture.NumberFormat);
+                gyroX = float.Parse(values[4], CultureInfo.InvariantCulture.NumberFormat);
+                gyroY = float.Parse(values[5], CultureInfo.InvariantCulture.NumberFormat);
+                gyroZ = float.Parse(values[6], CultureInfo.InvariantCulture.NumberFormat);
 
                 //parse data
-                ConfigContainer c = new ConfigContainer();
-                c.Samplerate = freq;
+                ConfigContainer c = new ConfigContainer {Samplerate = freq};
                 DataEventArgs data = new DataEventArgs(new IMUDataEntry(new Accelerometer(accX, accY, accZ, 0, 0, 0), new Gyroscope(gyroX, gyroY, gyroZ)), c);
                 lineNr++;
                 toTest.DataUpdate(data);
             }
 
-
-            Assert.InRange(count, 5 * (1 - ALLOWED_RELATIVE_ERROR), 5 * (1 + ALLOWED_RELATIVE_ERROR));
+            int expected = 10;
+            Assert.InRange(count, expected * (1 - ALLOWED_RELATIVE_ERROR), expected * (1 + ALLOWED_RELATIVE_ERROR));
         }
 
     }
