@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:resource="clr-namespace:EarablesKIT.Resources;assembly=EarablesKIT"
+             mc:Ignorable="d"
+             x:Class="EarablesKIT.Views.ImpressumPage">
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource StackLayoutMainStyle}">
+            <Label Text="{x:Static resource:AppResources.ImprintTitle}" 
+                   Style="{StaticResource LblTitleStyle}"/>
+            <StackLayout Margin="10,0,10,0" Spacing="15">
+                <StackLayout>
+                    <Label Style="{StaticResource LblImprintHeader}"
+                           Text="{x:Static resource:AppResources.ImprintOverviewHeader}"/>
+                    <Label Text="{x:Static resource:AppResources.ImprintOverviewContent}"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Style="{StaticResource LblImprintHeader}"
+                           Text="{x:Static resource:AppResources.ImprintDeveloperHeader}"/>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                       Text="{x:Static resource:AppResources.ImprintDeveloperContent}">
+                    </Label>
+                </StackLayout>
+                <StackLayout>
+                    <Label Style="{StaticResource LblImprintHeader}"
+                           Text="{x:Static resource:AppResources.ImprintUniversityHeader}"/>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                       Text="{x:Static resource:AppResources.ImprintUniversityContent}">
+                    </Label>
+                </StackLayout>
+                <StackLayout>
+                    <Label Style="{StaticResource LblImprintHeader}"
+                           Text="{x:Static resource:AppResources.ImprintESenseHeader}"/>
+                    <Label Style="{StaticResource LblDefaultStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{x:Static resource:AppResources.ImprintESenseContentWebsite} "/>
+                                <Span Text="{x:Static resource:AppResources.ImprintESenseContentLink}"
+                                      TextColor="Blue"
+                                      TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="TapGestureRecognizer_OnTapped"
+                                            CommandParameter="https://esense.io/" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+                <StackLayout>
+                    <Label Style="{StaticResource LblImprintHeader}"
+                           Text="{x:Static resource:AppResources.ImprintCopyrightHeader}"/>
+                    <Label Style="{StaticResource LblDefaultStyle}"
+                        Text="{x:Static resource:AppResources.ImprintCopyrightContent}">
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -13,11 +13,12 @@ using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
-    class MusicModeViewModel : BaseModeViewModel, INotifyPropertyChanged
+    public class MusicModeViewModel : BaseModeViewModel, INotifyPropertyChanged
     {
         private bool _running = false;
         private bool _musicModeActive = false;
-        private IActivityManager _activityManager;
+        private static IMediaManager _mediaManager;
+        private static IActivityManager _activityManager;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,13 +30,12 @@ namespace EarablesKIT.ViewModels
                 _running = value;
                 if (_running)
                 {
-                    CrossMediaManager.Current.Play();
+                    _mediaManager.Play();
                 }
                 else
                 {
-                    CrossMediaManager.Current.Pause();
+                    _mediaManager.Pause();
                 }
-                //OnPropertyChanged("StartStopLabel");
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CurrentStatusLabel));
             }
@@ -88,8 +88,8 @@ namespace EarablesKIT.ViewModels
         {
             try
             {
-                await CrossMediaManager.Current.Play(_path);
-                await CrossMediaManager.Current.Pause();
+                await _mediaManager.Play(_path);
+                await _mediaManager.Pause();
             } catch (Exception e)
             {
                 Debug.WriteLine(e.StackTrace);
@@ -104,27 +104,39 @@ namespace EarablesKIT.ViewModels
             _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
             runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 
+            if (_mediaManager is null)
+            {
+                _mediaManager = CrossMediaManager.Current;
+            }
+
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
             Directory.CreateDirectory(Path.GetDirectoryName(_path));
 
-            // Copying the resource music file to the MyDocuments Path because the MediaPlayer can't play streams.
-            using (BinaryWriter writer = new BinaryWriter(File.Open(_path, FileMode.Create)))
+            try
             {
-                using (var input = new BinaryReader(AppResources.ukulele_low))
+                // Copying the resource music file to the MyDocuments Path because the MediaPlayer can't play streams.
+                using (BinaryWriter writer = new BinaryWriter(File.Open(_path, FileMode.Create)))
                 {
-                    while (true)
+                    using (var input = new BinaryReader(AppResources.ukulele_low))
                     {
-                        try
+                        while (true)
                         {
-                            var b = input.ReadByte();
-                            writer.Write(b);
-                        }
-                        catch
-                        {
-                            break;
+                            try
+                            {
+                                var b = input.ReadByte();
+                                writer.Write(b);
+                            }
+                            catch
+                            {
+                                break;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                ExceptionHandlingViewModel.HandleException(e);
             }
         }
 
@@ -135,23 +147,6 @@ namespace EarablesKIT.ViewModels
 
         public override bool StartActivity()
         {
-            /* Debug events 
-                         if (true)
-            {
-                Device.StartTimer(TimeSpan.FromSeconds(30), () =>
-                {
-                    // Do something
-                    OnActivityDone(this, new RunningEventArgs(!IsRunning));
-                    return true; // True = Repeat again, False = Stop the timer
-                });
-                //((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-             */
             if (CheckConnection())
             {
                 RestartMusic();
