@@ -84,7 +84,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
             base.Activate();
 
             cooldown = 0;
-            //Initialisation / reset of average acceleration.
+            //Initialization / reset of average acceleration.
             _avgAccAbsolute = 1;
             _avgAccX = -1;
             _avgAccY = 0;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using EarablesKIT.Models;
+using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
@@ -37,7 +39,6 @@ namespace ViewModelTests.Models.ExtensionModel
             Assert.Equal(1, changeDetectedCount);
             Assert.True(detectedStatus);
         }
-        /*
         [Fact]
         public void TestProcessingTimeout()
         {
@@ -60,15 +61,14 @@ namespace ViewModelTests.Models.ExtensionModel
             Mock<IActivityManager> activityManagerMock = new Mock<IActivityManager>();
             Mock<IServiceProvider> activityProviderMock = new Mock<IServiceProvider>();
             Mock<AbstractStepActivity> stepActivityMock = new Mock<AbstractStepActivity>();
-            Mock<AbstractRunningActivity> runningActivityMock = new Mock<AbstractRunningActivity>();
-            Mock<IPopUpService> popUpMock = new Mock<IPopUpService>();
-
             //ActivityManager
             activityManagerMock.Setup(x => x.ActitvityProvider).Returns(activityProviderMock.Object);
-            activityProviderMock.Setup(x => x.GetService(typeof(AbstractRunningActivity))).Returns(runningActivityMock.Object);
+            //activityProviderMock.Setup(x => x.GetService(typeof(AbstractRunningActivity))).Returns(runningActivityMock.Object);
             activityProviderMock.Setup(x => x.GetService(typeof(AbstractStepActivity))).Returns(stepActivityMock.Object);
-
+           
             
+
+            //now we can instantiate a runningActivity
             RunningActivityThreshold toTest = new RunningActivityThreshold();
 
             bool detectedStatus = false;
@@ -119,6 +119,5 @@ namespace ViewModelTests.Models.ExtensionModel
 
 
         }
-        */
     }
 }
