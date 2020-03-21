@@ -61,12 +61,17 @@ namespace ViewModelTests.Models.ExtensionModel
             Mock<IActivityManager> activityManagerMock = new Mock<IActivityManager>();
             Mock<IServiceProvider> activityProviderMock = new Mock<IServiceProvider>();
             Mock<AbstractStepActivity> stepActivityMock = new Mock<AbstractStepActivity>();
+
+            mockSingleton.Setup(provider => provider.GetService(typeof(IActivityManager)))
+                .Returns(activityManagerMock.Object);
             //ActivityManager
             activityManagerMock.Setup(x => x.ActitvityProvider).Returns(activityProviderMock.Object);
-            //activityProviderMock.Setup(x => x.GetService(typeof(AbstractRunningActivity))).Returns(runningActivityMock.Object);
             activityProviderMock.Setup(x => x.GetService(typeof(AbstractStepActivity))).Returns(stepActivityMock.Object);
-           
-            
+
+            stepActivityMock.SetupAdd(activity => activity.ActivityDone += (sender, args) => { });
+
+            Assert.NotNull(instance);
+            instance.SetValue(null, mockSingleton.Object);
 
             //now we can instantiate a runningActivity
             RunningActivityThreshold toTest = new RunningActivityThreshold();
@@ -117,7 +122,10 @@ namespace ViewModelTests.Models.ExtensionModel
             Assert.Equal(2, changeDetectedCount);
             Assert.False(detectedStatus);
 
-
+            mockSingleton.VerifyAll();
+            activityManagerMock.VerifyAll();
+            activityProviderMock.VerifyAll();
+            stepActivityMock.VerifyAll();
         }
     }
 }
