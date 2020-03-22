@@ -35,6 +35,12 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
             _runningState = false;
             _subDetection.ActivityDone += OnStepRecognized;
         }
+
+        protected override void Deactivate()
+        {
+            base.Deactivate();
+            _subDetection.ActivityDone -= OnStepRecognized;
+        }
         //is called when a step is recognized and refreshes the timeout
         public void OnStepRecognized(object sender, ActivityArgs e)
         {
@@ -47,13 +53,15 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         ///<inheritdoc/>
         protected override void Analyse(DataEventArgs data)
         {
-
+            //known issue that the following code is never executed, because Activity does not even call this method if ActivityDone is null.
+            /*
             if (ActivityDone == null)
             {
                 //unregister from stepActivity
                 _subDetection.ActivityDone -= OnStepRecognized;
                 return;
             }
+            */
             //if user is running we need to find out if he times out
             if (_runningState)
             {

@@ -33,7 +33,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         {
             if (ActivityDone == null)
             {
-                _isActive = false;
+                if (_isActive) Deactivate();
             }
             if (ActivityDone != null)
             {
@@ -53,6 +53,11 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         protected virtual void Activate()
         {
             _isActive = true;
+        }
+
+        protected virtual void Deactivate()
+        {
+            _isActive = false;
         }
     }
 }

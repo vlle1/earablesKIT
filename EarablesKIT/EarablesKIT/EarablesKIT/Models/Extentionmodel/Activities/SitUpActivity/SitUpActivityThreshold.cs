@@ -38,6 +38,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
             base.Activate();
         }
 
+
         ///<inheritdoc/>
         override protected void Analyse(DataEventArgs data)
         {
