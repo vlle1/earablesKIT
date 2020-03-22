@@ -54,7 +54,9 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         {
             _isActive = true;
         }
-
+        /// <summary>
+        /// Whenever the algorithm is stopped, it eventually needs to get unregistered from certain other algorithms that it uses
+        /// </summary>
         protected virtual void Deactivate()
         {
             _isActive = false;

@@ -141,6 +141,7 @@ namespace ViewModelTests.Models.ExtensionModel
         public void TestNoListener()
         {
             //here we will simulate what happens when no one is listening at some point. by Debugging it can be verified, that then when calling analyze, no more code is executed!
+            //first register and analyze some data:
 
             IServiceProvider unused = ServiceManager.ServiceProvider;
             //feld infos holen
