@@ -135,6 +135,7 @@ namespace ViewModelTests.Models.ExtensionModel
 
         private void onChangeRecognizedTest(object sender, ActivityArgs args)
         {
+            //this method only exists as a parameter for the test TestNoListener.
         }
 
         [Fact]
@@ -166,7 +167,7 @@ namespace ViewModelTests.Models.ExtensionModel
             RunningActivityThreshold toTest = new RunningActivityThreshold();
             toTest.ActivityDone += onChangeRecognizedTest;
 
-            //read all the input from csv file and simulate unregistering after some tick
+            //read all the input from csv file and simulate after some tick
             int stepTick = 10;
 
             string line;
