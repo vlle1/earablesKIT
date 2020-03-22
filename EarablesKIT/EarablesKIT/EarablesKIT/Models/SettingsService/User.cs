@@ -20,7 +20,7 @@ namespace EarablesKIT.Models.SettingsService
         public string Username
         {
             get => _username;
-            private set => _username = Regex.Match(value, @"\w+").Success ? value : _username;
+            private set => _username = Regex.Match(value, @"\w+").Success ? value : throw new ArgumentException();
         }
 
         private int _steplength = 70;

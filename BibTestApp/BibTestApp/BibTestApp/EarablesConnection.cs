@@ -77,15 +77,24 @@ namespace EarablesKIT.Models.Library
                 await adapter.ConnectToDeviceAsync(device, connectParams);
 
 
-                // Load all required characteristics
-                IService Service;
-                Service = await device.GetServiceAsync(Guid.Parse(ACCES_SERVICE));
-                characters.StartStopIMUSamplingChar = await Service.GetCharacteristicAsync(Guid.Parse(START_STOP_IMU_SAMPLING_CHAR));
-                characters.SensordataChar = await Service.GetCharacteristicAsync(Guid.Parse(SENSORDATA_CHAR));
-                characters.PushbuttonChar = await Service.GetCharacteristicAsync(Guid.Parse(PUSHBUTTON_CHAR));
-                characters.BatteryChar = await Service.GetCharacteristicAsync(Guid.Parse(BATTERY_CHAR));
-                characters.OffsetChar = await Service.GetCharacteristicAsync(Guid.Parse(OFFSET_CHAR));
-                characters.AccelerometerGyroscopeLPFChar = await Service.GetCharacteristicAsync(Guid.Parse(ACC_GYRO_LPF_CHAR));
+                try
+                {
+                    // Load all required characteristics
+                    IService Service;
+                    Service = await device.GetServiceAsync(Guid.Parse(ACCES_SERVICE));
+                    characters.StartStopIMUSamplingChar = await Service.GetCharacteristicAsync(Guid.Parse(START_STOP_IMU_SAMPLING_CHAR));
+                    characters.SensordataChar = await Service.GetCharacteristicAsync(Guid.Parse(SENSORDATA_CHAR));
+                    characters.PushbuttonChar = await Service.GetCharacteristicAsync(Guid.Parse(PUSHBUTTON_CHAR));
+                    characters.BatteryChar = await Service.GetCharacteristicAsync(Guid.Parse(BATTERY_CHAR));
+                    characters.OffsetChar = await Service.GetCharacteristicAsync(Guid.Parse(OFFSET_CHAR));
+                    characters.AccelerometerGyroscopeLPFChar = await Service.GetCharacteristicAsync(Guid.Parse(ACC_GYRO_LPF_CHAR));
+                }
+                // In case someone tries to connect with another bluetoothdevice instead of earables
+                catch (Exception exc)
+                {
+                    throw new ConnectionFailedException("Failed to connect. Please try again and make sure to connect with" +
+                                                        "eSense Earables");
+                }
 
                 // Set scalefactors on norm
                 byte[] bytes = { 0x59, 0x20, 0x04, 0x06, 0x08, 0x08, 0x06 };

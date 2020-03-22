@@ -439,4 +439,7 @@ Germany</value>
     <value />
     <comment>because of grammatical structure of german language...</comment>
   </data>
+  <data name="ScanningPopUpPleaseWait" xml:space="preserve">
+    <value>Note: It may take a moment to connect to your Earables</value>
+  </data>
 </root>

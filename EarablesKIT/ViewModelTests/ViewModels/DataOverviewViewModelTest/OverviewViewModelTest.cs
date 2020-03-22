@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Moq;
 using Xunit;
 using EarablesKIT.Models;
@@ -8,6 +9,7 @@ using EarablesKIT.ViewModels;
 
 namespace ViewModelTests.ViewModels.DataOverviewViewModelTest
 {
+    [ExcludeFromCodeCoverage]
     public class OverviewViewModelTest
     {
         [Fact]

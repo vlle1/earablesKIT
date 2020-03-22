@@ -1,4 +1,4 @@
-﻿using EarablesKIT.Models;
+﻿ using EarablesKIT.Models;
 using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Resources;
+using EarablesKIT.Models.PopUpService;
 
 namespace EarablesKIT.ViewModels
 {
@@ -59,6 +60,8 @@ namespace EarablesKIT.ViewModels
 		/// Property which hold the instance of the DataBaseConnection.
 		/// </summary>
 		private IDataBaseConnection _dataBaseConnection { get; set; }
+
+		private IPopUpService _popUpService { get; set; }
 
 		/// <summary>
 		/// List of all possible activities that the user can do.
@@ -115,6 +118,8 @@ namespace EarablesKIT.ViewModels
 			_sitUpActivityWrapper = new ActivityWrapper(AppResources.Sit_ups, _sitUpActivity);
 			_comingSoon = new ActivityWrapper(AppResources.Coming_soon, null);
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			_popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
+			_timer = new Stopwatch();
 			PossibleActivities = new ObservableCollection<ActivityWrapper>
 			{
 				_pushUpActivityWrapper,
@@ -240,7 +245,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + SelectedActivity.Counter + " " + SelectedActivity.Name + AppResources.alternativeGrammarDone + "!", AppResources.Cool);
+			_popUpService.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + SelectedActivity.Counter + " " + SelectedActivity.Name + AppResources.alternativeGrammarDone + "!", AppResources.Cool);
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

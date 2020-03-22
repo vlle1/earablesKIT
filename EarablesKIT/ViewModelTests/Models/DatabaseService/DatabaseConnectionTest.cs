@@ -1,6 +1,10 @@
 ﻿using EarablesKIT.Models.DatabaseService;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using EarablesKIT.Models;
+using EarablesKIT.Models.SettingsService;
+using EarablesKIT.ViewModels;
 using Moq;
 using Plugin.FilePicker.Abstractions;
 using Xunit;
@@ -85,7 +89,7 @@ namespace ViewModelTests.Models.DatabaseService
 
             _toTest.DeleteAllEntries();
             List<DBEntry> allEntries = _toTest.GetAllEntries();
-            
+
             Assert.Empty(allEntries);
 
             _toTest.SaveDBEntry(toSave1);
@@ -104,8 +108,50 @@ namespace ViewModelTests.Models.DatabaseService
             foreach (DBEntry dbEntry in mostRecentEntries)
             {
                 contains = dbEntry.Date == toSave2.Date || dbEntry.Date ==
-                    toSave3.Date || dbEntry.Date == toSave4.Date || dbEntry.Date == toSave5.Date;
+                           toSave3.Date || dbEntry.Date == toSave4.Date || dbEntry.Date == toSave5.Date;
                 contains = contains && !(dbEntry.Date == toSave1.Date);
+                Assert.True(contains);
+                contains = false;
+            }
+
+
+            mostRecentEntries = _toTest.GetMostRecentEntries(-2);
+            Assert.Empty(mostRecentEntries);
+        }
+        [Fact]
+        public void TestGetMostRecentEntriesSmallerThanSize()
+        {
+            SetUp();
+
+            DBEntry toSave1 = new DBEntry(DateTime.Parse("27.04.2000"), 100, 50, 20);
+            DBEntry toSave2 = new DBEntry(DateTime.Parse("13.09.2000"), 500, 50, 0);
+            DBEntry toSave3 = new DBEntry(DateTime.Parse("29.11.2000"), 120, 40, 10);
+            DBEntry toSave4 = new DBEntry(DateTime.Parse("02.05.2000"), 1230, 30, 211);
+            DBEntry toSave5 = new DBEntry(DateTime.Parse("27.03.2000"), 10, 20, 50);
+
+            _toTest.DeleteAllEntries();
+            List<DBEntry> allEntries = _toTest.GetAllEntries();
+
+            Assert.Empty(allEntries);
+
+            _toTest.SaveDBEntry(toSave1);
+            _toTest.SaveDBEntry(toSave2);
+            _toTest.SaveDBEntry(toSave3);
+            _toTest.SaveDBEntry(toSave4);
+            _toTest.SaveDBEntry(toSave5);
+
+            allEntries = _toTest.GetAllEntries();
+            Assert.True(allEntries.Count == 5);
+
+            List<DBEntry> mostRecentEntries = _toTest.GetMostRecentEntries(10);
+            Assert.True(mostRecentEntries.Count == 5);
+
+            bool contains = false;
+            foreach (DBEntry dbEntry in mostRecentEntries)
+            {
+                contains = dbEntry.Date == toSave2.Date || dbEntry.Date ==
+                           toSave3.Date || dbEntry.Date == toSave4.Date || dbEntry.Date == toSave5.Date;
+                contains = contains || (dbEntry.Date == toSave1.Date);
                 Assert.True(contains);
                 contains = false;
             }
@@ -187,6 +233,33 @@ namespace ViewModelTests.Models.DatabaseService
         //[Fact]
         //public void TestImport()
         //{
+
+        //    // Für den ServiceProviderMock
+        //    //Muss enthalten sein, damit der Mock nicht überschrieben wird
+        //    IServiceProvider unused = ServiceManager.ServiceProvider;
+
+        //    //Feld Infos holen
+        //    System.Reflection.FieldInfo instance = typeof(ServiceManager).GetField("_serviceProvider", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+
+        //    //Mocksaufsetzen 
+        //    //ServiceProvider
+        //    Mock<IServiceProvider> mockSingleton = new Mock<IServiceProvider>();
+
+        //    //Service der gemockt werden soll
+        //    Mock<IExceptionHandler> mockExceptionHander = new Mock<IExceptionHandler>();
+
+        //    User initUser = new User("Alice", 70);
+        //    CultureInfo initCultureInfo = CultureInfo.GetCultureInfo("en-US");
+
+        //    mockExceptionHander.Setup(x => x.HandleException(It.IsAny<Exception>()));
+
+
+
+        //    mockSingleton.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(mockExceptionHander.Object);
+        //    instance.SetValue(null, mockSingleton.Object);
+            
+
+
         //    FileData fileData = new FileData();
         //    var mockFileData = new Mock<FileData>();
         //    string entriesToImport = "26.04.2000,Steps=100,PushUps=20,SitUps=10\n" +
@@ -197,15 +270,17 @@ namespace ViewModelTests.Models.DatabaseService
         //    mockFileData.SetupProperty(x => x.DataArray, entriesToImportAsBytes);
         //    mockFileData.SetupProperty(x => x.FileName, "NotNullOrEmpty");
 
+            
+
         //    DatabaseConnection dbToTest = new DatabaseConnection();
         //    dbToTest.DeleteAllEntries();
 
         //    dbToTest.ImportTrainingsData(mockFileData.Object);
 
         //    List<DBEntry> allEntries = dbToTest.GetAllEntries();
-            
+
         //    Assert.Equal(4, allEntries.Count);
-        //    Assert.Equal(new DateTime(2000,04,22), allEntries[0].Date);
+        //    Assert.Equal(new DateTime(2000, 04, 22), allEntries[0].Date);
         //    Assert.Equal(170, allEntries[0].TrainingsData["Steps"]);
         //    Assert.Equal(10, allEntries[0].TrainingsData["PushUps"]);
         //    Assert.Equal(230, allEntries[0].TrainingsData["SitUps"]);

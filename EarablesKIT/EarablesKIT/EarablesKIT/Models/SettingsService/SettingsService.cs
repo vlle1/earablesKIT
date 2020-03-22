@@ -50,7 +50,7 @@ namespace EarablesKIT.Models.SettingsService
                 }
                 catch (Exception e)
                 {
-                    ExceptionHandlingViewModel.HandleException(e);
+                    _exceptionHandler.HandleException(e);
                     return;
                 }
 
@@ -62,6 +62,7 @@ namespace EarablesKIT.Models.SettingsService
         }
 
         private User _activeUser;
+        private IExceptionHandler _exceptionHandler;
 
         /// <inheritdoc />
         public User ActiveUser
@@ -79,6 +80,8 @@ namespace EarablesKIT.Models.SettingsService
         /// </summary>
         public SettingsService()
         {
+            _exceptionHandler =
+                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
             LoadSettings();
         }
 
@@ -105,7 +108,7 @@ namespace EarablesKIT.Models.SettingsService
                 }
                 catch (CultureNotFoundException)
                 {
-                    ExceptionHandlingViewModel.HandleException(new CultureNotFoundException("Language couldn't be loaded!"));
+                    _exceptionHandler.HandleException(new CultureNotFoundException("Language couldn't be loaded!"));
                     ActiveLanguage = CultureInfo.CurrentUICulture;
                 }
             }
@@ -133,7 +136,7 @@ namespace EarablesKIT.Models.SettingsService
                 }
                 catch
                 {
-                    ExceptionHandlingViewModel.HandleException(new ArgumentException("User failed to load!"));
+                    _exceptionHandler.HandleException(new ArgumentException("User failed to load!"));
                     User standardUser = new User(STANDARD_USERNAME, STANDARD_STEPLENGTH);
                     ActiveUser = standardUser;
                 }
@@ -154,7 +157,7 @@ namespace EarablesKIT.Models.SettingsService
                 }
                 catch
                 {
-                    ExceptionHandlingViewModel.HandleException(new ArgumentException("Samplingrate failed to load!"));
+                    _exceptionHandler.HandleException(new ArgumentException("Samplingrate failed to load!"));
                     SamplingRate = STANDARD_SAMPLINGRATE;
                 }
                 UpdateValue(SAMPLINGRATE_PROPERTY, SamplingRate);
