@@ -6,7 +6,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity
     /// <summary>
     /// This Algorithm only uses four states. The absolute acceleration is measured and certain threshold have to be passed with several cooldowns in between to detect a pushup.
     /// </summary>
-    class PushUpActivityThreshold : AbstractPushUpActivity
+    public class PushUpActivityThreshold : AbstractPushUpActivity
     {
         //the number of used states
         private const int STATE_COUNT = 4;
