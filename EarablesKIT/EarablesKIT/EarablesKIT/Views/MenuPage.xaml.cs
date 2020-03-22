@@ -31,6 +31,7 @@ namespace EarablesKIT.Views
                 new HomeMenuItem { Id = MenuItemType.Settings, Title = AppResources.SettingsTitle},
                 new HomeMenuItem { Id = MenuItemType.ImportExport, Title = AppResources.ImportExportLabel },
                 new HomeMenuItem { Id = MenuItemType.DebugMode, Title = "Debug" },
+                new HomeMenuItem { Id = MenuItemType.Imprint, Title = AppResources.ImprintTitle },
             };
             ListViewMenu.ItemsSource = menuItems;
 

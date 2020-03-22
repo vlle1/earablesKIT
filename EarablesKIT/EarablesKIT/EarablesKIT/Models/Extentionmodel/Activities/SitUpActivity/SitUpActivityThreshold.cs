@@ -4,7 +4,7 @@ using EarablesKIT.Models.Library;
 namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
 {
     ///<inheritdoc/>
-    class SitUpActivityThreshold : AbstractSitUpActivity
+    public class SitUpActivityThreshold : AbstractSitUpActivity
     {
         //the number of states of the implemented state machine
         private const int STATE_COUNT = 4;
@@ -37,6 +37,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity
             _state = 0;
             base.Activate();
         }
+
 
         ///<inheritdoc/>
         override protected void Analyse(DataEventArgs data)

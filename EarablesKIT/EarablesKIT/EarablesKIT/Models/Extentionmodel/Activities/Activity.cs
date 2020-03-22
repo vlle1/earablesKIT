@@ -33,7 +33,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         {
             if (ActivityDone == null)
             {
-                _isActive = false;
+                if (_isActive) Deactivate();
             }
             if (ActivityDone != null)
             {
@@ -53,6 +53,13 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         protected virtual void Activate()
         {
             _isActive = true;
+        }
+        /// <summary>
+        /// Whenever the algorithm is stopped, it eventually needs to get unregistered from certain other algorithms that it uses
+        /// </summary>
+        protected virtual void Deactivate()
+        {
+            _isActive = false;
         }
     }
 }

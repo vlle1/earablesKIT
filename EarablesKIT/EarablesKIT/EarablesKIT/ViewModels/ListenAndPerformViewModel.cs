@@ -1,10 +1,12 @@
 ﻿using EarablesKIT.Models;
+using EarablesKIT.Models.AudioService;
 using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using EarablesKIT.Models.Library;
+using EarablesKIT.Models.PopUpService;
 using EarablesKIT.Resources;
 using System;
 using System.Collections.Generic;
@@ -94,6 +96,10 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private IDataBaseConnection _dataBaseConnection { get; set; }
 
+		private IPopUpService _popUpService { get; set; }
+
+		private IAudioService _audioService { get; set; }
+
 		/// <summary>
 		/// The currently selected activity by the user, bound to the view.
 		/// </summary>
@@ -166,13 +172,16 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		public ListenAndPerformViewModel()
 		{
-			AddActivityCommand = new Command(() => AddActivity(ActivityList.Count));
+			AddActivityCommand = new Command(async () => await AddActivity(ActivityList.Count));
 			RemoveActivityCommand = new Command(() => RemoveActivity());
 			EditActivityCommand = new Command(() => EditActivity());
 			_activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
 			_pushUpActivity = (AbstractPushUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractPushUpActivity));
 			_sitUpActivity = (AbstractSitUpActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractSitUpActivity));
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			_popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
+			_audioService = (IAudioService)ServiceManager.ServiceProvider.GetService(typeof(IAudioService));
+			_timer = new Stopwatch();
 
 			ActivityList = new ObservableCollection<ActivityWrapper>
 			{
@@ -239,14 +248,14 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		/// <param name="sender">The sender of the event</param>
 		/// <param name="args">Ignored</param>
-		public async override void OnActivityDone(object sender, ActivityArgs args)
+		public override async void OnActivityDone(object sender, ActivityArgs args)
 		{
 			ActiveActivity.Counter++;
+			IncreaseResultCounter();
 			ProgressLive = Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
 			if (ActiveActivity.Counter >= Repetitions)
 			{
 				ActiveActivity._activity.ActivityDone -= OnActivityDone;
-				IncreaseResultCounter();
 				if (ActivityIterator.MoveNext())
 				{
 					CheckNextActivity();
@@ -254,7 +263,7 @@ namespace EarablesKIT.ViewModels
 				else
 				{
 					_timer.Stop();
-					await TextToSpeech.SpeakAsync(AppResources.TrainingDone);
+					await _audioService.Speak(AppResources.TrainingDone);
 				}
 			}
 		}
@@ -266,7 +275,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="e"></param>
-		private async void OnTimedEvent(object source, ElapsedEventArgs e)
+		public async void OnTimedEvent(object source, ElapsedEventArgs e)
 		{
 			ActiveActivity.Counter--;
 			ProgressLive = 1 - Math.Round((double)ActiveActivity.Counter / Repetitions, 2);
@@ -281,7 +290,7 @@ namespace EarablesKIT.ViewModels
 				else
 				{
 					_timer.Stop();
-					await TextToSpeech.SpeakAsync(AppResources.TrainingDone);
+					await _audioService.Speak(AppResources.TrainingDone);
 				}
 			}
 		}
@@ -316,6 +325,7 @@ namespace EarablesKIT.ViewModels
 				}
 
 				Milliseconds = _timer.Elapsed.Milliseconds.ToString();
+				while (Milliseconds.Length < 3) Milliseconds = "0" + Milliseconds;
 				return true;
 			});
 		}
@@ -329,11 +339,11 @@ namespace EarablesKIT.ViewModels
 		{
 			if (!ActiveActivity.Name.Equals(AppResources.Pause))
 			{
-				await TextToSpeech.SpeakAsync(AppResources.NextActivity + Amount + "" + ActiveActivity.Name);
+				await _audioService.Speak(AppResources.NextActivity + Amount + "" + ActiveActivity.Name);
 			}
 			else
 			{
-				await TextToSpeech.SpeakAsync(Amount + AppResources.Seconds + ActiveActivity.Name);
+				await _audioService.Speak(Amount + AppResources.Seconds + ActiveActivity.Name);
 			}
 		}
 
@@ -342,13 +352,13 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		public void IncreaseResultCounter()
 		{
-			if (ActiveActivity.Name.Equals(AppResources.Push_ups))
+			if (ActiveActivity.Name.Equals(AppResources.Push_ups) || ActiveActivity.Name.Equals("Push-ups"))
 			{
-				_pushUpResult += ActiveActivity.Counter;
+				_pushUpResult++;
 			}
 			if (ActiveActivity.Name.Equals(AppResources.Sit_ups))
 			{
-				_sitUpResult += ActiveActivity.Counter;
+				_sitUpResult++;
 			}
 		}
 
@@ -390,9 +400,9 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + _pushUpResult 
-				+ " " + AppResources.Push_ups + " " + AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups 
-				+ " " + AppResources.Done + "!", AppResources.Cool);
+			_popUpService.DisplayAlert(AppResources.Result, AppResources.YouHaveDone + " " + _pushUpResult
+				+ " " + AppResources.Push_ups + " " + AppResources.And + " " + _sitUpResult + " " + AppResources.Sit_ups
+				+ AppResources.alternativeGrammarDone + "!", AppResources.Cool);
 		}
 
 		/// <summary>
@@ -401,11 +411,11 @@ namespace EarablesKIT.ViewModels
 		/// <param name="Index">Index where the activity will be inserted</param>
 		private async Task AddActivity(int Index)
 		{
-			string newActivity = await Application.Current.MainPage.DisplayActionSheet(AppResources.SelectAnActivity,
+			string newActivity = await _popUpService.ActionSheet(AppResources.SelectAnActivity,
 				AppResources.Cancel, null, AppResources.Push_ups, AppResources.Sit_ups, AppResources.Pause);
 			if (newActivity != null && !newActivity.Equals("") && !newActivity.Equals(AppResources.Cancel))
 			{
-				string newAmount = await Application.Current.MainPage.DisplayPromptAsync(AppResources.AddingActivity, 
+				string newAmount = await _popUpService.DisplayPrompt(newActivity,
 						AppResources.EnterRepetitions, AppResources.Okay, AppResources.Cancel, "10", 3, Keyboard.Numeric);
 				if (newAmount != null && Regex.IsMatch(newAmount, @"^[1-9]{1}\d{0,2}$"))
 				{

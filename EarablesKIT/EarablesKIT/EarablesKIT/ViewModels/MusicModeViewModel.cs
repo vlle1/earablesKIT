@@ -7,17 +7,18 @@ using EarablesKIT.Resources;
 using MediaManager;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
-    class MusicModeViewModel : BaseModeViewModel, INotifyPropertyChanged
+    public class MusicModeViewModel : BaseModeViewModel, INotifyPropertyChanged
     {
-        private bool _running = false;
-        private bool _musicModeActive = false;
-        private IActivityManager _activityManager;
+        private bool _running;
+        private bool _musicModeActive;
+        private static IMediaManager _mediaManager;
+        private static IActivityManager _activityManager;
+        private static IExceptionHandler _exceptionHandler;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,22 +30,20 @@ namespace EarablesKIT.ViewModels
                 _running = value;
                 if (_running)
                 {
-                    CrossMediaManager.Current.Play();
+                    _mediaManager.Play();
                 }
                 else
                 {
-                    CrossMediaManager.Current.Pause();
+                    _mediaManager.Pause();
                 }
-                //OnPropertyChanged("StartStopLabel");
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CurrentStatusLabel));
             }
             get => _running;
         }
 
-        public Command ToggleMusicMode
-        {
-            get => new Command(() =>
+        public Command ToggleMusicMode =>
+            new Command(() =>
             {
                 _musicModeActive = !_musicModeActive;
                 if (_musicModeActive)
@@ -59,7 +58,6 @@ namespace EarablesKIT.ViewModels
                 OnPropertyChanged(nameof(StartStopLabel));
                 OnPropertyChanged(nameof(CurrentStatusLabel));
             });
-        }
 
 
         public string StartStopLabel
@@ -88,43 +86,59 @@ namespace EarablesKIT.ViewModels
         {
             try
             {
-                await CrossMediaManager.Current.Play(_path);
-                await CrossMediaManager.Current.Pause();
-            } catch (Exception e)
+                await _mediaManager.Play(_path);
+                await _mediaManager.Pause();
+            }
+            catch (Exception e)
             {
-                Debug.WriteLine(e.StackTrace);
+                _exceptionHandler.HandleException(e);
             }
         }
 
-        private AbstractRunningActivity runningActivity { get; set; }
-        private string _path { get; set; }
+        private AbstractRunningActivity RunningActivity { get; }
+        private string _path;
 
         public MusicModeViewModel()
         {
             _activityManager = (IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager));
-            runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
+            RunningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
+
+            if (_mediaManager is null)
+            {
+                _mediaManager = CrossMediaManager.Current;
+            }
+
+            _exceptionHandler =
+                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
 
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
-            Directory.CreateDirectory(Path.GetDirectoryName(_path));
+            Directory.CreateDirectory(path: Path.GetDirectoryName(_path) ?? throw new InvalidOperationException());
 
-            // Copying the resource music file to the MyDocuments Path because the MediaPlayer can't play streams.
-            using (BinaryWriter writer = new BinaryWriter(File.Open(_path, FileMode.Create)))
+            try
             {
-                using (var input = new BinaryReader(AppResources.ukulele_low))
+                // Copying the resource music file to the MyDocuments Path because the MediaPlayer can't play streams.
+                using (BinaryWriter writer = new BinaryWriter(File.Open(_path, FileMode.Create)))
                 {
-                    while (true)
+                    using (var input = new BinaryReader(AppResources.ukulele_low))
                     {
-                        try
+                        while (true)
                         {
-                            var b = input.ReadByte();
-                            writer.Write(b);
-                        }
-                        catch
-                        {
-                            break;
+                            try
+                            {
+                                var b = input.ReadByte();
+                                writer.Write(b);
+                            }
+                            catch
+                            {
+                                break;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                _exceptionHandler.HandleException(e);
             }
         }
 
@@ -135,46 +149,37 @@ namespace EarablesKIT.ViewModels
 
         public override bool StartActivity()
         {
-            /* Debug events 
-                         if (true)
-            {
-                Device.StartTimer(TimeSpan.FromSeconds(30), () =>
-                {
-                    // Do something
-                    OnActivityDone(this, new RunningEventArgs(!IsRunning));
-                    return true; // True = Repeat again, False = Stop the timer
-                });
-                //((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-             */
-            if (CheckConnection())
-            {
-                RestartMusic();
-                runningActivity.ActivityDone += OnActivityDone;
-                ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (!CheckConnection()) return false;
+            RestartMusic();
+            RunningActivity.ActivityDone += OnActivityDone;
+            ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+            return true;
         }
 
         public override void StopActivity()
         {
             try
             {
-                ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StopSampling();
-                runningActivity.ActivityDone -= OnActivityDone;
-            } catch
-            {}
+                ((IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection)))
+                    .StopSampling();
+
+                if (RunningActivity != null) RunningActivity.ActivityDone -= OnActivityDone;
+            }
+            catch (Exception e)
+            {
+                _exceptionHandler.HandleException(e);
+            }
             _musicModeActive = false;
             IsRunning = false;
+            try
+            {
+                OnPropertyChanged(nameof(StartStopLabel));
+                OnPropertyChanged(nameof(CurrentStatusLabel));
+            }
+            catch (Exception e)
+            {
+                _exceptionHandler.HandleException(e);
+            }
         }
 
         protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")

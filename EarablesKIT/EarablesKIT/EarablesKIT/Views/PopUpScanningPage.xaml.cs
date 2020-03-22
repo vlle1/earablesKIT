@@ -4,6 +4,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.ComponentModel;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EarablesKIT.Views
@@ -49,6 +50,11 @@ namespace EarablesKIT.Views
         {
             IDevice selectedDevice = (IDevice)DevicesListView.SelectedItem;
             ConnectButton.IsEnabled = false;
+            PleaseWaitLabel.IsVisible = true;
+            Device.StartTimer(new TimeSpan(0, 0, 5), () =>
+            {
+                return PleaseWaitLabel.IsVisible = false;
+            });
             try
             {
                 _viewModel.ConnectDeviceCommand.Execute(selectedDevice);
@@ -58,6 +64,7 @@ namespace EarablesKIT.Views
                 AlertLabel.Text = AppResources.Error + ": " + AppResources.ScanningPopUpAlertCouldntConnect;
 
                 ConnectButton.IsEnabled = true;
+                PleaseWaitLabel.IsVisible = false;
             }
         }
     }

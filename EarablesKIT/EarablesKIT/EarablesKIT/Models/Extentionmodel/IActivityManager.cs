@@ -1,5 +1,6 @@
 ﻿using EarablesKIT.Models.Library;
-using Microsoft.Extensions.DependencyInjection;
+using System;
+
 
 namespace EarablesKIT.Models.Extentionmodel
 {
@@ -7,12 +8,12 @@ namespace EarablesKIT.Models.Extentionmodel
     /// ActivityManager is a ServiceManager that manages the Activities. It also pushes the sensor
     /// data from the library to the activities.
     /// </summary>
-    internal interface IActivityManager : IManager
+    public interface IActivityManager : IManager
     {
         /// <summary>
         /// This ActivityProvider knows all possible Activities.
         /// </summary>
-        ServiceProvider ActitvityProvider { get; set; }
+        IServiceProvider ActitvityProvider { get; set; }
 
         /// <summary>
         /// This method is a EventMethod that passes data on from the library to the Activities.

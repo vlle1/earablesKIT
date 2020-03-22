@@ -5,14 +5,16 @@ using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
+using StepActivityThreshold = EarablesKIT.Models.Extentionmodel.Activities.StepActivity.StepActivityThreshold;
 
 namespace EarablesKIT.Models.Extentionmodel
 {
     /// <inheritdoc/>
-    internal class ActivityManager : IActivityManager
+    public class ActivityManager : IActivityManager
     {
-        private ServiceProvider _activityProvider;
+        private IServiceProvider _activityProvider;
 
         /// <summary>
         /// This list contains all Activities that should recieve new Data, e.g. all activities.
@@ -22,7 +24,7 @@ namespace EarablesKIT.Models.Extentionmodel
         /// <summary>
         /// The activityProvider is the ServiceProvider for the Activities.
         /// </summary>
-        public ServiceProvider ActitvityProvider
+        public IServiceProvider ActitvityProvider
         {
             get => _activityProvider;
             set => _activityProvider = value;
@@ -61,7 +63,7 @@ namespace EarablesKIT.Models.Extentionmodel
         {
             IServiceCollection serviceCollection = new ServiceCollection();
             serviceCollection.AddSingleton<AbstractStepActivity, StepActivityThreshold>();
-            serviceCollection.AddSingleton<AbstractRunningActivity, RunningActivityThreshold>();
+            serviceCollection.AddSingleton<AbstractRunningActivity, Activities.RunningActivity.RunningActivityThreshold>();
             serviceCollection.AddSingleton<AbstractPushUpActivity, PushUpActivityThreshold>();
             serviceCollection.AddSingleton<AbstractSitUpActivity, SitUpActivityThreshold>();
             return serviceCollection;

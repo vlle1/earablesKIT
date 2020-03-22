@@ -4,12 +4,12 @@ using System;
 namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
 {
     /// <summary>
-    /// StepActivityThreshold estimates where the ground is and determines a Accelerometer Value a step if:
+    /// RunningActivityThreshold estimates where the ground is and determines a Accelerometer Value a step if:
     /// - the value is higher than a certain threshold
     /// - the value is occuring a significant time after the last step (after cooldown)
     /// - the angle between current acceleration and estimated ground is small
     /// </summary>
-    class StepActivityThreshold : AbstractStepActivity
+    public class StepActivityThreshold : AbstractStepActivity
     {
         //the weight of the old average acceleration value when calculating the new one (weight of single new value is always 1),
         //relative to the sampling rate (real weight will be sampling rate * REF_WEIGHT_REL)
@@ -84,7 +84,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
             base.Activate();
 
             cooldown = 0;
-            //Initialisation / reset of average acceleration.
+            //Initialization / reset of average acceleration.
             _avgAccAbsolute = 1;
             _avgAccX = -1;
             _avgAccY = 0;

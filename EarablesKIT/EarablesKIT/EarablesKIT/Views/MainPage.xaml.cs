@@ -58,6 +58,8 @@ namespace EarablesKIT.Views
                         break;
                     case (int)MenuItemType.DebugMode:
                         MenuPages.Add(id, new NavigationPage(new DebugPage()));
+                    case (int)MenuItemType.Imprint:
+                        MenuPages.Add(id, new NavigationPage(new ImpressumPage()));
                         break;
                 }
             }

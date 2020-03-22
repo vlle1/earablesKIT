@@ -5,7 +5,7 @@ using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
-
+using EarablesKIT.Models.PopUpService;
 using EarablesKIT.Models.SettingsService;
 using EarablesKIT.Resources;
 using System;
@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
@@ -26,11 +27,11 @@ namespace EarablesKIT.ViewModels
 		/// Timer that is needed for calculating the step frequency, not binded to the view.
 		/// </summary>
 		private Stopwatch _timer;
-
 		/// <summary>
-		/// Step Delta for calculating the Step Frequency.
+		/// Saves relative timestamps of the last MAX_REGRESSION_LENGTH Steps, while walking. Unit: minutes
 		/// </summary>
-		private int StepDelta;
+		private Queue<double> _stepMemory = new Queue<double>();
+		private const int MAX_REGRESSION_LENGTH = 4;
 
 		/// <summary>
 		/// The stepActivity from the ActivityProvider.
@@ -51,6 +52,8 @@ namespace EarablesKIT.ViewModels
 		/// Property which hold the instance of the DataBaseConnection.
 		/// </summary>
 		private IDataBaseConnection _dataBaseConnection { get; set; }
+
+		private IPopUpService _popUpService { get; set; }
 
 		/// <summary>
 		/// Property which holds the current date.
@@ -149,21 +152,56 @@ namespace EarablesKIT.ViewModels
 				_isRunning = value;
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(StatusDisplay));
-            }
+				OnPropertyChanged(nameof(StepFrequency));
+			}
 		}
 
 		/// <summary>
 		/// Holds the current step frequency. 
 		/// </summary>
-		private double _stepFrequency;
-		public double StepFrequency
+		public string StepFrequency
 		{
-			get { return _stepFrequency; }
-			set
+			get
 			{
-				_stepFrequency = value;
-				OnPropertyChanged();
+				if (!_isRunning) return "--:--";
+				double[] timestamps = _stepMemory.ToArray();
+				int n = timestamps.Length;
+				if (n < 3)
+				{
+					String output = ".";
+					for (int i = 0; i < n; i++)
+					{
+						output += " .";
+					}
+					return output;
+				}
+				//do linear regression: X-Axis: time, Y-Axis: steps 
+				//steps are artificially set to values 0,1,2,...,n
+				//return Math.Round(timestamps[n-1],2).ToString();
+				//calculate arithmetic medium
+				double arithMX = 0;
+				foreach (float d in timestamps) arithMX += d;
+				arithMX /= n;
+				double arithMY = n / 2;
+				//use simple formula to calculate gradient 
+				double upperSum = 0;
+				double lowerSum = 0;
+				for (int i = 0; i < n; i++)
+				{
+
+					double x_diff = timestamps[i] - arithMX;
+					double y_diff = i - arithMY;
+					upperSum += x_diff * y_diff;
+					lowerSum += x_diff * x_diff;
+				}
+				//this should never happen as the timestamps would need to be incredibly close together,
+				//but avoid dividing by zero durch null teilen
+				if (Math.Abs(lowerSum) < 0.000001f) return "N.A.";
+				double result = upperSum / lowerSum;
+
+				return Math.Round(result, 2).ToString();
 			}
+
 		}
 
 		/// <summary>
@@ -186,12 +224,12 @@ namespace EarablesKIT.ViewModels
 			_stepActivity = (AbstractStepActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractStepActivity));
 			_runningActivity = (AbstractRunningActivity)_activityManager.ActitvityProvider.GetService(typeof(AbstractRunningActivity));
 			_dataBaseConnection = (IDataBaseConnection)ServiceManager.ServiceProvider.GetService(typeof(IDataBaseConnection));
+			_popUpService = (IPopUpService)ServiceManager.ServiceProvider.GetService(typeof(IPopUpService));
 			DistanceWalkedLastTime = 0;
 			StepsDoneLastTime = 0;
-			StepFrequency = 0.0;
 			DistanceWalked = 0;
-			LastDataTime = "01.01.2000"; 
-			CurrentDate = DateTime.Now.ToString(); 
+			LastDataTime = "01.01.2000";
+			CurrentDate = DateTime.Now.ToString();
 			UpdateLastData();
 			IsRunning = false;
 			_timer = new Stopwatch();
@@ -207,31 +245,14 @@ namespace EarablesKIT.ViewModels
 			if (CheckConnection())
 			{
 				StepCounter = 0;
-				StepFrequency = 0;
-				StepDelta = 0;
 				_stepActivity.ActivityDone += OnActivityDone;
 				_runningActivity.ActivityDone += OnRunningDone;
 				CurrentDate = DateTime.Now.ToString();
 				((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection))).StartSampling();
+				_timer.Start();
 				return true;
 			}
 			return false;
-		}
-
-		/// <summary>
-		/// Method which updates the step frequency every 3 seconds.
-		/// </summary>
-		public void UpdateFrequency()
-		{
-			_timer = new Stopwatch();
-			_timer.Start();
-			Device.StartTimer(TimeSpan.FromSeconds(3.0), () =>
-			{
-				double stepsInLastThreeSeconds = StepCounter - StepDelta;
-				StepFrequency = Math.Round(60 * stepsInLastThreeSeconds/3, 2);
-				StepDelta = StepCounter;
-				return true;
-			});
 		}
 
 		/// <summary>
@@ -242,6 +263,10 @@ namespace EarablesKIT.ViewModels
 		public override void OnActivityDone(object sender, ActivityArgs args)
 		{
 			StepCounter++;
+			//update step frequency!
+			_stepMemory.Enqueue(_timer.ElapsedMilliseconds / 60000f);
+			if (_stepMemory.Count > MAX_REGRESSION_LENGTH) _stepMemory.Dequeue();
+			OnPropertyChanged(nameof(StepFrequency));
 		}
 
 		/// <summary>
@@ -252,6 +277,11 @@ namespace EarablesKIT.ViewModels
 		public void OnRunningDone(object sender, ActivityArgs args)
 		{
 			IsRunning = ((RunningEventArgs)args).Running;
+			if (!IsRunning)
+			{
+				_stepMemory.Clear();
+			}
+			OnPropertyChanged(nameof(StepFrequency));
 		}
 
 		/// <summary>
@@ -284,7 +314,7 @@ namespace EarablesKIT.ViewModels
 		/// </summary>
 		private void ShowPopUp()
 		{
-			Application.Current.MainPage.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + " " + AppResources.Done, AppResources.Cool);
+			_popUpService.DisplayAlert(AppResources.Result, AppResources.YouHaveTaken + " " + StepCounter + " " + AppResources.Steps + AppResources.alternativeGrammarDone + ".", AppResources.Cool);
 		}
 
 		/// <summary>
@@ -305,7 +335,6 @@ namespace EarablesKIT.ViewModels
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
-
 
 		protected void OnPropertyChanged([CallerMemberName] string name = "")
 		{

@@ -11,7 +11,8 @@
         MusicMode,
         Settings,
         StepMode,
-        DebugMode
+        DebugMode,
+        Imprint
     }
     public class HomeMenuItem
     {

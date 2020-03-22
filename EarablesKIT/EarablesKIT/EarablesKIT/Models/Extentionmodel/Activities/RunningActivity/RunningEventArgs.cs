@@ -3,7 +3,7 @@
     /// <summary>
     /// Arguments of Running Event.
     /// </summary>
-    class RunningEventArgs : ActivityArgs
+    public class RunningEventArgs : ActivityArgs
     {
         /// <summary>
         /// true, iff the user is determined to run.

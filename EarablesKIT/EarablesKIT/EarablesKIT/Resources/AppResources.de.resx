@@ -130,7 +130,7 @@
     <value>Daten löschen</value>
   </data>
   <data name="DatabaseConnectionFileParseError" xml:space="preserve">
-    <value>Konnte den angegeben Pfad nicht lesen</value>
+    <value>Der angegebene Pfad konnte nicht gelesen werden.</value>
   </data>
   <data name="DataBaseErrorFailedToSave" xml:space="preserve">
     <value>Speichern fehlgeschlagen!</value>
@@ -142,7 +142,7 @@
     <value>Trainingsdaten_EarblesKIT.txt</value>
   </data>
   <data name="DataOverviewPageEntryLabel" xml:space="preserve">
-    <value>Willkommen auf der Datenübersichtsseite!</value>
+    <value>Deine Persönliche Datenübersicht</value>
   </data>
   <data name="DataOverviewPageExportButton" xml:space="preserve">
     <value>Exportieren</value>
@@ -208,13 +208,13 @@
     <value>Bluetooth ist nicht aktiv!</value>
   </data>
   <data name="MusicModeEntryLabel1" xml:space="preserve">
-    <value>Willkommen im Musikmodus!</value>
+    <value>Musikmodus</value>
   </data>
   <data name="Okay" xml:space="preserve">
     <value>Okay</value>
   </data>
   <data name="PossibleActivitiesLabel" xml:space="preserve">
-    <value>Wähle eine Aktivität aus, die gezählt werden soll!</value>
+    <value>Wähle eine Aktivität aus, die gezählt werden soll:</value>
   </data>
   <data name="PushUps" xml:space="preserve">
     <value>Liegestütze</value>
@@ -244,7 +244,7 @@
     <value>Benutzername</value>
   </data>
   <data name="SettingsPageWrongInput" xml:space="preserve">
-    <value>Das Speichern ist fehlgeschlagen! Überprüfe deine Eingaben</value>
+    <value>Das Speichern ist fehlgeschlagen! Überprüfe deine Eingaben.</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Einstellungen</value>
@@ -316,16 +316,16 @@
     <value>und</value>
   </data>
   <data name="Coming soon" xml:space="preserve">
-    <value>In Kürze</value>
+    <value>Demnächst Verfügbar...</value>
   </data>
   <data name="Cool" xml:space="preserve">
     <value>Cool</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>gemacht</value>
+    <value>Erledigt</value>
   </data>
   <data name="EnterRepetitions" xml:space="preserve">
-    <value>Gebe die Anzahl Wiederholungen an</value>
+    <value>Gebe die Anzahl Wiederholungen an:</value>
   </data>
   <data name="NextActivity" xml:space="preserve">
     <value>Nächste Aktivität,</value>
@@ -337,7 +337,7 @@
     <value>Liegestütze</value>
   </data>
   <data name="Result" xml:space="preserve">
-    <value>Result</value>
+    <value>Ergebnis</value>
   </data>
   <data name="Seconds" xml:space="preserve">
     <value>Sekunden</value>
@@ -367,7 +367,7 @@
     <value>stehst</value>
   </data>
   <data name="Walking" xml:space="preserve">
-    <value>läufst!!!</value>
+    <value>läufst!</value>
   </data>
   <data name="YouAre" xml:space="preserve">
     <value>Du</value>
@@ -385,6 +385,55 @@
     <value>Datenübersicht</value>
   </data>
   <data name="MusicModeExplanation" xml:space="preserve">
-    <value>Starte den Musikmodus, um deine Musik dem Laufen anzupassen! Immer wenn du läufst wird Musik abgespielt!</value>
+    <value>Starten Sie den Musikmodus, um eine ganz neue Hörerfahrung zu genießen! Die Musik spielt genau dann, wenn Sie gehen!</value>
+  </data>
+  <data name="ImprintTitle" xml:space="preserve">
+    <value>Impressum</value>
+  </data>
+  <data name="ImprintCopyrightContent" xml:space="preserve">
+    <value>2019-2020, Teco. All rights reserved.</value>
+  </data>
+  <data name="ImprintCopyrightHeader" xml:space="preserve">
+    <value>Copyright (c)</value>
+  </data>
+  <data name="ImprintDeveloperContent" xml:space="preserve">
+    <value>Tec O'Brain Group
+Teco
+Vincenz-Prießnitz-Str. 1
+D-76131 Karlsruhe</value>
+  </data>
+  <data name="ImprintDeveloperHeader" xml:space="preserve">
+    <value>Entwickler/Forschungsgruppe</value>
+  </data>
+  <data name="ImprintESenseContentLink" xml:space="preserve">
+    <value>esense.io</value>
+  </data>
+  <data name="ImprintESenseContentWebsite" xml:space="preserve">
+    <value>Website </value>
+  </data>
+  <data name="ImprintESenseHeader" xml:space="preserve">
+    <value>eSense</value>
+  </data>
+  <data name="ImprintOverviewContent" xml:space="preserve">
+    <value>eSense Fitness ist ein Universitätsprojekt. Die App zeigt einen Anwendungsfall für Kopfhörer mit integrierten IMU Sensoren. 
+Die App basiert auf den eSense Kopfhörern.</value>
+  </data>
+  <data name="ImprintOverviewHeader" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="ImprintUniversityContent" xml:space="preserve">
+    <value>Karlsruher Institut für Technologie
+Kaiserstraße 12
+D-76131 Karlsruhe</value>
+  </data>
+  <data name="ImprintUniversityHeader" xml:space="preserve">
+    <value>Universität</value>
+  </data>
+  <data name="alternativeGrammarDone" xml:space="preserve">
+    <value> gemacht</value>
+    <comment>bewusst mit leerzeichen, da es ein optionales Wort ist (im Englischen nicht verwendet!)</comment>
+  </data>
+  <data name="ScanningPopUpPleaseWait" xml:space="preserve">
+    <value>Hinweis: Das Verbinden mit den Earables kann einen Moment dauern</value>
   </data>
 </root>

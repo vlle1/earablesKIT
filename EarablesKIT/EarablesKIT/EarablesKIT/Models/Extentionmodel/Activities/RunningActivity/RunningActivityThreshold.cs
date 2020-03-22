@@ -25,6 +25,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         override protected void Activate()
         {
             //the subdetection algorithm can only be registered now, because IActivityManager has to already be initialized
+            
             if (_subDetection == null)
                 _subDetection = (AbstractStepActivity)
                             ((IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager)))
@@ -34,8 +35,14 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
             _runningState = false;
             _subDetection.ActivityDone += OnStepRecognized;
         }
+
+        protected override void Deactivate()
+        {
+            base.Deactivate();
+            _subDetection.ActivityDone -= OnStepRecognized;
+        }
         //is called when a step is recognized and refreshes the timeout
-        private void OnStepRecognized(object sender, ActivityArgs e)
+        public void OnStepRecognized(object sender, ActivityArgs e)
         {
             _timeout_counter = TIMEOUT_LENGTH;
             //if not running (walking) so far, now 
@@ -46,13 +53,15 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         ///<inheritdoc/>
         protected override void Analyse(DataEventArgs data)
         {
-
+            //known issue that the following code is never executed, because Activity does not even call this method if ActivityDone is null.
+            /*
             if (ActivityDone == null)
             {
                 //unregister from stepActivity
                 _subDetection.ActivityDone -= OnStepRecognized;
                 return;
             }
+            */
             //if user is running we need to find out if he times out
             if (_runningState)
             {
