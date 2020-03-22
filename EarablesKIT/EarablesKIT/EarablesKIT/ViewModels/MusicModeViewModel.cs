@@ -111,7 +111,7 @@ namespace EarablesKIT.ViewModels
             _exceptionHandler =
                 (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
 
-            _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
+            _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ukulele.mp3");
             Directory.CreateDirectory(path: Path.GetDirectoryName(_path) ?? throw new InvalidOperationException());
 
             try

@@ -174,8 +174,7 @@ namespace ViewModelTests.ViewModels
             rootServiceProvider.SetValue(null, mockSingleton.Object);
 
             currentMediaManager.SetValue(null, mockCrossMediaManager.Object);
-
-
+            
             var vm = new MusicModeViewModel();
 
             //////////////////////////////////////////////////////////////////////////////////////////////
