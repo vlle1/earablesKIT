@@ -30,7 +30,7 @@ namespace EarablesKIT.Models.DatabaseService
             _database = new SQLiteConnection(_path);
             _database.CreateTable<DBEntryToSave>();
             _exceptionHandler =
-                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
+                (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
         }
 
         /// <inheritdoc />
@@ -145,7 +145,7 @@ namespace EarablesKIT.Models.DatabaseService
         {
             List<DBEntry> entries = GetAllEntries();
             string toWrite = "";
-            foreach(DBEntry entry in entries)
+            foreach (DBEntry entry in entries)
             {
                 toWrite += entry.ToString() + "\n";
             }

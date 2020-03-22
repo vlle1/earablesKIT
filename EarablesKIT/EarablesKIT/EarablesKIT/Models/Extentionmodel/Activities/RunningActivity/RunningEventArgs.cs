@@ -9,7 +9,7 @@
         /// true, iff the user is determined to run.
         /// </summary>
         public bool Running;
-        
+
         /// <summary>
         /// sets isRunning to the given value.
         /// </summary>

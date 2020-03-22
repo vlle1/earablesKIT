@@ -109,7 +109,7 @@ namespace EarablesKIT.ViewModels
             }
 
             _exceptionHandler =
-                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
+                (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
 
             _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "music/ukulele.mp3");
             Directory.CreateDirectory(path: Path.GetDirectoryName(_path) ?? throw new InvalidOperationException());
@@ -160,7 +160,7 @@ namespace EarablesKIT.ViewModels
         {
             try
             {
-                ((IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection)))
+                ((IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection)))
                     .StopSampling();
 
                 if (RunningActivity != null) RunningActivity.ActivityDone -= OnActivityDone;

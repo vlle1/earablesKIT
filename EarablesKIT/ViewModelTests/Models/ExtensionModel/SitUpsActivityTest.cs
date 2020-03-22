@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text;
-using EarablesKIT.Models.Extentionmodel.Activities;
+﻿using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.SitUpActivity;
 using EarablesKIT.Models.Library;
+using System.Diagnostics;
+using System.Globalization;
 using Xunit;
 
 
@@ -48,7 +45,7 @@ namespace ViewModelTests.Models.ExtensionModel
                 gyroZ = float.Parse(values[6], CultureInfo.InvariantCulture.NumberFormat);
 
                 //parse data
-                ConfigContainer c = new ConfigContainer {Samplerate = freq};
+                ConfigContainer c = new ConfigContainer { Samplerate = freq };
                 DataEventArgs data = new DataEventArgs(new IMUDataEntry(new Accelerometer(accX, accY, accZ, 0, 0, 0), new Gyroscope(gyroX, gyroY, gyroZ)), c);
                 lineNr++;
                 toTest.DataUpdate(data);

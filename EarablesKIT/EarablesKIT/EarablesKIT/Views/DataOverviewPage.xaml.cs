@@ -22,6 +22,6 @@ namespace EarablesKIT.Views
             this.Appearing += _viewModel.OnAppearing;
         }
 
-       
+
     }
 }

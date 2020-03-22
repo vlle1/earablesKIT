@@ -13,17 +13,17 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
         /// the frequency of the incoming data (how many values per second)
         /// </summary>
         protected int _frequency = 50;
-        
+
         /// <summary>
         /// _isActive is set to false when the algorithm is not actively processing data.
         /// It is used to determine when the Activity has to get reset.
         /// </summary>
         private bool _isActive = false;
         /// <summary>
-       /// This EventHandler handles every ViewModel that wants to get notified when the activity is detected.
-       /// </summary>
+        /// This EventHandler handles every ViewModel that wants to get notified when the activity is detected.
+        /// </summary>
         public EventHandler<ActivityArgs> ActivityDone { get; set; }
-        
+
         /// <summary>
         /// This method is used to process incoming data.
         /// By default, it pufferes the last 100 elements of dataEventArgs each time.
@@ -40,7 +40,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities
                 if (!_isActive) Activate();
                 _frequency = data.Configs.Samplerate;
                 Analyse(data);
-            }   
+            }
         }
         /// <summary>
         /// Analyse is used to perform the actual algorithm for the new data value.

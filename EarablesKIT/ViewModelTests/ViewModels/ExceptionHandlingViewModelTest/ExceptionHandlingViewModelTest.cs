@@ -1,11 +1,11 @@
 ﻿using EarablesKIT.Models;
 using EarablesKIT.Models.PopUpService;
+using EarablesKIT.ViewModels;
 using Moq;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading.Tasks;
-using EarablesKIT.ViewModels;
 using Xunit;
 
 namespace ViewModelTests.ViewModels.ExceptionHandlingViewModelTest

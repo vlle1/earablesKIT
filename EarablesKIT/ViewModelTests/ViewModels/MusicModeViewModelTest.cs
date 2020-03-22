@@ -1,14 +1,14 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Reflection;
-using EarablesKIT.Models;
+﻿using EarablesKIT.Models;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Library;
 using EarablesKIT.ViewModels;
 using MediaManager;
 using Moq;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Reflection;
 using Xunit;
 
 namespace ViewModelTests.ViewModels
@@ -147,11 +147,13 @@ namespace ViewModelTests.ViewModels
             // Nachverfolgen, ob Sampling aktiviert wurde
             bool samplingActive = false;
 
-            mockEarablesConnection.As<IEarablesConnection>().Setup(x => x.StartSampling()).Callback(() => {
+            mockEarablesConnection.As<IEarablesConnection>().Setup(x => x.StartSampling()).Callback(() =>
+            {
                 samplingActive = true;
             });
 
-            mockEarablesConnection.As<IEarablesConnection>().Setup(x => x.StopSampling()).Callback(() => {
+            mockEarablesConnection.As<IEarablesConnection>().Setup(x => x.StopSampling()).Callback(() =>
+            {
                 samplingActive = false;
             });
 
@@ -181,7 +183,7 @@ namespace ViewModelTests.ViewModels
 
             Assert.False(vm.IsRunning);
             Assert.False(samplingActive);
-            
+
             vm.ToggleMusicMode.Execute(null);
 
             Assert.False(vm.IsRunning);
@@ -192,7 +194,7 @@ namespace ViewModelTests.ViewModels
 
             Assert.False(vm.IsRunning);
             Assert.True(samplingActive);
-            
+
             // starting to walk
             args = new RunningEventArgs(true);
             vm.OnActivityDone(null, args);
@@ -209,13 +211,13 @@ namespace ViewModelTests.ViewModels
 
             Assert.False(vm.IsRunning);
             Assert.True(samplingActive);
-            
+
             args = new RunningEventArgs(true);
             vm.OnActivityDone(null, args);
 
             Assert.True(vm.IsRunning);
             Assert.True(samplingActive);
-            
+
             vm.StopActivity();
 
             Assert.False(vm.IsRunning);
@@ -253,11 +255,13 @@ namespace ViewModelTests.ViewModels
             // Nachverfolgen, ob Sampling aktiviert wurde
             bool samplingActive = false;
 
-            mockEarablesConnection.As<IEarablesConnection>().Setup(x => x.StartSampling()).Callback(() => {
+            mockEarablesConnection.As<IEarablesConnection>().Setup(x => x.StartSampling()).Callback(() =>
+            {
                 samplingActive = true;
             });
 
-            mockEarablesConnection.As<IEarablesConnection>().Setup(x => x.StopSampling()).Callback(() => {
+            mockEarablesConnection.As<IEarablesConnection>().Setup(x => x.StopSampling()).Callback(() =>
+            {
                 samplingActive = false;
             });
 
@@ -294,16 +298,16 @@ namespace ViewModelTests.ViewModels
             }
 
             Assert.Equal("Start", vm.StartStopLabel);
-            
+
             vm.ToggleMusicMode.Execute(null);
 
             Assert.Equal("Stop", vm.StartStopLabel);
-            
+
             var args = new RunningEventArgs(false);
             vm.OnActivityDone(null, args);
 
             Assert.Equal("Stop", vm.StartStopLabel);
-            
+
             if (CultureInfo.CurrentUICulture.ThreeLetterISOLanguageName == "eng")
             {
                 Assert.Equal("You are standing", vm.CurrentStatusLabel);

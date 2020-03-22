@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text;
-using EarablesKIT.Models.Extentionmodel.Activities;
+﻿using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
+using System.Diagnostics;
+using System.Globalization;
 using Xunit;
 
 namespace ViewModelTests.Models.ExtensionModel
@@ -55,7 +52,7 @@ namespace ViewModelTests.Models.ExtensionModel
 
             //ok, if in 10 percent range
             Assert.True(count > 30 * (1 - ALLOWED_RELATIVE_ERROR), "too less steps recognized!");
-            Assert.True(count< 30 * (1 + ALLOWED_RELATIVE_ERROR), "too many steps recognized!");
+            Assert.True(count < 30 * (1 + ALLOWED_RELATIVE_ERROR), "too many steps recognized!");
         }
 
         [Fact]

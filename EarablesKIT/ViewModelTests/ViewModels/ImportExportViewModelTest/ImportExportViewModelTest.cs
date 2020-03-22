@@ -1,20 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
 using EarablesKIT.Models;
 using EarablesKIT.Models.DatabaseService;
-using EarablesKIT.Models.Extentionmodel;
-using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
-using EarablesKIT.Models.Library;
 using EarablesKIT.ViewModels;
-using MediaManager;
 using Moq;
-using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
+using System;
+using System.IO;
+using System.Reflection;
 using Xunit;
 
 
@@ -29,14 +22,14 @@ namespace ViewModelTests
 
             //Feld Infos holen
             FieldInfo rootServiceProvider = typeof(ServiceManager).GetField("_serviceProvider", BindingFlags.Static | BindingFlags.NonPublic);
-            
+
             //Mocksaufsetzen 
             //ServiceProvider
             Mock<IServiceProvider> mockSingleton = new Mock<IServiceProvider>();
-            
+
             //Service der gemockt werden soll
             Mock<IDataBaseConnection> mockDatabaseConnection = new Mock<IDataBaseConnection>();
-            
+
 
             //Verhalten für die Mocks festlegen (Bei Aufruf was zurückgegeben werden soll)
 
@@ -70,7 +63,7 @@ namespace ViewModelTests
             var vm = new ImportExportViewModel();
 
             var file = new FileData("", "TestData.txt", () => new FileStream("TestData.txt", FileMode.Open), null);
-            
+
             vm.ImportCommand.Execute(file);
 
             Assert.Equal(file, importetFile);
@@ -117,7 +110,7 @@ namespace ViewModelTests
         [Fact]
         public void testConstructor()
         {
-            
+
             //CrossPermission
             FieldInfo currentCrossPermissionMock =
                 typeof(CrossPermissions).GetField("implementation", BindingFlags.NonPublic | BindingFlags.Static);

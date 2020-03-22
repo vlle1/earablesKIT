@@ -1,11 +1,11 @@
-﻿using Xunit;
-using EarablesKIT.Models.SettingsService;
+﻿using EarablesKIT.Models.SettingsService;
+using Xunit;
 
 namespace ViewModelTests.Models.SettingsService
 {
     public class UserTest
     {
-        
+
 
         [Fact]
         public void ToStringUserTest()
@@ -34,7 +34,7 @@ namespace ViewModelTests.Models.SettingsService
         [InlineData("Alice123", "Alice123", -100, 0)]
         public void SetPropertiesTest(string username, string expectedUsername, int steplength, int expectedSteplength)
         {
-              
+
             User toTest = new User(username, steplength);
 
             Assert.Equal(expectedUsername, toTest.Username);

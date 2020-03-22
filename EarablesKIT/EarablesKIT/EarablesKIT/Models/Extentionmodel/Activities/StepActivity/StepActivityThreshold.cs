@@ -32,18 +32,18 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.StepActivity
 
         //this value is the length of the vector of the estimated average acceleration
         private double _avgAccAbsolute = 1;
-        
-        
+
+
 
         public StepActivityThreshold()
         {
-            
+
         }
 
         ///<inheritdoc/>
         protected override void Analyse(DataEventArgs data)
         {
-            
+
             IMUDataEntry _newValue = data.Data;
             //the accelerometer is the only relevant thing
             Accelerometer accV = _newValue.Acc;

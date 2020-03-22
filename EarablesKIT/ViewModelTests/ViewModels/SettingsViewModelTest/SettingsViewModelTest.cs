@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using EarablesKIT.Models;
+﻿using EarablesKIT.Models;
 using EarablesKIT.Models.SettingsService;
 using EarablesKIT.ViewModels;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Xunit;
 
 namespace ViewModelTests.ViewModels.SettingsViewModelTest
@@ -52,7 +52,7 @@ namespace ViewModelTests.ViewModels.SettingsViewModelTest
             mockSettingsService.Verify(x => x.SamplingRate, Times.Once);
             mockSettingsService.Verify(x => x.ActiveUser, Times.Once);
 
-            
+
             Assert.NotNull(settingsViewModel);
             Assert.Equal((int)SamplingRate.Hz_50, settingsViewModel.SamplingRate);
             Assert.Equal(initUser.Username, settingsViewModel.Username);
@@ -84,7 +84,7 @@ namespace ViewModelTests.ViewModels.SettingsViewModelTest
 
             User initUser = new User("Alice", 70);
             CultureInfo initCultureInfo = CultureInfo.GetCultureInfo("en-US");
-            
+
             SamplingRate newSamplingRate = SamplingRate.Hz_100;
             User newUser = new User("Bob", 80);
             CultureInfo newCultureInfo = CultureInfo.GetCultureInfo("de-DE");
@@ -200,7 +200,7 @@ namespace ViewModelTests.ViewModels.SettingsViewModelTest
             settingsViewModel.OnAppearing(null, null);
 
             Assert.Equal(4, count);
-            Assert.Contains("Username",propertiesActual);
+            Assert.Contains("Username", propertiesActual);
             Assert.Contains("Steplength", propertiesActual);
             Assert.Contains("_samplingrate", propertiesActual);
             Assert.Contains("Language", propertiesActual);
@@ -277,7 +277,7 @@ namespace ViewModelTests.ViewModels.SettingsViewModelTest
             CultureInfo initCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
             mockSettingsService.SetupSet(x => x.SamplingRate = SamplingRate.Hz_80).Throws(new ArgumentException());
-            
+
             mockSettingsService.SetupProperty(x => x.ActiveUser, initUser);
             mockSettingsService.SetupProperty(x => x.ActiveLanguage, initCultureInfo);
 
@@ -295,8 +295,8 @@ namespace ViewModelTests.ViewModels.SettingsViewModelTest
             Assert.False(actual);
             Assert.Equal(initUser.Username, settingsViewModel.Username);
             Assert.Equal(initUser.Steplength, settingsViewModel.Steplength);
-            
-            
+
+
             Assert.Equal(0, settingsViewModel.SamplingRate);
         }
     }

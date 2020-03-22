@@ -1,12 +1,6 @@
 ﻿using EarablesKIT.Models.DatabaseService;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using EarablesKIT.Models;
-using EarablesKIT.Models.SettingsService;
-using EarablesKIT.ViewModels;
-using Moq;
-using Plugin.FilePicker.Abstractions;
 using Xunit;
 
 namespace ViewModelTests.Models.DatabaseService
@@ -47,7 +41,7 @@ namespace ViewModelTests.Models.DatabaseService
             DBEntry toSave1 = new DBEntry(DateTime.Parse("27.04.2000"), 100, 50, 20);
             DBEntry toSave2 = new DBEntry(DateTime.Parse("13.09.2000"), 500, 50, 0);
             DBEntry toSave3 = new DBEntry(DateTime.Parse("29.11.2000"), 120, 40, 10);
-            
+
             _toTest.DeleteAllEntries();
             List<DBEntry> allEntries = _toTest.GetAllEntries();
             Assert.Empty(allEntries);
@@ -180,7 +174,7 @@ namespace ViewModelTests.Models.DatabaseService
                 }
             }
             Assert.True(containing);
-            
+
 
             containing = false;
             _toTest.SaveDBEntry(toSave);
@@ -212,7 +206,7 @@ namespace ViewModelTests.Models.DatabaseService
 
 
             string expected = "26.04.2000,Steps=100,PushUps=20,SitUps=10\n" +
-                              "25.04.2000,Steps=10,PushUps=50,SitUps=15\n"+
+                              "25.04.2000,Steps=10,PushUps=50,SitUps=15\n" +
                               "22.04.2000,Steps=170,PushUps=10,SitUps=230\n" +
                               "27.04.2000,Steps=130,PushUps=20,SitUps=10";
 
@@ -257,7 +251,7 @@ namespace ViewModelTests.Models.DatabaseService
 
         //    mockSingleton.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(mockExceptionHander.Object);
         //    instance.SetValue(null, mockSingleton.Object);
-            
+
 
 
         //    FileData fileData = new FileData();
@@ -270,7 +264,7 @@ namespace ViewModelTests.Models.DatabaseService
         //    mockFileData.SetupProperty(x => x.DataArray, entriesToImportAsBytes);
         //    mockFileData.SetupProperty(x => x.FileName, "NotNullOrEmpty");
 
-            
+
 
         //    DatabaseConnection dbToTest = new DatabaseConnection();
         //    dbToTest.DeleteAllEntries();

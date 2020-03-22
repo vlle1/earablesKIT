@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Moq;
-using Xunit;
-using EarablesKIT.Models;
+﻿using EarablesKIT.Models;
 using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.ViewModels;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Xunit;
 
 namespace ViewModelTests.ViewModels.DataOverviewViewModelTest
 {
@@ -26,7 +26,7 @@ namespace ViewModelTests.ViewModels.DataOverviewViewModelTest
             //Mocksaufsetzen 
             //ServiceProvider
             Mock<IServiceProvider> mockSingleton = new Mock<IServiceProvider>();
-            
+
             //Service der gemockt werden soll
             Mock<IDataBaseConnection> mockDataBase = new Mock<IDataBaseConnection>();
             List<DBEntry> entries = new List<DBEntry>();
@@ -55,7 +55,7 @@ namespace ViewModelTests.ViewModels.DataOverviewViewModelTest
             DBEntry firsEntry = dataOverview.TrainingsDataDbEntries[0];
             Assert.NotNull(firsEntry);
 
-            Assert.Equal(two.ToString(), firsEntry.ToString()); 
+            Assert.Equal(two.ToString(), firsEntry.ToString());
             DBEntry secondEntry = dataOverview.TrainingsDataDbEntries[1];
             Assert.NotNull(firsEntry);
 

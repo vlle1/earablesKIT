@@ -1,10 +1,10 @@
-﻿using EarablesKIT.Models;
+﻿using EarablesKIT.Annotations;
+using EarablesKIT.Models;
 using EarablesKIT.Models.SettingsService;
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using EarablesKIT.Annotations;
 
 namespace EarablesKIT.ViewModels
 {
@@ -77,7 +77,7 @@ namespace EarablesKIT.ViewModels
                 }
                 catch (Exception e)
                 {
-                    
+
                     _exceptionHandler.HandleException(e);
                     needToSave = false;
                 }

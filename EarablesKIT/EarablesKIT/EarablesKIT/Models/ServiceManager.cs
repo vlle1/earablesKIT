@@ -1,5 +1,4 @@
-﻿using System;
-using EarablesKIT.Models.AudioService;
+﻿using EarablesKIT.Models.AudioService;
 using EarablesKIT.Models.DatabaseService;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Library;
@@ -7,6 +6,7 @@ using EarablesKIT.Models.PopUpService;
 using EarablesKIT.Models.SettingsService;
 using EarablesKIT.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace EarablesKIT.Models
 {
@@ -33,8 +33,8 @@ namespace EarablesKIT.Models
 
             collection.AddSingleton<ISettingsService, SettingsService.SettingsService>();
             collection.AddSingleton<IActivityManager, ActivityManager>();
-			collection.AddSingleton<IPopUpService, PopUpService.PopUpService>();
-			collection.AddSingleton<IAudioService, AudioService.AudioService>();
+            collection.AddSingleton<IPopUpService, PopUpService.PopUpService>();
+            collection.AddSingleton<IAudioService, AudioService.AudioService>();
             collection.AddSingleton<IExceptionHandler, ExceptionHandlingViewModel>();
 
             return collection;

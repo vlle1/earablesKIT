@@ -1,5 +1,4 @@
-﻿using System;
-using Android;
+﻿using Android;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -7,6 +6,7 @@ using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Plugin.CurrentActivity;
 using Rg.Plugins.Popup.Services;
+using System;
 
 namespace EarablesKIT.Droid
 {

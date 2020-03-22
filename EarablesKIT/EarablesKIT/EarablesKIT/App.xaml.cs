@@ -1,11 +1,10 @@
-﻿using System.Diagnostics;
-using EarablesKIT.Models;
+﻿using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Models.SettingsService;
 using EarablesKIT.ViewModels;
 using EarablesKIT.Views;
-using Xamarin.Forms;
 using MediaManager;
+using Xamarin.Forms;
 
 namespace EarablesKIT
 {

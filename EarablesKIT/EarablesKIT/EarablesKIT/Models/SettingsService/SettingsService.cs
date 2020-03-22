@@ -55,7 +55,7 @@ namespace EarablesKIT.Models.SettingsService
                 }
 
                 UpdateValue(SAMPLINGRATE_PROPERTY, (int)value);
-                IEarablesConnection earablesConnection = (IEarablesConnection) ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
+                IEarablesConnection earablesConnection = (IEarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
                 earablesConnection.SampleRate = (int)value;
                 _samplingRate = value;
             }
@@ -81,7 +81,7 @@ namespace EarablesKIT.Models.SettingsService
         public SettingsService()
         {
             _exceptionHandler =
-                (IExceptionHandler) ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
+                (IExceptionHandler)ServiceManager.ServiceProvider.GetService(typeof(IExceptionHandler));
             LoadSettings();
         }
 

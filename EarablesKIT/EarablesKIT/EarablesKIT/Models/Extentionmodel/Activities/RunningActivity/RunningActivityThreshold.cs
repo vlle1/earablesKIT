@@ -25,7 +25,7 @@ namespace EarablesKIT.Models.Extentionmodel.Activities.RunningActivity
         override protected void Activate()
         {
             //the subdetection algorithm can only be registered now, because IActivityManager has to already be initialized
-            
+
             if (_subDetection == null)
                 _subDetection = (AbstractStepActivity)
                             ((IActivityManager)ServiceManager.ServiceProvider.GetService(typeof(IActivityManager)))

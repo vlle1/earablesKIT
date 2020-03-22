@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Threading.Tasks;
-using EarablesKIT.Models;
+﻿using EarablesKIT.Models;
 using EarablesKIT.Models.Library;
 using EarablesKIT.Models.PopUpService;
 using EarablesKIT.ViewModels;
@@ -14,6 +9,11 @@ using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using System.Threading.Tasks;
 using Xunit;
 
 
@@ -50,26 +50,26 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
                 Assert.True(false);
             }
             instance.SetValue(null, mockSingleton.Object);
-            
+
 
             //Testing
             ScanningPopUpViewModel toTest = new ScanningPopUpViewModel();
-            mockEarablesConnection.Raise(x=>x.NewDeviceFound += null, this, new NewDeviceFoundArgs(mockIDevice.Object));
-            mockEarablesConnection.Raise(x=>x.NewDeviceFound += null, this, new NewDeviceFoundArgs(mockSecondIDevice.Object));
-            
+            mockEarablesConnection.Raise(x => x.NewDeviceFound += null, this, new NewDeviceFoundArgs(mockIDevice.Object));
+            mockEarablesConnection.Raise(x => x.NewDeviceFound += null, this, new NewDeviceFoundArgs(mockSecondIDevice.Object));
+
             //Verifizieren
             mockEarablesConnection.VerifyAdd(m => m.NewDeviceFound += It.IsAny<EventHandler<NewDeviceFoundArgs>>(), Times.Exactly(1));
             Assert.NotEmpty(toTest.DevicesList);
             Assert.Equal(2, toTest.DevicesList.Count);
             Assert.Contains(mockIDevice.Object, toTest.DevicesList);
             Assert.Contains(mockSecondIDevice.Object, toTest.DevicesList);
-            Assert.Equal(0,toTest.DevicesList.IndexOf(mockSecondIDevice.Object));;
-            Assert.Equal(1,toTest.DevicesList.IndexOf(mockIDevice.Object));;
+            Assert.Equal(0, toTest.DevicesList.IndexOf(mockSecondIDevice.Object)); ;
+            Assert.Equal(1, toTest.DevicesList.IndexOf(mockIDevice.Object)); ;
         }
 
 
         [Fact]
-        
+
         public void testNewDeviceFound()
         {
             //Für den ServiceProviderMock
@@ -156,7 +156,7 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
             Mock<IDevice> deviceMock = new Mock<IDevice>();
             Mock<IExceptionHandler> exceptionHandlerMock = new Mock<IExceptionHandler>();
 
-            earablesConnectionMock.Setup(x => x.ConnectToDevice(deviceMock.Object)).Throws(new DeviceConnectionException(new Guid(), null,null));
+            earablesConnectionMock.Setup(x => x.ConnectToDevice(deviceMock.Object)).Throws(new DeviceConnectionException(new Guid(), null, null));
 
             exceptionHandlerMock.Setup(x => x.HandleException(It.IsAny<DeviceConnectionException>()));
 
@@ -193,16 +193,16 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
 
             earablesConnectionMock.Setup(x => x.StartScanning());
             earablesConnectionMock.Setup(x => x.IsBluetoothActive).Returns(true);
-            
+
 
             providerMock.Setup(x => x.GetService(typeof(IEarablesConnection))).Returns(earablesConnectionMock.Object);
             providerMock.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(exceptionHandlerMock.Object);
-            
+
             instanceToMock.SetValue(null, providerMock.Object);
 
             FieldInfo currentCrossPermissionMock =
                 typeof(CrossPermissions).GetField("implementation", BindingFlags.NonPublic | BindingFlags.Static);
-            
+
             Mock<IPermissions> mockImplementation = new Mock<IPermissions>();
             Mock<IPermissions> valueMock = new Mock<IPermissions>();
 
@@ -255,7 +255,7 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
 
             mockImplementation.Setup(x => x.CheckPermissionStatusAsync(Permission.Location)).Returns(Task.FromResult(PermissionStatus.Granted));
             currentCrossPermissionMock.SetValue(null, new Lazy<IPermissions>(() => mockImplementation.Object));
-            
+
 
             //Displayalert
             popUpServiceMock.Setup(x => x.DisplayAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -315,7 +315,7 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
                 .Setup(permissions => permissions.ShouldShowRequestPermissionRationaleAsync(Permission.Unknown))
                 .Returns(Task.FromResult(true));
 
-            Permission[] expected = new[] {Permission.Location};
+            Permission[] expected = new[] { Permission.Location };
             Dictionary<Permission, PermissionStatus> statusToGive = new Dictionary<Permission, PermissionStatus>();
             statusToGive.Add(Permission.Location, PermissionStatus.Denied);
             mockImplementation.Setup(x => x.RequestPermissionsAsync(expected)).Returns(Task.FromResult(statusToGive));
@@ -357,7 +357,7 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
 
             Mock<IEarablesConnection> earablesConnectionMock = new Mock<IEarablesConnection>();
             Mock<IExceptionHandler> exceptionHandlerMock = new Mock<IExceptionHandler>();
-            
+
             providerMock.Setup(x => x.GetService(typeof(IEarablesConnection))).Returns(earablesConnectionMock.Object);
             providerMock.Setup(x => x.GetService(typeof(IExceptionHandler))).Returns(exceptionHandlerMock.Object);
 
@@ -378,7 +378,7 @@ namespace ViewModelTests.ViewModels.ScanningPopUp
                 typeof(PopupNavigation).GetField("_customNavigation", BindingFlags.Static | BindingFlags.NonPublic);
 
             Mock<IPopupNavigation> _customNavigationAsMock = new Mock<IPopupNavigation>();
-            
+
             _customNavigationAsMock.Setup(x => x.PopAsync(true));
             customField.SetValue(null, _customNavigationAsMock.Object);
 

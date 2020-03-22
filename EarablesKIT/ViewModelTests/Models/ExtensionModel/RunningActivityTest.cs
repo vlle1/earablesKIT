@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text;
-using EarablesKIT.Models;
+﻿using EarablesKIT.Models;
 using EarablesKIT.Models.Extentionmodel;
 using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.RunningActivity;
 using EarablesKIT.Models.Extentionmodel.Activities.StepActivity;
 using EarablesKIT.Models.Library;
 using Moq;
+using System;
+using System.Diagnostics;
+using System.Globalization;
 using Xunit;
-using Xunit.Sdk;
 
 namespace ViewModelTests.Models.ExtensionModel
 {
@@ -20,18 +17,18 @@ namespace ViewModelTests.Models.ExtensionModel
         [Fact]
         public void TestProcessingStep()
         {
-            
+
             RunningActivityThreshold toTest = new RunningActivityThreshold();
-            
+
             bool detectedStatus = false;
             int changeDetectedCount = 0;
             toTest.ActivityDone +=
                 (object sender, ActivityArgs a) =>
                 {
-                    detectedStatus = ((RunningEventArgs) a).Running;
+                    detectedStatus = ((RunningEventArgs)a).Running;
                     changeDetectedCount++;
                 };
-            
+
             //simulate detected step from step algorithm
             toTest.OnStepRecognized(null, null);
 
@@ -44,8 +41,8 @@ namespace ViewModelTests.Models.ExtensionModel
         {
             //here we will simulate one step and then a lot of data that does not contain a step.
             //after that, there should have been two events and the current status should be standing.
-            
-            
+
+
             //first we have to mock StepActivity (it needs no functionality, but needs to be instantiated)
 
             //Für den ServiceProviderMock

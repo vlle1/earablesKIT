@@ -1,15 +1,9 @@
-﻿using EarablesKIT.Models.DatabaseService;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using EarablesKIT.Models.Library;
-using Xamarin.Forms;
-using System.ComponentModel;
+﻿using EarablesKIT.Annotations;
 using EarablesKIT.Models;
-using Microsoft.Extensions.DependencyInjection;
-using EarablesKIT.Annotations;
+using EarablesKIT.Models.Library;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 
 namespace EarablesKIT.ViewModels
 {
@@ -22,7 +16,7 @@ namespace EarablesKIT.ViewModels
         private readonly bool[] LOWER = { true, false, false, true };
         //represents the value of the IMU Data that is used for the comparison.
         //0,1,2 ar Accelerometer X,Y,Z (in G) and 3,4,5 are Gyroscope X,Y,Z
-        private readonly int[] VALUE_INDEX = { 1, 5, 1, 5 }; 
+        private readonly int[] VALUE_INDEX = { 1, 5, 1, 5 };
 
         //the threshold that needs to be passed
         private readonly double[] THRESHOLD = { -1, 100, 0, -100 };
@@ -42,7 +36,7 @@ namespace EarablesKIT.ViewModels
             }
             set
             {
-                _accRef= value;
+                _accRef = value;
                 OnPropertyChanged("ReferenceAcc");
             }
         }
@@ -95,7 +89,7 @@ namespace EarablesKIT.ViewModels
             }
             set
             {
-                _absAcc = value; 
+                _absAcc = value;
                 OnPropertyChanged("AbsGAcc");
             }
         }
@@ -146,8 +140,8 @@ namespace EarablesKIT.ViewModels
         public DebugViewModel()
         {
             _earablesService = (EarablesConnection)ServiceManager.ServiceProvider.GetService(typeof(IEarablesConnection));
-            
-            
+
+
 
             _earablesService.IMUDataReceived += (object sender, DataEventArgs args) =>
                 {
@@ -159,34 +153,34 @@ namespace EarablesKIT.ViewModels
         private void Analyze(DataEventArgs data)
         {
 
-                Accelerometer newAccValue = data.Data.Acc;
-                double[] dataAsArray = { 
-                    data.Data.Acc.G_X, 
-                    data.Data.Acc.G_Y, 
-                    data.Data.Acc.G_Z, 
-                    data.Data.Gyro.DegsPerSec_X, 
-                    data.Data.Gyro.DegsPerSec_Y, 
-                    data.Data.Gyro.DegsPerSec_Z 
+            Accelerometer newAccValue = data.Data.Acc;
+            double[] dataAsArray = {
+                    data.Data.Acc.G_X,
+                    data.Data.Acc.G_Y,
+                    data.Data.Acc.G_Z,
+                    data.Data.Gyro.DegsPerSec_X,
+                    data.Data.Gyro.DegsPerSec_Y,
+                    data.Data.Gyro.DegsPerSec_Z
                 };
-                //check if condition is fulfilled
-                if (LOWER[_state] == ( dataAsArray[VALUE_INDEX[_state]]< THRESHOLD[_state]))
-                {
+            //check if condition is fulfilled
+            if (LOWER[_state] == (dataAsArray[VALUE_INDEX[_state]] < THRESHOLD[_state]))
+            {
 
                 if (_state == 1) InfoString = "";
                 //++
                 InfoString += "state " + _state + " mit " + dataAsArray[1] + " in  YAcc\n";
                 _state++;
-                    //check if all states have been passed and activity therefore is detected
+                //check if all states have been passed and activity therefore is detected
                 if (_state % STATE_COUNT == 0)
                 {
                     _state = 0;
                     //-- ActivityDone.Invoke(this, new PushUpEventArgs());
 
-                        
+
                 }
                 Counter = _state;
                 //++ 
-                
+
             }
         }
     }

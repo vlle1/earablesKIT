@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text;
-using EarablesKIT.Models.Extentionmodel.Activities;
+﻿using EarablesKIT.Models.Extentionmodel.Activities;
 using EarablesKIT.Models.Extentionmodel.Activities.PushUpActivity;
 using EarablesKIT.Models.Library;
+using System.Diagnostics;
+using System.Globalization;
 using Xunit;
 
 namespace ViewModelTests.Models.ExtensionModel

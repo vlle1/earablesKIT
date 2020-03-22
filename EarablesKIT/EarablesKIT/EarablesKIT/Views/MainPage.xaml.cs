@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using EarablesKIT.Models;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using EarablesKIT.Models;
 
 namespace EarablesKIT.Views
 {
@@ -26,8 +26,8 @@ namespace EarablesKIT.Views
             int i = 1;
             //The music mode is the only mode that has to be manually stopped after switching to a different page:
             //All other modes switch to different pages that don't allow the user to navigate to a different mode without stopping the mode.
-            if (((NavigationPage)Detail).RootPage.GetType() ==  typeof (MusicModePage))
-            {   
+            if (((NavigationPage)Detail).RootPage.GetType() == typeof(MusicModePage))
+            {
                 //signalize the view that it should no longer run.
                 ((MusicModePage)((NavigationPage)Detail).RootPage).forceStopOnPageChange();
             }
@@ -58,6 +58,7 @@ namespace EarablesKIT.Views
                         break;
                     case (int)MenuItemType.DebugMode:
                         MenuPages.Add(id, new NavigationPage(new DebugPage()));
+                        break;
                     case (int)MenuItemType.Imprint:
                         MenuPages.Add(id, new NavigationPage(new ImpressumPage()));
                         break;

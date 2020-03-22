@@ -1,12 +1,11 @@
-﻿using System;
+﻿using EarablesKIT.Models.SettingsService;
+using EarablesKIT.Resources;
+using EarablesKIT.ViewModels;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using EarablesKIT.Models.SettingsService;
-using EarablesKIT.Resources;
-using EarablesKIT.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -26,7 +25,7 @@ namespace EarablesKIT.Views
         public SettingsPage()
         {
             InitializeComponent();
-            LanguagePicker.ItemsSource = new List<CultureInfo> {new CultureInfo("de-De"), new CultureInfo("en-US")};
+            LanguagePicker.ItemsSource = new List<CultureInfo> { new CultureInfo("de-De"), new CultureInfo("en-US") };
             SamplingratePicker.ItemsSource = Enum.GetValues(typeof(SamplingRate)).Cast<int>().ToList();
             BindingContext = _viewModel = new SettingsViewModel();
             InformationLabel.IsVisible = false;
@@ -39,8 +38,8 @@ namespace EarablesKIT.Views
         {
             bool savingCompleted = UsernameEntry.Text != null && Regex.IsMatch(UsernameEntry.Text, @"^\w+$");
             savingCompleted = savingCompleted && _viewModel.SaveClicked(UsernameEntry.Text,
-                                  int.Parse(SteplengthEntry.Text), (SamplingRate) SamplingratePicker.SelectedItem,
-                                  (CultureInfo) LanguagePicker.SelectedItem);
+                                  int.Parse(SteplengthEntry.Text), (SamplingRate)SamplingratePicker.SelectedItem,
+                                  (CultureInfo)LanguagePicker.SelectedItem);
 
             //Check if saving was completed correctly
             if (!savingCompleted)
@@ -57,11 +56,11 @@ namespace EarablesKIT.Views
             }
 
             InformationLabel.IsVisible = true;
-            Device.StartTimer(new TimeSpan(0,0,2), () =>
-            {
-                InformationFrame.BackgroundColor = (Color) App.Current.Resources["MainBackgroundColor"];
-                return InformationLabel.IsVisible = false;
-            });
+            Device.StartTimer(new TimeSpan(0, 0, 2), () =>
+              {
+                  InformationFrame.BackgroundColor = (Color)App.Current.Resources["MainBackgroundColor"];
+                  return InformationLabel.IsVisible = false;
+              });
         }
 
         private void UsernameEntry_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -76,13 +75,13 @@ namespace EarablesKIT.Views
             else
             {
                 SaveButton.IsEnabled = true;
-                UsernameEntry.BackgroundColor = (Color) App.Current.Resources["MainBackgroundColor"];
+                UsernameEntry.BackgroundColor = (Color)App.Current.Resources["MainBackgroundColor"];
             }
         }
 
         private void SteplengthEntry_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if(SteplengthEntry.Text == null) return;
+            if (SteplengthEntry.Text == null) return;
 
 
             //Check if text contains only numbers and is not 0
@@ -95,7 +94,7 @@ namespace EarablesKIT.Views
             {
                 SaveButton.IsEnabled = true;
                 SteplengthEntry.Text = int.Parse(SteplengthEntry.Text) + "";
-                SteplengthEntry.BackgroundColor = (Color) App.Current.Resources["MainBackgroundColor"];
+                SteplengthEntry.BackgroundColor = (Color)App.Current.Resources["MainBackgroundColor"];
             }
         }
 

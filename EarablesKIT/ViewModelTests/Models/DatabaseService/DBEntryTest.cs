@@ -1,8 +1,8 @@
-﻿using System;
+﻿using EarablesKIT.Models.DatabaseService;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using Xunit;
-using EarablesKIT.Models.DatabaseService;
-using Newtonsoft.Json;
 
 namespace ViewModelTests.Models.DatabaseService
 {
@@ -11,7 +11,7 @@ namespace ViewModelTests.Models.DatabaseService
         [Fact]
         public void ToStringTest()
         {
-            DateTime time = new DateTime(2000, 4,27);
+            DateTime time = new DateTime(2000, 4, 27);
             int stepAmount = 100;
             int pushUpAmount = 50;
             int sitUpAmount = 10;
@@ -27,8 +27,8 @@ namespace ViewModelTests.Models.DatabaseService
         public void ParseDBEntryTest()
         {
             string toParse = "27.04.2000,Steps=100,PushUps=50,SitUps=10";
-            
-            DBEntry expected = new DBEntry(new DateTime(2000,4,27), 100,50,10 );
+
+            DBEntry expected = new DBEntry(new DateTime(2000, 4, 27), 100, 50, 10);
 
             DBEntry actual = DBEntry.ParseDbEntry(toParse);
 
@@ -37,7 +37,7 @@ namespace ViewModelTests.Models.DatabaseService
             foreach (KeyValuePair<string, int> keyValuePair in expected.TrainingsData)
             {
                 Assert.True(actual.TrainingsData.ContainsKey(keyValuePair.Key));
-                Assert.Equal(keyValuePair.Value,actual.TrainingsData[keyValuePair.Key]);
+                Assert.Equal(keyValuePair.Value, actual.TrainingsData[keyValuePair.Key]);
             }
         }
 
@@ -68,7 +68,7 @@ namespace ViewModelTests.Models.DatabaseService
             expected.DateTime = DateTime.Parse("27.04.2000");
             trainingsdata.Add("Steps", 100);
             trainingsdata.Add("PushUps", 50);
-            trainingsdata.Add("SitUps" ,20);
+            trainingsdata.Add("SitUps", 20);
             expected.TrainingsDataAsString = JsonConvert.SerializeObject(trainingsdata);
 
             DBEntryToSave actual = entry.ConvertToDBEntryToSave();
