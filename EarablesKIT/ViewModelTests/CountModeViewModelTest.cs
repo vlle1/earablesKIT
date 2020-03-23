@@ -73,8 +73,14 @@ namespace ViewModelTests
 			Assert.Equal("Sit-ups", iterator.Current.Name);
 			iterator.MoveNext();
 			Assert.Equal("Demnächst Verfügbar...", iterator.Current.Name);
-
 			Assert.Equal("Liegestütze", viewModel.SelectedActivity.Name);
+
+			viewModel.Milliseconds = "0";
+			viewModel.Seconds = "0";
+			viewModel.Minutes = "0";
+			Assert.Equal("0", viewModel.Milliseconds);
+			Assert.Equal("0", viewModel.Seconds);
+			Assert.Equal("0", viewModel.Minutes);
 		}
 
 		[Fact]
@@ -137,6 +143,9 @@ namespace ViewModelTests
 
 			viewModel.StartActivity();
 			Assert.Equal(0, viewModel.SelectedActivity.Counter);
+
+			viewModel.SelectedActivity = null;
+			viewModel.StartActivity();
 		}
 	}
 }

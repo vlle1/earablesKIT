@@ -434,6 +434,6 @@ D-76131 Karlsruhe</value>
     <comment>bewusst mit leerzeichen, da es ein optionales Wort ist (im Englischen nicht verwendet!)</comment>
   </data>
   <data name="ScanningPopUpPleaseWait" xml:space="preserve">
-    <value>Hinweis: Das Verbinden mit den Earables kann einen Moment dauern... (manchmal hilft aus- und wieder anschalten der Earables).</value>
+    <value>Hinweis: Das Verbinden mit den Earables kann einen Moment dauern</value>
   </data>
 </root>

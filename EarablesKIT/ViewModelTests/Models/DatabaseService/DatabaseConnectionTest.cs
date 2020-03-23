@@ -13,6 +13,7 @@ namespace ViewModelTests.Models.DatabaseService
 {
     public class DatabaseConnectionTest
     {
+
         private DatabaseConnection _toTest;
 
         private void SetUp()
