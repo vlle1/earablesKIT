@@ -7,6 +7,7 @@ using EarablesKIT.Resources;
 using MediaManager;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using Xamarin.Forms;
 
@@ -54,7 +55,6 @@ namespace EarablesKIT.ViewModels
                 {
                     StopActivity();
                 }
-                //CrossMediaManager.Current.PlayPause();
                 OnPropertyChanged(nameof(StartStopLabel));
                 OnPropertyChanged(nameof(CurrentStatusLabel));
             });
@@ -167,7 +167,7 @@ namespace EarablesKIT.ViewModels
             }
             catch (Exception e)
             {
-                _exceptionHandler.HandleException(e);
+                Debug.WriteLine(e.Message);
             }
             _musicModeActive = false;
             IsRunning = false;
@@ -178,11 +178,11 @@ namespace EarablesKIT.ViewModels
             }
             catch (Exception e)
             {
-                _exceptionHandler.HandleException(e);
+                Debug.WriteLine(e.Message);
             }
         }
 
-        protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
+        private void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
