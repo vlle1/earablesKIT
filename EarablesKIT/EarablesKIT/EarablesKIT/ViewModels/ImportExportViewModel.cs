@@ -8,6 +8,7 @@ using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using PermissionStatus = Plugin.Permissions.Abstractions.PermissionStatus;
 
 namespace EarablesKIT.ViewModels
 {
