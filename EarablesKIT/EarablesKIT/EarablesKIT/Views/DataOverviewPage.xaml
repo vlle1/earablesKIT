@@ -27,7 +27,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Label Text="{x:Static resource:AppResources.Date, }" 
+                        <Label Text="{x:Static resource:AppResources.Date}" 
                                Grid.Column="0"
                                Grid.Row="0" 
                                HorizontalOptions="Center"
